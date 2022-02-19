@@ -1,19 +1,22 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = github:Mic92/sops-nix;
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, home-manager, sops-nix, flake-utils }:
     let
       devpkgs = nixpkgs.legacyPackages.x86_64-linux;
     in
     {
+
       nixosConfigurations = {
         e470 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -24,14 +27,16 @@
           ];
         };
 
-
-        devShell.x86_64-linux = devpkgs.mkShell {
-          nativeBuildInputs = with devpkgs; [
-            sops
-            age
-            ssh-to-age
-          ];
-        };
       };
+
+      devShell.x86_64-linux = devpkgs.mkShell {
+        nativeBuildInputs = with devpkgs; [
+          dconf2nix
+          sops
+          age
+          ssh-to-age
+        ];
+      };
+
     };
 }

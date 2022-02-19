@@ -12,15 +12,15 @@ in
 {
   nix = {
     package = pkgs.nix_2_6;
-    settings.auto-optimise-store = true;
+    autoOptimiseStore = true;
     gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
     };
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+   extraOptions = ''
+     experimental-features = nix-command flakes
+   '';
   };
 
   environment.systemPackages = with pkgs; [
