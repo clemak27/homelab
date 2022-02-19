@@ -14,12 +14,12 @@
       devpkgs = nixpkgs.legacyPackages.x86_64-linux;
     in
     {
-      snowflake = nixpkgs.lib.nixosSystem {
+      e470 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
-          ./hosts/e470/configuration.nix
+          ./snowflake-configuration/configuration.nix
         ];
       };
 
