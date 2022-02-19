@@ -54,7 +54,7 @@ in
     serviceConfig = {
       User = "clemens";
       Type = "oneshot";
-      ExecStart = ''${pkgs.git}/bin/git -C /home/clemens/linux_setup pull '';
+      ExecStart = ''${pkgs.git}/bin/git -C /home/clemens/Projects/homelab pull '';
     };
   };
 

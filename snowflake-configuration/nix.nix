@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   updateSystem = pkgs.writeShellScriptBin "update-system" ''
-    cd $HOME/Projects/linux_setup
+    cd $HOME/Projects/homelab
     nix flake update --commit-lock-file --commit-lockfile-summary "chore(flake): Update $(date -I)"
     sudo nixos-rebuild switch --flake . --impure
     tldr --update
