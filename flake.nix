@@ -18,7 +18,7 @@
     {
 
       nixosConfigurations = {
-        e470 = nixpkgs.lib.nixosSystem {
+        snowflake = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager

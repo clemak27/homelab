@@ -24,7 +24,7 @@
     LidSwitchIgnoreInhibited=no
   '';
 
-  networking.hostName = "e470";
+  networking.hostName = "snowflake";
   networking.interfaces.enp4s0.useDHCP = true;
 
   # Enable NAT
