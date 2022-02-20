@@ -12,7 +12,7 @@ in
 {
   nix = {
     package = pkgs.nix_2_6;
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       dates = "weekly";
