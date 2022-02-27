@@ -23,7 +23,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
-            ./snowflake-configuration/configuration.nix
+            ./snowflake/configuration.nix
           ];
         };
 
