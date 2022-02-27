@@ -14,9 +14,16 @@
   outputs = { self, nixpkgs, home-manager, sops-nix, flake-utils }:
     let
       devpkgs = nixpkgs.legacyPackages.x86_64-linux;
+      updateServers = nixpkgs.legacyPackages.x86_64-linux.writeShellScriptBin "update-flake" ''
+        echo "Updating flake"
+        nix flake update --commit-lock-file --commit-lockfile-summary "chore(flake): Update $(date -I)"
+
+        echo "Pushing update to server"
+        git push
+      '';
+
     in
     {
-
       nixosConfigurations = {
         snowflake = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -35,6 +42,7 @@
           sops
           age
           ssh-to-age
+          updateServers
         ];
       };
 
