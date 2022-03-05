@@ -5,7 +5,7 @@ let
   service-name = "pihole";
   service-version = "2022.01.1";
   service-port = "8456";
-
+  exporter-version = "v0.3.0";
   pihole_pw = builtins.readFile "/run/secrets/docker/pihole_pw";
 in
 {
@@ -39,6 +39,20 @@ in
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
           "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${service-port}"
+        ];
+      };
+      pihole-exporter = {
+        image = "ekofr/pihole-exporter:${exporter-version}";
+        environment = {
+          PIHOLE_HOSTNAME = "192.168.0.30";
+          PIHOLE_PASSWORD = "${pihole_pw}";
+          PORT = "9617";
+        };
+        ports = [
+          "9617:9617"
+        ];
+        extraOptions = [
+          "--network=web"
         ];
       };
     };
