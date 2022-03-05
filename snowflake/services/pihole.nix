@@ -46,6 +46,7 @@ in
         environment = {
           PIHOLE_HOSTNAME = "192.168.0.30";
           PIHOLE_PASSWORD = "${pihole_pw}";
+          PIHOLE_PORT = "${service-port}";
           PORT = "9617";
         };
         ports = [
