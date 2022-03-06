@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ./calibre.nix
     ./deemix.nix
     ./gitea.nix
     ./homer.nix
