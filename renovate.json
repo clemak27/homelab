@@ -1,0 +1,19 @@
+{
+  "branchPrefix": "renovate/",
+  "dryRun": false,
+  "username": "renovate",
+  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "onboarding": false,
+  "platform": "github",
+  "includeForks": false,
+  "repositories": [
+    "clemak27/homelab"
+  ],
+  "regexManagers": [
+    {
+      "matchStrings": [
+        "\\s*service-version = \"(?<currentValue>.*)\"; # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
+      ]
+    }
+  ]
+}
