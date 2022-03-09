@@ -2,29 +2,25 @@
 let
   docker-data = "/home/clemens/data/docker";
 
-  service-name = "syncthing";
-  service-version = "1.18.4";
-  service-port = "8384";
+  service-name = "gitea";
+  service-version = "1.16.3"; # renovate: datasource=docker depName=gitea/gitea
+  service-port = "3000";
 in
 {
   config = {
     virtualisation.oci-containers.containers = {
-      syncthing = {
-        image = "syncthing/syncthing:${service-version}";
+      gitea = {
+        image = "gitea/gitea:${service-version}";
         ports = [
           "${service-port}:${service-port}"
-          "22000:22000"
-          "21027:21027/udp"
         ];
         volumes = [
+          "${docker-data}/${service-name}:/data"
           "/etc/timezone:/etc/timezone:ro"
           "/etc/localtime:/etc/localtime:ro"
-          "${docker-data}/${service-name}/var:/var/syncthing"
-          "${docker-data}/${service-name}/data:/data"
         ];
         extraOptions = [
           "--network=web"
-          "--security-opt=no-new-privileges:true"
           "--label=traefik.enable=true"
           "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
           "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
@@ -33,6 +29,11 @@ in
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
           "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${service-port}"
+          # SSH access
+          "--label=traefik.tcp.routers.gitea-ssh.rule=HostSNI(`*`)"
+          "--label=traefik.tcp.routers.gitea-ssh.entrypoints=ssh"
+          "--label=traefik.tcp.routers.gitea-ssh.service=gitea-ssh-service"
+          "--label=traefik.tcp.services.gitea-ssh-service.loadbalancer.server.port=22"
         ];
       };
     };

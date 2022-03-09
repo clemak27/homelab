@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "navidrome";
-  service-version = "0.47.5";
+  service-version = "0.47.0"; # renovate: datasource=docker depName=deluan/navidrome
   service-port = "4533";
 
   navidrome_spotify_id = builtins.readFile "/run/secrets/docker/navidrome_spotify_id";

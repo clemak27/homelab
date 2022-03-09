@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "traefik";
-  service-version = "2.6.1";
+  service-version = "2.6.1"; # renovate: datasource=docker depName=traefik
 
   duckdns_token = builtins.readFile "/run/secrets/docker/duckdns_token";
 in

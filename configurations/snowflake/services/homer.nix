@@ -2,22 +2,24 @@
 let
   docker-data = "/home/clemens/data/docker";
 
-  service-name = "gitea";
-  service-version = "1.16.3";
-  service-port = "3000";
+  service-name = "homer";
+  service-version = "21.09.2"; # renovate: datasource=docker depName=b4bz/homer
+  service-port = "8085";
 in
 {
   config = {
     virtualisation.oci-containers.containers = {
-      gitea = {
-        image = "gitea/gitea:${service-version}";
+      homer = {
+        image = "b4bz/homer:${service-version}";
         ports = [
-          "${service-port}:${service-port}"
+          "${service-port}:8080"
         ];
+        environment = {
+          UID = "1000";
+          GID = "1000";
+        };
         volumes = [
-          "${docker-data}/${service-name}:/data"
-          "/etc/timezone:/etc/timezone:ro"
-          "/etc/localtime:/etc/localtime:ro"
+          "${docker-data}/homer:/www/assets"
         ];
         extraOptions = [
           "--network=web"
@@ -28,12 +30,7 @@ in
           "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
-          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${service-port}"
-          # SSH access
-          "--label=traefik.tcp.routers.gitea-ssh.rule=HostSNI(`*`)"
-          "--label=traefik.tcp.routers.gitea-ssh.entrypoints=ssh"
-          "--label=traefik.tcp.routers.gitea-ssh.service=gitea-ssh-service"
-          "--label=traefik.tcp.services.gitea-ssh-service.loadbalancer.server.port=22"
+          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=8080"
         ];
       };
     };

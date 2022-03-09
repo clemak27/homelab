@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "branchPrefix": "renovate/",
+  "dryRun": false,
+  "username": "renovate",
+  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "onboarding": false,
+  "platform": "github",
+  "includeForks": false,
+  "repositories": [
+    "clemak27/homelab"
+  ],
+  "packageRules": [
+    {
+      "matchPaths": ["configurations/snowflake/**"],
+      "branchPrefix": "renovate/snowflake-",
+      "semanticCommits": "enabled",
+      "semanticCommitScope": "snowflake"
+    }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^.*\\.nix$"],
+      "matchStrings": [
+        "\\s*service-version = \"(?<currentValue>.*)\"; # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
+    }
+  ]
+}

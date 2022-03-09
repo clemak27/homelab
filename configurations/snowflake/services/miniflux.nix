@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "miniflux";
-  service-version = "2.0.36";
+  service-version = "2.0.36"; # renovate: datasource=docker depName=miniflux/miniflux
   service-port = "8081";
 
   miniflux_admin_user = builtins.readFile "/run/secrets/docker/miniflux_admin_user";

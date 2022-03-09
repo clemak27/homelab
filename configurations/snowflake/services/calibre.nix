@@ -8,7 +8,7 @@ in
       calibre-web =
         let
           service-name = "calibre";
-          service-version = "0.6.16";
+          service-version = "0.6.16"; # renovate: datasource=docker depName=lscr.io/linuxserver/calibre-web
           service-port = "8084";
         in
         {
@@ -41,7 +41,7 @@ in
       calibre =
         let
           service-name = "calibre";
-          service-version = "5.38.0";
+          service-version = "5.38.0"; # renovate: datasource=docker depName=lscr.io/linuxserver/calibre
         in
         {
           image = "lscr.io/linuxserver/calibre:${service-version}";

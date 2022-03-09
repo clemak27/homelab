@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "plex";
-  service-version = "1.25.5.5492-12f6b8c83";
+  service-version = "1.25.5.5492-12f6b8c83"; # renovate: datasource=docker depName=plexinc/pms-docker
   service-port = "32400";
 
   plex_claim = builtins.readFile "/run/secrets/docker/plex_claim";

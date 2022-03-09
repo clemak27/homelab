@@ -2,27 +2,29 @@
 let
   docker-data = "/home/clemens/data/docker";
 
-  service-name = "homer";
-  service-version = "21.09.2";
-  service-port = "8085";
+  service-name = "syncthing";
+  service-version = "1.18.4"; # renovate: datasource=docker depName=syncthing/syncthing
+  service-port = "8384";
 in
 {
   config = {
     virtualisation.oci-containers.containers = {
-      homer = {
-        image = "b4bz/homer:${service-version}";
+      syncthing = {
+        image = "syncthing/syncthing:${service-version}";
         ports = [
-          "${service-port}:8080"
+          "${service-port}:${service-port}"
+          "22000:22000"
+          "21027:21027/udp"
         ];
-        environment = {
-          UID = "1000";
-          GID = "1000";
-        };
         volumes = [
-          "${docker-data}/homer:/www/assets"
+          "/etc/timezone:/etc/timezone:ro"
+          "/etc/localtime:/etc/localtime:ro"
+          "${docker-data}/${service-name}/var:/var/syncthing"
+          "${docker-data}/${service-name}/data:/data"
         ];
         extraOptions = [
           "--network=web"
+          "--security-opt=no-new-privileges:true"
           "--label=traefik.enable=true"
           "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
           "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
@@ -30,7 +32,7 @@ in
           "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
-          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=8080"
+          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${service-port}"
         ];
       };
     };
