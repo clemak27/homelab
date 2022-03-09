@@ -11,6 +11,7 @@
   ],
   "regexManagers": [
     {
+      "fileMatch": ["^.*\\.nix$"],
       "matchStrings": [
         "\\s*service-version = \"(?<currentValue>.*)\"; # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
       ]
