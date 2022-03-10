@@ -21,7 +21,7 @@
     {
       "fileMatch": ["^.*\\.nix$"],
       "matchStrings": [
-        "\\s*service-version = \"(?<currentValue>.*)\"; # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
+        "\\s*service-version = \"v(?<currentValue>.*)\"; # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
       ],
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
     }
