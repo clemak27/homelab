@@ -14,8 +14,8 @@
     {
       "matchPaths": ["snowflake/**"],
       "branchPrefix": "renovate/snowflake-",
-      "semanticCommitScope": "snowflake",
-    },
+      "semanticCommitScope": "snowflake"
+    }
   ],
   "regexManagers": [
     {
