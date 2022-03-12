@@ -75,7 +75,7 @@ in
       sonarr =
         let
           service-name = "sonarr";
-          service-version = "3.0.6"; # renovate: datasource=docker depName=linuxserver/sonarr
+          service-version = "3.0.7"; # renovate: datasource=docker depName=linuxserver/sonarr
           service-port = "8989";
         in
         {
