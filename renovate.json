@@ -12,7 +12,7 @@
   ],
   "packageRules": [
     {
-      "matchPaths": ["snowflake/**"],
+      "matchPaths": ["configurations/snowflake/**"],
       "branchPrefix": "renovate/snowflake-",
       "semanticCommitScope": "snowflake"
     }
