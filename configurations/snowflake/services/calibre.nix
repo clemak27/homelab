@@ -8,7 +8,7 @@ in
       calibre-web =
         let
           service-name = "calibre";
-          service-version = "0.6.16"; # renovate: datasource=docker depName=lscr.io/linuxserver/calibre-web
+          service-version = "2021.12.16"; # renovate: datasource=docker depName=lscr.io/linuxserver/calibre-web
           service-port = "8084";
         in
         {
