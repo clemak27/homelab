@@ -39,7 +39,7 @@ in
       cadvisor =
         let
           service-name = "cadvisor";
-          service-version = "v0.39.3"; # renovate: datasource=docker depName=gcr.io/cadvisor/cadvisor
+          service-version = "v0.44.0"; # renovate: datasource=docker depName=gcr.io/cadvisor/cadvisor
           service-port = "8080";
         in
         {
