@@ -1,8 +1,8 @@
 #!/bin/sh
 
-tree /home/clemens/Projects/homelab/.git > /tmp/git_tree_new
+git -C /home/clemens/Projects/homelab log --oneline > /tmp/git_status_new
 
-DIFF=$(cmp /tmp/git_tree_old /tmp/git_tree_new)
+DIFF=$(cmp /tmp/git_status_old/tmp/git_status_new)
 if [ "$DIFF" != "" ]
 then
   cd /home/clemens/Projects/homelab || exit
@@ -14,4 +14,4 @@ then
   fi
 fi
 
-mv /tmp/git_tree_new /tmp/git_tree_old
+mv /tmp/git_status_new /tmp/git_status_old
