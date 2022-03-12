@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "homer";
-  service-version = "21.09.2";
+  service-version = "21.09.2"; # renovate: datasource=docker depName=b4bz/homer
   service-port = "8085";
 in
 {

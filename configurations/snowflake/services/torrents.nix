@@ -9,7 +9,7 @@ in
       transmission =
         let
           service-name = "transmission";
-          service-version = "version-3.00-r2";
+          service-version = "version-3.00-r2"; # renovate: datasource=docker depName=linuxserver/transmission
           service-port = "9091";
         in
         {
@@ -43,7 +43,7 @@ in
       jackett =
         let
           service-name = "jackett";
-          service-version = "0.20.590";
+          service-version = "0.20.590"; # renovate: datasource=docker depName=linuxserver/jackett
           service-port = "9117";
         in
         {
@@ -75,7 +75,7 @@ in
       sonarr =
         let
           service-name = "sonarr";
-          service-version = "3.0.6";
+          service-version = "3.0.6"; # renovate: datasource=docker depName=linuxserver/sonarr
           service-port = "8989";
         in
         {
@@ -109,7 +109,7 @@ in
       radarr =
         let
           service-name = "radarr";
-          service-version = "4.0.4";
+          service-version = "4.0.4"; # renovate: datasource=docker depName=linuxserver/radarr
           service-port = "7878";
         in
         {

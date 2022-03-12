@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "pihole";
-  service-version = "2022.01.1";
+  service-version = "2022.01.1"; # renovate: datasource=docker depName=pihole/pihole
   service-port = "8456";
   exporter-version = "v0.3.0";
   pihole_pw = builtins.readFile "/run/secrets/docker/pihole_pw";

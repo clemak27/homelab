@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "syncthing";
-  service-version = "1.18.4";
+  service-version = "1.18.4"; # renovate: datasource=docker depName=syncthing/syncthing
   service-port = "8384";
 in
 {
