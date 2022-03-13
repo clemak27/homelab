@@ -78,7 +78,7 @@ in
     ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = ''${pkgs.zsh}/bin/zsh -c "/home/clemens/gitops-upgrade.sh"'';
+      ExecStart = ''${pkgs.zsh}/bin/zsh -c "/home/clemens/gitops-upgrade.sh snowflake"'';
     };
   };
 
