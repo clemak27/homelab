@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git -C /home/clemens/Projects/homelab log --oneline > /tmp/git_status_new
-title=$(hostname)
+title=$(/run/current-system/sw/bin/hostname)
 
 DIFF=$(cmp /tmp/git_status_old /tmp/git_status_new)
 if [ "$DIFF" != "" ]
