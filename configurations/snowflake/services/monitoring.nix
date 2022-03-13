@@ -8,7 +8,7 @@ in
       prometheus =
         let
           service-name = "prometheus";
-          service-version = "v2.32.1"; # renovate: datasource=docker depName=prom/prometheus
+          service-version = "v2.33.5"; # renovate: datasource=docker depName=prom/prometheus
           service-port = "9090";
         in
         {
@@ -39,7 +39,7 @@ in
       cadvisor =
         let
           service-name = "cadvisor";
-          service-version = "v0.39.3"; # renovate: datasource=docker depName=gcr.io/cadvisor/cadvisor
+          service-version = "v0.44.0"; # renovate: datasource=docker depName=gcr.io/cadvisor/cadvisor
           service-port = "8080";
         in
         {
@@ -61,7 +61,7 @@ in
       grafana =
         let
           service-name = "grafana";
-          service-version = "8.3.3"; # renovate: datasource=docker depName=grafana/grafana
+          service-version = "8.4.3"; # renovate: datasource=docker depName=grafana/grafana
           service-port = "3001";
         in
         {
