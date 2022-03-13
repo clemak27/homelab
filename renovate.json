@@ -14,6 +14,7 @@
     {
       "matchPaths": ["configurations/snowflake/**"],
       "branchPrefix": "renovate/snowflake-",
+      "semanticCommits": "enabled",
       "semanticCommitScope": "snowflake"
     }
   ],
