@@ -2,7 +2,7 @@
 
 git -C /home/clemens/Projects/homelab log --oneline > /tmp/git_status_new
 
-DIFF=$(cmp /tmp/git_status_old/tmp/git_status_new)
+DIFF=$(cmp /tmp/git_status_old /tmp/git_status_new)
 if [ "$DIFF" != "" ]
 then
   cd /home/clemens/Projects/homelab || exit
