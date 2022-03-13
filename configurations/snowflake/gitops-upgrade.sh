@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git -C /home/clemens/Projects/homelab log --oneline > /tmp/git_status_new
-title=$(/var/run/current-system/bin/hostname)
+title="snowflake"
 
 DIFF=$(cmp /tmp/git_status_old /tmp/git_status_new)
 if [ "$DIFF" != "" ]
