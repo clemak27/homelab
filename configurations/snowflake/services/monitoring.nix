@@ -8,7 +8,7 @@ in
       prometheus =
         let
           service-name = "prometheus";
-          service-version = "v2.33.5"; # renovate: datasource=docker depName=prom/prometheus
+          service-version = "v2.34.0"; # renovate: datasource=docker depName=prom/prometheus
           service-port = "9090";
         in
         {
