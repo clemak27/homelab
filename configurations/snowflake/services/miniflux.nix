@@ -32,8 +32,6 @@ in
         ];
         extraOptions = [
           "--network=web"
-          # TODO why is the network named that?
-          # "--network=clemens_backend"
           "--label=traefik.enable=true"
           "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
           "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
@@ -43,7 +41,7 @@ in
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
           "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${service-port}"
         ];
-        # dependsOn = [ "miniflux_db" ];
+        dependsOn = [ "miniflux_db" ];
       };
 
       miniflux_db = {
@@ -56,14 +54,11 @@ in
           "${docker-data}/${service-name}:/var/lib/postgresql/data"
         ];
         extraOptions = [
-          # TODO why is the network named that?
-          # "--network=clemens_backend"
           "--network=web"
           # TODO healthcheck buggy?
           # "--health-cmd='pg_isready -U miniflux'"
           "--health-interval=10s"
         ];
-        dependsOn = [ "miniflux_db" ];
       };
     };
   };
