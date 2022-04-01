@@ -3,6 +3,7 @@
   imports = [
     ./calibre.nix
     ./deemix.nix
+    ./fireflyiii.nix
     ./gitea.nix
     ./homer.nix
     ./miniflux.nix
