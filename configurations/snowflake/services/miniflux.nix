@@ -45,7 +45,7 @@ in
       };
 
       miniflux_db = {
-        image = "postgres:13";
+        image = "postgres:13.6"; # renovate: datasource=docker depName=postgres
         environment = {
           POSTGRES_USER = "${miniflux_db_user}";
           POSTGRES_PASSWORD = "${miniflux_db_password}";
