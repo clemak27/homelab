@@ -5,6 +5,7 @@ let
   service-name = "miniflux";
   service-version = "2.0.36"; # renovate: datasource=docker depName=miniflux/miniflux
   service-port = "8081";
+  internal-port = "8081";
 
   miniflux_admin_user = builtins.readFile "/run/secrets/docker/miniflux_admin_user";
   miniflux_admin_password = builtins.readFile "/run/secrets/docker/miniflux_admin_password";
@@ -23,12 +24,12 @@ in
           ADMIN_USERNAME = "${miniflux_admin_user}";
           ADMIN_PASSWORD = "${miniflux_admin_password}";
           BASE_URL = "https://miniflux.hemvist.duckdns.org";
-          LISTEN_ADDR = "0.0.0.0:8081";
+          LISTEN_ADDR = "0.0.0.0:${internal-port}";
           POLLING_FREQUENCY = "15";
           BATCH_SIZE = "50";
         };
         ports = [
-          "${service-port}:${service-port}"
+          "${service-port}:${internal-port}"
         ];
         extraOptions = [
           "--network=web"
@@ -39,7 +40,7 @@ in
           "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
-          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${service-port}"
+          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${internal-port}"
         ];
         dependsOn = [ "miniflux_db" ];
       };

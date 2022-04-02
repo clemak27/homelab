@@ -5,6 +5,7 @@ let
   service-name = "homer";
   service-version = "21.09.2"; # renovate: datasource=docker depName=b4bz/homer
   service-port = "8085";
+  internal-port = "8080";
 in
 {
   config = {
@@ -12,7 +13,7 @@ in
       homer = {
         image = "b4bz/homer:${service-version}";
         ports = [
-          "${service-port}:8080"
+          "${service-port}:${internal-port}"
         ];
         environment = {
           UID = "1000";
@@ -30,7 +31,7 @@ in
           "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
-          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=8080"
+          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${internal-port}"
         ];
       };
     };
