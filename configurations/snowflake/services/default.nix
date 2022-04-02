@@ -11,7 +11,7 @@
     ./navidrome.nix
     ./pihole.nix
     ./plex.nix
-    ./recipies.nix
+    ./recipes.nix
     ./syncthing.nix
     ./torrents.nix
     ./traefik.nix
