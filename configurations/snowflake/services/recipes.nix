@@ -55,7 +55,7 @@ in
           POSTGRES_DB = "${recipes_db_name}";
         };
         volumes = [
-          "${docker-data}/${service-name}/database:/var/lib/postgresql/data"
+          "${docker-data}/${service-name}_db:/var/lib/postgresql/data"
         ];
         extraOptions = [
           "--network=web"
