@@ -31,7 +31,7 @@ in
           "${service-port}:8080"
         ];
         volumes = [
-          "${docker-data}/${service-name}:/var/www/html/storage/database"
+          "${docker-data}/${service-name}/database:/var/www/html/storage/database"
         ];
         extraOptions = [
           "--network=web"
