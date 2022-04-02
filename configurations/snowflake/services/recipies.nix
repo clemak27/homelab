@@ -1,0 +1,69 @@
+{ config, lib, pkgs, ... }:
+let
+  docker-data = "/home/clemens/data/docker";
+
+  service-name = "recipes";
+  service-version = "1.1.4"; # renovate: datasource=docker depName=vabene1111/recipes
+  service-port = "8088";
+  internal-port = "8080";
+
+  recipes_secret_key = builtins.readFile "/run/secrets/docker/recipes_secret_key";
+  recipes_db_user = builtins.readFile "/run/secrets/docker/recipes_db_user";
+  recipes_db_password = builtins.readFile "/run/secrets/docker/recipes_db_password";
+  recipes_db_name = builtins.readFile "/run/secrets/docker/recipes_db_name";
+in
+{
+  config = {
+    virtualisation.oci-containers.containers = {
+      recipes = {
+        image = "vabene1111/recipes:${service-version}";
+        environment = {
+          SECRET_KEY="${recipes_secret_key}";
+          DB_ENGINE="django.db.backends.postgresql";
+          POSTGRES_HOST="recipes_db";
+          POSTGRES_PORT="5432";
+          POSTGRES_USER="${recipes_db_user}";
+          POSTGRES_PASSWORD="${recipes_db_password}";
+          POSTGRES_DB="${recipes_db_name}";
+        };
+        ports = [
+          "${service-port}:${internal-port}"
+        ];
+        volumes = [
+          "${docker-data}/${service-name}/staticfiles:/opt/recipes/staticfiles"
+          "${docker-data}/${service-name}/mediafiles:/opt/recipes/mediafiles"
+        ];
+        extraOptions = [
+          "--network=web"
+          "--label=traefik.enable=true"
+          "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
+          "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+          "--label=traefik.http.routers.${service-name}-router.tls=true"
+          "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
+          # HTTP Services
+          "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
+          "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${internal-port}"
+        ];
+        dependsOn = [ "recipes_db" ];
+      };
+
+      recipes_db = {
+        image = "postgres:13.6"; # renovate: datasource=docker depName=postgres
+        environment = {
+          POSTGRES_USER = "${recipes_db_user}";
+          POSTGRES_PASSWORD = "${recipes_db_password}";
+          POSTGRES_DB = "${recipes_db_name}";
+        };
+        volumes = [
+          "${docker-data}/${service-name}/database:/var/lib/postgresql/data"
+        ];
+        extraOptions = [
+          "--network=web"
+          # TODO healthcheck buggy?
+          # "--health-cmd='pg_isready -U recipes'"
+          "--health-interval=10s"
+        ];
+      };
+    };
+  };
+}

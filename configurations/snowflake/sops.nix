@@ -37,4 +37,8 @@
   sops.secrets."docker/fireflyiii_db_name" = { };
   sops.secrets."docker/fireflyiii_db_user" = { };
   sops.secrets."docker/fireflyiii_db_password" = { };
+  sops.secrets."docker/recipes_secret_key" = { };
+  sops.secrets."docker/recipes_db_user" = { };
+  sops.secrets."docker/recipes_db_password" = { };
+  sops.secrets."docker/recipes_db_name" = { };
 }
