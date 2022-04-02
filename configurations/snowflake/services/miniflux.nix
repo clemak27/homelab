@@ -52,7 +52,7 @@ in
           POSTGRES_PASSWORD = "${miniflux_db_password}";
         };
         volumes = [
-          "${docker-data}/${service-name}:/var/lib/postgresql/data"
+          "${docker-data}/${service-name}_db:/var/lib/postgresql/data"
         ];
         extraOptions = [
           "--network=web"
