@@ -54,7 +54,7 @@ in
     serviceConfig = {
       User = "clemens";
       Type = "oneshot";
-      ExecStart = ''${pkgs.git}/bin/git -C /home/clemens/Projects/homelab pull '';
+      ExecStart = ''${pkgs.git}/bin/git -C /home/clemens/Projects/homelab pull --rebase'';
     };
   };
 
