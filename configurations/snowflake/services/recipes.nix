@@ -59,8 +59,8 @@ in
         ];
         extraOptions = [
           "--network=web"
-          # TODO healthcheck buggy?
-          # "--health-cmd='pg_isready -U recipes'"
+          "--health-cmd=pg_isready -U ${recipes_db_user} -d ${recipes_db_name}"
+          "--health-start-period=30s"
           "--health-interval=10s"
         ];
       };

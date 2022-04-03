@@ -9,6 +9,7 @@ let
 
   miniflux_admin_user = builtins.readFile "/run/secrets/docker/miniflux_admin_user";
   miniflux_admin_password = builtins.readFile "/run/secrets/docker/miniflux_admin_password";
+  miniflux_db_name = "miniflux";
   miniflux_db_user = builtins.readFile "/run/secrets/docker/miniflux_db_user";
   miniflux_db_password = builtins.readFile "/run/secrets/docker/miniflux_db_password";
 in
@@ -18,7 +19,7 @@ in
       miniflux = {
         image = "miniflux/miniflux:${service-version}";
         environment = {
-          DATABASE_URL = "postgres://${miniflux_db_user}:${miniflux_db_password}@miniflux_db/miniflux?sslmode=disable";
+          DATABASE_URL = "postgres://${miniflux_db_user}:${miniflux_db_password}@miniflux_db/${miniflux_db_name}?sslmode=disable";
           RUN_MIGRATIONS = "1";
           CREATE_ADMIN = "1";
           ADMIN_USERNAME = "${miniflux_admin_user}";
@@ -56,8 +57,8 @@ in
         ];
         extraOptions = [
           "--network=web"
-          # TODO healthcheck buggy?
-          # "--health-cmd='pg_isready -U miniflux'"
+          "--health-cmd=pg_isready -U ${miniflux_db_user} -d ${miniflux_db_name}"
+          "--health-start-period=30s"
           "--health-interval=10s"
         ];
       };
