@@ -17,6 +17,14 @@
     zsh.enable = true;
   };
 
+  programs.zsh = {
+    shellAliases = builtins.listToAttrs (
+      [
+        { name = "docker"; value = "sudo docker"; }
+      ]
+    );
+  };
+
   home.file."mp3gain-update.sh".source = ./mp3gain-update.sh;
   home.file."gitops-upgrade.sh".source = ./gitops-upgrade.sh;
 
