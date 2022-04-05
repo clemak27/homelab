@@ -10,6 +10,7 @@
   "repositories": [
     "clemak27/homelab"
   ],
+  "commitMessageAction": "Update",
   "packageRules": [
     {
       "matchPaths": ["configurations/snowflake/**"],
