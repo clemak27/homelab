@@ -17,21 +17,21 @@ in
       fireflyiii = {
         image = "fireflyiii/core:${service-version}";
         environment = {
-          DB_CONNECTION = "sqlite";
+          DB_CONNECTION = "pgsql";
           APP_KEY = "${fireflyiii_app_key}";
           APP_URL = "https://fireflyiii.hemvist.duckdns.org";
           TRUSTED_PROXIES = "**";
-          # DB_HOST = "fireflyiii_db";
-          # DB_PORT = "3306";
-          # DB_DATABASE = "${fireflyiii_db_name}";
-          # DB_USERNAME = "${fireflyiii_db_user}";
-          # DB_PASSWORD = "${fireflyiii_db_password}";
+          DB_HOST = "fireflyiii_db";
+          DB_PORT = "5432";
+          DB_DATABASE = "${fireflyiii_db_name}";
+          DB_USERNAME = "${fireflyiii_db_user}";
+          DB_PASSWORD = "${fireflyiii_db_password}";
         };
         ports = [
           "${service-port}:8080"
         ];
         volumes = [
-          "${docker-data}/${service-name}/database:/var/www/html/storage/database"
+          "${docker-data}/${service-name}/upload:/var/www/html/storage/upload"
         ];
         extraOptions = [
           "--network=web"
@@ -44,26 +44,26 @@ in
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
           "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=8080"
         ];
-        # dependsOn = [ "fireflyiii_db" ];
+        dependsOn = [ "fireflyiii_db" ];
       };
 
-      # fireflyiii_db = {
-      #   image = "mariadb:10.7.3"; # renovate: datasource=docker depName=mariadb
-      #   environment = {
-      #     MYSQL_RANDOM_ROOT_PASSWORD = "yes";
-      #     MYSQL_USER = "${fireflyiii_db_user}";
-      #     MYSQL_PASSWORD = "${fireflyiii_db_password}";
-      #   };
-      #   volumes = [
-      #     "${docker-data}/${service-name}/database:/var/lib/mysql"
-      #   ];
-      #   extraOptions = [
-      #     "--network=web"
-      #     # TODO healthcheck buggy?
-      #     # "--health-cmd='pg_isready -U miniflux'"
-      #     "--health-interval=10s"
-      #   ];
-      # };
+      fireflyiii_db = {
+        image = "postgres:13.6"; # renovate: datasource=docker depName=postgres
+        environment = {
+          POSTGRES_USER = "${fireflyiii_db_user}";
+          POSTGRES_PASSWORD = "${fireflyiii_db_password}";
+          POSTGRES_DB = "${fireflyiii_db_name}";
+        };
+        volumes = [
+          "${docker-data}/${service-name}_db:/var/lib/postgresql/data"
+        ];
+        extraOptions = [
+          "--network=web"
+          "--health-cmd=pg_isready -U ${fireflyiii_db_user} -d ${fireflyiii_db_name}"
+          "--health-start-period=30s"
+          "--health-interval=10s"
+        ];
+      };
     };
   };
 }
