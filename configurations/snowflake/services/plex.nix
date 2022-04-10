@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data/docker";
+  docker-data = "/home/clemens/data0/docker";
 
   service-name = "plex";
   service-version = "1.25.5.5492-12f6b8c83"; # renovate: datasource=docker depName=plexinc/pms-docker

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data/docker";
+  docker-data = "/home/clemens/data0/docker";
 
   service-name = "navidrome";
   service-version = "0.47.5"; # renovate: datasource=docker depName=deluan/navidrome

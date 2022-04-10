@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data/docker";
+  docker-data = "/home/clemens/data0/docker";
 
   service-name = "syncthing";
   service-version = "1.19.2"; # renovate: datasource=docker depName=syncthing/syncthing

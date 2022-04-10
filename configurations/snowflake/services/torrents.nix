@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data/docker";
-  torrent-path = "/home/clemens/data/docker/torrents";
+  docker-data = "/home/clemens/data0/docker";
+  torrent-path = "/home/clemens/data0/docker/torrents";
 in
 {
   config = {

@@ -1,15 +1,15 @@
 { config, pkgs, ... }:
 {
   # hdds
-  fileSystems."/home/clemens/data" = {
-    device = "/dev/disk/by-uuid/886f6cde-4ed8-414d-9260-ee5ae4c75786";
-    fsType = "ext4";
+  fileSystems."/home/clemens/data0" = {
+    device = "/dev/disk/by-uuid/a3f84911-ffdd-4bfb-b9b2-41e372e5a84e";
+    fsType = "btrfs";
     options = [ "defaults" ];
   };
 
   # bind mount hdds to provide them with nfs
   fileSystems."/nfs/archive" = {
-    device = "/home/clemens/data/archive";
+    device = "/home/clemens/data0/archive";
     options = [ "bind" ];
   };
 

@@ -1,11 +1,11 @@
 #!/bin/sh
 
-tree /home/clemens/data/docker/navidrome/music > /tmp/tree_new
+tree /home/clemens/data0/docker/navidrome/music > /tmp/tree_new
 
 DIFF=$(cmp /tmp/tree_old /tmp/tree_new)
 if [ "$DIFF" != "" ]
 then
-  readarray -d '' FOLDER < <(find "/home/clemens/data/docker/navidrome/music/" -type d -print0)
+  readarray -d '' FOLDER < <(find "/home/clemens/data0/docker/navidrome/music/" -type d -print0)
 
   for i in "${FOLDER[@]}"
   do

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data/docker";
+  docker-data = "/home/clemens/data0/docker";
 
   service-name = "fireflyiii";
   service-version = "version-5.6.16"; # renovate: datasource=docker depName=fireflyiii/core
