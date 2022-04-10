@@ -7,6 +7,12 @@
     options = [ "defaults" ];
   };
 
+  fileSystems."/home/clemens/data0_bu" = {
+    device = "/dev/disk/by-uuid/4be7089b-2543-40e8-abcd-c1017395a066";
+    fsType = "btrfs";
+    options = [ "defaults" ];
+  };
+
   # bind mount hdds to provide them with nfs
   fileSystems."/nfs/archive" = {
     device = "/home/clemens/data0/archive";
