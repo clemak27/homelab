@@ -109,7 +109,7 @@ in
       radarr =
         let
           service-name = "radarr";
-          service-version = "4.0.5"; # renovate: datasource=docker depName=linuxserver/radarr
+          service-version = "4.1.0"; # renovate: datasource=docker depName=linuxserver/radarr
           service-port = "7878";
         in
         {
