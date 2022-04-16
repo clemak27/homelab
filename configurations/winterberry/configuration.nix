@@ -7,7 +7,7 @@
     ../ssh.nix
     ../user.nix
 
-    # ./zsh.nix
+    ./timer.nix
   ];
 
   # NixOS wants to enable GRUB by default

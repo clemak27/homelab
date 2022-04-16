@@ -1,7 +1,4 @@
 { config, pkgs, ... }:
-let
-  duckDnsUpdate = builtins.readFile "/run/secrets/duckdns_url";
-in
 {
   systemd.services.gitops-update = {
     path = [
