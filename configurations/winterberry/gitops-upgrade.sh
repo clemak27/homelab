@@ -7,11 +7,11 @@ DIFF=$(cmp /tmp/git_status_old /tmp/git_status_new)
 if [ "$DIFF" != "" ]
 then
   cd /home/clemens/Projects/homelab || exit
-  curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"$title\", \"text\": \"Starting system update.\"}" --url localhost:8525/message
+  curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"$title\", \"text\": \"Starting system update.\"}" --url 192.168.178.100:8525/message
   if nixos-rebuild switch --flake . --impure; then
-    curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"$title\", \"text\": \"Update successful.\"}" --url localhost:8525/message
+    curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"$title\", \"text\": \"Update successful.\"}" --url 192.168.178.100:8525/message
   else
-    curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"$title\", \"text\": \"Update failed!\"}" --url localhost:8525/message
+    curl -X POST -H "Content-Type: application/json" -d "{\"title\": \"$title\", \"text\": \"Update failed!\"}" --url 192.168.178.100:8525/message
   fi
 fi
 
