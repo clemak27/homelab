@@ -34,6 +34,14 @@
           ];
         };
 
+        winterberry = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            home-manager.nixosModules.home-manager
+            # sops-nix.nixosModules.sops
+            ./configurations/winterberry/configuration.nix
+          ];
+        };
       };
 
       devShell.x86_64-linux = devpkgs.mkShell {
