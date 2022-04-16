@@ -17,6 +17,12 @@
       "branchPrefix": "renovate/snowflake-",
       "semanticCommits": "enabled",
       "semanticCommitScope": "snowflake"
+    },
+    {
+      "matchPaths": ["configurations/winterberry/**"],
+      "branchPrefix": "renovate/winterberry-",
+      "semanticCommits": "enabled",
+      "semanticCommitScope": "winterberry"
     }
   ],
   "regexManagers": [
