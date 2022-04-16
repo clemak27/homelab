@@ -1,11 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
+    ../i18n.nix
+    ../nix.nix
+    ../packages.nix
+    ../ssh.nix
+    ../user.nix
+
     ./hardware-configuration.nix
     ./mounts.nix
-    ./nix.nix
     ./sops.nix
-    ./ssh.nix
     ./swapfile.nix
     ./timer.nix
     ./wireguard.nix
@@ -36,32 +40,6 @@
 
   # Disable firewall
   networking.firewall.enable = false;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Vienna";
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    keyMap = "de";
-  };
-
-  environment.systemPackages = with pkgs; [
-    git
-    zsh
-    wget
-    curl
-    vim
-
-    dnsutils
-    tcpdump
-    iptables
-  ];
-
-  users.users.clemens = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
-    shell = pkgs.zsh;
-  };
 
   home-manager.useGlobalPkgs = true;
   home-manager.users.clemens = ./home.nix;

@@ -17,14 +17,6 @@
     zsh.enable = true;
   };
 
-  # programs.zsh = {
-  #   shellAliases = builtins.listToAttrs (
-  #     [
-  #       { name = "docker"; value = "sudo docker"; }
-  #     ]
-  #   );
-  # };
-
   home.file."gitops-upgrade.sh".source = ./gitops-upgrade.sh;
 
   home.packages = with pkgs; [

@@ -1,8 +1,13 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ./zsh.nix
-    ./nix.nix
+    ../i18n.nix
+    ../nix.nix
+    ../packages.nix
+    ../ssh.nix
+    ../user.nix
+
+    # ./zsh.nix
   ];
 
   # NixOS wants to enable GRUB by default
@@ -25,16 +30,13 @@
   boot.kernelPackages = pkgs.linuxPackages_5_4;
   # boot.kernelParams = ["cma=64M"];
 
-  environment.systemPackages = with pkgs; [
-    libraspberrypi
-    vim
-    git
-    zsh
-    wget
-    curl
-  ];
+  # Preserve space by cleaning tmp dir
+  boot.cleanTmpDir = true;
 
   networking.hostName = "winterberry";
+
+  # Disable firewall
+  networking.firewall.enable = false;
 
   # File systems configuration for using the installer's partition layout
   fileSystems = {
@@ -44,30 +46,15 @@
     };
   };
 
-  # Preserve space by sacrificing documentation and history
-  documentation.nixos.enable = false;
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 30d";
-  boot.cleanTmpDir = true;
+  security.sudo.wheelNeedsPassword = false;
 
-  # Configure basic SSH access
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
 
   # Use 2GB of additional swap memory in order to not run out of memory
   # when installing lots of things while running other things at the same time.
   swapDevices = [{ device = "/swapfile"; size = 2048; }];
 
-  security.sudo.wheelNeedsPassword = false;
+  home-manager.useGlobalPkgs = true;
+  home-manager.users.clemens = ./home.nix;
 
-  users.users.clemens = {
-    isNormalUser = true;
-    home = "/home/clemens";
-    shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" ];
-    password = "1234";
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCyRaO8psuZI2i/+inKS5jn765Uypds8ORj/nVkgSE3 lazarus" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDxFg++wXklRGPJ0G3VT0ayTt7jRftl+B5a2bqbs1NQP zenix_test" ];
-  };
-
-  users.extraUsers.root.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCyRaO8psuZI2i/+inKS5jn765Uypds8ORj/nVkgSE3 lazarus" ];
+  system.stateVersion = "21.05";
 }
