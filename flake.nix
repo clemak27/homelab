@@ -14,6 +14,7 @@
   outputs = { self, nixpkgs, home-manager, sops-nix, flake-utils }:
     let
       devpkgs = nixpkgs.legacyPackages.x86_64-linux;
+      devpkgs-arm = nixpkgs.legacyPackages.aarch64-linux;
       updateServers = nixpkgs.legacyPackages.x86_64-linux.writeShellScriptBin "update-flake" ''
         echo "Updating flake"
         nix flake update --commit-lock-file --commit-lockfile-summary "chore(flake): Update $(date -I)"
@@ -49,11 +50,12 @@
           age
           ssh-to-age
           updateServers
+          nmap
         ];
       };
 
-      devShell.aarch64-linux = devpkgs.mkShell {
-        nativeBuildInputs = with devpkgs; [
+      devShell.aarch64-linux = devpkgs-arm.mkShell {
+        nativeBuildInputs = with devpkgs-arm; [
           sops
           age
           ssh-to-age
