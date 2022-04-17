@@ -52,7 +52,7 @@
 
   # Use 2GB of additional swap memory in order to not run out of memory
   # when installing lots of things while running other things at the same time.
-  swapDevices = [{ device = "/swapfile"; size = 2048; }];
+  swapDevices = [{ device = "/swapfile"; size = 8192; }];
 
   home-manager.useGlobalPkgs = true;
   home-manager.users.clemens = ./home.nix;
