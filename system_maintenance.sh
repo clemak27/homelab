@@ -6,7 +6,7 @@ backup() {
   echo "Starting backup"
   cd /home/clemens || exit 1
   rsync -avz --progress -h data0/archive data0_bu
-  rsync -avz --progress -h --exclude 'data/docker/navidrome/data/cache/*' data0/docker data0_bu
+  rsync -avz --progress -h --exclude 'data0/docker/navidrome/data/cache/*' data0/docker data0_bu
   echo "Backup finished"
   echo "Restarting containers"
   systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
