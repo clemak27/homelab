@@ -38,7 +38,6 @@
           system = "aarch64-linux";
           modules = [
             home-manager.nixosModules.home-manager
-            # sops-nix.nixosModules.sops
             ./configurations/winterberry/configuration.nix
           ];
         };
