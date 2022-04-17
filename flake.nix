@@ -45,7 +45,15 @@
 
       devShell.x86_64-linux = devpkgs.mkShell {
         nativeBuildInputs = with devpkgs; [
-          dconf2nix
+          sops
+          age
+          ssh-to-age
+          updateServers
+        ];
+      };
+
+      devShell.aarch64-linux = devpkgs.mkShell {
+        nativeBuildInputs = with devpkgs; [
           sops
           age
           ssh-to-age
