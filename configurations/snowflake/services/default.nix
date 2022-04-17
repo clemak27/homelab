@@ -10,7 +10,7 @@
     ./monitoring.nix
     ./navidrome.nix
     ./pihole.nix
-    ./plex.nix
+    # ./plex.nix
     ./jellyfin.nix
     ./recipes.nix
     ./syncthing.nix
