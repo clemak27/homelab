@@ -88,7 +88,7 @@ in
           volumes = [
             "${docker-data}/${service-name}:/config"
             "${torrent-path}:/downloads"
-            "${docker-data}/plex/series:/downloads/series"
+            "${docker-data}/jellyfin/media/series:/downloads/series"
           ];
           ports = [
             "${service-port}:${service-port}"
@@ -122,7 +122,7 @@ in
           volumes = [
             "${docker-data}/${service-name}:/config"
             "${torrent-path}:/downloads"
-            "${docker-data}/plex/movies:/downloads/movies"
+            "${docker-data}/jellyfin/media/movies:/downloads/movies"
           ];
           ports = [
             "${service-port}:${service-port}"
