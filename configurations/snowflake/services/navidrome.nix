@@ -28,7 +28,7 @@ in
         ];
         volumes = [
           "${docker-data}/${service-name}/data:/data"
-          "${docker-data}/${service-name}/music:/music:ro"
+          "${docker-data}/jellyfin/media/music:/music:ro"
         ];
         extraOptions = [
           "--network=web"

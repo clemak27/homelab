@@ -23,7 +23,7 @@ in
         };
         volumes = [
           "${docker-data}/deemix/config:/config"
-          "${docker-data}/navidrome/music:/downloads"
+          "${docker-data}/jellyfin/media/music:/downloads"
         ];
         extraOptions = [
           "--network=web"

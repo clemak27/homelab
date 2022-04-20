@@ -27,7 +27,7 @@ in
           "${docker-data}/jellyfin/cache:/cache"
           "${docker-data}/jellyfin/media/movies:/media/movies"
           "${docker-data}/jellyfin/media/series:/media/series"
-          "${docker-data}/navidrome/music:/media/music"
+          "${docker-data}/jellyfin/media/music:/media/music"
         ];
         extraOptions = [
           "--network=web"
