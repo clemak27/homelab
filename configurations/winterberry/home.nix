@@ -11,8 +11,8 @@
       user = "clemak27";
       email = "clemak27@mailbox.org";
     };
-    nvim.enable = true;
-    tmux.enable = true;
+    nvim.enable = false;
+    tmux.enable = false;
     tools.enable = true;
     zsh.enable = true;
   };
