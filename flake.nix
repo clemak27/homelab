@@ -59,7 +59,6 @@
           sops
           age
           ssh-to-age
-          updateServers
         ];
       };
 
