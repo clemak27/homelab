@@ -18,6 +18,10 @@
     device = "/home/clemens/data0/archive";
     options = [ "bind" ];
   };
+  fileSystems."/nfs/music" = {
+    device = "/home/clemens/data0/docker/jellyfin/media/music";
+    options = [ "bind" ];
+  };
 
   # nfs (potentially sudo mkdir /nfs needed?)
   services.nfs.server = {
@@ -25,6 +29,7 @@
     exports = ''
       /nfs          192.168.178.0/24(rw,fsid=0,no_subtree_check) 10.6.0.0/24(rw,fsid=0,no_subtree_check)
       /nfs/archive  192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+      /nfs/music    192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
     '';
   };
 
