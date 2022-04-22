@@ -15,6 +15,7 @@
     ./syncthing.nix
     ./torrents.nix
     ./traefik.nix
+    ./vaultwarden.nix
   ];
 
   virtualisation.oci-containers = {
