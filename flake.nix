@@ -51,6 +51,7 @@
           ssh-to-age
           updateServers
           nmap
+          dnsutils
         ];
       };
 
