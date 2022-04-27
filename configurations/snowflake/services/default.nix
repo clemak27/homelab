@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ./calibre.nix
     ./deemix.nix
     ./fireflyiii.nix
     ./gitea.nix
+    ./home-assistant.nix
     ./homer.nix
     ./miniflux.nix
     ./monitoring.nix
