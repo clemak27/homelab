@@ -13,7 +13,7 @@ backup() {
   # sleep in case there are some dependency issues
   sleep 30
   systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
-  sleep 30
+  sleep 60
   echo "Finished"
   docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
 }
