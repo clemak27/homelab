@@ -8,7 +8,7 @@
     ../user.nix
 
     ./timer.nix
-    # ./kodi.nix
+    ./services
   ];
 
   # NixOS wants to enable GRUB by default
