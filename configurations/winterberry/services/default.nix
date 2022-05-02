@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ./bumper.nix
+    # ./bumper.nix
   ];
 
   virtualisation.oci-containers = {
