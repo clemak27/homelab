@@ -23,8 +23,9 @@
       192.168.178.100 traefik.hemvist.duckdns.org
       192.168.178.100 transmission.hemvist.duckdns.org
       192.168.178.100 vaultwarden.hemvist.duckdns.org
+
+      192.168.178.101 ecouser.net
+      192.168.178.101 ecovacs.com
+      192.168.178.101 ecovacs.net
     '';
-      # 192.168.178.101 ecouser.net
-      # 192.168.178.101 ecovacs.com
-      # 192.168.178.101 ecovacs.net
 }
