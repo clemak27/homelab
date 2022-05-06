@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data0/docker";
 
   service-name = "recipes";
-  service-version = "1.2.3"; # renovate: datasource=docker depName=vabene1111/recipes
+  service-version = "1.2.4"; # renovate: datasource=docker depName=vabene1111/recipes
   service-port = "8088";
   internal-port = "8080";
 
