@@ -20,6 +20,7 @@ in
         };
         volumes = [
           "${docker-data}/${service-name}:/config"
+          "${docker-data}/${service-name}/bumper-certs/custom_ca.pem:/usr/local/lib/python3.9/site-packages/certifi/cacert.pem"
         ];
         extraOptions = [
           "--network=host"
