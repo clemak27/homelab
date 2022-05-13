@@ -3,6 +3,7 @@
   systemd.services.gitops-update = {
     path = [
       pkgs.git
+      pkgs.openssh
     ];
     serviceConfig = {
       User = "clemens";
