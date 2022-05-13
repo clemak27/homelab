@@ -22,14 +22,19 @@
     device = "/home/clemens/data0/docker/jellyfin/media/music";
     options = [ "bind" ];
   };
+  fileSystems."/nfs/retroarch_roms" = {
+    device = "/home/clemens/data0/retroarch_roms";
+    options = [ "bind" ];
+  };
 
-  # nfs (potentially sudo mkdir /nfs needed?)
+  # nfs
   services.nfs.server = {
     enable = true;
     exports = ''
-      /nfs          192.168.178.0/24(rw,fsid=0,no_subtree_check) 10.6.0.0/24(rw,fsid=0,no_subtree_check)
-      /nfs/archive  192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
-      /nfs/music    192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+      /nfs                192.168.178.0/24(rw,fsid=0,no_subtree_check) 10.6.0.0/24(rw,fsid=0,no_subtree_check)
+      /nfs/archive        192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+      /nfs/music          192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+      /nfs/retroarch_roms 192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
     '';
   };
 
