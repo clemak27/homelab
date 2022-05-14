@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../home-manager/homecfg.nix
+    /home/clemens/Projects/home-manager/homecfg.nix
   ];
 
   homecfg = {
