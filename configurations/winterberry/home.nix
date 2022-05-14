@@ -6,6 +6,7 @@
   ];
 
   homecfg = {
+    NixOS.enable = true;
     git = {
       enable = true;
       user = "clemak27";
