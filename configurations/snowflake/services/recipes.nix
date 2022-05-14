@@ -18,13 +18,13 @@ in
       recipes = {
         image = "vabene1111/recipes:${service-version}";
         environment = {
-          SECRET_KEY="${recipes_secret_key}";
-          DB_ENGINE="django.db.backends.postgresql";
-          POSTGRES_HOST="recipes_db";
-          POSTGRES_PORT="5432";
-          POSTGRES_USER="${recipes_db_user}";
-          POSTGRES_PASSWORD="${recipes_db_password}";
-          POSTGRES_DB="${recipes_db_name}";
+          SECRET_KEY = "${recipes_secret_key}";
+          DB_ENGINE = "django.db.backends.postgresql";
+          POSTGRES_HOST = "recipes_db";
+          POSTGRES_PORT = "5432";
+          POSTGRES_USER = "${recipes_db_user}";
+          POSTGRES_PASSWORD = "${recipes_db_password}";
+          POSTGRES_DB = "${recipes_db_name}";
         };
         ports = [
           "${service-port}:${internal-port}"
@@ -65,5 +65,9 @@ in
         ];
       };
     };
+
+    networking.extraHosts = ''
+      192.168.178.100 ${service-name}.hemvist.duckdns.org
+    '';
   };
 }

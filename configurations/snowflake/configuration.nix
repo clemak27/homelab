@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../hosts.nix
     ../i18n.nix
     ../nix.nix
     ../packages.nix

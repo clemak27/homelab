@@ -63,6 +63,10 @@ in
         ];
       };
     };
+
+    networking.extraHosts = ''
+      192.168.178.100 ${service-name}.hemvist.duckdns.org
+    '';
   };
 }
 

@@ -100,5 +100,10 @@ in
       firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
     };
 
+
+    networking.extraHosts = ''
+      192.168.178.100 prometheus.hemvist.duckdns.org	
+      192.168.178.100 grafana.hemvist.duckdns.org	
+    '';
   };
 }

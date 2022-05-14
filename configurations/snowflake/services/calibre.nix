@@ -64,5 +64,9 @@ in
           ];
         };
     };
+
+    networking.extraHosts = ''
+      192.168.178.100 calibre.hemvist.duckdns.org
+    '';
   };
 }

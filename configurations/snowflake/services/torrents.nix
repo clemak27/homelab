@@ -140,5 +140,12 @@ in
           ];
         };
     };
+
+    networking.extraHosts = ''
+      192.168.178.100 transmission.hemvist.duckdns.org
+      192.168.178.100 jackett.hemvist.duckdns.org	
+      192.168.178.100 sonarr.hemvist.duckdns.org	
+      192.168.178.100 radarr.hemvist.duckdns.org
+    '';
   };
 }
