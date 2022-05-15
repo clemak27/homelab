@@ -28,7 +28,7 @@ upgrade() {
   nix flake update --commit-lock-file --commit-lockfile-summary "chore(flake): Update $(date -I)"
 
   echo "Updating system"
-  nixos-rebuild switch --flake . --impure
+  nixos-rebuild switch --flake '.?submodules=1' --impure
 
   echo "Pushing updated flake"
   su clemens -c "git -C /home/clemens/Projects/homelab push"

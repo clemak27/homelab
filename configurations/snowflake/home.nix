@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    /home/clemens/Projects/home-manager/homecfg.nix
+    ../../home-manager/homecfg.nix
   ];
 
   homecfg = {
