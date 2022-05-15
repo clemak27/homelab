@@ -18,7 +18,7 @@
     zsh.enable = true;
   };
 
-  home.file."gitops-upgrade.sh".source = ./gitops-upgrade.sh;
+  home.file."gitops-upgrade.sh".source = ../gitops-upgrade.sh;
 
   home.packages = with pkgs; [
     gcc

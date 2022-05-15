@@ -1,13 +1,13 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
+    ../gitops.nix
     ../i18n.nix
     ../nix.nix
     ../packages.nix
     ../ssh.nix
     ../user.nix
 
-    ./timer.nix
     ./services
   ];
 

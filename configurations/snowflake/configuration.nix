@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
+    ../gitops.nix
     ../i18n.nix
     ../nix.nix
     ../packages.nix
@@ -11,7 +12,6 @@
     ./mounts.nix
     ./sops.nix
     ./swapfile.nix
-    ./timer.nix
     ./wireguard.nix
 
     ./services
