@@ -19,7 +19,7 @@
     options = [ "bind" ];
   };
   fileSystems."/nfs/music" = {
-    device = "/home/clemens/data0/docker/jellyfin/media/music";
+    device = "${config.servercfg.data_dir}/jellyfin/media/music";
     options = [ "bind" ];
   };
   fileSystems."/nfs/retroarch" = {

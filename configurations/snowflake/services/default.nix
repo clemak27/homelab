@@ -2,6 +2,7 @@
 {
   imports = [
     ./calibre.nix
+    ./cloudflare-ddns.nix
     ./deemix.nix
     ./fireflyiii.nix
     ./gitea.nix

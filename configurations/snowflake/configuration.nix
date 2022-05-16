@@ -10,6 +10,7 @@
 
     ./hardware-configuration.nix
     ./mounts.nix
+    ./servercfg.nix
     ./sops.nix
     ./swapfile.nix
     ./wireguard.nix

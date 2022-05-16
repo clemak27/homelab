@@ -30,6 +30,7 @@
       pkgs.diffutils
       pkgs.nix_2_6
       pkgs.nixos-rebuild
+      pkgs.inetutils
     ];
     serviceConfig = {
       Type = "oneshot";

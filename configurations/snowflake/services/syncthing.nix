@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data0/docker";
+  docker-data = "${config.servercfg.data_dir}";
 
   service-name = "syncthing";
   service-version = "1.20.1"; # renovate: datasource=docker depName=syncthing/syncthing
@@ -27,7 +27,7 @@ in
           "--security-opt=no-new-privileges:true"
           "--label=traefik.enable=true"
           "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
-          "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+          "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
           "--label=traefik.http.routers.${service-name}-router.tls=true"
           "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           # HTTP Services
@@ -38,7 +38,7 @@ in
     };
 
     networking.extraHosts = ''
-      192.168.178.100 ${service-name}.hemvist.duckdns.org
+      192.168.178.100 ${service-name}.${config.servercfg.domain}
     '';
   };
 }

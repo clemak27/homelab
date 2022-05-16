@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data0/docker";
-  torrent-path = "/home/clemens/data0/docker/torrents";
+  docker-data = "${config.servercfg.data_dir}";
+  torrent-path = "${config.servercfg.data_dir}/torrents";
 in
 {
   config = {
@@ -32,7 +32,7 @@ in
             "--network=web"
             "--label=traefik.enable=true"
             "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
-            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
             "--label=traefik.http.routers.${service-name}-router.tls=true"
             "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
             # HTTP Services
@@ -64,7 +64,7 @@ in
             "--network=web"
             "--label=traefik.enable=true"
             "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
-            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
             "--label=traefik.http.routers.${service-name}-router.tls=true"
             "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
             # HTTP Services
@@ -97,7 +97,7 @@ in
             "--network=web"
             "--label=traefik.enable=true"
             "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
-            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
             "--label=traefik.http.routers.${service-name}-router.tls=true"
             "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
             # HTTP Services
@@ -131,7 +131,7 @@ in
             "--network=web"
             "--label=traefik.enable=true"
             "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
-            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+            "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
             "--label=traefik.http.routers.${service-name}-router.tls=true"
             "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
             # HTTP Services
@@ -142,10 +142,10 @@ in
     };
 
     networking.extraHosts = ''
-      192.168.178.100 transmission.hemvist.duckdns.org
-      192.168.178.100 jackett.hemvist.duckdns.org	
-      192.168.178.100 sonarr.hemvist.duckdns.org	
-      192.168.178.100 radarr.hemvist.duckdns.org
+      192.168.178.100 transmission.${config.servercfg.domain}
+      192.168.178.100 jackett.${config.servercfg.domain}	
+      192.168.178.100 sonarr.${config.servercfg.domain}	
+      192.168.178.100 radarr.${config.servercfg.domain}
     '';
   };
 }

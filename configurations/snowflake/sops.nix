@@ -11,6 +11,8 @@
   # # This will generate a new key if the key specified above does not exist
   sops.age.generateKey = false;
   # # This is the actual specification of the secrets.
+  sops.secrets."cloudflare_api_key" = { };
+
   sops.secrets."wg/private_key" = { };
   sops.secrets."wg/op6/public_key" = { };
   sops.secrets."wg/op6/pre_shared_key" = { };
@@ -19,9 +21,6 @@
   sops.secrets."wg/xps15/public_key" = { };
   sops.secrets."wg/xps15/pre_shared_key" = { };
 
-  sops.secrets.duckdns_url = { owner = "clemens"; };
-
-  sops.secrets."docker/duckdns_token" = { };
   sops.secrets."docker/pihole_pw" = { };
   sops.secrets."docker/miniflux_admin_user" = { };
   sops.secrets."docker/miniflux_admin_password" = { };

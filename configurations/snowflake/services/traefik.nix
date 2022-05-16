@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data0/docker";
+  docker-data = "${config.servercfg.data_dir}";
 
   service-name = "traefik";
   service-version = "v2.6.6"; # renovate: datasource=docker depName=traefik
 
-  duckdns_token = builtins.readFile "/run/secrets/docker/duckdns_token";
+  cloudflare_api_key = builtins.readFile "/run/secrets/cloudflare_api_key";
 in
 {
   config = {
@@ -13,7 +13,8 @@ in
       traefik = {
         image = "traefik:${service-version}";
         environment = {
-          DUCKDNS_TOKEN = "${duckdns_token}";
+          CLOUDFLARE_EMAIL = "clemak27@mailbox.org";
+          CLOUDFLARE_DNS_API_TOKEN = "${cloudflare_api_key}";
         };
         ports = [
           "80:80"
@@ -42,10 +43,11 @@ in
           "--entryPoints.ssh.address=:222"
           "--certificatesResolvers.letsEncrypt.acme.email=clemak27@mailbox.org"
           "--certificatesResolvers.letsEncrypt.acme.storage=/acme.json"
-          "--certificatesResolvers.letsEncrypt.acme.dnsChallenge.provider=duckdns"
+          "--certificatesResolvers.letsEncrypt.acme.dnsChallenge.provider=cloudflare"
         ];
         extraOptions = [
           "--network=web"
+          "--ip=172.19.0.19"
           "--label=traefik.enable=true"
           # HTTP-to-HTTPS Redirect
           "--label=${service-name}.http.routers.http-catchall.entrypoints=http"
@@ -54,18 +56,18 @@ in
           "--label=${service-name}.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
           # HTTP Routers
           "--label=${service-name}.http.routers.${service-name}-router.entrypoints=https"
-          "--label=${service-name}.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+          "--label=${service-name}.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
           "--label=${service-name}.http.routers.${service-name}-router.tls=true"
           "--label=${service-name}.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           "--label=${service-name}.http.routers.${service-name}-router.service=api@internal"
-          "--label=${service-name}.http.routers.${service-name}-router.tls.domains[0].main=hemvist.duckdns.org"
-          "--label=${service-name}.http.routers.${service-name}-router.tls.domains[0].sans=*.hemvist.duckdns.org"
+          "--label=${service-name}.http.routers.${service-name}-router.tls.domains[0].main=${config.servercfg.domain}"
+          "--label=${service-name}.http.routers.${service-name}-router.tls.domains[0].sans=*.${config.servercfg.domain}"
         ];
       };
     };
 
     networking.extraHosts = ''
-      192.168.178.100 ${service-name}.hemvist.duckdns.org
+      192.168.178.100 ${service-name}.${config.servercfg.domain}
     '';
   };
 }

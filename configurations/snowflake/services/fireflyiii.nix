@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data0/docker";
+  docker-data = "${config.servercfg.data_dir}";
 
   service-name = "fireflyiii";
   service-version = "version-5.6.16"; # renovate: datasource=docker depName=fireflyiii/core
@@ -19,7 +19,7 @@ in
         environment = {
           DB_CONNECTION = "pgsql";
           APP_KEY = "${fireflyiii_app_key}";
-          APP_URL = "https://fireflyiii.hemvist.duckdns.org";
+          APP_URL = "https://fireflyiii.${config.servercfg.domain}";
           TRUSTED_PROXIES = "**";
           DB_HOST = "fireflyiii_db";
           DB_PORT = "5432";
@@ -37,7 +37,7 @@ in
           "--network=web"
           "--label=traefik.enable=true"
           "--label=traefik.http.routers.${service-name}-router.entrypoints=https"
-          "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.hemvist.duckdns.org`)"
+          "--label=traefik.http.routers.${service-name}-router.rule=Host(`${service-name}.${config.servercfg.domain}`)"
           "--label=traefik.http.routers.${service-name}-router.tls=true"
           "--label=traefik.http.routers.${service-name}-router.tls.certresolver=letsEncrypt"
           # HTTP Services
@@ -67,7 +67,7 @@ in
     };
 
     networking.extraHosts = ''
-      192.168.178.100 ${service-name}.hemvist.duckdns.org
+      192.168.178.100 ${service-name}.${config.servercfg.domain}
     '';
   };
 }

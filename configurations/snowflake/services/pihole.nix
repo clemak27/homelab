@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data0/docker";
+  docker-data = "${config.servercfg.data_dir}";
 
   service-name = "pihole";
   service-version = "2022.04.2beta"; # renovate: datasource=docker depName=pihole/pihole
