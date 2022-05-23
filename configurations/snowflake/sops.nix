@@ -14,12 +14,12 @@
   sops.secrets."cloudflare_api_key" = { };
 
   sops.secrets."wg/private_key" = { };
-  sops.secrets."wg/op6/public_key" = { };
-  sops.secrets."wg/op6/pre_shared_key" = { };
-  sops.secrets."wg/zenix/public_key" = { };
-  sops.secrets."wg/zenix/pre_shared_key" = { };
-  sops.secrets."wg/xps15/public_key" = { };
-  sops.secrets."wg/xps15/pre_shared_key" = { };
+  sops.secrets."wg/onedroid/public_key" = { };
+  sops.secrets."wg/onedroid/pre_shared_key" = { };
+  sops.secrets."wg/argentum/public_key" = { };
+  sops.secrets."wg/argentum/pre_shared_key" = { };
+  sops.secrets."wg/silfur/public_key" = { };
+  sops.secrets."wg/silfur/pre_shared_key" = { };
 
   sops.secrets."docker/pihole_pw" = { };
   sops.secrets."docker/miniflux_admin_user" = { };

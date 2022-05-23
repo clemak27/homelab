@@ -20,19 +20,19 @@
       '';
       peers = [
         {
-          # op6
+          # onedroid
           publicKey = builtins.readFile "/run/secrets/wg/op6/public_key";
           presharedKeyFile = "/run/secrets/wg/op6/pre_shared_key";
           allowedIPs = [ "10.6.0.2/32" ];
         }
         {
-          # zenix
+          # argentum
           publicKey = builtins.readFile "/run/secrets/wg/zenix/public_key";
           presharedKeyFile = "/run/secrets/wg/zenix/pre_shared_key";
           allowedIPs = [ "10.6.0.3/32" ];
         }
         {
-          # xps15
+          # silfur
           publicKey = builtins.readFile "/run/secrets/wg/xps15/public_key";
           presharedKeyFile = "/run/secrets/wg/xps15/pre_shared_key";
           allowedIPs = [ "10.6.0.4/32" ];
