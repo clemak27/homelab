@@ -14,6 +14,7 @@
     ./sops.nix
     ./swapfile.nix
     ./wireguard.nix
+    ./timer.nix
 
     ./services
   ];
