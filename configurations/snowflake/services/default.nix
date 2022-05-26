@@ -10,7 +10,6 @@
     ./homer.nix
     ./miniflux.nix
     ./monitoring.nix
-    ./navidrome.nix
     ./pihole.nix
     ./jellyfin.nix
     ./recipes.nix

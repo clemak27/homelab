@@ -26,10 +26,6 @@
   sops.secrets."docker/miniflux_admin_password" = { };
   sops.secrets."docker/miniflux_db_user" = { };
   sops.secrets."docker/miniflux_db_password" = { };
-  sops.secrets."docker/navidrome_spotify_id" = { };
-  sops.secrets."docker/navidrome_spotify_secret" = { };
-  sops.secrets."docker/navidrome_lastfm_apikey" = { };
-  sops.secrets."docker/navidrome_lastfm_secret" = { };
   sops.secrets."docker/deemix_arl" = { };
   sops.secrets."docker/fireflyiii_app_key" = { };
   sops.secrets."docker/fireflyiii_db_name" = { };
