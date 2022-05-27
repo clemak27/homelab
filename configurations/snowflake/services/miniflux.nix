@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "miniflux";
-  service-version = "2.0.36"; # renovate: datasource=docker depName=miniflux/miniflux
+  service-version = "2.0.37"; # renovate: datasource=docker depName=miniflux/miniflux
   service-port = "8081";
   internal-port = "8081";
 
