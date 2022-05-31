@@ -61,7 +61,7 @@ in
       grafana =
         let
           service-name = "grafana";
-          service-version = "8.5.3"; # renovate: datasource=docker depName=grafana/grafana
+          service-version = "8.5.4"; # renovate: datasource=docker depName=grafana/grafana
           service-port = "3001";
         in
         {
