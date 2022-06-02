@@ -60,6 +60,7 @@
           sops
           age
           ssh-to-age
+          usbutils
         ];
       };
 

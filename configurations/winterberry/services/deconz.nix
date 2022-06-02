@@ -24,9 +24,9 @@ in
           # "/etc/localtime:/etc/localtime:ro"
           "${docker-data}/${service-name}:/opt/deCONZ"
         ];
-        # extraOptions = [
-        #   "--network=bumper"
-        # ];
+        extraOptions = [
+          "--device=/dev/ttyACM0"
+        ];
       };
     };
   };
