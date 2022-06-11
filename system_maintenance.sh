@@ -10,6 +10,8 @@ backup() {
   rsync -avz --progress -h --delete data0/retroarch data0_bu
   echo "Backup finished"
   echo "Restarting containers"
+  # restart traefik first beacause it has a fixed ip
+  systemctl restart docker-traefik
   systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
   # sleep in case there are some dependency issues
   sleep 30
