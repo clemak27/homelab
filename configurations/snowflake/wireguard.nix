@@ -37,6 +37,12 @@
           presharedKeyFile = "/run/secrets/wg/silfur/pre_shared_key";
           allowedIPs = [ "10.6.0.4/32" ];
         }
+        {
+          # deck
+          publicKey = builtins.readFile "/run/secrets/wg/deck/public_key";
+          presharedKeyFile = "/run/secrets/wg/deck/pre_shared_key";
+          allowedIPs = [ "10.6.0.5/32" ];
+        }
       ];
     };
   };

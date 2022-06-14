@@ -20,6 +20,8 @@
   sops.secrets."wg/argentum/pre_shared_key" = { };
   sops.secrets."wg/silfur/public_key" = { };
   sops.secrets."wg/silfur/pre_shared_key" = { };
+  sops.secrets."wg/deck/public_key" = { };
+  sops.secrets."wg/deck/pre_shared_key" = { };
 
   sops.secrets."docker/pihole_pw" = { };
   sops.secrets."docker/miniflux_admin_user" = { };
