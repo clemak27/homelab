@@ -13,6 +13,7 @@
   # # This is the actual specification of the secrets.
   sops.secrets."cloudflare_api_key" = { };
 
+  sops.secrets."wg/public_key" = { };
   sops.secrets."wg/private_key" = { };
   sops.secrets."wg/onedroid/public_key" = { };
   sops.secrets."wg/onedroid/pre_shared_key" = { };
