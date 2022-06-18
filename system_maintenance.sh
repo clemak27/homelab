@@ -10,7 +10,7 @@ backup() {
   rsync -avz --progress -h --delete data0/retroarch data0_bu
   echo "Backup finished"
   echo "Restarting containers"
-  # restart traefik first beacause it has a fixed ip
+  # restart traefik first because it has a fixed ip
   systemctl restart docker-traefik
   systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
   # sleep in case there are some dependency issues
@@ -51,13 +51,19 @@ reboot() {
 show_help() {
   echo "Perform system maintenance tasks:"
   echo "backup: backup system"
-  # echo "reboot: reboot system"
-  # echo "upgrade: update the nix flake"
+  echo "reboot: reboot system"
+  echo "upgrade: update the nix flake and reload config"
 }
 
 case "$1" in
   backup)
     backup
+    ;;
+  upgrade)
+    upgrade
+    ;;
+  reboot)
+    reboot
     ;;
   *)
     show_help
