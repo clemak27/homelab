@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "jellyfin";
-  service-version = "10.8.0"; # renovate: datasource=docker depName=jellyfin/jellyfin
+  service-version = "10.8.1"; # renovate: datasource=docker depName=jellyfin/jellyfin
   service-port = "8098";
   internal-port = "8096";
 in
