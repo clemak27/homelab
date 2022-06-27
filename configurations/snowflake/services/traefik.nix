@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "traefik";
-  service-version = "v2.7.1"; # renovate: datasource=docker depName=traefik
+  service-version = "v2.7.2"; # renovate: datasource=docker depName=traefik
 
   cloudflare_api_key = builtins.readFile "/run/secrets/cloudflare_api_key";
 in
