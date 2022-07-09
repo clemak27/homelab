@@ -14,9 +14,9 @@ backup() {
   systemctl restart docker-traefik
   systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
   # sleep in case there are some dependency issues
-  sleep 30
-  systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
   sleep 60
+  systemctl list-unit-files | grep "docker-.*\.service\s*enabled" | awk '{print $1}' | xargs systemctl start
+  sleep 120
   echo "Finished"
   docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
 }
