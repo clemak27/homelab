@@ -43,7 +43,7 @@ in
       jackett =
         let
           service-name = "jackett";
-          service-version = "0.20.1299"; # renovate: datasource=docker depName=linuxserver/jackett
+          service-version = "0.20.1305"; # renovate: datasource=docker depName=linuxserver/jackett
           service-port = "9117";
         in
         {
