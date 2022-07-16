@@ -8,10 +8,11 @@
     ./gitea.nix
     ./home-assistant.nix
     ./homer.nix
+    ./jellyfin.nix
     ./miniflux.nix
     ./monitoring.nix
+    ./mqtt.nix
     ./pihole.nix
-    ./jellyfin.nix
     ./recipes.nix
     ./syncthing.nix
     ./torrents.nix
