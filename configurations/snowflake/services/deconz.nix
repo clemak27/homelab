@@ -3,7 +3,7 @@ let
   docker-data = "/home/clemens/data/docker";
 
   service-name = "deconz";
-  service-version = "2.16.01"; # renovate: datasource=docker depName=deconz
+  service-version = "2.16.01"; # renovate: datasource=docker depName=deconzcommunity/deconz
 in
 {
   config = {
@@ -12,11 +12,11 @@ in
         image = "deconzcommunity/deconz:${service-version}";
         environment = {
           TZ = "Europe/Rome";
-          DECONZ_WEB_PORT = "8081";
+          DECONZ_WEB_PORT = "8082";
           DECONZ_WS_PORT = "8443";
         };
         ports = [
-          "8081:8081"
+          "8082:8082"
           "8443:8443"
         ];
         volumes = [

@@ -2,7 +2,6 @@
 {
   imports = [
     ./bumper.nix
-    ./deconz.nix
   ];
 
   virtualisation.oci-containers = {

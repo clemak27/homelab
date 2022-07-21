@@ -4,6 +4,7 @@
     ./calibre.nix
     ./cloudflare-ddns.nix
     ./deemix.nix
+    ./deconz.nix
     ./fireflyiii.nix
     ./gitea.nix
     ./home-assistant.nix
