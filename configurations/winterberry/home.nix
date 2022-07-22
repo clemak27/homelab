@@ -24,4 +24,6 @@
     gcc
     neofetch
   ];
+
+  home.stateVersion = "21.05";
 }

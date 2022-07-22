@@ -33,4 +33,6 @@
     neofetch
     mp3gain
   ];
+
+  home.stateVersion = "21.05";
 }
