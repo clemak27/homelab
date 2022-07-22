@@ -28,7 +28,7 @@
       pkgs.curl
       pkgs.tree
       pkgs.diffutils
-      pkgs.nix_2_6
+      pkgs.nixVersions.nix_2_9
       pkgs.nixos-rebuild
       pkgs.inetutils
     ];

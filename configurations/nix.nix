@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   nix = {
-    package = pkgs.nix_2_6;
+    package = pkgs.nixVersions.nix_2_9;
     settings.auto-optimise-store = true;
     gc = {
       automatic = true;
