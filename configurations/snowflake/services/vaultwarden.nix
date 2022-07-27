@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "vaultwarden";
-  service-version = "1.25.1"; # renovate: datasource=docker depName=vaultwarden/server
+  service-version = "1.25.2"; # renovate: datasource=docker depName=vaultwarden/server
   service-port = "8800";
   internal-port = "80";
 
