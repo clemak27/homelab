@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "recipes";
-  service-version = "1.3.2"; # renovate: datasource=docker depName=vabene1111/recipes
+  service-version = "1.3.3"; # renovate: datasource=docker depName=vabene1111/recipes
   service-port = "8088";
   internal-port = "8080";
 
