@@ -16,7 +16,7 @@ in
           PUID = "1000";
           PGID = "1000";
           TZ = "Europe/Rome";
-          LOG_TO_STDOUT = "true";
+          # LOG_TO_STDOUT = "true";
           # BUMPER_DEBUG = "true";
         };
         volumes = [

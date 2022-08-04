@@ -3,6 +3,7 @@
   imports = [
     ./calibre.nix
     ./cloudflare-ddns.nix
+    # ./bumper.nix
     ./deemix.nix
     ./deconz.nix
     ./fireflyiii.nix
