@@ -22,10 +22,10 @@
     device = "${config.servercfg.data_dir}/jellyfin/media/music";
     options = [ "bind" ];
   };
-  # fileSystems."/nfs/retroarch" = {
-  #   device = "/home/clemens/data0/retroarch";
-  #   options = [ "bind" ];
-  # };
+  fileSystems."/nfs/emulation" = {
+    device = "/home/clemens/data0/emulation";
+    options = [ "bind" ];
+  };
 
   # nfs
   services.nfs.server = {
@@ -34,8 +34,8 @@
       /nfs                192.168.178.0/24(rw,fsid=0,no_subtree_check) 10.6.0.0/24(rw,fsid=0,no_subtree_check)
       /nfs/archive        192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
       /nfs/music          192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+      /nfs/emulation      192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
     '';
-      # /nfs/retroarch      192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
   };
 
 }

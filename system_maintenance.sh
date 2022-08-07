@@ -7,7 +7,7 @@ backup() {
   cd /home/clemens || exit 1
   rsync -avz --progress -h --delete data0/archive data0_bu
   rsync -avz --progress -h --delete data0/docker data0_bu
-  rsync -avz --progress -h --delete data0/retroarch data0_bu
+  rsync -avz --progress -h --delete data0/emulation data0_bu
   echo "Backup finished"
   echo "Restarting containers"
   # restart traefik first because it has a fixed ip
