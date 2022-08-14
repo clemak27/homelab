@@ -7,11 +7,11 @@ let
   service-port = "8081";
   internal-port = "8081";
 
-  miniflux_admin_user = builtins.readFile "/run/secrets/docker/miniflux_admin_user";
-  miniflux_admin_password = builtins.readFile "/run/secrets/docker/miniflux_admin_password";
+  miniflux_admin_user = builtins.readFile "${config.sops.secrets."docker/miniflux_admin_user".path}";
+  miniflux_admin_password = builtins.readFile "${config.sops.secrets."docker/miniflux_admin_password".path}";
   miniflux_db_name = "miniflux";
-  miniflux_db_user = builtins.readFile "/run/secrets/docker/miniflux_db_user";
-  miniflux_db_password = builtins.readFile "/run/secrets/docker/miniflux_db_password";
+  miniflux_db_user = builtins.readFile "${config.sops.secrets."docker/miniflux_db_user".path}";
+  miniflux_db_password = builtins.readFile "${config.sops.secrets."docker/miniflux_db_password".path}";
 in
 {
   config = {

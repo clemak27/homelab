@@ -21,25 +21,25 @@
       peers = [
         {
           # onedroid
-          publicKey = builtins.readFile "/run/secrets/wg/onedroid/public_key";
+          publicKey = builtins.readFile "${config.sops.secrets."wg/onedroid/public_key".path}";
           presharedKeyFile = "/run/secrets/wg/onedroid/pre_shared_key";
           allowedIPs = [ "10.6.0.2/32" ];
         }
         {
           # argentum
-          publicKey = builtins.readFile "/run/secrets/wg/argentum/public_key";
+          publicKey = builtins.readFile "${config.sops.secrets."wg/argentum/public_key".path}";
           presharedKeyFile = "/run/secrets/wg/argentum/pre_shared_key";
           allowedIPs = [ "10.6.0.3/32" ];
         }
         {
           # silfur
-          publicKey = builtins.readFile "/run/secrets/wg/silfur/public_key";
+          publicKey = builtins.readFile "${config.sops.secrets."wg/silfur/public_key".path}";
           presharedKeyFile = "/run/secrets/wg/silfur/pre_shared_key";
           allowedIPs = [ "10.6.0.4/32" ];
         }
         {
           # deck
-          publicKey = builtins.readFile "/run/secrets/wg/deck/public_key";
+          publicKey = builtins.readFile "${config.sops.secrets."wg/deck/public_key".path}";
           presharedKeyFile = "/run/secrets/wg/deck/pre_shared_key";
           allowedIPs = [ "10.6.0.5/32" ];
         }

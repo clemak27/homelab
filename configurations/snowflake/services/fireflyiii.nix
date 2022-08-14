@@ -6,10 +6,10 @@ let
   service-version = "version-5.6.16"; # renovate: datasource=docker depName=fireflyiii/core
   service-port = "8097";
 
-  fireflyiii_app_key = builtins.readFile "/run/secrets/docker/fireflyiii_app_key";
-  fireflyiii_db_name = builtins.readFile "/run/secrets/docker/fireflyiii_db_name";
-  fireflyiii_db_user = builtins.readFile "/run/secrets/docker/fireflyiii_db_user";
-  fireflyiii_db_password = builtins.readFile "/run/secrets/docker/fireflyiii_db_password";
+  fireflyiii_app_key = builtins.readFile "${config.sops.secrets."docker/fireflyiii_app_key".path}";
+  fireflyiii_db_name = builtins.readFile "${config.sops.secrets."docker/fireflyiii_db_name".path}";
+  fireflyiii_db_user = builtins.readFile "${config.sops.secrets."docker/fireflyiii_db_user".path}";
+  fireflyiii_db_password = builtins.readFile "${config.sops.secrets."docker/fireflyiii_db_password".path}";
 in
 {
   config = {

@@ -6,7 +6,7 @@ let
   service-version = "2022.04.2beta"; # renovate: datasource=docker depName=pihole/pihole
   service-port = "8456";
   exporter-version = "v0.3.0";
-  pihole_pw = builtins.readFile "/run/secrets/docker/pihole_pw";
+  pihole_pw = builtins.readFile "${config.sops.secrets."docker/pihole_pw".path}";
 in
 {
   config = {

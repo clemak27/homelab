@@ -5,7 +5,7 @@ let
   service-name = "cloudflare-ddns";
   service-version = "latest";
 
-  cloudflare_api_key = builtins.readFile "/run/secrets/cloudflare_api_key";
+  cloudflare_api_key = builtins.readFile "${config.sops.secrets."cloudflare_api_key".path}";
 in
 {
   config = {

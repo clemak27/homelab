@@ -5,7 +5,7 @@ let
   service-name = "traefik";
   service-version = "v2.8.2"; # renovate: datasource=docker depName=traefik
 
-  cloudflare_api_key = builtins.readFile "/run/secrets/cloudflare_api_key";
+  cloudflare_api_key = builtins.readFile "${config.sops.secrets."cloudflare_api_key".path}";
 in
 {
   config = {

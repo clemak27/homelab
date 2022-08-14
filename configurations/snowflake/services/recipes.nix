@@ -7,10 +7,10 @@ let
   service-port = "8088";
   internal-port = "8080";
 
-  recipes_secret_key = builtins.readFile "/run/secrets/docker/recipes_secret_key";
-  recipes_db_user = builtins.readFile "/run/secrets/docker/recipes_db_user";
-  recipes_db_password = builtins.readFile "/run/secrets/docker/recipes_db_password";
-  recipes_db_name = builtins.readFile "/run/secrets/docker/recipes_db_name";
+  recipes_secret_key = builtins.readFile "${config.sops.secrets."docker/recipes_secret_key".path}";
+  recipes_db_user = builtins.readFile "${config.sops.secrets."docker/recipes_db_user".path}";
+  recipes_db_password = builtins.readFile "${config.sops.secrets."docker/recipes_db_password".path}";
+  recipes_db_name = builtins.readFile "${config.sops.secrets."docker/recipes_db_name".path}";
 in
 {
   config = {

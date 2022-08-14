@@ -6,7 +6,7 @@ let
   service-version = "latest";
   service-port = "6595";
 
-  deemix_arl = builtins.readFile "/run/secrets/docker/deemix_arl";
+  deemix_arl = builtins.readFile "${config.sops.secrets."docker/deemix_arl".path}";
 in
 {
   config = {

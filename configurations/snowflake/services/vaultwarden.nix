@@ -7,8 +7,8 @@ let
   service-port = "8800";
   internal-port = "80";
 
-  vaultwarden_yubico_client_id = builtins.readFile "/run/secrets/docker/vaultwarden_yubico_client_id";
-  vaultwarden_yubico_secret_key = builtins.readFile "/run/secrets/docker/vaultwarden_yubico_secret_key";
+  vaultwarden_yubico_client_id = builtins.readFile "${config.sops.secrets."docker/vaultwarden_yubico_client_id".path}";
+  vaultwarden_yubico_secret_key = builtins.readFile "${config.sops.secrets."docker/vaultwarden_yubico_secret_key".path}";
 in
 {
   config = {
