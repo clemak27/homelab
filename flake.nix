@@ -9,9 +9,13 @@
     };
     sops-nix.url = github:Mic92/sops-nix;
     flake-utils.url = "github:numtide/flake-utils";
+    homecfg = {
+      url = "github:clemak27/homecfg";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, flake-utils }:
+  outputs = { self, nixpkgs, home-manager, sops-nix, flake-utils, homecfg }:
     let
       devpkgs = nixpkgs.legacyPackages.x86_64-linux;
       devpkgs-arm = nixpkgs.legacyPackages.aarch64-linux;
@@ -30,6 +34,17 @@
           system = "x86_64-linux";
           modules = [
             home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.clemens = { config, pkgs, lib, ... }:
+              {
+                imports = [
+                  "${self.inputs.homecfg}/default.nix"
+                  ./configurations/snowflake/home.nix
+                ];
+              };
+            }
             sops-nix.nixosModules.sops
             ./configurations/snowflake/configuration.nix
           ];
@@ -39,6 +54,17 @@
           system = "aarch64-linux";
           modules = [
             home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.clemens = { config, pkgs, lib, ... }:
+              {
+                imports = [
+                  "${self.inputs.homecfg}/default.nix"
+                  ./configurations/winterberry/home.nix
+                ];
+              };
+            }
             ./configurations/winterberry/configuration.nix
           ];
         };

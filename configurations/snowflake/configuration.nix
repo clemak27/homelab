@@ -46,8 +46,5 @@
   # Disable sudo pw
   security.sudo.wheelNeedsPassword = false;
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.users.clemens = ./home.nix;
-
   system.stateVersion = "21.05";
 }

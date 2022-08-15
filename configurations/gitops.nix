@@ -9,7 +9,6 @@
       User = "clemens";
       Type = "oneshot";
       ExecStart = ''${pkgs.git}/bin/git -C /home/clemens/Projects/homelab pull --rebase'';
-      ExecStartPost = ''${pkgs.git}/bin/git -C /home/clemens/Projects/homelab submodule update --rebase'';
     };
   };
 

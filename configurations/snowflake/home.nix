@@ -1,11 +1,6 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [
-    ../../home-manager/homecfg.nix
-  ];
-
   homecfg = {
-    NixOS.enable = true;
     git = {
       enable = true;
       user = "clemak27";
