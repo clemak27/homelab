@@ -85,6 +85,28 @@ in
             "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=3000"
           ];
         };
+
+      loki =
+        let
+          service-name = "loki";
+          service-version = "2.6.0"; # renovate: datasource=docker depName=grafana/loki
+          service-port = "3100";
+        in
+        {
+          image = "grafana/loki:${service-version}";
+          volumes = [
+            "${docker-data}/${service-name}:/etc/loki"
+          ];
+          ports = [
+            "${service-port}:${service-port}"
+          ];
+          cmd = [
+            "-config.file=/etc/loki/config.yaml"
+          ];
+          extraOptions = [
+            "--network=web"
+          ];
+        };
     };
 
     services.prometheus.exporters.node = {
