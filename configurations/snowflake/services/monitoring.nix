@@ -89,7 +89,7 @@ in
       loki =
         let
           service-name = "loki";
-          service-version = "2.6.0"; # renovate: datasource=docker depName=grafana/loki
+          service-version = "2.6.1"; # renovate: datasource=docker depName=grafana/loki
           service-port = "3100";
         in
         {
