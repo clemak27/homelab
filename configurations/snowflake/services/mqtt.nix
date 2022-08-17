@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "mqtt";
-  service-version = "2.0.14"; # renovate: datasource=docker depName=eclipse-mosquitto
+  service-version = "2.0.15"; # renovate: datasource=docker depName=eclipse-mosquitto
   service-port = "8080";
 in
 {
