@@ -10,6 +10,7 @@
     tmux.enable = true;
     tools.enable = true;
     zsh.enable = true;
+    dev.enable = true;
   };
 
   programs.zsh = {
