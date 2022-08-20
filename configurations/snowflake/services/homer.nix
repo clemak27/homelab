@@ -21,6 +21,7 @@ in
         };
         volumes = [
           "${docker-data}/homer:/www/assets"
+          "/etc/homer-config.json:/www/assets/config-local.yml:ro"
         ];
         extraOptions = [
           "--network=web"
@@ -39,5 +40,23 @@ in
     networking.extraHosts = ''
       192.168.178.100 ${service-name}.${config.servercfg.domain}
     '';
+    environment.etc."homer-config.json" = {
+      uid = 1000;
+      gid = 1000;
+      mode = "644";
+      text = ''
+        links:
+          - name: "proper urls"
+            icon = "fas fa-file-alt"
+            url = "#config"
+      '';
+      # text = builtins.toJSON ({
+      #   links = [
+      #     name = "proper urls"
+      #     icon = "fas fa-file-alt"
+      #     url = "#config"
+      #   ];
+      # });
+    };
   };
 }
