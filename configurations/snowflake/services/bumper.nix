@@ -13,7 +13,7 @@ in
         environment = {
           BUMPER_ANNOUNCE_IP = "192.168.178.100";
           # BUMPER_LISTEN = "192.168.178.100";
-          # BUMPER_LISTEN = "0.0.0.0";
+          BUMPER_LISTEN = "0.0.0.0";
           PUID = "1000";
           PGID = "1000";
           TZ = "Europe/Rome";
@@ -41,11 +41,11 @@ in
           "--label=traefik.http.routers.bumper-insecure.middlewares=bumper-https@docker"
           "--label=traefik.http.routers.bumper.entrypoints=https"
           "--label=traefik.http.routers.bumper.tls.certresolver=letsEncrypt"
-          "--label=traefik.http.routers.bumper.tls='true'"
-          "--label=traefik.http.routers.bumper.tls.domains[0].main='ecovacs.net'"
-          "--label=traefik.http.routers.bumper.tls.domains[0].sans='*.ecovacs.net'"
+          "--label=traefik.http.routers.bumper.tls=true"
+          "--label=traefik.http.routers.bumper.tls.domains[0].main=ecovacs.net"
+          "--label=traefik.http.routers.bumper.tls.domains[0].sans=*.ecovacs.net"
           "--label=traefik.http.routers.bumper.rule=HostRegexp(`{subdomain:[a-z0-9._-]+}.ecovacs.net`, `{subdomain:[a-z0-9._-]+}.ecovacs.com`, `{subdomain:[a-z0-9._-]+}.ecouser.net`)"
-          "--label=traefik.http.services.bumper.loadbalancer.server.port='80'"
+          "--label=traefik.http.services.bumper.loadbalancer.server.port=80"
           "--label=traefik.http.middlewares.bumper-https.redirectscheme.scheme=https"
         ];
       };
