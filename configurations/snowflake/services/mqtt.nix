@@ -21,8 +21,12 @@ in
             "1883:1883"
             "9001:9001"
           ];
+          log-driver = "loki";
           extraOptions = [
             "--network=web"
+            # loki-logging
+            "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+            "--log-opt=loki-external-labels=job=${service-name}"
           ];
         };
     };

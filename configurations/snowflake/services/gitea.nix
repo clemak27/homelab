@@ -19,6 +19,7 @@ in
           "/etc/timezone:/etc/timezone:ro"
           "/etc/localtime:/etc/localtime:ro"
         ];
+        log-driver = "loki";
         extraOptions = [
           "--network=web"
           "--label=traefik.enable=true"
@@ -34,6 +35,9 @@ in
           "--label=traefik.tcp.routers.gitea-ssh.entrypoints=ssh"
           "--label=traefik.tcp.routers.gitea-ssh.service=gitea-ssh-service"
           "--label=traefik.tcp.services.gitea-ssh-service.loadbalancer.server.port=22"
+          # loki-logging
+          "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+          "--log-opt=loki-external-labels=job=${service-name}"
         ];
       };
     };

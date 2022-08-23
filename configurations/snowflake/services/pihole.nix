@@ -22,9 +22,13 @@ in
           "${docker-data}/${service-name}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
           "${docker-data}/${service-name}/lighttpd.external.conf:/etc/lighttpd/external.conf"
         ];
+        log-driver = "loki";
         extraOptions = [
           "--network=host"
           "--cap-add=NET_ADMIN"
+          # loki-logging
+          "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+          "--log-opt=loki-external-labels=job=${service-name}"
         ];
       };
       pihole-exporter = {
@@ -38,8 +42,12 @@ in
         ports = [
           "9617:9617"
         ];
+        log-driver = "loki";
         extraOptions = [
           "--network=web"
+          # loki-logging
+          "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+          "--log-opt=loki-external-labels=job=${service-name}"
         ];
       };
     };

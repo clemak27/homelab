@@ -26,6 +26,7 @@ in
             "${docker-data}/${service-name}/config-web:/config"
             "${docker-data}/${service-name}/books:/books"
           ];
+          log-driver = "loki";
           extraOptions = [
             "--network=web"
             "--label=traefik.enable=true"
@@ -36,6 +37,9 @@ in
             # HTTP Services
             "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
             "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=8083"
+            # loki-logging
+            "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+            "--log-opt=loki-external-labels=job=${service-name}"
           ];
         };
       calibre =
@@ -59,8 +63,12 @@ in
             "${docker-data}/${service-name}/config:/config"
             "${docker-data}/${service-name}/books:/books"
           ];
+          log-driver = "loki";
           extraOptions = [
             "--network=web"
+            # loki-logging
+            "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+            "--log-opt=loki-external-labels=job=${service-name}"
           ];
         };
     };

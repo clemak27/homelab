@@ -22,6 +22,7 @@ in
           "${docker-data}/${service-name}:/config"
           "${docker-data}/${service-name}/bumper-certs/custom_ca.pem:/usr/local/lib/python3.9/site-packages/certifi/cacert.pem"
         ];
+        log-driver = "loki";
         extraOptions = [
           "--network=web"
           "--privileged"
@@ -33,6 +34,9 @@ in
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
           "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${internal-port}"
+          # loki-logging
+          "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+          "--log-opt=loki-external-labels=job=${service-name}"
         ];
       };
     };

@@ -32,6 +32,7 @@ in
         ports = [
           "${service-port}:${internal-port}"
         ];
+        log-driver = "loki";
         extraOptions = [
           "--network=web"
           "--label=traefik.enable=true"
@@ -42,6 +43,9 @@ in
           # HTTP Services
           "--label=traefik.http.routers.${service-name}-router.service=${service-name}-service"
           "--label=traefik.http.services.${service-name}-service.loadbalancer.server.port=${internal-port}"
+          # loki-logging
+          "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+          "--log-opt=loki-external-labels=job=${service-name}"
         ];
         dependsOn = [ "miniflux_db" ];
       };
@@ -55,11 +59,15 @@ in
         volumes = [
           "${docker-data}/${service-name}_db:/var/lib/postgresql/data"
         ];
+        log-driver = "loki";
         extraOptions = [
           "--network=web"
           "--health-cmd=pg_isready -U ${miniflux_db_user} -d ${miniflux_db_name}"
           "--health-start-period=30s"
           "--health-interval=10s"
+          # loki-logging
+          "--log-opt=loki-url=http://192.168.178.100:3100/loki/api/v1/push"
+          "--log-opt=loki-external-labels=job=${service-name}"
         ];
       };
     };
