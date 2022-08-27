@@ -1,0 +1,16 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: clemens
+      password_hash: $y$j9T$VHZNA7sQciiPcrn0oay6l/$GnObongUZNJjpYQ3Vq7mgUk.BmV4KW0Jo9Qsv3arTY0
+      groups:
+        - docker
+        - sudo
+        - wheel
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCyRaO8psuZI2i/+inKS5jn765Uypds8ORj/nVkgSE3 argentum
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3PSHWVz5/LwHEEfo+7y2o5KH7dlLyfySWnyyi7LLxe silfur
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsk9Bh5+4ZsEDFGb7mXDiClvsLwM+jMNr+SPf+auyu7 onedroid
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA35xMqpMFnqqkPUyDR5KMNQsDMkEKQLIvyvMk0HzVux snowflake
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC3BF++C/p7hPWiv+1WOFMoQAZBxsF1ffOwM6jl/QneR winterberry

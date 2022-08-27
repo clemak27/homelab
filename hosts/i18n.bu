@@ -1,0 +1,10 @@
+variant: fcos
+version: 1.4.0
+storage:
+  files:
+    # Set default keymap to de
+    - path: /etc/vconsole.conf
+      overwrite: true
+      contents:
+        inline: |
+          KEYMAP=de
