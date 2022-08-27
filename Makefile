@@ -12,6 +12,7 @@ serve: ignition
 		python3 -m http.server 8000
 
 create_iso/vm: get_fcos_iso ignition
+	rm custom.iso
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
 		--volume ${PWD}:/pwd --workdir /pwd quay.io/coreos/coreos-installer:release \
 		iso customize \
@@ -22,7 +23,7 @@ create_iso/vm: get_fcos_iso ignition
 
 .PHONY: get_fcos_iso
 get_fcos_iso:
-	curl -O https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
 .PHONY: clean
 clean:
