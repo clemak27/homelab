@@ -2,7 +2,7 @@ FCOS_VERSION := 36.20220806.3.0
 
 PODMAN := /usr/bin/flatpak-spawn --host podman
 PODMAN_RUN_PWD := $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
-BUTANE :=  $(PODMAN_RUN_PWD) quay.io/coreos/butane:release
+BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release
 COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 
 hosts/user.bu:
@@ -25,7 +25,7 @@ serve: ignition
 		python3 -m http.server 8000
 
 create_iso/vm: get_fcos_iso ignition/vm
-	rm custom.iso
+	rm -f custom.iso
 	$(COREOS_INSTALLER) iso customize \
 		--dest-device /dev/vda \
 		--dest-ignition /pwd/hosts/virtual/spec.ign \
