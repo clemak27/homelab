@@ -1,28 +1,33 @@
 PODMAN := /usr/bin/flatpak-spawn --host podman
+FCOS_VERSION := 36.20220806.3.0
 
-.PHONY: ignition
-ignition:
+ignition: test.bu
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
-       --volume ${PWD}:/pwd --workdir /pwd quay.io/coreos/butane:release \
-       --pretty --strict test.bu > test.ign
+		--volume ${PWD}:/pwd --workdir /pwd quay.io/coreos/butane:release \
+		--pretty --strict test.bu > test.ign
 
-.PHONY: serve
-serve:
+serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
 		-p 8000:8000 -v ${PWD}:/data --workdir /data -it --rm python \
 		python3 -m http.server 8000
 
+create_iso/vm: get_fcos_iso ignition
+	$(PODMAN) run --interactive --rm --security-opt label=disable \
+		--volume ${PWD}:/pwd --workdir /pwd quay.io/coreos/coreos-installer:release \
+		iso customize \
+		--dest-device /dev/vda \
+		--dest-ignition test.ign \
+		-o custom.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+
+
+.PHONY: get_fcos_iso
+get_fcos_iso:
+	curl -O https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+
 .PHONY: clean
 clean:
-	rm install.sh
 	rm test.ign
-
-install/vm: ignition
-	echo "sudo coreos-installer install /dev/vda --ignition-url http://10.0.2.2:8000/test.ign --insecure-ignition" > install.sh
-	echo "systemctl reboot" >> install.sh
-	chmod +x install.sh
-	echo "serving install.sh"
-	make serve
-	make clean
+	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+	rm custom.iso
 
 default: ignition

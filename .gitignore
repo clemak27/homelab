@@ -1,4 +1,5 @@
 .direnv/
 Session.vim
 *.ign
+*.iso
 install.sh
