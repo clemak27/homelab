@@ -1,3 +1,4 @@
 .direnv/
 Session.vim
 *.ign
+install.sh
