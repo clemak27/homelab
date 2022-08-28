@@ -8,11 +8,34 @@ else
   docker_compose_cmd="docker-compose"
 fi
 
+function __find_services() {
+  readarray -t dirs < <(find . -maxdepth 1 -type d)
+}
+
+function __check_networks() {
+  if ! $docker_cmd network ls | grep -q private; then $docker_cmd network create private; fi
+  if ! $docker_cmd network ls | grep -q internal; then $docker_cmd network create internal; fi
+  if ! $docker_cmd network ls | grep -q public; then $docker_cmd network create public; fi
+}
+
 function __prepare_env() {
-  mkdir -p tmp
   cp .env .env_bu
-  cat homer/.env >> .env
-  cat deemix/.env >> .env
+
+  for dir in "${dirs[@]}"; do
+    if [ "$dir" != "." ]; then
+     cat "$dir/.env" >> .env
+   fi
+  done
+}
+
+function __run_compose() {
+  local command="$docker_compose_cmd"
+  for dir in "${dirs[@]}"; do
+     command="$command -f $dir/docker-compose.yml"
+  done
+  command="$command up -d"
+
+  $command
 }
 
 function __teardown_env() {
@@ -20,11 +43,10 @@ function __teardown_env() {
 }
 
 function __up() {
-  if ! $docker_cmd network ls | grep -q private; then $docker_cmd network create private; fi
-  if ! $docker_cmd network ls | grep -q internal; then $docker_cmd network create internal; fi
-  if ! $docker_cmd network ls | grep -q public; then $docker_cmd network create public; fi
+  __check_networks
+  __find_services
   __prepare_env
-  $docker_compose_cmd -f docker-compose.yml -f homer/docker-compose.yml -f deemix/docker-compose.yml up -d
+  __run_compose
   __teardown_env
 }
 
