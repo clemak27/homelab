@@ -8,11 +8,24 @@ else
   docker_compose_cmd="docker-compose"
 fi
 
+function __prepare_env() {
+  mkdir -p tmp
+  cp .env .env_bu
+  cat homer/.env >> .env
+  cat deemix/.env >> .env
+}
+
+function __teardown_env() {
+  mv .env_bu .env
+}
+
 function __up() {
   if ! $docker_cmd network ls | grep -q private; then $docker_cmd network create private; fi
   if ! $docker_cmd network ls | grep -q internal; then $docker_cmd network create internal; fi
   if ! $docker_cmd network ls | grep -q public; then $docker_cmd network create public; fi
-  $docker_compose_cmd -f homer/docker-compose.yml -f deemix/docker-compose.yml up -d
+  __prepare_env
+  $docker_compose_cmd -f docker-compose.yml -f homer/docker-compose.yml -f deemix/docker-compose.yml up -d
+  __teardown_env
 }
 
 for arg in "$@"

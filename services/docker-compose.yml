@@ -1,0 +1,12 @@
+version: '3.8'
+
+networks:
+  private:
+    name: private
+    external: true
+  internal:
+    name: internal
+    external: true
+  public:
+    name: public
+    external: true
