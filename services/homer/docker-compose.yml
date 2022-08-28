@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  homer:
+    image: b4bz/homer:21.09.2  # renovate: datasource=docker depName=b4bz/homer
+    container_name: ${SERVICE_NAME}
+    ports:
+      - "${SERVICE_PORT:?}:${INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/homer:/www/assets"
+    networks:
+      - private
+    environment:
+      UID: 1000
+      GID: 1000
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${SERVICE_NAME}-router.rule: Host(`${SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${SERVICE_NAME}-router.service: ${SERVICE_NAME}-service
+      traefik.http.services.${SERVICE_NAME}-service.loadbalancer.server.port: ${INTERNAL_PORT:?}
+
+networks:
+  private:
+    driver: bridge
