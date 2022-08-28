@@ -12,7 +12,7 @@ function __up() {
   if ! $docker_cmd network ls | grep -q private; then $docker_cmd network create private; fi
   if ! $docker_cmd network ls | grep -q internal; then $docker_cmd network create internal; fi
   if ! $docker_cmd network ls | grep -q public; then $docker_cmd network create public; fi
-  $docker_compose_cmd -f homer/docker-compose.yml up -d
+  $docker_compose_cmd -f homer/docker-compose.yml -f deemix/docker-compose.yml up -d
 }
 
 for arg in "$@"

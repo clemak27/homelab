@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  deemix:
+    image: ${SERVICE_IMAGE:?}:${SERVICE_VERSION:?}
+    container_name: ${SERVICE_NAME:?}
+    ports:
+      - "${SERVICE_PORT:?}:${INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/deemix/config:/config"
+      - "${DOCKER_DATA:?}/jellyfin/media/music:/downloads"
+    networks:
+      - private
+    environment:
+      PUID: 1000
+      PGID: 1000
+      ARL: ${DEEMIX_ARL:?}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${SERVICE_NAME}-router.rule: Host(`${SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${SERVICE_NAME}-router.service: ${SERVICE_NAME}-service
+      traefik.http.services.${SERVICE_NAME}-service.loadbalancer.server.port: ${INTERNAL_PORT:?}
+
+networks:
+  private:
+    name: private
+    external: true
