@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   homer:
-    image: ${SERVICE_IMAGE:?}:${SERVICE_VERSION:?}
-    container_name: ${SERVICE_NAME:?}
+    image: ${HOMER_SERVICE_IMAGE:?}:${HOMER_SERVICE_VERSION:?}
+    container_name: ${HOMER_SERVICE_NAME:?}
     ports:
-      - "${SERVICE_PORT:?}:${INTERNAL_PORT:?}"
+      - "${HOMER_SERVICE_PORT:?}:${HOMER_INTERNAL_PORT:?}"
     volumes:
       - "${DOCKER_DATA:?}/homer:/www/assets"
     networks:
@@ -15,14 +15,9 @@ services:
       GID: 1000
     labels:
       traefik.enable: true
-      traefik.http.routers.${SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${SERVICE_NAME}-router.rule: Host(`${SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${SERVICE_NAME}-router.service: ${SERVICE_NAME}-service
-      traefik.http.services.${SERVICE_NAME}-service.loadbalancer.server.port: ${INTERNAL_PORT:?}
-
-networks:
-  private:
-    name: private
-    external: true
+      traefik.http.routers.${HOMER_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${HOMER_SERVICE_NAME}-router.rule: Host(`${HOMER_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${HOMER_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${HOMER_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${HOMER_SERVICE_NAME}-router.service: ${HOMER_SERVICE_NAME}-service
+      traefik.http.services.${HOMER_SERVICE_NAME}-service.loadbalancer.server.port: ${HOMER_INTERNAL_PORT:?}
