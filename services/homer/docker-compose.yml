@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   homer:
-    image: b4bz/homer:21.09.2  # renovate: datasource=docker depName=b4bz/homer
-    container_name: ${SERVICE_NAME}
+    image: b4bz/homer:${SERVICE_VERSION:?}
+    container_name: ${SERVICE_NAME:?}
     ports:
       - "${SERVICE_PORT:?}:${INTERNAL_PORT:?}"
     volumes:
