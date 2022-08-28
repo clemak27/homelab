@@ -9,9 +9,9 @@ else
 fi
 
 function __up() {
-  $docker_cmd network create private
-  $docker_cmd network create internal
-  $docker_cmd network create public
+  if ! $docker_cmd network ls | grep -q private; then $docker_cmd network create private; fi
+  if ! $docker_cmd network ls | grep -q internal; then $docker_cmd network create internal; fi
+  if ! $docker_cmd network ls | grep -q public; then $docker_cmd network create public; fi
   $docker_compose_cmd -f homer/docker-compose.yml up -d
 }
 
