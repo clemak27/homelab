@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   homer:
-    image: b4bz/homer:${SERVICE_VERSION:?}
+    image: ${SERVICE_IMAGE:?}:${SERVICE_VERSION:?}
     container_name: ${SERVICE_NAME:?}
     ports:
       - "${SERVICE_PORT:?}:${INTERNAL_PORT:?}"
