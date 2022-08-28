@@ -7,7 +7,7 @@ else
 fi
 
 function __up() {
-  $docker_compose_cmd up -f homer/docker-compose.yaml --env-file homer/.env
+  $docker_compose_cmd -f homer/docker-compose.yml up -d
 }
 
 for arg in "$@"
