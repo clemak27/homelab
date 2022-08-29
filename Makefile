@@ -37,7 +37,7 @@ get_fcos_iso:
 
 .PHONY: clean
 clean:
-	rm test.ign
+	find . -name "*.ign" -type f | xargs rm -f
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 	rm custom.iso
 

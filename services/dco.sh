@@ -3,9 +3,11 @@
 if [[ $(hostname) == "toolbox" ]]; then
   docker_cmd="/usr/bin/flatpak-spawn --host docker"
   docker_compose_cmd="/usr/bin/flatpak-spawn --host docker-compose"
+  sops_cmd="/usr/bin/flatpak-spawn --host podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops"
 else
   docker_cmd="docker"
   docker_compose_cmd="docker-compose"
+  sops_cmd="podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops"
 fi
 
 function __find_services() {
@@ -26,6 +28,27 @@ function __prepare_env() {
      cat "$dir/.env" >> .env
    fi
   done
+  mv .env .env.placeholder
+}
+
+function __inject_secrets() {
+  file=$(cat .env.placeholder)
+
+  for line in $file; do
+    key=$(echo "$line" | awk 'BEGIN{FS=OFS="="}{print $1}')
+    value=$(echo "$line" | awk 'BEGIN{FS=OFS="="}{print $2}')
+
+    if [[ "$value" =~ ^\<sops:.+\>$ ]]; then
+      var=${value//<sops:/}
+      var=${var//>/}
+      component="[\"docker\"][\"$var\"]"
+      resolved_value=$($sops_cmd -d --extract "$component" secrets.yaml)
+      echo "$key=$resolved_value" >> .env
+    else
+      echo "$key=$value" >> .env
+    fi
+
+  done
 }
 
 function __run_compose() {
@@ -39,6 +62,7 @@ function __run_compose() {
 }
 
 function __teardown_env() {
+  rm -f .env.placeholder
   mv .env_bu .env
 }
 
@@ -46,6 +70,7 @@ function __up() {
   __check_networks
   __find_services
   __prepare_env
+  __inject_secrets
   __run_compose
   __teardown_env
 }
