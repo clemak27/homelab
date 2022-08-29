@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  calibre-web:
+    image: ${CALIBRE_WEB_SERVICE_IMAGE:?}:${CALIBRE_WEB_SERVICE_VERSION:?}
+    container_name: ${CALIBRE_WEB_SERVICE_NAME:?}
+    ports:
+      - "${CALIBRE_WEB_SERVICE_PORT:?}:${CALIBRE_WEB_INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/${CALIBRE_SERVICE_NAME:?}/config-web:/config"
+      - "${DOCKER_DATA:?}/${CALIBRE_SERVICE_NAME:?}/books:/books"
+    networks:
+      - private
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: "Europe/vienna"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.rule: Host(`${CALIBRE_WEB_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.service: ${CALIBRE_WEB_SERVICE_NAME}-service
+      traefik.http.services.${CALIBRE_WEB_SERVICE_NAME}-service.loadbalancer.server.port: ${CALIBRE_WEB_INTERNAL_PORT:?}
+  calibre:
+    image: ${CALIBRE_SERVICE_IMAGE:?}:${CALIBRE_SERVICE_VERSION:?}
+    container_name: ${CALIBRE_SERVICE_NAME:?}
+    ports:
+      - "8095:8080"
+      - "8096:8081"
+    volumes:
+      - "${DOCKER_DATA:?}/${CALIBRE_SERVICE_NAME:?}/config-web:/config"
+      - "${DOCKER_DATA:?}/${CALIBRE_SERVICE_NAME:?}/books:/books"
+    networks:
+      - private
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: "Europe/vienna"
