@@ -66,25 +66,9 @@ function __teardown_env() {
   mv .env_bu .env
 }
 
-function __up() {
-  __check_networks
-  __find_services
-  __prepare_env
-  __inject_secrets
-  __run_compose
-  __teardown_env
-}
-
-for arg in "$@"
-do
-  case $arg in
-    up)
-      __up
-      shift
-      ;;
-    *)
-      echo "command not found"
-      shift
-      ;;
-  esac
-done
+__check_networks
+__find_services
+__prepare_env
+__inject_secrets
+__run_compose
+__teardown_env
