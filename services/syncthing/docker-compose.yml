@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  syncthing:
+    image: ${SYNCTHING_SERVICE_IMAGE:?}:${SYNCTHING_SERVICE_VERSION:?}
+    container_name: ${SYNCTHING_SERVICE_NAME:?}
+    ports:
+      - "${SYNCTHING_SERVICE_PORT:?}:${SYNCTHING_SERVICE_PORT:?}"
+      - "22000:22000"
+      - "21027:21027/udp"
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "${DOCKER_DATA:?}/${SYNCTHING_SERVICE_NAME:?}/var:/var/syncthing"
+      - "${DOCKER_DATA:?}/${SYNCTHING_SERVICE_NAME:?}/data:/data"
+    networks:
+      - private
+    security_opt:
+      - "no-new-privileges: true"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.rule: Host(`${SYNCTHING_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.service: ${SYNCTHING_SERVICE_NAME}-service
+      traefik.http.services.${SYNCTHING_SERVICE_NAME}-service.loadbalancer.server.port: ${SYNCTHING_INTERNAL_PORT:?}
