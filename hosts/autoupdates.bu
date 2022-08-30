@@ -1,0 +1,13 @@
+variant: fcos
+version: 1.4.0
+storage:
+  files:
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Mon", "Wed" ]
+          start_time = "03:00"
+          length_minutes = 30
