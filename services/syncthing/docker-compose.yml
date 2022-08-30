@@ -15,8 +15,6 @@ services:
       - "${DOCKER_DATA:?}/${SYNCTHING_SERVICE_NAME:?}/data:/data"
     networks:
       - private
-    security_opt:
-      - "no-new-privileges: true"
     labels:
       traefik.enable: true
       traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.entrypoints: https
