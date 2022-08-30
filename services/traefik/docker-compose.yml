@@ -50,3 +50,5 @@ services:
       traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.service: api@internal
       traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.domains[0].main: ${DOMAIN}
       traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.domains[0].sans: "*.${DOMAIN}"
+    extra_hosts:
+      - "${TRAEFIK_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
