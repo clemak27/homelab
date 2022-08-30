@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  deconz:
+    image: ${DECONZ_SERVICE_IMAGE:?}:${DECONZ_SERVICE_VERSION:?}
+    container_name: ${DECONZ_SERVICE_NAME:?}
+    ports:
+      - 8082:8082
+      - 8443:8443
+    volumes:
+      - "${DOCKER_DATA:?}/${DECONZ_SERVICE_NAME:?}:/opt/deCONZ"
+    environment:
+      TZ: Europe/Vienna
+      DECONZ_WEB_PORT: 8082
+      DECONZ_WS_PORT: 8443
+    devices:
+      - /dev/ttyUSB0
