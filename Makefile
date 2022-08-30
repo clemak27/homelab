@@ -14,15 +14,18 @@ hosts/overlays.bu:
 hosts/i18n.bu:
 	$(BUTANE) --pretty --strict hosts/i18n.bu -o hosts/i18n.ign
 
-ignition: hosts/user.bu hosts/overlays.bu hosts/i18n.bu
+hosts/autoupdates.bu:
+	$(BUTANE) --pretty --strict hosts/i18n.bu -o hosts/autoupdates.bu
 
-ignition/vm: ignition
-	$(BUTANE) --pretty --strict --files-dir /pwd hosts/virtual/spec.bu -o hosts/virtual/spec.ign
+ignition: hosts/user.bu hosts/overlays.bu hosts/i18n.bu hosts/autoupdates.bu
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
 		-p 8000:8000 -v ${PWD}:/data --workdir /data -it --rm python \
 		python3 -m http.server 8000
+
+ignition/vm: ignition
+	$(BUTANE) --pretty --strict --files-dir /pwd hosts/virtual/spec.bu -o hosts/virtual/spec.ign
 
 create_iso/vm: get_fcos_iso ignition/vm
 	rm -f custom.iso
