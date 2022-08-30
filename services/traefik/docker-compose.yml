@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: ${TRAEFIK_SERVICE_IMAGE:?}:${TRAEFIK_SERVICE_VERSION:?}
+    container_name: ${TRAEFIK_SERVICE_NAME:?}
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+      - 222:222
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${DOCKER_DATA:?}/${TRAEFIK_SERVICE_NAME:?}/traefik.log:/traefik.log"
+      - "${DOCKER_DATA:?}/${TRAEFIK_SERVICE_NAME:?}/acme.json:/acme.json"
+    networks:
+      private:
+        ipv4_address:
+          "172.19.0.19"
+    environment:
+      CLOUDFLARE_EMAIL: "clemak27@mailbox.org"
+      CLOUDFLARE_DNS_API_TOKEN: "${TRAEFIK_CLOUDFLARE_API_KEY}"
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--api.debug=true"
+      - "--log.level=INFO"
+      - "--log.filePath=/traefik.log"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=web"
+      - "--entryPoints.http.address=:80"
+      - "--entryPoints.https.address=:443"
+      - "--entryPoints.ssh.address=:222"
+      - "--certificatesResolvers.letsEncrypt.acme.email=clemak27@mailbox.org"
+      - "--certificatesResolvers.letsEncrypt.acme.storage=/acme.json"
+      - "--certificatesResolvers.letsEncrypt.acme.dnsChallenge.provider=cloudflare"
+    labels:
+      - traefik.enable=true
+      # HTTP-to-HTTPS Redirect
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.http-catchall.entrypoints=http"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.entrypoints=https"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.rule=Host(`${service-name}.${DOMAIN}`)"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls=true"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.certresolver=letsEncrypt"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.service=api@internal"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.domains[0].main=${DOMAIN}"
+      - "${TRAEFIK_SERVICE_NAME:?}.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.domains[0].sans=*.${DOMAIN}"
