@@ -13,8 +13,8 @@ services:
     networks:
       - private
     environment:
-      UID: 1000
-      GID: 1000
+      UID: 1001
+      GID: 1001
       YUBICO_CLIENT_ID: "${VAULTWARDEN_YUBICO_CLIENT_ID:?}"
       YUBICO_SECRET_KEY: "${VAULTWARDEN_YUBICO_SECRET_KEY:?}"
     labels:

@@ -14,8 +14,8 @@ services:
     networks:
       - private
     environment:
-      PUID: 1000
-      PGID: 1000
+      PUID: 1001
+      PGID: 1001
       ARL: ${DEEMIX_ARL:?}
     labels:
       traefik.enable: true
