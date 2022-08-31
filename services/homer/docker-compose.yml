@@ -8,6 +8,8 @@ services:
       - "${HOMER_SERVICE_PORT:?}:${HOMER_INTERNAL_PORT:?}"
     volumes:
       - "${DOCKER_DATA:?}/homer:/www/assets"
+    security_opt:
+      - "label:disable"
     networks:
       - private
     environment:

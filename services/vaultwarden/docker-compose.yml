@@ -8,6 +8,8 @@ services:
       - "${VAULTWARDEN_SERVICE_PORT:?}:${VAULTWARDEN_INTERNAL_PORT:?}"
     volumes:
       - "${DOCKER_DATA:?}/${VAULTWARDEN_SERVICE_NAME:?}:/data"
+    security_opt:
+      - "label:disable"
     networks:
       - private
     environment:

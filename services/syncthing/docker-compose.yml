@@ -13,6 +13,8 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "${DOCKER_DATA:?}/${SYNCTHING_SERVICE_NAME:?}/var:/var/syncthing"
       - "${DOCKER_DATA:?}/${SYNCTHING_SERVICE_NAME:?}/data:/data"
+    security_opt:
+      - "label:disable"
     networks:
       - private
     labels:

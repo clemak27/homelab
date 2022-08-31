@@ -4,9 +4,6 @@ networks:
   private:
     name: private
     external: true
-    ipam:
-      config:
-        - subnet: "172.19.0.0/24"
   internal:
     name: internal
     external: true
