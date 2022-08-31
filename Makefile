@@ -15,7 +15,7 @@ hosts/i18n.bu:
 	$(BUTANE) --pretty --strict hosts/i18n.bu -o hosts/i18n.ign
 
 hosts/autoupdates.bu:
-	$(BUTANE) --pretty --strict hosts/i18n.bu -o hosts/autoupdates.bu
+	$(BUTANE) --pretty --strict hosts/autoupdates.bu -o hosts/autoupdates.ign
 
 ignition: hosts/user.bu hosts/overlays.bu hosts/i18n.bu hosts/autoupdates.bu
 
