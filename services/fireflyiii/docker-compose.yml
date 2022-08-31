@@ -8,6 +8,8 @@ services:
       - "${FIREFLYIII_SERVICE_PORT:?}:${FIREFLYIII_INTERNAL_PORT:?}"
     volumes:
       - "${DOCKER_DATA:?}/${FIREFLYIII_SERVICE_NAME:?}/upload:/var/www/html/storage/upload"
+    security_opt:
+      - "label:disable"
     networks:
       - private
       - internal
@@ -38,6 +40,8 @@ services:
     container_name: ${FIREFLYIII_DB_SERVICE_NAME:?}
     volumes:
       - "${DOCKER_DATA:?}/${FIREFLYIII_DB_SERVICE_NAME:?}:/var/lib/postgresql/data"
+    security_opt:
+      - "label:disable"
     networks:
       - internal
     environment:

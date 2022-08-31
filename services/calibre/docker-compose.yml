@@ -9,6 +9,8 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/${CALIBRE_SERVICE_NAME:?}/config-web:/config"
       - "${DOCKER_DATA:?}/${CALIBRE_SERVICE_NAME:?}/books:/books"
+    security_opt:
+      - "label:disable"
     networks:
       - private
     environment:

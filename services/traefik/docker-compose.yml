@@ -15,10 +15,10 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "${DOCKER_DATA:?}/${TRAEFIK_SERVICE_NAME:?}/traefik.log:/traefik.log"
       - "${DOCKER_DATA:?}/${TRAEFIK_SERVICE_NAME:?}/acme.json:/acme.json"
+    security_opt:
+      - "label:disable"
     networks:
-      private:
-        ipv4_address:
-          "172.19.0.19"
+      - private
     environment:
       CLOUDFLARE_EMAIL: "clemak27@mailbox.org"
       CLOUDFLARE_DNS_API_TOKEN: "${TRAEFIK_CLOUDFLARE_API_KEY}"

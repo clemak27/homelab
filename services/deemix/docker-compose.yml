@@ -9,6 +9,8 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/deemix/config:/config"
       - "${DOCKER_DATA:?}/jellyfin/media/music:/downloads"
+    security_opt:
+      - "label:disable"
     networks:
       - private
     environment:
