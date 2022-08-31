@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  fireflyiii:
+    image: ${FIREFLYIII_SERVICE_IMAGE:?}:${FIREFLYIII_SERVICE_VERSION:?}
+    container_name: ${FIREFLYIII_SERVICE_NAME:?}
+    ports:
+      - "${FIREFLYIII_SERVICE_PORT:?}:${FIREFLYIII_INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/${FIREFLYIII_SERVICE_NAME:?}/upload:/var/www/html/storage/upload"
+    networks:
+      - private
+      - internal
+    environment:
+      DB_CONNECTION: "pgsql"
+      APP_KEY: "${FIREFLYIII_APP_KEY:?}"
+      APP_URL: "https://fireflyiii.${DOMAIN}"
+      TRUSTED_PROXIES: "**"
+      DB_HOST: "fireflyiii_db"
+      DB_PORT: "5432"
+      DB_DATABASE: "${FIREFLYIII_DB_NAME}"
+      DB_USERNAME: "${FIREFLYIII_DB_USER}"
+      DB_PASSWORD: "${FIREFLYIII_DB_PASSWORD}"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.rule: Host(`${FIREFLYIII_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.service: ${FIREFLYIII_SERVICE_NAME}-service
+      traefik.http.services.${FIREFLYIII_SERVICE_NAME}-service.loadbalancer.server.port: ${FIREFLYIII_INTERNAL_PORT:?}
+    extra_hosts:
+      - "${FIREFLYIII_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+    depends_on:
+      - fireflyiii_db
+  fireflyiii_db:
+    image: ${FIREFLYIII_DB_SERVICE_IMAGE:?}:${FIREFLYIII_DB_SERVICE_VERSION:?}
+    container_name: ${FIREFLYIII_DB_SERVICE_NAME:?}
+    volumes:
+      - "${DOCKER_DATA:?}/${FIREFLYIII_DB_SERVICE_NAME:?}:/var/lib/postgresql/data"
+    networks:
+      - internal
+    environment:
+      POSTGRES_DB: "${FIREFLYIII_DB_NAME}"
+      POSTGRES_USER: "${FIREFLYIII_DB_USER}"
+      POSTGRES_PASSWORD: "${FIREFLYIII_DB_PASSWORD}"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${FIREFLYIII_DB_USER}", "-d", "${FIREFLYIII_DB_NAME}" ]
+      interval: 30s
+      start_period: 30s
