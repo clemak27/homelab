@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  miniflux:
+    image: ${MINIFLUX_SERVICE_IMAGE:?}:${MINIFLUX_SERVICE_VERSION:?}
+    container_name: ${MINIFLUX_SERVICE_NAME:?}
+    ports:
+      - "${MINIFLUX_SERVICE_PORT:?}:${MINIFLUX_INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/${MINIFLUX_SERVICE_NAME:?}/upload:/var/www/html/storage/upload"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+      - internal
+    environment:
+      DATABASE_URL: "postgres://${MINIFLUX_DB_USER}:${MINIFLUX_DB_PASSWORD}@miniflux_db/${MINIFLUX_DB_NAME}?sslmode=disable"
+      RUN_MIGRATIONS: "1"
+      CREATE_ADMIN: "1"
+      ADMIN_USERNAME: "${MINIFLUX_ADMIN_USER}"
+      ADMIN_PASSWORD: "${MINIFLUX_ADMIN_PASSWORD}"
+      BASE_URL: "https://miniflux.${DOMAIN}"
+      LISTEN_ADDR: "0.0.0.0:${MINIFLUX_INTERNAL_PORT}"
+      POLLING_FREQUENCY: "15"
+      BATCH_SIZE: "50"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.rule: Host(`${MINIFLUX_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.service: ${MINIFLUX_SERVICE_NAME}-service
+      traefik.http.services.${MINIFLUX_SERVICE_NAME}-service.loadbalancer.server.port: ${MINIFLUX_INTERNAL_PORT:?}
+    extra_hosts:
+      - "${MINIFLUX_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+    depends_on:
+      - miniflux_db
+  miniflux_db:
+    image: ${MINIFLUX_DB_SERVICE_IMAGE:?}:${MINIFLUX_DB_SERVICE_VERSION:?}
+    container_name: ${MINIFLUX_DB_SERVICE_NAME:?}
+    volumes:
+      - "${DOCKER_DATA:?}/${MINIFLUX_DB_SERVICE_NAME:?}:/var/lib/postgresql/data"
+    security_opt:
+      - "label:disable"
+    networks:
+      - internal
+    environment:
+      POSTGRES_DB: "${MINIFLUX_DB_NAME}"
+      POSTGRES_USER: "${MINIFLUX_DB_USER}"
+      POSTGRES_PASSWORD: "${MINIFLUX_DB_PASSWORD}"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${MINIFLUX_DB_USER}", "-d", "${MINIFLUX_DB_NAME}" ]
+      interval: 30s
+      start_period: 30s
