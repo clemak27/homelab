@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  home-assistant:
+    image: ${HOME_ASSISTANT_SERVICE_IMAGE:?}:${HOME_ASSISTANT_SERVICE_VERSION:?}
+    container_name: ${HOME_ASSISTANT_SERVICE_NAME:?}
+    ports:
+      - "${HOME_ASSISTANT_SERVICE_PORT:?}:${HOME_ASSISTANT_INTERNAL_PORT:?}"
+    environment:
+      TZ: Europe/Vienna
+    volumes:
+      - ${DOCKER_DATA}/${HOME_ASSISTANT_SERVICE_NAME}:/config
+      - ${DOCKER_DATA}/${HOME_ASSISTANT_SERVICE_NAME}/bumper-certs/custom_ca.pem:/usr/local/lib/python3.9/site-packages/certifi/cacert.pem
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    privileged: 
+      true
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.rule: Host(`${HOME_ASSISTANT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.service: ${HOME_ASSISTANT_SERVICE_NAME}-service
+      traefik.http.services.${HOME_ASSISTANT_SERVICE_NAME}-service.loadbalancer.server.port: ${HOME_ASSISTANT_INTERNAL_PORT:?}
+    extra_hosts:
+      - "${HOME_ASSISTANT_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
