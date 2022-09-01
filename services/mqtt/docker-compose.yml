@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mqtt:
+    image: ${MQTT_SERVICE_IMAGE:?}:${MQTT_SERVICE_VERSION:?}
+    container_name: ${MQTT_SERVICE_NAME:?}
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - "${DOCKER_DATA}/${MQTT_SERVICE_NAME}/config:/mosquitto/config"
+      - "${DOCKER_DATA}/${MQTT_SERVICE_NAME}/data:/mosquitto/data"
+      - "${DOCKER_DATA}/${MQTT_SERVICE_NAME}/log:/mosquitto/log"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    extra_hosts:
+      - "${MQTT_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
