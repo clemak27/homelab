@@ -41,7 +41,7 @@ function __inject_secrets() {
     if [[ "$value" =~ ^\<sops:.+\>$ ]]; then
       var=${value//<sops:/}
       var=${var//>/}
-      component="[\"docker\"][\"$var\"]"
+      component="[\"$var\"]"
       resolved_value=$($sops_cmd -d --extract "$component" secrets.yaml)
       echo "$key=$resolved_value" >> .env
     else
