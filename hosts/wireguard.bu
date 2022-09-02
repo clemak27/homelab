@@ -17,29 +17,7 @@ storage:
     - path: /etc/wireguard/wg0.conf
       mode: 0600
       contents:
-        inline: |
-          [Interface]
-          Address = 10.6.0.1/24
-          PrivateKey = <sops:wg_private_key>
-          ListenPort = 51820
-
-          PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o enp1s0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o enp1s0 -j MASQUERADE
-          PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o enp1s0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o enp1s0 -j MASQUERADE
-
-          [Peer]
-          PublicKey = <sops:enchilada_public_key>
-          PresharedKey = <sops:enchilada_private_key>
-          AllowedIPs = 10.6.0.2/32
-
-          [Peer]
-          PublicKey = <sops:argentum_public_key>
-          PresharedKey = <sops:argentum_private_key>
-          AllowedIPs = 10.6.0.3/32
-
-          [Peer]
-          PublicKey = <sops:silfur_public_key>
-          PresharedKey = <sops:silfur_private_key>
-          AllowedIPs = 10.6.0.4/32
+        local: wg0.conf
 systemd:
   units:
     - name: wg-quick@wg0.service

@@ -4,6 +4,7 @@ PODMAN := /usr/bin/flatpak-spawn --host podman
 PODMAN_RUN_PWD := $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
 BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release
 COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
+SOPS_CMD := $(PODMAN_RUN_PWD) -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 
 hosts/user.bu:
 	$(BUTANE) --pretty --strict hosts/user.bu -o hosts/user.ign
@@ -17,7 +18,11 @@ hosts/i18n.bu:
 hosts/autoupdates.bu:
 	$(BUTANE) --pretty --strict hosts/autoupdates.bu -o hosts/autoupdates.ign
 
-ignition: hosts/user.bu hosts/overlays.bu hosts/i18n.bu hosts/autoupdates.bu
+hosts/wireguard.bu:
+	$(SOPS_CMD) --decrypt hosts/wg0.enc.conf > hosts/wg0.conf
+	$(BUTANE) --pretty --strict hosts/wireguard.bu -o hosts/wireguard.ign
+
+ignition: hosts/user.bu hosts/overlays.bu hosts/i18n.bu hosts/autoupdates.bu hosts/wireguard.bu
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
