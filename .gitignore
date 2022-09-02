@@ -5,3 +5,4 @@ Session.vim
 install.sh
 keys.txt
 wg0.conf
+.env.secret
