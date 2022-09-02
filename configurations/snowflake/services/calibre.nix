@@ -45,7 +45,7 @@ in
       calibre =
         let
           service-name = "calibre";
-          service-version = "6.3.0"; # renovate: datasource=docker depName=lscr.io/linuxserver/calibre
+          service-version = "6.4.0"; # renovate: datasource=docker depName=lscr.io/linuxserver/calibre
         in
         {
           image = "lscr.io/linuxserver/calibre:${service-version}";
