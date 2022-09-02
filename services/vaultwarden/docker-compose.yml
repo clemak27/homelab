@@ -25,5 +25,3 @@ services:
       traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.service: ${VAULTWARDEN_SERVICE_NAME}-service
       traefik.http.services.${VAULTWARDEN_SERVICE_NAME}-service.loadbalancer.server.port: ${VAULTWARDEN_INTERNAL_PORT:?}
-    extra_hosts:
-      - "${VAULTWARDEN_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"

@@ -23,5 +23,3 @@ services:
       traefik.http.routers.${HOMER_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${HOMER_SERVICE_NAME}-router.service: ${HOMER_SERVICE_NAME}-service
       traefik.http.services.${HOMER_SERVICE_NAME}-service.loadbalancer.server.port: ${HOMER_INTERNAL_PORT:?}
-    extra_hosts:
-      - "${HOMER_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
