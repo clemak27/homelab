@@ -15,5 +15,3 @@ services:
       - "label:disable"
     networks:
       - private
-    extra_hosts:
-      - "${MQTT_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"

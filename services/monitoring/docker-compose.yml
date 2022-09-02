@@ -23,8 +23,6 @@ services:
       traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.service: ${PROMETHEUS_SERVICE_NAME}-service
       traefik.http.services.${PROMETHEUS_SERVICE_NAME}-service.loadbalancer.server.port: ${PROMETHEUS_SERVICE_PORT:?}
-    extra_hosts:
-      - "${PROMETHEUS_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
 
   grafana:
     image: ${GRAFANA_SERVICE_IMAGE:?}:${GRAFANA_SERVICE_VERSION:?}
@@ -46,5 +44,3 @@ services:
       traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.service: ${GRAFANA_SERVICE_NAME}-service
       traefik.http.services.${GRAFANA_SERVICE_NAME}-service.loadbalancer.server.port: ${GRAFANA_INTERNAL_PORT:?}
-    extra_hosts:
-      - "${GRAFANA_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"

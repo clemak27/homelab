@@ -30,5 +30,3 @@ services:
       traefik.http.routers.${JELLYFIN_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${JELLYFIN_SERVICE_NAME}-router.service: ${JELLYFIN_SERVICE_NAME}-service
       traefik.http.services.${JELLYFIN_SERVICE_NAME}-service.loadbalancer.server.port: ${JELLYFIN_INTERNAL_PORT:?}
-    extra_hosts:
-      - "${JELLYFIN_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
