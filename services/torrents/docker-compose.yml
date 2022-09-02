@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  transmission:
+    image: ${TRANSMISSION_SERVICE_IMAGE:?}:${TRANSMISSION_SERVICE_VERSION:?}
+    container_name: ${TRANSMISSION_SERVICE_NAME:?}
+    ports:
+      - "${TRANSMISSION_SERVICE_PORT:?}:${TRANSMISSION_SERVICE_PORT:?}"
+      - "49153:49153"
+      - "49153:49153/udp"
+    environment:
+      PUID: "1001"
+      PGID: "1001"
+      TZ: "Europe/vienna"
+    volumes:
+      - "${DOCKER_DATA:?}/${TRANSMISSION_SERVICE_NAME:?}:/config"
+      - "${DOCKER_DATA:?}/torrents:/downloads"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.rule: Host(`${TRANSMISSION_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.service: ${TRANSMISSION_SERVICE_NAME}-service
+      traefik.http.services.${TRANSMISSION_SERVICE_NAME}-service.loadbalancer.server.port: ${TRANSMISSION_SERVICE_PORT:?}
+    extra_hosts:
+      - "${TRANSMISSION_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+
+  jackett:
+    image: ${JACKETT_SERVICE_IMAGE:?}:${JACKETT_SERVICE_VERSION:?}
+    container_name: ${JACKETT_SERVICE_NAME:?}
+    ports:
+      - "${JACKETT_SERVICE_PORT:?}:${JACKETT_SERVICE_PORT:?}"
+    environment:
+      PUID: "1001"
+      PGID: "1001"
+      TZ: "Europe/vienna"
+    volumes:
+      - "${DOCKER_DATA:?}/${JACKETT_SERVICE_NAME:?}:/config"
+      - "${DOCKER_DATA:?}/torrents/completed:/downloads"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.rule: Host(`${JACKETT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.service: ${JACKETT_SERVICE_NAME}-service
+      traefik.http.services.${JACKETT_SERVICE_NAME}-service.loadbalancer.server.port: ${JACKETT_SERVICE_PORT:?}
+    extra_hosts:
+      - "${JACKETT_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+
+  sonarr:
+    image: ${SONARR_SERVICE_IMAGE:?}:${SONARR_SERVICE_VERSION:?}
+    container_name: ${SONARR_SERVICE_NAME:?}
+    ports:
+      - "${SONARR_SERVICE_PORT:?}:${SONARR_SERVICE_PORT:?}"
+    environment:
+      PUID: "1001"
+      PGID: "1001"
+      TZ: "Europe/vienna"
+    volumes:
+      - "${DOCKER_DATA:?}/${SONARR_SERVICE_NAME:?}:/config"
+      - "${DOCKER_DATA:?}/torrents:/downloads"
+      - "${DOCKER_DATA:?}/jellyfin/media/series:/downloads/series"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${SONARR_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${SONARR_SERVICE_NAME}-router.rule: Host(`${SONARR_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${SONARR_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${SONARR_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${SONARR_SERVICE_NAME}-router.service: ${SONARR_SERVICE_NAME}-service
+      traefik.http.services.${SONARR_SERVICE_NAME}-service.loadbalancer.server.port: ${SONARR_SERVICE_PORT:?}
+    extra_hosts:
+      - "${SONARR_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+
+  radarr:
+    image: ${RADARR_SERVICE_IMAGE:?}:${RADARR_SERVICE_VERSION:?}
+    container_name: ${RADARR_SERVICE_NAME:?}
+    ports:
+      - "${RADARR_SERVICE_PORT:?}:${RADARR_SERVICE_PORT:?}"
+    environment:
+      PUID: "1001"
+      PGID: "1001"
+      TZ: "Europe/vienna"
+    volumes:
+      - "${DOCKER_DATA:?}/${RADARR_SERVICE_NAME:?}:/config"
+      - "${DOCKER_DATA:?}/torrents:/downloads"
+      - "${DOCKER_DATA:?}/jellyfin/media/movies:/downloads/movies"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${RADARR_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${RADARR_SERVICE_NAME}-router.rule: Host(`${RADARR_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${RADARR_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${RADARR_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${RADARR_SERVICE_NAME}-router.service: ${RADARR_SERVICE_NAME}-service
+      traefik.http.services.${RADARR_SERVICE_NAME}-service.loadbalancer.server.port: ${RADARR_SERVICE_PORT:?}
+    extra_hosts:
+      - "${RADARR_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
