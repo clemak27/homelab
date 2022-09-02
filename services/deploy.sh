@@ -28,27 +28,12 @@ function __prepare_env() {
      cat "$dir/.env" >> .env
    fi
   done
-  mv .env .env.placeholder
 }
 
-function __inject_secrets() {
-  file=$(cat .env.placeholder)
-
-  for line in $file; do
-    key=$(echo "$line" | awk 'BEGIN{FS=OFS="="}{print $1}')
-    value=$(echo "$line" | awk 'BEGIN{FS=OFS="="}{print $2}')
-
-    if [[ "$value" =~ ^\<sops:.+\>$ ]]; then
-      var=${value//<sops:/}
-      var=${var//>/}
-      component="[\"$var\"]"
-      resolved_value=$($sops_cmd -d --extract "$component" secrets.yaml)
-      echo "$key=$resolved_value" >> .env
-    else
-      echo "$key=$value" >> .env
-    fi
-
-  done
+function __add_secrets() {
+  $sops_cmd -d .env.secret.enc > .env.secret
+  cat .env.secret >> .env
+  rm .env.secret
 }
 
 function __run_compose() {
@@ -62,13 +47,13 @@ function __run_compose() {
 }
 
 function __teardown_env() {
-  rm -f .env.placeholder
+  rm -f .env.secret
   mv .env_bu .env
 }
 
 __check_networks
 __find_services
 __prepare_env
-__inject_secrets
+__add_secrets
 __run_compose
 __teardown_env
