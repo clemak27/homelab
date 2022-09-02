@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: ${PROMETHEUS_SERVICE_IMAGE:?}:${PROMETHEUS_SERVICE_VERSION:?}
+    container_name: ${PROMETHEUS_SERVICE_NAME:?}
+    ports:
+      - "${PROMETHEUS_SERVICE_PORT:?}:${PROMETHEUS_SERVICE_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/${PROMETHEUS_SERVICE_NAME:?}/config:/config"
+      - "${DOCKER_DATA:?}/${PROMETHEUS_SERVICE_NAME:?}/data:/prometheus"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    command:
+      - "--config.file=/config/config.yml"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.rule: Host(`${PROMETHEUS_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${PROMETHEUS_SERVICE_NAME}-router.service: ${PROMETHEUS_SERVICE_NAME}-service
+      traefik.http.services.${PROMETHEUS_SERVICE_NAME}-service.loadbalancer.server.port: ${PROMETHEUS_SERVICE_PORT:?}
+    extra_hosts:
+      - "${PROMETHEUS_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+
+  grafana:
+    image: ${GRAFANA_SERVICE_IMAGE:?}:${GRAFANA_SERVICE_VERSION:?}
+    container_name: ${GRAFANA_SERVICE_NAME:?}
+    ports:
+      - "${GRAFANA_SERVICE_PORT:?}:${GRAFANA_INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/${GRAFANA_SERVICE_NAME:?}:/var/lib/grafana"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    user: "1001"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.rule: Host(`${GRAFANA_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${GRAFANA_SERVICE_NAME}-router.service: ${GRAFANA_SERVICE_NAME}-service
+      traefik.http.services.${GRAFANA_SERVICE_NAME}-service.loadbalancer.server.port: ${GRAFANA_INTERNAL_PORT:?}
+    extra_hosts:
+      - "${GRAFANA_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
