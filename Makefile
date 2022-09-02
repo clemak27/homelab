@@ -20,7 +20,8 @@ hosts/autoupdates.bu:
 
 hosts/wireguard.bu:
 	$(SOPS_CMD) --decrypt hosts/wg0.enc.conf > hosts/wg0.conf
-	$(BUTANE) --pretty --strict hosts/wireguard.bu -o hosts/wireguard.ign
+	$(BUTANE) --pretty --strict --files-dir /pwd/hosts hosts/wireguard.bu -o hosts/wireguard.ign
+	rm hosts/wg0.conf
 
 ignition: hosts/user.bu hosts/overlays.bu hosts/i18n.bu hosts/autoupdates.bu hosts/wireguard.bu
 
