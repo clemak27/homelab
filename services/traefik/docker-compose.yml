@@ -18,7 +18,8 @@ services:
     security_opt:
       - "label:disable"
     networks:
-      - private
+      private:
+        priority: 1
     environment:
       CLOUDFLARE_EMAIL: "clemak27@mailbox.org"
       CLOUDFLARE_DNS_API_TOKEN: "${TRAEFIK_CLOUDFLARE_API_KEY}"
