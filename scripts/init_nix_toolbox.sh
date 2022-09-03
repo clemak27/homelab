@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$HOME/Projects/linux_setup" || exit 1
+cd "$HOME/Projects/homelab" || exit 1
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
