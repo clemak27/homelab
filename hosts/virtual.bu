@@ -3,10 +3,10 @@ version: 1.4.0
 ignition:
   config:
     merge:
-      - local: hosts/autoupdates.ign
-      - local: hosts/i18n.ign
-      - local: hosts/overlays.ign
-      - local: hosts/user.ign
+      - local: modules/autoupdates.ign
+      - local: modules/i18n.ign
+      - local: modules/overlays.ign
+      - local: modules/user.ign
 storage:
   files:
     - path: /etc/hostname
