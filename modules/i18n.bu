@@ -11,6 +11,4 @@ storage:
   # Set TZ to EU/Vienna
   links:
     - path: /etc/localtime
-      overwrite: true
-      target: /usr/share/zoneinfo/Europe/Vienna
-      hard: false
+      target: ../usr/share/zoneinfo/Europe/Vienna
