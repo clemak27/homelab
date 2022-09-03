@@ -6,24 +6,24 @@ BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release
 COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS_CMD := $(PODMAN_RUN_PWD) -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 
-modules/user.bu:
+modules/user.ign: modules/user.bu
 	$(BUTANE) --pretty --strict modules/user.bu -o modules/user.ign
 
-modules/overlays.bu:
+modules/overlays.ign: modules/overlays.bu
 	$(BUTANE) --pretty --strict modules/overlays.bu -o modules/overlays.ign
 
-modules/i18n.bu:
+modules/i18n.ign: modules/i18n.bu
 	$(BUTANE) --pretty --strict modules/i18n.bu -o modules/i18n.ign
 
-modules/autoupdates.bu:
+modules/autoupdates.ign: modules/autoupdates.bu
 	$(BUTANE) --pretty --strict modules/autoupdates.bu -o modules/autoupdates.ign
 
-modules/wireguard/wireguard.bu:
+modules/wireguard/wireguard.ign: modules/wireguard/wireguard.bu modules/wireguard/wg0.enc.conf
 	$(SOPS_CMD) --decrypt modules/wireguard/wg0.enc.conf > modules/wireguard/wg0.conf
 	$(BUTANE) --pretty --strict --files-dir /pwd/modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
 	rm modules/wireguard/wg0.conf
 
-ignition: modules/user.bu modules/overlays.bu modules/i18n.bu modules/autoupdates.bu modules/wireguard/wireguard.bu
+ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/wireguard/wireguard.ign
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
