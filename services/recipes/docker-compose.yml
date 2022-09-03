@@ -48,3 +48,4 @@ services:
       test: ["CMD", "pg_isready", "-U", "${RECIPES_DB_USER}", "-d", "${RECIPES_DB_NAME}" ]
       interval: 30s
       start_period: 30s
+    restart: unless-stopped

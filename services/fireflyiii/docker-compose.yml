@@ -33,6 +33,8 @@ services:
       traefik.http.services.${FIREFLYIII_SERVICE_NAME}-service.loadbalancer.server.port: ${FIREFLYIII_INTERNAL_PORT:?}
     depends_on:
       - fireflyiii_db
+    restart: unless-stopped
+
   fireflyiii_db:
     image: ${FIREFLYIII_DB_SERVICE_IMAGE:?}:${FIREFLYIII_DB_SERVICE_VERSION:?}
     container_name: ${FIREFLYIII_DB_SERVICE_NAME:?}
@@ -50,3 +52,4 @@ services:
       test: ["CMD", "pg_isready", "-U", "${FIREFLYIII_DB_USER}", "-d", "${FIREFLYIII_DB_NAME}" ]
       interval: 30s
       start_period: 30s
+    restart: unless-stopped
