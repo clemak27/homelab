@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  homelab_bot:
+    build:
+      context: homelab_bot/src
+      args:
+        TELEGRAM_CHAT: ${HOMELAB_BOT_TELEGRAM_CHAT_ID}
+        TELEGRAM_URL: ${HOMELAB_BOT_TELEGRAM_CHAT_URL}
+    container_name: ${HOMELAB_BOT_SERVICE_NAME:?}
+    ports:
+      - "${HOMELAB_BOT_SERVICE_PORT:?}:${HOMELAB_BOT_INTERNAL_PORT:?}"
+    networks:
+      - private
+    labels:
+      traefik.enable: true
+      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.entrypoints: https
+      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.rule: Host(`${HOMELAB_BOT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.tls: true
+      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.service: ${HOMELAB_BOT_SERVICE_NAME}-service
+      traefik.http.services.${HOMELAB_BOT_SERVICE_NAME}-service.loadbalancer.server.port: ${HOMELAB_BOT_INTERNAL_PORT:?}
+    restart: unless-stopped
