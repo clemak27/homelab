@@ -1,0 +1,24 @@
+linters:
+  # Enable all available linters.
+  enable-all: true
+  disable:
+  # Disable deprecated linters
+    - scopelint
+    - interfacer
+    - exhaustivestruct
+    - maligned
+    - golint
+  # Disable go1.18 incompatible linters
+    - bodyclose
+    - contextcheck
+    - interfacer
+    - nilerr
+    - noctx
+    - rowserrcheck
+    - sqlclosecheck
+    - structcheck
+    - tparallel
+    - unparam
+    - wastedassign
+  # disable unneeded linters
+    - tagliatelle

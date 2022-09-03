@@ -1,0 +1,16 @@
+FROM golang:1.17.5-alpine
+
+ARG TELEGRAM_CHAT
+ARG TELEGRAM_URL
+
+RUN mkdir /app
+ADD . /app
+WORKDIR /app
+
+ENV TELEGRAM_CHAT "$TELEGRAM_CHAT"
+ENV TELEGRAM_URL "$TELEGRAM_URL"
+
+EXPOSE 8525
+
+RUN go build -o main .
+CMD ["/app/main"]
