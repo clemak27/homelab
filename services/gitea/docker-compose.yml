@@ -26,3 +26,4 @@ services:
       traefik.tcp.routers.gitea-ssh.entrypoints: ssh
       traefik.tcp.routers.gitea-ssh.service: gitea-ssh-service
       traefik.tcp.services.gitea-ssh-service.loadbalancer.server.port: 22
+    restart: unless-stopped

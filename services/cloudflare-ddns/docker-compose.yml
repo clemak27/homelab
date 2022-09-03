@@ -7,3 +7,4 @@ services:
     environment:
       API_KEY: ${CLOUDFLARE_API_KEY:?}
       ZONE: ${DOMAIN:?}
+    restart: unless-stopped

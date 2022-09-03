@@ -25,6 +25,8 @@ services:
       traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.service: ${CALIBRE_WEB_SERVICE_NAME}-service
       traefik.http.services.${CALIBRE_WEB_SERVICE_NAME}-service.loadbalancer.server.port: ${CALIBRE_WEB_INTERNAL_PORT:?}
+    restart: unless-stopped
+
   calibre:
     image: ${CALIBRE_SERVICE_IMAGE:?}:${CALIBRE_SERVICE_VERSION:?}
     container_name: ${CALIBRE_SERVICE_NAME:?}
@@ -40,3 +42,4 @@ services:
       PUID: 1001
       PGID: 1001
       TZ: "Europe/vienna"
+    restart: unless-stopped

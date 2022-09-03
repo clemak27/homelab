@@ -17,3 +17,4 @@ services:
       DECONZ_WS_PORT: 8443
     devices:
       - /dev/ttyUSB0
+    restart: unless-stopped

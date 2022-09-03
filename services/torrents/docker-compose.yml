@@ -27,6 +27,7 @@ services:
       traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.service: ${TRANSMISSION_SERVICE_NAME}-service
       traefik.http.services.${TRANSMISSION_SERVICE_NAME}-service.loadbalancer.server.port: ${TRANSMISSION_SERVICE_PORT:?}
+    restart: unless-stopped
 
   jackett:
     image: ${JACKETT_SERVICE_IMAGE:?}:${JACKETT_SERVICE_VERSION:?}
@@ -52,6 +53,7 @@ services:
       traefik.http.routers.${JACKETT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${JACKETT_SERVICE_NAME}-router.service: ${JACKETT_SERVICE_NAME}-service
       traefik.http.services.${JACKETT_SERVICE_NAME}-service.loadbalancer.server.port: ${JACKETT_SERVICE_PORT:?}
+    restart: unless-stopped
 
   sonarr:
     image: ${SONARR_SERVICE_IMAGE:?}:${SONARR_SERVICE_VERSION:?}
@@ -78,6 +80,7 @@ services:
       traefik.http.routers.${SONARR_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${SONARR_SERVICE_NAME}-router.service: ${SONARR_SERVICE_NAME}-service
       traefik.http.services.${SONARR_SERVICE_NAME}-service.loadbalancer.server.port: ${SONARR_SERVICE_PORT:?}
+    restart: unless-stopped
 
   radarr:
     image: ${RADARR_SERVICE_IMAGE:?}:${RADARR_SERVICE_VERSION:?}
@@ -104,3 +107,4 @@ services:
       traefik.http.routers.${RADARR_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${RADARR_SERVICE_NAME}-router.service: ${RADARR_SERVICE_NAME}-service
       traefik.http.services.${RADARR_SERVICE_NAME}-service.loadbalancer.server.port: ${RADARR_SERVICE_PORT:?}
+    restart: unless-stopped

@@ -33,6 +33,8 @@ services:
       traefik.http.services.${MINIFLUX_SERVICE_NAME}-service.loadbalancer.server.port: ${MINIFLUX_INTERNAL_PORT:?}
     depends_on:
       - miniflux_db
+    restart: unless-stopped
+
   miniflux_db:
     image: ${MINIFLUX_DB_SERVICE_IMAGE:?}:${MINIFLUX_DB_SERVICE_VERSION:?}
     container_name: ${MINIFLUX_DB_SERVICE_NAME:?}
@@ -50,3 +52,4 @@ services:
       test: ["CMD", "pg_isready", "-U", "${MINIFLUX_DB_USER}", "-d", "${MINIFLUX_DB_NAME}" ]
       interval: 30s
       start_period: 30s
+    restart: unless-stopped

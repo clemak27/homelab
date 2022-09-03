@@ -25,3 +25,4 @@ services:
       traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
       traefik.http.routers.${SYNCTHING_SERVICE_NAME}-router.service: ${SYNCTHING_SERVICE_NAME}-service
       traefik.http.services.${SYNCTHING_SERVICE_NAME}-service.loadbalancer.server.port: ${SYNCTHING_SERVICE_PORT:?}
+    restart: unless-stopped

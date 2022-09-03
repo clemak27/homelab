@@ -36,6 +36,7 @@ services:
       - "${TRAEFIK_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
       - "${TRANSMISSION_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
       - "${VAULTWARDEN_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+    restart: unless-stopped
 
   pihole-exporter:
     image: ${PIHOLE_EXPORTER_SERVICE_IMAGE:?}:${PIHOLE_EXPORTER_SERVICE_VERSION:?}
@@ -49,3 +50,4 @@ services:
       PIHOLE_PASSWORD: "${PIHOLE_PW}"
       PIHOLE_PORT: "${PIHOLE_EXPORTER_SERVICE_PORT}"
       PORT: "9617"
+    restart: unless-stopped
