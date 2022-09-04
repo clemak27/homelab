@@ -3,7 +3,7 @@ version: '3.8'
 services:
   homelab_bot:
     build:
-      context: src
+      context: homelab_bot/src
       args:
         TELEGRAM_CHAT: ${HOMELAB_BOT_TELEGRAM_CHAT_ID}
         TELEGRAM_URL: ${HOMELAB_BOT_TELEGRAM_CHAT_URL}
