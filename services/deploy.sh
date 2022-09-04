@@ -3,11 +3,11 @@
 if [[ $(hostname) == "toolbox" ]]; then
   docker_cmd="/usr/bin/flatpak-spawn --host docker"
   docker_compose_cmd="/usr/bin/flatpak-spawn --host docker-compose"
-  sops_cmd="/usr/bin/flatpak-spawn --host podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops"
+  sops_cmd="/usr/bin/flatpak-spawn --host podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops"
 else
   docker_cmd="docker"
   docker_compose_cmd="docker-compose"
-  sops_cmd="podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops"
+  sops_cmd="podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops"
 fi
 
 function __find_services() {
