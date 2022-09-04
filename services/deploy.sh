@@ -12,6 +12,7 @@ fi
 
 function __find_services() {
   dirs=(
+    "."
     "./homelab_bot"
     # "./homer"
     # "./deemix"
