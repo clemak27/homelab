@@ -17,4 +17,4 @@ then
   echo "Done"
 fi
 
-# su clemens -c "cd $project_dir/homelab/services && ./deploy.sh"
+su clemens -c "cd $project_dir/homelab/services && ./deploy.sh"
