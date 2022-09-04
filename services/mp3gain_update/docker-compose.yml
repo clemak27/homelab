@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mp3gain_update:
     build:
-      context: src
+      context: mp3gain_update/src
     container_name: mp3gain_update
     volumes:
       - "${DOCKER_DATA}/jellyfin/media/music:/app/music"
