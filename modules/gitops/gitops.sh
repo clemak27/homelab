@@ -12,7 +12,8 @@ $git_cmd log --oneline > /tmp/git_status_new
 DIFF=$(cmp /tmp/git_status_old /tmp/git_status_new)
 if [ "$DIFF" != "" ]
 then
-  $update_cmd
+  echo "$update_cmd"
+  "$update_cmd"
   # "$message_cmd" -d "{\"title\": \"$title\", \"text\": \"Starting deployment.\"}"
   # if $update_cmd; then
   #   "$message_cmd" -d "{\"title\": \"$title\", \"text\": \"Update successful.\"}"
