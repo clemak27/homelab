@@ -7,29 +7,10 @@ ignition:
       - local: modules/i18n.ign
       - local: modules/overlays.ign
       - local: modules/user.ign
+      - local: modules/init/init.ign
 storage:
   files:
     - path: /etc/hostname
       mode: 0644
       contents:
         inline: virtual
-    - path: /usr/local/sbin/serverStartup
-      mode: 0755
-      contents:
-        local: scripts/startup.sh
-systemd:
-  units:
-    - name: startup.service
-      enabled: true
-      contents: |
-        [Unit]
-        Description=Server Startup
-        Wants=network-online.target
-        After=network-online.target rpm-ostree-install.service
-
-        [Service]
-        TimeoutStartSec=0
-        ExecStart=/usr/local/sbin/serverStartup
-
-        [Install]
-        WantedBy=multi-user.target

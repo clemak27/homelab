@@ -2,7 +2,7 @@
 
 project_dir=/var/home/clemens/Projects
 
-if [ ! -d "$project_dir/homelab" ] 
+if [ ! -d "$project_dir/homelab" ]
 then
   mkdir -p $project_dir
   cd $project_dir && git clone https://github.com/clemak27/homelab
@@ -11,4 +11,5 @@ then
   chown -R clemens:clemens $project_dir
 fi
 
-su clemens -c "cd $project_dir/homelab/services && ./deploy.sh" 
+su clemens -c "cd $project_dir/homelab/services && ./deploy.sh"
+

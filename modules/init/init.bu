@@ -1,0 +1,24 @@
+variant: fcos
+version: 1.4.0
+storage:
+  files:
+    - path: /usr/local/sbin/initServer
+      mode: 0755
+      contents:
+        local: init.sh
+systemd:
+  units:
+    - name: startup.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Server Startup
+        Wants=network-online.target
+        After=network-online.target rpm-ostree-install.service
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStart=/usr/local/sbin/initServer
+
+        [Install]
+        WantedBy=multi-user.target
