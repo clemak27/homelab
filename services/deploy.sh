@@ -11,7 +11,28 @@ else
 fi
 
 function __find_services() {
-  readarray -t dirs < <(find . -maxdepth 1 -type d)
+  dirs=(
+    "./homelab_bot"
+    # "./homer"
+    # "./deemix"
+    # "./calibre"
+    # "./cloudflare-ddns"
+    # "./deconz"
+    # "./syncthing"
+    # "./traefik"
+    # "./vaultwarden"
+    # "./fireflyiii"
+    # "./miniflux"
+    # "./recipes"
+    # "./mqtt"
+    # "./pihole"
+    # "./gitea"
+    # "./home-assistant"
+    # "./jellyfin"
+    # "./torrents"
+    # "./monitoring"
+    # "./mp3gain_update"
+    )
 }
 
 function __check_networks() {
