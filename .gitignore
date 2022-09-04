@@ -1,8 +1,6 @@
-.direnv/
-Session.vim
+bin/
 *.ign
 *.iso
-install.sh
 keys.txt
 wg0.conf
 age_key
