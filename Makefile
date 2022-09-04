@@ -30,7 +30,10 @@ modules/init/init.ign: modules/init/init.bu modules/init/init.sh modules/init/ag
 	$(BUTANE) --files-dir /pwd/modules/init modules/init/init.bu -o modules/init/init.ign
 	rm modules/init/age_key
 
-ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign
+modules/gitops/gitops.ign: modules/gitops/gitops.bu modules/gitops/gitops.sh
+	$(BUTANE) --files-dir /pwd/modules/gitops modules/gitops/gitops.bu -o modules/gitops/gitops.ign
+
+ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/gitops/gitops.ign
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \

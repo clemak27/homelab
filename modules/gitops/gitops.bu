@@ -1,0 +1,36 @@
+variant: fcos
+version: 1.4.0
+storage:
+  files:
+    - path: /usr/local/sbin/gitops
+      mode: 0755
+      contents:
+        local: gitops.sh
+systemd:
+  units:
+    - name: gitops.timer
+      enabled: true
+      contents: |
+        [Unit]
+        PartOf=gitops.service
+        After=startup.service
+        ConditionPathExists=/var/lib/init_done
+
+        [Timer]
+        OnCalendar=*-*-* *:*:00
+        Persistent=true
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: gitops.service
+      enabled: true
+      contents: |
+        [Unit]
+
+        [Service]
+        ExecStart=/usr/local/sbin/gitops
+        Type=oneshot
+        User=clemens
+
+        [Install]
+        WantedBy=multi-user.target
