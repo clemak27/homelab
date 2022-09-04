@@ -3,7 +3,7 @@ version: 1.4.0
 passwd:
   users:
     - name: clemens
-      password_hash: $y$j9T$VHZNA7sQciiPcrn0oay6l/$GnObongUZNJjpYQ3Vq7mgUk.BmV4KW0Jo9Qsv3arTY0
+      password_hash: $y$j9T$02YZCUTVYH95qTjUpY24L/$yBkVvVQH9CritKWrtbeFs88DYAGrZcmZ/hF7FRSfo26
       groups:
         - docker
         - sudo
