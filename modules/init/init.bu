@@ -6,6 +6,13 @@ storage:
       mode: 0755
       contents:
         local: init.sh
+    - path: /var/home/clemens/.config/sops/age/keys.txt
+      contents:
+        local: age_key
+      user:
+        name: clemens
+      group:
+        name: clemens
 systemd:
   units:
     - name: startup.service
