@@ -8,6 +8,7 @@ ignition:
       - local: modules/overlays.ign
       - local: modules/user.ign
       - local: modules/init/init.ign
+      - local: modules/gitops/gitops.ign
 storage:
   files:
     - path: /etc/hostname
