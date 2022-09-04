@@ -12,12 +12,4 @@ services:
       - "${HOMELAB_BOT_SERVICE_PORT:?}:${HOMELAB_BOT_INTERNAL_PORT:?}"
     networks:
       - private
-    labels:
-      traefik.enable: true
-      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.rule: Host(`${HOMELAB_BOT_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${HOMELAB_BOT_SERVICE_NAME}-router.service: ${HOMELAB_BOT_SERVICE_NAME}-service
-      traefik.http.services.${HOMELAB_BOT_SERVICE_NAME}-service.loadbalancer.server.port: ${HOMELAB_BOT_INTERNAL_PORT:?}
     restart: unless-stopped
