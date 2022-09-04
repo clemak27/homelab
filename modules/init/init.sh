@@ -16,5 +16,3 @@ then
   chown -R clemens:clemens $project_dir
   echo "Done"
 fi
-
-# su clemens -c "cd $project_dir/homelab/services && ./deploy.sh"
