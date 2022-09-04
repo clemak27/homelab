@@ -2,36 +2,43 @@ FCOS_VERSION := 36.20220806.3.0
 
 PODMAN := /usr/bin/flatpak-spawn --host podman
 PODMAN_RUN_PWD := $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
-BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release
+BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS_CMD := $(PODMAN_RUN_PWD) -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 
+# modules
+
 modules/user.ign: modules/user.bu
-	$(BUTANE) --pretty --strict modules/user.bu -o modules/user.ign
+	$(BUTANE) modules/user.bu -o modules/user.ign
 
 modules/overlays.ign: modules/overlays.bu
-	$(BUTANE) --pretty --strict modules/overlays.bu -o modules/overlays.ign
+	$(BUTANE) modules/overlays.bu -o modules/overlays.ign
 
 modules/i18n.ign: modules/i18n.bu
-	$(BUTANE) --pretty --strict modules/i18n.bu -o modules/i18n.ign
+	$(BUTANE) modules/i18n.bu -o modules/i18n.ign
 
 modules/autoupdates.ign: modules/autoupdates.bu
-	$(BUTANE) --pretty --strict modules/autoupdates.bu -o modules/autoupdates.ign
+	$(BUTANE) modules/autoupdates.bu -o modules/autoupdates.ign
 
 modules/wireguard/wireguard.ign: modules/wireguard/wireguard.bu modules/wireguard/wg0.enc.conf
 	$(SOPS_CMD) --decrypt modules/wireguard/wg0.enc.conf > modules/wireguard/wg0.conf
-	$(BUTANE) --pretty --strict --files-dir /pwd/modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
+	$(BUTANE) --files-dir /pwd/modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
 	rm modules/wireguard/wg0.conf
 
-ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/wireguard/wireguard.ign
+modules/init/init.ign: modules/init/init.bu modules/init/init.sh
+	$(BUTANE) --files-dir /pwd/modules/init modules/init/init.bu -o modules/init/init.ign
+
+ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
 		-p 8000:8000 -v ${PWD}:/data --workdir /data -it --rm python \
 		python3 -m http.server 8000
 
+# virtual machine config
+
 ignition/vm: ignition
-	$(BUTANE) --pretty --strict --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
+	$(BUTANE) --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
 
 create_iso/vm: get_fcos_iso ignition/vm
 	rm -f custom.iso
