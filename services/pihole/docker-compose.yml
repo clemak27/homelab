@@ -7,10 +7,10 @@ services:
     volumes:
       - "${DOCKER_DATA}/${PIHOLE_SERVICE_NAME}/etc-pihole/:/etc/pihole/"
       - "${DOCKER_DATA}/${PIHOLE_SERVICE_NAME}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
-      - "${DOCKER_DATA}/${PIHOLE_SERVICE_NAME}/lighttpd.external.conf:/etc/lighttpd/external.conf"
+      - "${SERVICES_DIR}/pihole/lighttpd.external.conf:/etc/lighttpd/external.conf:ro"
     security_opt:
       - "label:disable"
-    network_mode: 
+    network_mode:
       host
     environment:
       TZ: "Europe/Vienna"
