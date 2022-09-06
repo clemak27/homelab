@@ -7,8 +7,9 @@ services:
     ports:
       - "${PROMETHEUS_SERVICE_PORT:?}:${PROMETHEUS_SERVICE_PORT:?}"
     volumes:
-      - "${DOCKER_DATA:?}/${PROMETHEUS_SERVICE_NAME:?}/config:/config"
       - "${DOCKER_DATA:?}/${PROMETHEUS_SERVICE_NAME:?}/data:/prometheus"
+      - "${DOCKER_DATA:?}/${PROMETHEUS_SERVICE_NAME:?}/config:/config"
+      - "${SERVICES_DIR:?}/monitoring/prometheus_config.yml:/config/config.yml:ro"
     security_opt:
       - "label:disable"
     networks:
