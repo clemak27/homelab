@@ -1,4 +1,4 @@
-FROM nixery.dev/shell/tree/cmp/fd/mp3gain/curl
+FROM nixery.dev/shell/tree/fd/mp3gain/curl
 
 RUN mkdir -p /app
 ADD . /app
