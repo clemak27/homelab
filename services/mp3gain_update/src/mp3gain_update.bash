@@ -17,3 +17,6 @@ then
 fi
 
 mv /tmp/tree_new /tmp/tree_old
+
+# TODO replace with cronjob/inotify
+sleep 600
