@@ -3,7 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
 
   service-name = "gitea";
-  service-version = "1.17.1"; # renovate: datasource=docker depName=gitea/gitea
+  service-version = "1.17.2"; # renovate: datasource=docker depName=gitea/gitea
   service-port = "3000";
 in
 {
