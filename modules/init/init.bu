@@ -13,6 +13,14 @@ storage:
         name: clemens
       group:
         name: clemens
+    - path: /var/home/clemens/.bashrc
+      overwrite: true
+      contents:
+        local: bashrc
+      user:
+        name: clemens
+      group:
+        name: clemens
 systemd:
   units:
     - name: startup.service
