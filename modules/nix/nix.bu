@@ -8,27 +8,7 @@ storage:
       contents:
         inline: |
           #!/bin/bash
+          echo "Creating toolbox..."
           toolbox create -y nix
+          echo "Installing nix inside toolbox..."
           toolbox run -c nix ~/Projects/homelab/modules/nix/create_nix_toolbox.sh
-systemd:
-  units:
-    - name: nix-toolbox.service
-      enabled: true
-      contents: |
-        [Unit]
-        Before=systemd-user-sessions.service
-        Description=Nix Toolbox Creation
-        Wants=network-online.target
-        After=startup.service
-        ConditionPathExists=!/var/lib/init_nix_done
-
-        [Service]
-        Type=oneshot
-        TimeoutStartSec=0
-        ExecStart=/usr/local/sbin/initNixTB
-        ExecStartPost=/usr/bin/touch /var/lib/init_nix_done
-        RemainAfterExit=yes
-        User=clemens
-
-        [Install]
-        WantedBy=multi-user.target
