@@ -57,7 +57,7 @@ create_iso/vm: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.ign
 	$(COREOS_INSTALLER) iso customize \
 		--dest-device /dev/vda \
 		--dest-ignition /pwd/hosts/virtual.ign \
-		-o custom.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+		-o fcos.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 
 fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
@@ -66,4 +66,4 @@ fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 clean:
 	find . -name "*.ign" -type f | xargs rm -f
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
-	rm custom.iso
+	rm fcos.iso
