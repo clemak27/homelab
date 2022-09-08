@@ -65,7 +65,12 @@ create_iso/virtual: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.
 fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
-.PHONY: clean
+# other
+.PHONY: lint clean
+
+lint:
+	$(PODMAN_RUN_PWD) nixery.dev/yamllint yamllint .
+
 clean:
 	find . -name "*.ign" -type f | xargs rm -f
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
