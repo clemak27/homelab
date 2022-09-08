@@ -4,7 +4,7 @@ PODMAN := /usr/bin/flatpak-spawn --host podman
 PODMAN_RUN_PWD := $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
 BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
-SOPS_CMD := $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
+SOPS := $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 
 default: ignition
 
@@ -23,17 +23,17 @@ modules/autoupdates.ign: modules/autoupdates.bu
 	$(BUTANE) modules/autoupdates.bu -o modules/autoupdates.ign
 
 modules/wireguard/wireguard.ign: modules/wireguard/wireguard.bu modules/wireguard/wg0.enc.conf
-	$(SOPS_CMD) --decrypt modules/wireguard/wg0.enc.conf > modules/wireguard/wg0.conf
+	$(SOPS) --decrypt modules/wireguard/wg0.enc.conf > modules/wireguard/wg0.conf
 	$(BUTANE) --files-dir /pwd/modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
 	rm modules/wireguard/wg0.conf
 
 modules/init/init.ign: modules/init/init.bu modules/init/init.sh modules/init/age_key.enc
-	$(SOPS_CMD) --decrypt modules/init/age_key.enc > modules/init/age_key
+	$(SOPS) --decrypt modules/init/age_key.enc > modules/init/age_key
 	$(BUTANE) --files-dir /pwd/modules/init modules/init/init.bu -o modules/init/init.ign
 	rm modules/init/age_key
 
 modules/ssh/ssh.ign: modules/ssh/ssh.bu
-	$(SOPS_CMD) --decrypt modules/ssh/id_ed25519.enc > modules/ssh/id_ed25519
+	$(SOPS) --decrypt modules/ssh/id_ed25519.enc > modules/ssh/id_ed25519
 	$(BUTANE) --files-dir /pwd/modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
 	rm modules/ssh/id_ed25519
 
