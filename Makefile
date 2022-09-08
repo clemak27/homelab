@@ -32,10 +32,15 @@ modules/init/init.ign: modules/init/init.bu modules/init/init.sh modules/init/ag
 	$(BUTANE) --files-dir /pwd/modules/init modules/init/init.bu -o modules/init/init.ign
 	rm modules/init/age_key
 
+modules/ssh/ssh.ign: modules/ssh/ssh.bu
+	$(SOPS_CMD) --decrypt modules/ssh/id_ed25519.enc > modules/ssh/id_ed25519
+	$(BUTANE) --files-dir /pwd/modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
+	rm modules/ssh/id_ed25519
+
 modules/gitops/gitops.ign: modules/gitops/gitops.bu modules/gitops/gitops.sh
 	$(BUTANE) --files-dir /pwd/modules/gitops modules/gitops/gitops.bu -o modules/gitops/gitops.ign
 
-ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/gitops/gitops.ign
+ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/gitops/gitops.ign modules/ssh/ssh.ign
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
@@ -44,7 +49,7 @@ serve: ignition
 
 # virtual machine config
 
-hosts/virtual.ign: hosts/virtual.bu
+hosts/virtual.ign: hosts/virtual.bu ignition
 	$(BUTANE) --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
 
 create_iso/vm: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.ign
