@@ -1,15 +1,14 @@
 #!/bin/sh
 
 git_cmd="git -C /var/home/clemens/Projects/homelab"
-title=$(hostname)
 
 __deploy() {
   cd /var/home/clemens/Projects/homelab/services || exit 1
-  curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"$title\", \"text\": \"Starting deployment.\"}"
+  curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"gitops\", \"text\": \"Starting deployment.\"}"
   if ./deploy.sh; then
-    curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"$title\", \"text\": \"Deployment successful.\"}"
+    curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"gitops\", \"text\": \"Deployment successful.\"}"
   else
-    curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"$title\", \"text\": \"Deployment failed!\"}"
+    curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"gitops\", \"text\": \"Deployment failed!\"}"
   fi
 }
 
