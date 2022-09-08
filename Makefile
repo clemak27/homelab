@@ -52,7 +52,7 @@ serve: ignition
 hosts/virtual.ign: hosts/virtual.bu ignition
 	$(BUTANE) --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
 
-create_iso/vm: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.ign
+create_iso/virtual: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.ign
 	rm -f custom.iso
 	$(COREOS_INSTALLER) iso customize \
 		--dest-device /dev/vda \
