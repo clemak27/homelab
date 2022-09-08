@@ -41,7 +41,7 @@ function __run_compose() {
   for dir in "${dirs[@]}"; do
      command="$command -f $dir/docker-compose.yml"
   done
-  command="$command up -d"
+  command="$command up -d --remove-orphans"
 
   $command
 }
