@@ -11,6 +11,7 @@ ignition:
       - local: modules/init/init.ign
       # - local: modules/gitops/gitops.ign
       # - local: modules/ssh/ssh.ign
+      - local: modules/nix/nix.ign
 storage:
   files:
     - path: /etc/hostname
