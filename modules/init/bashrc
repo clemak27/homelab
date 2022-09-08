@@ -18,6 +18,7 @@ export PATH
 export HISTCONTROL="ignoredups:ignorespace"
 
 alias tb='toolbox'
+alias lsa='ls -hal'
 alias dps='docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
 alias dpsw='watch docker ps --format \"table {{.Names}}\\t{{.Image}}\\t{{.Status}}\"'
 alias prcwd='podman run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd'
