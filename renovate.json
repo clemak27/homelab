@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "branchPrefix": "renovate/",
+  "username": "renovate",
+  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
+  "onboarding": false,
+  "platform": "github",
+  "includeForks": false,
+  "repositories": [
+    "clemak27/homelab"
+  ],
+  "commitMessageAction": "update",
+  "regexManagers": [
+    {
+      "fileMatch": ["^.env$"],
+      "matchStrings": [
+        "\\s*.+_VERSION=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
+    }
+  ]
+}
