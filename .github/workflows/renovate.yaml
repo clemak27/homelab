@@ -1,3 +1,4 @@
+---
 name: renovate
 on:
   schedule:
@@ -9,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: Renovate
-        uses: renovatebot/github-action@v27.31.10
+        uses: renovatebot/github-action@v32.194.0
         with:
           configurationFile: renovate.json
           token: ${{ secrets.RENOVATE_TOKEN }}
