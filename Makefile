@@ -1,10 +1,10 @@
-FCOS_VERSION := 36.20220806.3.0
+FCOS_VERSION = 36.20220806.3.0
 
-PODMAN := /usr/bin/flatpak-spawn --host podman
-PODMAN_RUN_PWD := $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
-BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
-COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
-SOPS := $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
+PODMAN = /usr/bin/flatpak-spawn --host podman
+PODMAN_RUN_PWD = $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
+BUTANE = $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
+COREOS_INSTALLER = $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
+SOPS = $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 
 default: ignition
 
