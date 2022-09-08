@@ -1,5 +1,11 @@
 ---
 extends: default
 
+ignore: |
+  services/secrets.yaml
+
 rules:
   line-length: false
+  truthy:
+    ignore: |
+      .github
