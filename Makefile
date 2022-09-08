@@ -6,6 +6,8 @@ BUTANE := $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER := $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS_CMD := $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 
+default: ignition
+
 # modules
 
 modules/user.ign: modules/user.bu
@@ -42,18 +44,17 @@ serve: ignition
 
 # virtual machine config
 
-ignition/vm: ignition
+hosts/virtual.ign: hosts/virtual.bu
 	$(BUTANE) --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
 
-create_iso/vm: get_fcos_iso ignition/vm
+create_iso/vm: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.ign
 	rm -f custom.iso
 	$(COREOS_INSTALLER) iso customize \
 		--dest-device /dev/vda \
 		--dest-ignition /pwd/hosts/virtual.ign \
 		-o custom.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 
-.PHONY: get_fcos_iso
-get_fcos_iso:
+fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
 .PHONY: clean
@@ -61,5 +62,3 @@ clean:
 	find . -name "*.ign" -type f | xargs rm -f
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 	rm custom.iso
-
-default: ignition
