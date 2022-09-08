@@ -28,6 +28,7 @@ systemd:
         ExecStart=/usr/local/sbin/initNixTB
         ExecStartPost=/usr/bin/touch /var/lib/init_nix_done
         RemainAfterExit=yes
+        User=clemens
 
         [Install]
         WantedBy=multi-user.target
