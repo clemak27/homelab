@@ -50,7 +50,7 @@ services:
       POSTGRES_USER: "${MINIFLUX_DB_USER}"
       POSTGRES_PASSWORD: "${MINIFLUX_DB_PASSWORD}"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${MINIFLUX_DB_USER}", "-d", "${MINIFLUX_DB_NAME}" ]
+      test: ["CMD", "pg_isready", "-U", "${MINIFLUX_DB_USER}", "-d", "${MINIFLUX_DB_NAME}"]
       interval: 30s
       start_period: 30s
     restart: unless-stopped

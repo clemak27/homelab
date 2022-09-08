@@ -1,14 +1,15 @@
+---
 linters:
   # Enable all available linters.
   enable-all: true
   disable:
-  # Disable deprecated linters
+    # Disable deprecated linters
     - scopelint
     - interfacer
     - exhaustivestruct
     - maligned
     - golint
-  # Disable go1.18 incompatible linters
+    # Disable go1.18 incompatible linters
     - bodyclose
     - contextcheck
     - interfacer
@@ -20,5 +21,5 @@ linters:
     - tparallel
     - unparam
     - wastedassign
-  # disable unneeded linters
+    # disable unneeded linters
     - tagliatelle
