@@ -50,7 +50,7 @@ services:
       POSTGRES_USER: "${FIREFLYIII_DB_USER}"
       POSTGRES_PASSWORD: "${FIREFLYIII_DB_PASSWORD}"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${FIREFLYIII_DB_USER}", "-d", "${FIREFLYIII_DB_NAME}" ]
+      test: ["CMD", "pg_isready", "-U", "${FIREFLYIII_DB_USER}", "-d", "${FIREFLYIII_DB_NAME}"]
       interval: 30s
       start_period: 30s
     restart: unless-stopped
