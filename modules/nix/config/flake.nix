@@ -21,7 +21,7 @@
           pkgs = self.inputs.nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             "${self.inputs.homecfg}/default.nix"
-            /var/home/clemens/nix/home.nix
+            /var/home/clemens/Projects/homelab/modules/nix/config/home.nix
             {
               home = {
                 username = "clemens";
