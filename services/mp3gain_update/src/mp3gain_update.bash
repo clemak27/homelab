@@ -13,7 +13,7 @@ then
     fd mp3 . -d 1 -X mp3gain -a -p -k
     cd /app/music || exit 1
   done
-  curl -X POST -H "Content-Type: application/json" --url localhost:8525/message -d '{"text": "mp3gain update finished."}'
+  curl -X POST -H "Content-Type: application/json" --url localhost:8525/message -d '{"title": "mp3gain"," text": "Update finished."}'
 fi
 
 mv /tmp/tree_new /tmp/tree_old
