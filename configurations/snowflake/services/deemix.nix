@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   docker-data = "${config.servercfg.data_dir}";
+  # whatever, it gets trashed soon anyway
+  music-data = "/home/clemens/data0/media/music";
 
   service-name = "deemix";
   service-version = "latest";
@@ -23,7 +25,7 @@ in
         };
         volumes = [
           "${docker-data}/deemix/config:/config"
-          "${docker-data}/jellyfin/media/music:/downloads"
+          "${music-data}:/downloads"
         ];
         log-driver = "loki";
         extraOptions = [

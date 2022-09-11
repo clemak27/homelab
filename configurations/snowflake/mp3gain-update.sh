@@ -1,11 +1,11 @@
 #!/bin/sh
 
-tree /home/clemens/data0/docker/jellyfin/media/music > /tmp/tree_new
+tree /home/clemens/data0/media/music > /tmp/tree_new
 
 DIFF=$(cmp /tmp/tree_old /tmp/tree_new)
 if [ "$DIFF" != "" ]
 then
-  readarray -d '' FOLDER < <(find "/home/clemens/data0/docker/jellyfin/media/music/" -type d -print0)
+  readarray -d '' FOLDER < <(find "/home/clemens/data0/media/music/" -type d -print0)
 
   for i in "${FOLDER[@]}"
   do

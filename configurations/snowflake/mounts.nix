@@ -19,7 +19,7 @@
     options = [ "bind" ];
   };
   fileSystems."/nfs/music" = {
-    device = "${config.servercfg.data_dir}/jellyfin/media/music";
+    device = "/home/clemens/data0/media/music";
     options = [ "bind" ];
   };
   fileSystems."/nfs/emulation" = {
