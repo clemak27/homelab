@@ -28,8 +28,8 @@ in
       enable = true;
       user = "clemak27";
       email = "clemak27@mailbox.org";
-      tea = true;
-      gh = true;
+      tea = false;
+      gh = false;
       glab = false;
     };
     nvim.enable = true;
@@ -41,9 +41,12 @@ in
   programs.zsh = {
     shellAliases = builtins.listToAttrs (
       [
-        { name = "docker"; value = "/usr/bin/flatpak-spawn --host podman"; }
-        { name = "hms"; value = "home-manager switch --flake '/var/home/clemens/Projects/homelab/modules/nix/config'"; }
-        { name = "hmsl"; value = "home-manager switch --flake '/var/home/clemens/Projects/homelab/modules/nix/config' --override-input homecfg 'path:/home/clemens/Projects/homecfg'"; }
+        { name = "docker"; value = "/usr/bin/flatpak-spawn --host docker"; }
+        { name = "dps"; value = ''/usr/bin/flatpak-spawn --host docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"''; }
+        { name = "dpsw"; value = ''viddy /usr/bin/flatpak-spawn --host docker ps --format \"table {{.Names}}\\t{{.Image}}\\t{{.Status}}\"''; }
+        { name = "docker"; value = "/usr/bin/flatpak-spawn --host docker"; }
+        { name = "hms"; value = "home-manager switch --flake '/var/home/clemens/Projects/homelab/modules/nix/config' --impure"; }
+        { name = "hmsl"; value = "home-manager switch --flake '/var/home/clemens/Projects/homelab/modules/nix/config' --override-input homecfg 'path:/home/clemens/Projects/homecfg' --impure"; }
         { name = "podman"; value = "/usr/bin/flatpak-spawn --host podman"; }
         { name = "prcwd"; value = "/usr/bin/flatpak-spawn --host podman run --interactive --rm --security-opt label=disable --volume $(pwd):/pwd --workdir /pwd"; }
         { name = "rh"; value = "/usr/bin/flatpak-spawn --host"; }
