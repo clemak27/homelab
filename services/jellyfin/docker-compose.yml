@@ -18,7 +18,7 @@ services:
       - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/cache:/cache"
       - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/media/movies:/media/movies"
       - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/media/series:/media/series"
-      - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/media/music:/media/music"
+      - "${MUSIC_DATA}:/media/music"
     security_opt:
       - "label:disable"
     networks:

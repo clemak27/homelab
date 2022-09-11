@@ -9,7 +9,7 @@ services:
       - "${DEEMIX_SERVICE_PORT:?}:${DEEMIX_INTERNAL_PORT:?}"
     volumes:
       - "${DOCKER_DATA:?}/deemix/config:/config"
-      - "${DOCKER_DATA:?}/jellyfin/media/music:/downloads"
+      - "${MUSIC_DATA:?}:/downloads"
     security_opt:
       - "label:disable"
     networks:
