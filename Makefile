@@ -62,6 +62,18 @@ create_iso/virtual: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.
 		--dest-ignition /pwd/hosts/virtual.ign \
 		-o fcos.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 
+# nuke config
+
+hosts/nuke.ign: hosts/nuke.bu ignition
+	$(BUTANE) --files-dir /pwd hosts/nuke.bu -o hosts/nuke.ign
+
+create_iso/nuke: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/nuke.ign
+	rm -f fcos.iso
+	$(COREOS_INSTALLER) iso customize \
+		--dest-device /dev/vda \
+		--dest-ignition /pwd/hosts/nuke.ign \
+		-o fcos.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+
 fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
