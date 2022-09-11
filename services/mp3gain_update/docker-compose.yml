@@ -8,7 +8,7 @@ services:
     build:
       context: mp3gain_update/src
     volumes:
-      - "${DOCKER_DATA}/jellyfin/media/music:/app/music"
+      - "${MUSIC_DATA}:/app/music"
     networks:
       - private
     restart: unless-stopped
