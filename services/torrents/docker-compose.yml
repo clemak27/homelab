@@ -95,7 +95,7 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/${RADARR_SERVICE_NAME:?}:/config"
       - "${DOCKER_DATA:?}/torrents:/downloads"
-      - "${DOCKER_DATA:?}/jellyfin/media/movies:/downloads/movies"
+      - "${MEDIA_DATA}/movies:/downloads/movies"
     security_opt:
       - "label:disable"
     networks:
