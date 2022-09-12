@@ -9,7 +9,7 @@ services:
       - "${DEEMIX_SERVICE_PORT:?}:${DEEMIX_INTERNAL_PORT:?}"
     volumes:
       - "${DOCKER_DATA:?}/deemix/config:/config"
-      - "${MUSIC_DATA:?}:/downloads"
+      - "${MEDIA_DATA}/music:/downloads"
     security_opt:
       - "label:disable"
     networks:
