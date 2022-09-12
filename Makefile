@@ -1,4 +1,4 @@
-FCOS_VERSION = 36.20220806.3.0
+FCOS_VERSION = 36.20220820.3.0
 
 PODMAN = /usr/bin/flatpak-spawn --host podman
 PODMAN_RUN_PWD = $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
@@ -70,7 +70,7 @@ hosts/nuke.ign: hosts/nuke.bu ignition
 create_iso/nuke: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/nuke.ign
 	rm -f fcos.iso
 	$(COREOS_INSTALLER) iso customize \
-		--dest-device /dev/vda \
+		--dest-device /dev/sda \
 		--dest-ignition /pwd/hosts/nuke.ign \
 		-o fcos.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 
