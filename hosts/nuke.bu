@@ -23,10 +23,10 @@ storage:
       wipe_table: false
       partitions:
         - number: 1
-          label: hdd1
+          label: hdd0
   filesystems:
     - path: /var/mnt/data
-      device: /dev/disk/by-partlabel/hdd1
+      device: /dev/disk/by-partlabel/hdd0
       format: btrfs
       label: uranium-235
       with_mount_unit: true
