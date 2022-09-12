@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  docker-data = "/home/clemens/data/docker";
+  docker-data = "/home/clemens/data0/docker";
 
   service-name = "deconz";
   service-version = "2.16.01"; # renovate: datasource=docker depName=deconzcommunity/deconz
