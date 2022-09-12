@@ -18,22 +18,20 @@ storage:
       mode: 0644
       contents:
         inline: nuke
-  # disks:
-  #   # TODO adapt for HDD
-  #   - device: /dev/disk/by-id/wwn-0x50014ee261e524e4
-  #     # TODO set to false after first boot with it?
-  #     wipe_table: true
-  #     partitions:
-  #       - number: 1
-  #         label: hdd1
-  # filesystems:
-  #   - path: /var/mnt/data
-  #     device: /dev/disk/by-partlabel/hdd1
-  #     format: btrfs
-  #     label: uranium-235
-  #     with_mount_unit: true
-  #     # TODO automate + create mount units?
-  #     # sudo btrfs subvolume create /var/mnt/data/archive
-  #     # sudo btrfs subvolume create /var/mnt/data/docker
-  #     # sudo btrfs subvolume create /var/mnt/data/emulation
-  #     # sudo btrfs subvolume create /var/mnt/data/media
+  disks:
+    - device: /dev/sdb
+      wipe_table: false
+      partitions:
+        - number: 1
+          label: hdd1
+  filesystems:
+    - path: /var/mnt/data
+      device: /dev/disk/by-partlabel/hdd1
+      format: btrfs
+      label: uranium-235
+      with_mount_unit: true
+      # TODO automate + create mount units?
+      # sudo btrfs subvolume create /var/mnt/data/archive
+      # sudo btrfs subvolume create /var/mnt/data/docker
+      # sudo btrfs subvolume create /var/mnt/data/emulation
+      # sudo btrfs subvolume create /var/mnt/data/media
