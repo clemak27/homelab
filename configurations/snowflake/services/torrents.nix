@@ -2,6 +2,7 @@
 let
   docker-data = "${config.servercfg.data_dir}";
   torrent-path = "${config.servercfg.data_dir}/torrents";
+  movies-data = "/home/clemens/data0/media/movies";
 in
 {
   config = {
@@ -134,7 +135,7 @@ in
           volumes = [
             "${docker-data}/${service-name}:/config"
             "${torrent-path}:/downloads"
-            "${docker-data}/jellyfin/media/movies:/downloads/movies"
+            "${movies-data}:/downloads/movies"
           ];
           ports = [
             "${service-port}:${service-port}"

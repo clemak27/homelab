@@ -3,6 +3,7 @@ let
   docker-data = "${config.servercfg.data_dir}";
   # whatever, it gets trashed soon anyway
   music-data = "/home/clemens/data0/media/music";
+  movies-data = "/home/clemens/data0/media/movies";
 
   service-name = "jellyfin";
   service-version = "10.8.4"; # renovate: datasource=docker depName=jellyfin/jellyfin
@@ -27,9 +28,9 @@ in
         volumes = [
           "${docker-data}/jellyfin/config:/config"
           "${docker-data}/jellyfin/cache:/cache"
-          "${docker-data}/jellyfin/media/movies:/media/movies"
           "${docker-data}/jellyfin/media/series:/media/series"
           "${music-data}:/media/music"
+          "${movies-data}:/media/movies"
         ];
         log-driver = "loki";
         extraOptions = [
