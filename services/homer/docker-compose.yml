@@ -18,10 +18,10 @@ services:
       GID: 1001
     labels:
       traefik.enable: true
-      traefik.http.routers.${HOMER_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${HOMER_SERVICE_NAME}-router.rule: Host(`${HOMER_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${HOMER_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${HOMER_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${HOMER_SERVICE_NAME}-router.service: ${HOMER_SERVICE_NAME}-service
-      traefik.http.services.${HOMER_SERVICE_NAME}-service.loadbalancer.server.port: ${HOMER_INTERNAL_PORT:?}
+      traefik.http.routers.homer-router.entrypoints: https
+      traefik.http.routers.homer-router.rule: Host(`${HOMER_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.homer-router.tls: true
+      traefik.http.routers.homer-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.homer-router.service: homer-service
+      traefik.http.services.homer-service.loadbalancer.server.port: ${HOMER_INTERNAL_PORT:?}
     restart: unless-stopped

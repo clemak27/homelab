@@ -24,12 +24,12 @@ services:
       POSTGRES_DB: "${RECIPES_DB_NAME}"
     labels:
       traefik.enable: true
-      traefik.http.routers.${RECIPES_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${RECIPES_SERVICE_NAME}-router.rule: Host(`${RECIPES_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${RECIPES_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${RECIPES_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${RECIPES_SERVICE_NAME}-router.service: ${RECIPES_SERVICE_NAME}-service
-      traefik.http.services.${RECIPES_SERVICE_NAME}-service.loadbalancer.server.port: ${RECIPES_INTERNAL_PORT:?}
+      traefik.http.routers.recipes-router.entrypoints: https
+      traefik.http.routers.recipes-router.rule: Host(`${RECIPES_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.recipes-router.tls: true
+      traefik.http.routers.recipes-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.recipes-router.service: ${RECIPES_SERVICE_NAME}-service
+      traefik.http.services.recipes-service.loadbalancer.server.port: ${RECIPES_INTERNAL_PORT:?}
     depends_on:
       - recipes_db
   recipes_db:

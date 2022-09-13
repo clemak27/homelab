@@ -22,12 +22,12 @@ services:
       - private
     labels:
       traefik.enable: true
-      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.rule: Host(`${TRANSMISSION_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${TRANSMISSION_SERVICE_NAME}-router.service: ${TRANSMISSION_SERVICE_NAME}-service
-      traefik.http.services.${TRANSMISSION_SERVICE_NAME}-service.loadbalancer.server.port: ${TRANSMISSION_SERVICE_PORT:?}
+      traefik.http.routers.transmission-router.entrypoints: https
+      traefik.http.routers.transmission-router.rule: Host(`${TRANSMISSION_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.transmission-router.tls: true
+      traefik.http.routers.transmission-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.transmission-router.service: ${TRANSMISSION_SERVICE_NAME}-service
+      traefik.http.services.transmission-service.loadbalancer.server.port: ${TRANSMISSION_SERVICE_PORT:?}
     restart: unless-stopped
 
   jackett:
@@ -48,12 +48,12 @@ services:
       - private
     labels:
       traefik.enable: true
-      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.rule: Host(`${JACKETT_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${JACKETT_SERVICE_NAME}-router.service: ${JACKETT_SERVICE_NAME}-service
-      traefik.http.services.${JACKETT_SERVICE_NAME}-service.loadbalancer.server.port: ${JACKETT_SERVICE_PORT:?}
+      traefik.http.routers.jackett-router.entrypoints: https
+      traefik.http.routers.jackett-router.rule: Host(`${JACKETT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.jackett-router.tls: true
+      traefik.http.routers.jackett-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.jackett-router.service: ${JACKETT_SERVICE_NAME}-service
+      traefik.http.services.jackett-service.loadbalancer.server.port: ${JACKETT_SERVICE_PORT:?}
     restart: unless-stopped
 
   sonarr:
@@ -75,12 +75,12 @@ services:
       - private
     labels:
       traefik.enable: true
-      traefik.http.routers.${SONARR_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${SONARR_SERVICE_NAME}-router.rule: Host(`${SONARR_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${SONARR_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${SONARR_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${SONARR_SERVICE_NAME}-router.service: ${SONARR_SERVICE_NAME}-service
-      traefik.http.services.${SONARR_SERVICE_NAME}-service.loadbalancer.server.port: ${SONARR_SERVICE_PORT:?}
+      traefik.http.routers.sonarr-router.entrypoints: https
+      traefik.http.routers.sonarr-router.rule: Host(`${SONARR_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.sonarr-router.tls: true
+      traefik.http.routers.sonarr-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.sonarr-router.service: ${SONARR_SERVICE_NAME}-service
+      traefik.http.services.sonarr-service.loadbalancer.server.port: ${SONARR_SERVICE_PORT:?}
     restart: unless-stopped
 
   radarr:
@@ -102,10 +102,10 @@ services:
       - private
     labels:
       traefik.enable: true
-      traefik.http.routers.${RADARR_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${RADARR_SERVICE_NAME}-router.rule: Host(`${RADARR_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${RADARR_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${RADARR_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${RADARR_SERVICE_NAME}-router.service: ${RADARR_SERVICE_NAME}-service
-      traefik.http.services.${RADARR_SERVICE_NAME}-service.loadbalancer.server.port: ${RADARR_SERVICE_PORT:?}
+      traefik.http.routers.radarr-router.entrypoints: https
+      traefik.http.routers.radarr-router.rule: Host(`${RADARR_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.radarr-router.tls: true
+      traefik.http.routers.radarr-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.radarr-router.service: ${RADARR_SERVICE_NAME}-service
+      traefik.http.services.radarr-service.loadbalancer.server.port: ${RADARR_SERVICE_PORT:?}
     restart: unless-stopped

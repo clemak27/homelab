@@ -26,12 +26,12 @@ services:
       BATCH_SIZE: "50"
     labels:
       traefik.enable: true
-      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.rule: Host(`${MINIFLUX_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${MINIFLUX_SERVICE_NAME}-router.service: ${MINIFLUX_SERVICE_NAME}-service
-      traefik.http.services.${MINIFLUX_SERVICE_NAME}-service.loadbalancer.server.port: ${MINIFLUX_INTERNAL_PORT:?}
+      traefik.http.routers.miniflux-router.entrypoints: https
+      traefik.http.routers.miniflux-router.rule: Host(`${MINIFLUX_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.miniflux-router.tls: true
+      traefik.http.routers.miniflux-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.miniflux-router.service: ${MINIFLUX_SERVICE_NAME}-service
+      traefik.http.services.miniflux-service.loadbalancer.server.port: ${MINIFLUX_INTERNAL_PORT:?}
     depends_on:
       - miniflux_db
     restart: unless-stopped

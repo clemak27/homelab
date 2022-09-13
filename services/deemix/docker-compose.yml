@@ -20,10 +20,10 @@ services:
       ARL: ${DEEMIX_ARL:?}
     labels:
       traefik.enable: true
-      traefik.http.routers.${DEEMIX_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${DEEMIX_SERVICE_NAME}-router.rule: Host(`${DEEMIX_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${DEEMIX_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${DEEMIX_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${DEEMIX_SERVICE_NAME}-router.service: ${DEEMIX_SERVICE_NAME}-service
-      traefik.http.services.${DEEMIX_SERVICE_NAME}-service.loadbalancer.server.port: ${DEEMIX_INTERNAL_PORT:?}
+      traefik.http.routers.deemix-router.entrypoints: https
+      traefik.http.routers.deemix-router.rule: Host(`${DEEMIX_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.deemix-router.tls: true
+      traefik.http.routers.deemix-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.deemix-router.service: ${DEEMIX_SERVICE_NAME}-service
+      traefik.http.services.deemix-service.loadbalancer.server.port: ${DEEMIX_INTERNAL_PORT:?}
     restart: unless-stopped

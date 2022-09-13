@@ -20,10 +20,10 @@ services:
       YUBICO_SECRET_KEY: "${VAULTWARDEN_YUBICO_SECRET_KEY:?}"
     labels:
       traefik.enable: true
-      traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.rule: Host(`${VAULTWARDEN_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${VAULTWARDEN_SERVICE_NAME}-router.service: ${VAULTWARDEN_SERVICE_NAME}-service
-      traefik.http.services.${VAULTWARDEN_SERVICE_NAME}-service.loadbalancer.server.port: ${VAULTWARDEN_INTERNAL_PORT:?}
+      traefik.http.routers.vaultwarden-router.entrypoints: https
+      traefik.http.routers.vaultwarden-router.rule: Host(`${VAULTWARDEN_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.vaultwarden-router.tls: true
+      traefik.http.routers.vaultwarden-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.vaultwarden-router.service: ${VAULTWARDEN_SERVICE_NAME}-service
+      traefik.http.services.vaultwarden-service.loadbalancer.server.port: ${VAULTWARDEN_INTERNAL_PORT:?}
     restart: unless-stopped
