@@ -20,12 +20,12 @@ services:
       TZ: "Europe/vienna"
     labels:
       traefik.enable: true
-      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.rule: Host(`${CALIBRE_WEB_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${CALIBRE_WEB_SERVICE_NAME}-router.service: ${CALIBRE_WEB_SERVICE_NAME}-service
-      traefik.http.services.${CALIBRE_WEB_SERVICE_NAME}-service.loadbalancer.server.port: ${CALIBRE_WEB_INTERNAL_PORT:?}
+      traefik.http.routers.calibre-web-router.entrypoints: https
+      traefik.http.routers.calibre-web-router.rule: Host(`${CALIBRE_WEB_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.calibre-web-router.tls: true
+      traefik.http.routers.calibre-web-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.calibre-web-router.service: ${CALIBRE_WEB_SERVICE_NAME}-service
+      traefik.http.services.calibre-web-service.loadbalancer.server.port: ${CALIBRE_WEB_INTERNAL_PORT:?}
     restart: unless-stopped
 
   calibre:

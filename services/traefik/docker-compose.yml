@@ -44,11 +44,11 @@ services:
       traefik.http.routers.http-catchall.rule: HostRegexp(`{host:.+}`)
       traefik.http.routers.http-catchall.middlewares: redirect-to-https
       traefik.http.middlewares.redirect-to-https.redirectscheme.scheme: https
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.entrypoints: https
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.rule: Host(`${service-name}.${DOMAIN}`)
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls: true
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.service: api@internal
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.domains[0].main: ${DOMAIN}
-      traefik.http.routers.${TRAEFIK_SERVICE_NAME:?}-router.tls.domains[0].sans: "*.${DOMAIN}"
+      traefik.http.routers.traefik-router.entrypoints: https
+      traefik.http.routers.traefik-router.rule: Host(`${service-name}.${DOMAIN}`)
+      traefik.http.routers.traefik-router.tls: true
+      traefik.http.routers.traefik-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.traefik-router.service: api@internal
+      traefik.http.routers.traefik-router.tls.domains[0].main: ${DOMAIN}
+      traefik.http.routers.traefik-router.tls.domains[0].sans: "*.${DOMAIN}"
     restart: unless-stopped

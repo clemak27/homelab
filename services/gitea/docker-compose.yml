@@ -17,12 +17,12 @@ services:
       - private
     labels:
       traefik.enable: true
-      traefik.http.routers.${GITEA_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${GITEA_SERVICE_NAME}-router.rule: Host(`${GITEA_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${GITEA_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${GITEA_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${GITEA_SERVICE_NAME}-router.service: ${GITEA_SERVICE_NAME}-service
-      traefik.http.services.${GITEA_SERVICE_NAME}-service.loadbalancer.server.port: ${GITEA_INTERNAL_PORT:?}
+      traefik.http.routers.gitea-router.entrypoints: https
+      traefik.http.routers.gitea-router.rule: Host(`${GITEA_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.gitea-router.tls: true
+      traefik.http.routers.gitea-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.gitea-router.service: ${GITEA_SERVICE_NAME}-service
+      traefik.http.services.gitea-service.loadbalancer.server.port: ${GITEA_INTERNAL_PORT:?}
       traefik.tcp.routers.gitea-ssh.rule: HostSNI(`*`)
       traefik.tcp.routers.gitea-ssh.entrypoints: ssh
       traefik.tcp.routers.gitea-ssh.service: gitea-ssh-service

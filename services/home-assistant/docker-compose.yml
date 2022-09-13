@@ -20,10 +20,10 @@ services:
       true
     labels:
       traefik.enable: true
-      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.rule: Host(`${HOME_ASSISTANT_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${HOME_ASSISTANT_SERVICE_NAME}-router.service: ${HOME_ASSISTANT_SERVICE_NAME}-service
-      traefik.http.services.${HOME_ASSISTANT_SERVICE_NAME}-service.loadbalancer.server.port: ${HOME_ASSISTANT_INTERNAL_PORT:?}
+      traefik.http.routers.home-assistant-router.entrypoints: https
+      traefik.http.routers.home-assistant-router.rule: Host(`${HOME_ASSISTANT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.home-assistant-router.tls: true
+      traefik.http.routers.home-assistant-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.home-assistant-router.service: ${HOME_ASSISTANT_SERVICE_NAME}-service
+      traefik.http.services.home-assistant-service.loadbalancer.server.port: ${HOME_ASSISTANT_INTERNAL_PORT:?}
     restart: unless-stopped

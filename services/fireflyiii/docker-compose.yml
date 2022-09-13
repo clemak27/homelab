@@ -26,12 +26,12 @@ services:
       DB_PASSWORD: "${FIREFLYIII_DB_PASSWORD}"
     labels:
       traefik.enable: true
-      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.entrypoints: https
-      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.rule: Host(`${FIREFLYIII_SERVICE_NAME}.${DOMAIN}`)
-      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.tls: true
-      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.${FIREFLYIII_SERVICE_NAME}-router.service: ${FIREFLYIII_SERVICE_NAME}-service
-      traefik.http.services.${FIREFLYIII_SERVICE_NAME}-service.loadbalancer.server.port: ${FIREFLYIII_INTERNAL_PORT:?}
+      traefik.http.routers.fireflyiii-router.entrypoints: https
+      traefik.http.routers.fireflyiii-router.rule: Host(`${FIREFLYIII_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.fireflyiii-router.tls: true
+      traefik.http.routers.fireflyiii-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.fireflyiii-router.service: ${FIREFLYIII_SERVICE_NAME}-service
+      traefik.http.services.fireflyiii-service.loadbalancer.server.port: ${FIREFLYIII_INTERNAL_PORT:?}
     depends_on:
       - fireflyiii_db
     restart: unless-stopped
