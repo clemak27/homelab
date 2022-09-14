@@ -17,7 +17,7 @@ services:
       - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/config:/config"
       - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/cache:/cache"
       - "${MEDIA_DATA}/movies:/media/movies"
-      - "/var/mnt/data0/docker/jellyfin/media/series:/media/series"
+      - "${MEDIA_DATA}/series:/media/series"
       - "${MEDIA_DATA}/music:/media/music"
     security_opt:
       - "label:disable"

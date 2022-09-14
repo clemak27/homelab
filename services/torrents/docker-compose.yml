@@ -68,7 +68,7 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/${SONARR_SERVICE_NAME:?}:/config"
       - "${DOCKER_DATA:?}/torrents:/downloads"
-      - "${DOCKER_DATA:?}/jellyfin/media/series:/downloads/series"
+      - "${MEDIA_DATA}/series:/downloads/series"
     security_opt:
       - "label:disable"
     networks:
