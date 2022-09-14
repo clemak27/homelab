@@ -16,3 +16,6 @@ then
   chown -R clemens:clemens $project_dir
   echo "Done"
 fi
+
+# need to disable this so pihole can start
+systemctl disable --now systemd-resolved.service
