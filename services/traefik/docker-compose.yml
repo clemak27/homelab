@@ -31,7 +31,7 @@ services:
       - "--log.filePath=/traefik.log"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=web"
+      - "--providers.docker.network=private"
       - "--entryPoints.http.address=:80"
       - "--entryPoints.https.address=:443"
       - "--entryPoints.ssh.address=:222"
