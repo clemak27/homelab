@@ -13,7 +13,7 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/${DECONZ_SERVICE_NAME:?}:/opt/deCONZ"
     security_opt:
-      - "label:disable" 
+      - "label:disable"
     environment:
       TZ: Europe/Vienna
       DECONZ_WEB_PORT: 8082
