@@ -38,6 +38,10 @@ in
     zsh.enable = true;
   };
 
+  home.packages = with pkgs; [
+    mp3gain
+  ];
+
   programs.zsh = {
     shellAliases = builtins.listToAttrs (
       [
