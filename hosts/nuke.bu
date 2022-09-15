@@ -19,20 +19,87 @@ storage:
       mode: 0644
       contents:
         inline: nuke
-  disks:
-    - device: /dev/sdb
-      wipe_table: false
-      partitions:
-        - number: 1
-          label: hdd0
-  filesystems:
-    - path: /var/mnt/data
-      device: /dev/disk/by-partlabel/hdd0
-      format: btrfs
-      label: uranium-235
-      with_mount_unit: true
-      # TODO automate + create mount units?
-      # sudo btrfs subvolume create /var/mnt/data/archive
-      # sudo btrfs subvolume create /var/mnt/data/docker
-      # sudo btrfs subvolume create /var/mnt/data/emulation
-      # sudo btrfs subvolume create /var/mnt/data/media
+systemd:
+  units:
+    - name: var-mnt-archive.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount archive directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
+        Where=/var/mnt/archive
+        Type=btrfs
+        Options=subvol=archive,defaults
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-mnt-docker.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount docker directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
+        Where=/var/mnt/docker
+        Type=btrfs
+        Options=subvol=docker,defaults
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-mnt-media.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount media directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
+        Where=/var/mnt/media
+        Type=btrfs
+        Options=subvol=media,defaults
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-mnt-emulation.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount emulation directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
+        Where=/var/mnt/emulation
+        Type=btrfs
+        Options=subvol=emulation,defaults
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-lib-docker.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount docker deamon directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
+        Where=/var/lib/docker
+        Type=btrfs
+        Options=subvol=lib_docker,defaults
+
+        [Install]
+        WantedBy=multi-user.target
+  # disks:
+  #   - device: /dev/sdb
+  #     wipe_table: false
+  #     partitions:
+  #       - number: 1
+  #         label: hdd0
+  # filesystems:
+  #   - path: /var/mnt/data
+  #     device: /dev/disk/by-partlabel/hdd0
+  #     format: btrfs
+  #     label: uranium-235
+  #     with_mount_unit: true
