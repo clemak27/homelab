@@ -4,11 +4,13 @@ version: '3.8'
 services:
   mp3gain_update:
     container_name: mp3gain_update
-    image: mp3gain_update:latest
+    image: mp3gain_update:test1
     build:
       context: mp3gain_update/src
     volumes:
       - "${MEDIA_DATA}/music:/app/music"
     networks:
       - private
+    user:
+      "1001:1001"
     restart: unless-stopped
