@@ -1,3 +1,4 @@
+---
 variant: fcos
 version: 1.4.0
 storage:
@@ -13,7 +14,7 @@ systemd:
       contents: |
         [Unit]
         PartOf=gitops.service
-        After=startup.service
+        After=startup.service var-lib-docker.mount var-mnt-docker.mount var-mnt-media.mount
         ConditionPathExists=/var/lib/init_done
 
         [Timer]
