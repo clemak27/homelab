@@ -9,6 +9,14 @@
   "repositories": [
     "clemak27/homelab"
   ],
+    "packageRules": [
+    {
+      "matchPaths": ["services/homelab_bot/**"],
+      "branchPrefix": "renovate/homelab_bot-",
+      "semanticCommits": "enabled",
+      "semanticCommitScope": "homelab_bot"
+    }
+  ],
   "commitMessageAction": "update",
   "regexManagers": [
     {
