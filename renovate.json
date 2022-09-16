@@ -9,9 +9,11 @@
   "repositories": [
     "clemak27/homelab"
   ],
-    "packageRules": [
+  "packageRules": [
     {
-      "matchPaths": ["services/homelab_bot/**"],
+      "matchPaths": [
+        "services/homelab_bot/**"
+      ],
       "branchPrefix": "renovate/homelab_bot-",
       "semanticCommits": "enabled",
       "semanticCommitScope": "homelab_bot"
@@ -20,7 +22,9 @@
   "commitMessageAction": "update",
   "regexManagers": [
     {
-      "fileMatch": ["^\\.env$"],
+      "fileMatch": [
+        "^.*/\\.env$"
+      ],
       "matchStrings": [
         "\\s*.+_VERSION=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
       ],
