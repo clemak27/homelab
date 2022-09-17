@@ -17,6 +17,7 @@ func main() {
 	http.Handle("/", router)
 	log.Println("Server starting on port 8525")
 
+	//nolint:gosec
 	err := http.ListenAndServe(":8525", router)
 	if err != nil {
 		log.Println("could not start server!")

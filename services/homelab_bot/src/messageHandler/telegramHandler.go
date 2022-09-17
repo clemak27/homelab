@@ -72,13 +72,14 @@ func sendMessage(w http.ResponseWriter, req *http.Request, sendNotification bool
 	// Send a post request with your token
 	log.Println(bytes.NewBuffer(reqBytes))
 
-	//nolint:gosec
+	//nolint:gosec,noctx
 	res, err := http.Post(url, "application/json", bytes.NewBuffer(reqBytes))
 	if err != nil {
 		log.Println("request failed")
 
 		return
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
 		log.Println("request failed, status not OK")
