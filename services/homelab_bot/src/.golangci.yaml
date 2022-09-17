@@ -9,17 +9,14 @@ linters:
     - exhaustivestruct
     - maligned
     - golint
-    # Disable go1.18 incompatible linters
-    - bodyclose
-    - contextcheck
-    - interfacer
-    - nilerr
-    - noctx
+    - ifshort
+    - deadcode
+    - varcheck
+    - nosnakecase
+    - structcheck
+    # Disable generics incompatible linters
     - rowserrcheck
     - sqlclosecheck
-    - structcheck
-    - tparallel
-    - unparam
     - wastedassign
     # disable unneeded linters
     - tagliatelle
