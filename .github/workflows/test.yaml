@@ -21,3 +21,14 @@ jobs:
         uses: cachix/install-nix-action@v16
       - name: Run ignition test
         run: nix shell nixpkgs#gnumake nixpkgs#butane -c make test
+  homelab_bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Go setup
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.1
+      - name: Test homelab_bot
+        run: cd services/homelab_bot/src && make test
