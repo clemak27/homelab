@@ -1,0 +1,14 @@
+---
+name: ignition
+on:
+  - pull_request
+jobs:
+  ignition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Nix setup
+        uses: cachix/install-nix-action@v16
+      - name: Run ignition test
+        run: nix shell nixpkgs#gnumake nixpkgs#butane -c make test
