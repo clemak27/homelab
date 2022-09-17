@@ -27,13 +27,17 @@ function __prepare_env() {
 
   for dir in "${dirs[@]}"; do
     if [ "$dir" != "." ]; then
-     cat "$dir/.env" >> .env
-   fi
+      cat "$dir/.env" >> .env
+    fi
   done
 }
 
 function __add_secrets() {
   if [[ -z "${DEPLOY_TEST}" ]]; then
+    $sops_cmd -d .env.secret.enc > .env.secret
+    cat .env.secret >> .env
+    rm .env.secret
+  else
     {
       echo "CLOUDFLARE_API_KEY=someSecret"
       echo "TRAEFIK_CLOUDFLARE_API_KEY=someSecret"
@@ -56,25 +60,21 @@ function __add_secrets() {
       echo "HOMELAB_BOT_TELEGRAM_CHAT_ID=someSecret"
       echo "HOMELAB_BOT_TELEGRAM_CHAT_URL=someSecret"
     } >> .env
-  else
-    $sops_cmd -d .env.secret.enc > .env.secret
-    cat .env.secret >> .env
-    rm .env.secret
   fi
 }
 
 function __run_compose() {
   local command="$docker_compose_cmd"
   for dir in "${dirs[@]}"; do
-     command="$command -f $dir/docker-compose.yml"
+    command="$command -f $dir/docker-compose.yml"
   done
 
   if [[ -z "${DEPLOY_TEST}" ]]; then
-    command="$command config"
-    $command > compose.yaml
-  else
     command="$command up -d --remove-orphans"
     $command
+  else
+    command="$command config"
+    $command > compose.yaml
   fi
 }
 
