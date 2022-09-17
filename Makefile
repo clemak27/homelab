@@ -78,7 +78,7 @@ fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
 # other
-.PHONY: clean lint yamllint shellcheck
+.PHONY: lint yamllint shellcheck hadolint clean
 
 lint: yamllint shellcheck hadolint
 
