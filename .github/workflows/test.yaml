@@ -1,8 +1,17 @@
 ---
-name: ignition
+name: test
 on:
   - pull_request
 jobs:
+  docker-compose:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_TEST: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Test docker-compose file
+        run: cd services && ./deploy.sh
   ignition:
     runs-on: ubuntu-latest
     steps:
