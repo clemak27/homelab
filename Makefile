@@ -80,7 +80,7 @@ fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 # other
 .PHONY: clean lint yamllint shellcheck
 
-lint: yamllint shellcheck
+lint: yamllint shellcheck hadolint
 
 yamllint:
 	$(PODMAN_RUN_PWD) nixery.dev/yamllint yamllint .
