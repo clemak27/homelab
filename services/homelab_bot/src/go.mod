@@ -1,4 +1,4 @@
-module github.com/clemak27/gotefication_service
+module github.com/clemak27/homelab_bot
 
 go 1.19
 

@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	messagehandler "github.com/clemak27/gotefication_service/messageHandler"
+	messagehandler "github.com/clemak27/homelab_bot/messageHandler"
 	"github.com/gorilla/mux"
 )
 
