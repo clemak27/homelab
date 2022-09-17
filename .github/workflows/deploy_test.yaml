@@ -5,10 +5,10 @@ on:
 jobs:
   deploy_test:
     runs-on: ubuntu-latest
-    env:
-      DEPLOY_TEST: true
     steps:
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: Test deployment
-        run: cd services && ./deploy.sh
+        run: cd services &&
+             export DEPLOY_TEST=true &&
+             ./deploy.sh
