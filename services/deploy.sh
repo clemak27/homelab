@@ -31,9 +31,34 @@ function __prepare_env() {
 }
 
 function __add_secrets() {
-  $sops_cmd -d .env.secret.enc > .env.secret
-  cat .env.secret >> .env
-  rm .env.secret
+  if [[ -z "${DEPLOY_TEST}" ]]; then
+    {
+      echo "CLOUDFLARE_API_KEY=someSecret"
+      echo "TRAEFIK_CLOUDFLARE_API_KEY=someSecret"
+      echo "PIHOLE_PW=someSecret"
+      echo "MINIFLUX_ADMIN_USER=someSecret"
+      echo "MINIFLUX_ADMIN_PASSWORD=someSecret"
+      echo "MINIFLUX_DB_USER=someSecret"
+      echo "MINIFLUX_DB_PASSWORD=someSecret"
+      echo "DEEMIX_ARL=someSecret"
+      echo "FIREFLYIII_APP_KEY=someSecret"
+      echo "FIREFLYIII_DB_NAME=someSecret"
+      echo "FIREFLYIII_DB_USER=someSecret"
+      echo "FIREFLYIII_DB_PASSWORD=someSecret"
+      echo "RECIPES_SECRET_KEY=someSecret"
+      echo "RECIPES_DB_USER=someSecret"
+      echo "RECIPES_DB_PASSWORD=someSecret"
+      echo "RECIPES_DB_NAME=someSecret"
+      echo "VAULTWARDEN_YUBICO_CLIENT_ID=someSecret"
+      echo "VAULTWARDEN_YUBICO_SECRET_KEY=someSecret"
+      echo "HOMELAB_BOT_TELEGRAM_CHAT_ID=someSecret"
+      echo "HOMELAB_BOT_TELEGRAM_CHAT_URL=someSecret"
+    } >> .env
+  else
+    $sops_cmd -d .env.secret.enc > .env.secret
+    cat .env.secret >> .env
+    rm .env.secret
+  fi
 }
 
 function __run_compose() {
@@ -41,9 +66,14 @@ function __run_compose() {
   for dir in "${dirs[@]}"; do
      command="$command -f $dir/docker-compose.yml"
   done
-  command="$command up -d --remove-orphans"
 
-  $command
+  if [[ -z "${DEPLOY_TEST}" ]]; then
+    command="$command config"
+    $command > compose.yaml
+  else
+    command="$command up -d --remove-orphans"
+    $command
+  fi
 }
 
 function __teardown_env() {
