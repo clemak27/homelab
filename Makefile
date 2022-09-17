@@ -78,7 +78,7 @@ fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
 # other
-.PHONY: lint yamllint shellcheck hadolint clean
+.PHONY: lint yamllint shellcheck hadolint clean test
 
 lint: yamllint shellcheck hadolint
 
@@ -96,3 +96,22 @@ clean:
 	find . -name "*.ign" -type f | xargs rm -f
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 	rm fcos.iso
+
+test:
+	echo "unencrypted content" > modules/wireguard/wg0.conf
+	echo "unencrypted content" > modules/init/age_key
+	echo "unencrypted content" > modules/ssh/id_ed25519
+	butane modules/user.bu -o modules/user.ign
+	butane modules/overlays.bu -o modules/overlays.ign
+	butane modules/i18n.bu -o modules/i18n.ign
+	butane modules/autoupdates.bu -o modules/autoupdates.ign
+	butane --files-dir modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
+	butane --files-dir modules/init modules/init/init.bu -o modules/init/init.ign
+	butane --files-dir modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
+	butane --files-dir modules/gitops modules/gitops/gitops.bu -o modules/gitops/gitops.ign
+	butane --files-dir modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
+	butane --files-dir . hosts/virtual.bu -o hosts/virtual.ign
+	butane --files-dir . hosts/nuke.bu -o hosts/nuke.ign
+	rm modules/wireguard/wg0.conf
+	rm modules/init/age_key
+	rm modules/ssh/id_ed25519
