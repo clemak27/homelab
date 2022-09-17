@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 if [[ $(hostname) == "toolbox" ]]; then
   docker_cmd="/usr/bin/flatpak-spawn --host docker"
   docker_compose_cmd="/usr/bin/flatpak-spawn --host docker-compose"
