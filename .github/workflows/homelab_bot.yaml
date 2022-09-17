@@ -1,0 +1,20 @@
+---
+name: homelab_bot
+on:
+  - pull_request
+jobs:
+  homelab_bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Go setup
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.1
+      - name: Lint homelab_bot
+        run: cd services/homelab_bot/src && make lint
+      - name: Build homelab_bot
+        run: cd services/homelab_bot/src && make build
+      - name: Test homelab_bot
+        run: cd services/homelab_bot/src && make test
