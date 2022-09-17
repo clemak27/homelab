@@ -1,0 +1,30 @@
+---
+name: lint
+on:
+  - pull_request
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Yamllint
+        uses: karancode/yamllint-github-action@master
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: shellcheck
+        uses: ludeeus/action-shellcheck@master
+  hadolint:
+    runs-on: ubuntu-latest
+    env:
+      HADOLINT_RECURSIVE: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: Dockerfile
