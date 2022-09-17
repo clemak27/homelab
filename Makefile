@@ -78,10 +78,16 @@ fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
 # other
-.PHONY: lint clean
+.PHONY: clean lint yamllint shellcheck
 
-lint:
+lint: yamllint shellcheck
+
+yamllint:
 	$(PODMAN_RUN_PWD) nixery.dev/yamllint yamllint .
+
+shellcheck:
+	find . -name "*.sh" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/shellcheck shellcheck
+	find . -name "*.bash" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/shellcheck shellcheck
 
 clean:
 	find . -name "*.ign" -type f | xargs rm -f
