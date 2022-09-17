@@ -14,11 +14,11 @@ services:
       PUID: 1001
       PGID: 1001
     volumes:
-      - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/config:/config"
-      - "${DOCKER_DATA}/${JELLYFIN_SERVICE_NAME}/cache:/cache"
-      - "${MEDIA_DATA}/movies:/media/movies"
-      - "${MEDIA_DATA}/series:/media/series"
-      - "${MEDIA_DATA}/music:/media/music"
+      - "${DOCKER_DATA:?}/${JELLYFIN_SERVICE_NAME:?}/config:/config"
+      - "${DOCKER_DATA:?}/${JELLYFIN_SERVICE_NAME:?}/cache:/cache"
+      - "${MEDIA_DATA:?}/movies:/media/movies"
+      - "${MEDIA_DATA:?}/series:/media/series"
+      - "${MEDIA_DATA:?}/music:/media/music"
     security_opt:
       - "label:disable"
     networks:
@@ -26,9 +26,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.jellyfin-router.entrypoints: https
-      traefik.http.routers.jellyfin-router.rule: Host(`${JELLYFIN_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.jellyfin-router.rule: Host(`${JELLYFIN_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.jellyfin-router.tls: true
       traefik.http.routers.jellyfin-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.jellyfin-router.service: ${JELLYFIN_SERVICE_NAME}-service
+      traefik.http.routers.jellyfin-router.service: ${JELLYFIN_SERVICE_NAME:?}-service
       traefik.http.services.jellyfin-service.loadbalancer.server.port: ${JELLYFIN_INTERNAL_PORT:?}
     restart: unless-stopped

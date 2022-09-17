@@ -15,20 +15,20 @@ services:
       - private
       - internal
     environment:
-      SECRET_KEY: "${RECIPES_SECRET_KEY}"
+      SECRET_KEY: "${RECIPES_SECRET_KEY:?}"
       DB_ENGINE: "django.db.backends.postgresql"
       POSTGRES_HOST: "recipes_db"
       POSTGRES_PORT: "5432"
-      POSTGRES_USER: "${RECIPES_DB_USER}"
-      POSTGRES_PASSWORD: "${RECIPES_DB_PASSWORD}"
-      POSTGRES_DB: "${RECIPES_DB_NAME}"
+      POSTGRES_USER: "${RECIPES_DB_USER:?}"
+      POSTGRES_PASSWORD: "${RECIPES_DB_PASSWORD:?}"
+      POSTGRES_DB: "${RECIPES_DB_NAME:?}"
     labels:
       traefik.enable: true
       traefik.http.routers.recipes-router.entrypoints: https
-      traefik.http.routers.recipes-router.rule: Host(`${RECIPES_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.recipes-router.rule: Host(`${RECIPES_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.recipes-router.tls: true
       traefik.http.routers.recipes-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.recipes-router.service: ${RECIPES_SERVICE_NAME}-service
+      traefik.http.routers.recipes-router.service: ${RECIPES_SERVICE_NAME:?}-service
       traefik.http.services.recipes-service.loadbalancer.server.port: ${RECIPES_INTERNAL_PORT:?}
     depends_on:
       - recipes_db
@@ -42,11 +42,11 @@ services:
     networks:
       - internal
     environment:
-      POSTGRES_DB: "${RECIPES_DB_NAME}"
-      POSTGRES_USER: "${RECIPES_DB_USER}"
-      POSTGRES_PASSWORD: "${RECIPES_DB_PASSWORD}"
+      POSTGRES_DB: "${RECIPES_DB_NAME:?}"
+      POSTGRES_USER: "${RECIPES_DB_USER:?}"
+      POSTGRES_PASSWORD: "${RECIPES_DB_PASSWORD:?}"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${RECIPES_DB_USER}", "-d", "${RECIPES_DB_NAME}"]
+      test: ["CMD", "pg_isready", "-U", "${RECIPES_DB_USER:?}", "-d", "${RECIPES_DB_NAME:?}"]
       interval: 30s
       start_period: 30s
     restart: unless-stopped

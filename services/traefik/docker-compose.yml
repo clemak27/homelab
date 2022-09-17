@@ -22,7 +22,7 @@ services:
       - private
     environment:
       CLOUDFLARE_EMAIL: "clemak27@mailbox.org"
-      CLOUDFLARE_DNS_API_TOKEN: "${TRAEFIK_CLOUDFLARE_API_KEY}"
+      CLOUDFLARE_DNS_API_TOKEN: "${TRAEFIK_CLOUDFLARE_API_KEY:?}"
     command:
       - "--api.insecure=true"
       - "--api.dashboard=true"
@@ -45,10 +45,10 @@ services:
       traefik.http.routers.http-catchall.middlewares: redirect-to-https
       traefik.http.middlewares.redirect-to-https.redirectscheme.scheme: https
       traefik.http.routers.traefik-router.entrypoints: https
-      traefik.http.routers.traefik-router.rule: Host(`${service-name}.${DOMAIN}`)
+      traefik.http.routers.traefik-router.rule: Host(`${service-name}.${DOMAIN:?}`)
       traefik.http.routers.traefik-router.tls: true
       traefik.http.routers.traefik-router.tls.certresolver: letsEncrypt
       traefik.http.routers.traefik-router.service: api@internal
-      traefik.http.routers.traefik-router.tls.domains[0].main: ${DOMAIN}
-      traefik.http.routers.traefik-router.tls.domains[0].sans: "*.${DOMAIN}"
+      traefik.http.routers.traefik-router.tls.domains[0].main: ${DOMAIN:?}
+      traefik.http.routers.traefik-router.tls.domains[0].sans: "*.${DOMAIN:?}"
     restart: unless-stopped

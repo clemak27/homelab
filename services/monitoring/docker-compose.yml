@@ -20,10 +20,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.prometheus-router.entrypoints: https
-      traefik.http.routers.prometheus-router.rule: Host(`${PROMETHEUS_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.prometheus-router.rule: Host(`${PROMETHEUS_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.prometheus-router.tls: true
       traefik.http.routers.prometheus-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.prometheus-router.service: ${PROMETHEUS_SERVICE_NAME}-service
+      traefik.http.routers.prometheus-router.service: ${PROMETHEUS_SERVICE_NAME:?}-service
       traefik.http.services.prometheus-service.loadbalancer.server.port: ${PROMETHEUS_SERVICE_PORT:?}
     restart: unless-stopped
 
@@ -42,9 +42,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.grafana-router.entrypoints: https
-      traefik.http.routers.grafana-router.rule: Host(`${GRAFANA_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.grafana-router.rule: Host(`${GRAFANA_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.grafana-router.tls: true
       traefik.http.routers.grafana-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.grafana-router.service: ${GRAFANA_SERVICE_NAME}-service
+      traefik.http.routers.grafana-router.service: ${GRAFANA_SERVICE_NAME:?}-service
       traefik.http.services.grafana-service.loadbalancer.server.port: ${GRAFANA_INTERNAL_PORT:?}
     restart: unless-stopped
