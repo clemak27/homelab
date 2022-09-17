@@ -10,8 +10,8 @@ services:
     environment:
       TZ: Europe/Vienna
     volumes:
-      - ${DOCKER_DATA}/${HOME_ASSISTANT_SERVICE_NAME}:/config
-      - ${DOCKER_DATA}/${HOME_ASSISTANT_SERVICE_NAME}/bumper-certs/custom_ca.pem:/usr/local/lib/python3.9/site-packages/certifi/cacert.pem:ro
+      - ${DOCKER_DATA:?}/${HOME_ASSISTANT_SERVICE_NAME:?}:/config
+      - ${DOCKER_DATA:?}/${HOME_ASSISTANT_SERVICE_NAME:?}/bumper-certs/custom_ca.pem:/usr/local/lib/python3.9/site-packages/certifi/cacert.pem:ro
     security_opt:
       - "label:disable"
     networks:
@@ -21,9 +21,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.home-assistant-router.entrypoints: https
-      traefik.http.routers.home-assistant-router.rule: Host(`${HOME_ASSISTANT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.home-assistant-router.rule: Host(`${HOME_ASSISTANT_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.home-assistant-router.tls: true
       traefik.http.routers.home-assistant-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.home-assistant-router.service: ${HOME_ASSISTANT_SERVICE_NAME}-service
+      traefik.http.routers.home-assistant-router.service: ${HOME_ASSISTANT_SERVICE_NAME:?}-service
       traefik.http.services.home-assistant-service.loadbalancer.server.port: ${HOME_ASSISTANT_INTERNAL_PORT:?}
     restart: unless-stopped

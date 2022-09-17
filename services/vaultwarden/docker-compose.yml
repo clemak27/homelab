@@ -21,9 +21,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.vaultwarden-router.entrypoints: https
-      traefik.http.routers.vaultwarden-router.rule: Host(`${VAULTWARDEN_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.vaultwarden-router.rule: Host(`${VAULTWARDEN_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.vaultwarden-router.tls: true
       traefik.http.routers.vaultwarden-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.vaultwarden-router.service: ${VAULTWARDEN_SERVICE_NAME}-service
+      traefik.http.routers.vaultwarden-router.service: ${VAULTWARDEN_SERVICE_NAME:?}-service
       traefik.http.services.vaultwarden-service.loadbalancer.server.port: ${VAULTWARDEN_INTERNAL_PORT:?}
     restart: unless-stopped

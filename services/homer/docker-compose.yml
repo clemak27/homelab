@@ -19,7 +19,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.homer-router.entrypoints: https
-      traefik.http.routers.homer-router.rule: Host(`${HOMER_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.homer-router.rule: Host(`${HOMER_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.homer-router.tls: true
       traefik.http.routers.homer-router.tls.certresolver: letsEncrypt
       traefik.http.routers.homer-router.service: homer-service

@@ -6,37 +6,37 @@ services:
     image: ${PIHOLE_SERVICE_IMAGE:?}:${PIHOLE_SERVICE_VERSION:?}
     container_name: ${PIHOLE_SERVICE_NAME:?}
     volumes:
-      - "${DOCKER_DATA}/${PIHOLE_SERVICE_NAME}/etc-pihole/:/etc/pihole/"
-      - "${DOCKER_DATA}/${PIHOLE_SERVICE_NAME}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
-      - "${SERVICES_DIR}/pihole/lighttpd.external.conf:/etc/lighttpd/external.conf:ro"
+      - "${DOCKER_DATA:?}/${PIHOLE_SERVICE_NAME:?}/etc-pihole/:/etc/pihole/"
+      - "${DOCKER_DATA:?}/${PIHOLE_SERVICE_NAME:?}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      - "${SERVICES_DIR:?}/pihole/lighttpd.external.conf:/etc/lighttpd/external.conf:ro"
     security_opt:
       - "label:disable"
     network_mode:
       host
     environment:
       TZ: "Europe/Vienna"
-      WEBPASSWORD: "${PIHOLE_PW}"
+      WEBPASSWORD: "${PIHOLE_PW:?}"
     cap_add:
       - NET_ADMIN
     extra_hosts:
-      - "${CALIBRE_WEB_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${DEEMIX_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${FIREFLYIII_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${GITEA_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${GRAFANA_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${HOMER_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${HOME_ASSISTANT_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${JACKETT_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${JELLYFIN_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${MINIFLUX_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${PROMETHEUS_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${RADARR_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${RECIPES_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${SONARR_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${SYNCTHING_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${TRAEFIK_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${TRANSMISSION_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
-      - "${VAULTWARDEN_SERVICE_NAME}.${DOMAIN}:${SERVER_IP}"
+      - "${CALIBRE_WEB_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${DEEMIX_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${FIREFLYIII_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${GITEA_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${GRAFANA_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${HOMER_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${HOME_ASSISTANT_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${JACKETT_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${JELLYFIN_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${MINIFLUX_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${PROMETHEUS_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${RADARR_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${RECIPES_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${SONARR_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${SYNCTHING_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${TRAEFIK_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${TRANSMISSION_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${VAULTWARDEN_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
     restart: unless-stopped
 
   pihole-exporter:
@@ -45,10 +45,10 @@ services:
     networks:
       - private
     ports:
-      - "${PIHOLE_EXPORTER_SERVICE_PORT}:${PIHOLE_EXPORTER_SERVICE_PORT}"
+      - "${PIHOLE_EXPORTER_SERVICE_PORT:?}:${PIHOLE_EXPORTER_SERVICE_PORT:?}"
     environment:
       PIHOLE_HOSTNAME: "192.168.178.100"
-      PIHOLE_PASSWORD: "${PIHOLE_PW}"
-      PIHOLE_PORT: "${PIHOLE_EXPORTER_SERVICE_PORT}"
+      PIHOLE_PASSWORD: "${PIHOLE_PW:?}"
+      PIHOLE_PORT: "${PIHOLE_EXPORTER_SERVICE_PORT:?}"
       PORT: "9617"
     restart: unless-stopped

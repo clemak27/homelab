@@ -24,9 +24,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.syncthing-router.entrypoints: https
-      traefik.http.routers.syncthing-router.rule: Host(`${SYNCTHING_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.syncthing-router.rule: Host(`${SYNCTHING_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.syncthing-router.tls: true
       traefik.http.routers.syncthing-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.syncthing-router.service: ${SYNCTHING_SERVICE_NAME}-service
+      traefik.http.routers.syncthing-router.service: ${SYNCTHING_SERVICE_NAME:?}-service
       traefik.http.services.syncthing-service.loadbalancer.server.port: ${SYNCTHING_SERVICE_PORT:?}
     restart: unless-stopped

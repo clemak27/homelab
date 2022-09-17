@@ -8,8 +8,8 @@ services:
     build:
       context: homelab_bot/src
       args:
-        TELEGRAM_CHAT: ${HOMELAB_BOT_TELEGRAM_CHAT_ID}
-        TELEGRAM_URL: ${HOMELAB_BOT_TELEGRAM_CHAT_URL}
+        TELEGRAM_CHAT: ${HOMELAB_BOT_TELEGRAM_CHAT_ID:?}
+        TELEGRAM_URL: ${HOMELAB_BOT_TELEGRAM_CHAT_URL:?}
     ports:
       - "${HOMELAB_BOT_SERVICE_PORT:?}:${HOMELAB_BOT_INTERNAL_PORT:?}"
     networks:

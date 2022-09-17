@@ -23,10 +23,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.transmission-router.entrypoints: https
-      traefik.http.routers.transmission-router.rule: Host(`${TRANSMISSION_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.transmission-router.rule: Host(`${TRANSMISSION_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.transmission-router.tls: true
       traefik.http.routers.transmission-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.transmission-router.service: ${TRANSMISSION_SERVICE_NAME}-service
+      traefik.http.routers.transmission-router.service: ${TRANSMISSION_SERVICE_NAME:?}-service
       traefik.http.services.transmission-service.loadbalancer.server.port: ${TRANSMISSION_SERVICE_PORT:?}
     restart: unless-stopped
 
@@ -49,10 +49,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.jackett-router.entrypoints: https
-      traefik.http.routers.jackett-router.rule: Host(`${JACKETT_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.jackett-router.rule: Host(`${JACKETT_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.jackett-router.tls: true
       traefik.http.routers.jackett-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.jackett-router.service: ${JACKETT_SERVICE_NAME}-service
+      traefik.http.routers.jackett-router.service: ${JACKETT_SERVICE_NAME:?}-service
       traefik.http.services.jackett-service.loadbalancer.server.port: ${JACKETT_SERVICE_PORT:?}
     restart: unless-stopped
 
@@ -68,7 +68,7 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/${SONARR_SERVICE_NAME:?}:/config"
       - "${DOCKER_DATA:?}/torrents:/downloads"
-      - "${MEDIA_DATA}/series:/downloads/series"
+      - "${MEDIA_DATA:?}/series:/downloads/series"
     security_opt:
       - "label:disable"
     networks:
@@ -76,10 +76,10 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.sonarr-router.entrypoints: https
-      traefik.http.routers.sonarr-router.rule: Host(`${SONARR_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.sonarr-router.rule: Host(`${SONARR_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.sonarr-router.tls: true
       traefik.http.routers.sonarr-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.sonarr-router.service: ${SONARR_SERVICE_NAME}-service
+      traefik.http.routers.sonarr-router.service: ${SONARR_SERVICE_NAME:?}-service
       traefik.http.services.sonarr-service.loadbalancer.server.port: ${SONARR_SERVICE_PORT:?}
     restart: unless-stopped
 
@@ -95,7 +95,7 @@ services:
     volumes:
       - "${DOCKER_DATA:?}/${RADARR_SERVICE_NAME:?}:/config"
       - "${DOCKER_DATA:?}/torrents:/downloads"
-      - "${MEDIA_DATA}/movies:/downloads/movies"
+      - "${MEDIA_DATA:?}/movies:/downloads/movies"
     security_opt:
       - "label:disable"
     networks:
@@ -103,9 +103,9 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.radarr-router.entrypoints: https
-      traefik.http.routers.radarr-router.rule: Host(`${RADARR_SERVICE_NAME}.${DOMAIN}`)
+      traefik.http.routers.radarr-router.rule: Host(`${RADARR_SERVICE_NAME:?}.${DOMAIN:?}`)
       traefik.http.routers.radarr-router.tls: true
       traefik.http.routers.radarr-router.tls.certresolver: letsEncrypt
-      traefik.http.routers.radarr-router.service: ${RADARR_SERVICE_NAME}-service
+      traefik.http.routers.radarr-router.service: ${RADARR_SERVICE_NAME:?}-service
       traefik.http.services.radarr-service.loadbalancer.server.port: ${RADARR_SERVICE_PORT:?}
     restart: unless-stopped
