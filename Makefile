@@ -89,6 +89,9 @@ shellcheck:
 	find . -name "*.sh" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/shellcheck shellcheck
 	find . -name "*.bash" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/shellcheck shellcheck
 
+hadolint:
+	find . -name "Dockerfile" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/hadolint:latest hadolint
+
 clean:
 	find . -name "*.ign" -type f | xargs rm -f
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
