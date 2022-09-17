@@ -1,4 +1,5 @@
 FCOS_VERSION = 36.20220820.3.0
+SOPS_BIN_VERSION = v3.7.3
 
 PODMAN = /usr/bin/flatpak-spawn --host podman
 PODMAN_RUN_PWD = $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
@@ -74,10 +75,18 @@ create_iso/nuke: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/nuke.ign
 		--dest-ignition /pwd/hosts/nuke.ign \
 		-o fcos.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 
+# files
+
+bin/sops:
+	mkdir -p bin
+	curl -L -o bin/sops --url https://github.com/mozilla/sops/releases/download/$(SOPS_BIN_VERSION)/sops-$(SOPS_BIN_VERSION).linux
+	chmod +x bin/sops
+
 fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
 
 # other
+
 .PHONY: lint yamllint shellcheck hadolint clean test
 
 lint: yamllint shellcheck hadolint
@@ -91,11 +100,6 @@ shellcheck:
 
 hadolint:
 	find . -name "Dockerfile" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/hadolint:latest hadolint
-
-clean:
-	find . -name "*.ign" -type f | xargs rm -f
-	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
-	rm fcos.iso
 
 test:
 	echo "unencrypted content" > modules/wireguard/wg0.conf
@@ -115,3 +119,9 @@ test:
 	rm modules/wireguard/wg0.conf
 	rm modules/init/age_key
 	rm modules/ssh/id_ed25519
+
+clean:
+	find . -name "*.ign" -type f | xargs rm -f
+	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
+	rm fcos.iso
+	rm -rf bin
