@@ -14,6 +14,7 @@ func main() {
 	handler := messagehandler.TelegramHandler{}
 	router.HandleFunc("/message", handler.PostMessage).Methods("POST")
 	router.HandleFunc("/message/silent", handler.PostSilentMessage).Methods("POST")
+	router.HandleFunc("/health", handler.Healthcheck).Methods("GET")
 	http.Handle("/", router)
 	log.Println("Server starting on port 8525")
 

@@ -9,4 +9,5 @@ type Message struct {
 
 type MessageHandler interface {
 	PostMessage(w http.ResponseWriter, req *http.Request)
+	Healthcheck(w http.ResponseWriter, req *http.Request)
 }

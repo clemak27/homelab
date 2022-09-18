@@ -87,3 +87,7 @@ func sendMessage(w http.ResponseWriter, req *http.Request, sendNotification bool
 		return
 	}
 }
+
+func (h *TelegramHandler) Healthcheck(w http.ResponseWriter, req *http.Request) {
+	w.WriteHeader(200)
+}
