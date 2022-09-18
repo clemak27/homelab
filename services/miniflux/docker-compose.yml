@@ -35,6 +35,11 @@ services:
     depends_on:
       - miniflux_db
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--tries=1", "--spider", "http://localhost:${MINIFLUX_INTERNAL_PORT:?}/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
 
   miniflux_db:
     image: ${MINIFLUX_DB_SERVICE_IMAGE:?}:${MINIFLUX_DB_SERVICE_VERSION:?}
