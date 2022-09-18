@@ -27,3 +27,8 @@ services:
       traefik.http.routers.home-assistant-router.service: ${HOME_ASSISTANT_SERVICE_NAME:?}-service
       traefik.http.services.home-assistant-service.loadbalancer.server.port: ${HOME_ASSISTANT_INTERNAL_PORT:?}
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${HOME_ASSISTANT_INTERNAL_PORT:?}/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
