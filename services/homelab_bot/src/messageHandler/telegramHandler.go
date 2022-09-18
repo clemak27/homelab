@@ -89,5 +89,5 @@ func sendMessage(w http.ResponseWriter, req *http.Request, sendNotification bool
 }
 
 func (h *TelegramHandler) Healthcheck(w http.ResponseWriter, req *http.Request) {
-	w.WriteHeader(200)
+	w.WriteHeader(http.StatusOK)
 }
