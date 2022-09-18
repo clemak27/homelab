@@ -35,6 +35,11 @@ services:
     depends_on:
       - fireflyiii_db
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${FIREFLYIII_INTERNAL_PORT:?}/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
 
   fireflyiii_db:
     image: ${FIREFLYIII_DB_SERVICE_IMAGE:?}:${FIREFLYIII_DB_SERVICE_VERSION:?}
