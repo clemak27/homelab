@@ -15,3 +15,8 @@ services:
     networks:
       - private
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--tries=1", "--spider", "http://localhost:${HOMELAB_BOT_INTERNAL_PORT:?}/health"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
