@@ -25,3 +25,7 @@ func (h *MockHandler) PostSilentMessage(w http.ResponseWriter, req *http.Request
 	_ = json.NewDecoder(req.Body).Decode(&msg)
 	log.Printf("sending message with text %v\n", msg.Text)
 }
+
+func (h *MockHandler) Healthcheck(w http.ResponseWriter, req *http.Request) {
+	log.Println("health OK")
+}
