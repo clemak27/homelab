@@ -27,3 +27,8 @@ services:
       traefik.http.routers.deemix-router.service: ${DEEMIX_SERVICE_NAME:?}-service
       traefik.http.services.deemix-service.loadbalancer.server.port: ${DEEMIX_INTERNAL_PORT:?}
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${DEEMIX_INTERNAL_PORT:?}/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
