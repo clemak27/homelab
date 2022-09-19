@@ -30,7 +30,7 @@ services:
       traefik.http.services.transmission-service.loadbalancer.server.port: ${TRANSMISSION_SERVICE_PORT:?}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${TRANSMISSION_SERVICE_NAME:?}/"]
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${TRANSMISSION_SERVICE_PORT:?}/"]
       interval: 20s
       timeout: 60s
       start_period: 15s
@@ -94,7 +94,7 @@ services:
       traefik.http.services.sonarr-service.loadbalancer.server.port: ${SONARR_SERVICE_PORT:?}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${SONARR_SERVICE_NAME:?}/"]
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${SONARR_SERVICE_PORT:?}/"]
       interval: 20s
       timeout: 60s
       start_period: 15s
