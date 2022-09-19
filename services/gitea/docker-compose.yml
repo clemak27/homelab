@@ -28,3 +28,8 @@ services:
       traefik.tcp.routers.gitea-ssh.service: gitea-ssh-service
       traefik.tcp.services.gitea-ssh-service.loadbalancer.server.port: 22
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${GITEA_INTERNAL_PORT:?}/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
