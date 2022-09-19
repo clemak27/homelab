@@ -24,7 +24,7 @@ clean:
 	rm -rf ./bin
 
 docker_image_name=homelab_bot
-docker_image_tag=0.1.8
+docker_image_tag=0.1.10
 
 docker/deploy: docker/clean docker/build docker/run
 	sleep 10
