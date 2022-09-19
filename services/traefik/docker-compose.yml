@@ -52,3 +52,8 @@ services:
       traefik.http.routers.traefik-router.tls.domains[0].main: ${DOMAIN:?}
       traefik.http.routers.traefik-router.tls.domains[0].sans: "*.${DOMAIN:?}"
     restart: unless-stopped
+    healthcheck:
+      test: stat /etc/passwd || exit 1
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
