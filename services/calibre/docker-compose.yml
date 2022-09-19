@@ -27,6 +27,11 @@ services:
       traefik.http.routers.calibre-web-router.service: ${CALIBRE_WEB_SERVICE_NAME:?}-service
       traefik.http.services.calibre-web-service.loadbalancer.server.port: ${CALIBRE_WEB_INTERNAL_PORT:?}
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${CALIBRE_WEB_INTERNAL_PORT:?}/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
 
   calibre:
     image: ${CALIBRE_SERVICE_IMAGE:?}:${CALIBRE_SERVICE_VERSION:?}
@@ -44,3 +49,8 @@ services:
       PGID: 1001
       TZ: "Europe/vienna"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:8095/"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
