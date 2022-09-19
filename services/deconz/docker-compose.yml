@@ -23,8 +23,3 @@ services:
     devices:
       - /dev/ttyACM0
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:8082/"]
-      interval: 20s
-      timeout: 60s
-      start_period: 15s
