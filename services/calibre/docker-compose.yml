@@ -50,7 +50,7 @@ services:
       TZ: "Europe/vienna"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:8095/"]
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:8080/"]
       interval: 20s
       timeout: 60s
       start_period: 15s
