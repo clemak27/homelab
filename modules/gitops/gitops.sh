@@ -7,8 +7,12 @@ __deploy() {
   curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message/silent -d "{\"title\": \"gitops\", \"text\": \"Starting deployment.\"}"
   if ./deploy.sh; then
     curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message/silent -d "{\"title\": \"gitops\", \"text\": \"Deployment successful.\"}"
+    git restore .
+    git clean -fd
   else
     curl -X POST -H 'Content-Type: application/json' --url 192.168.178.100:8525/message -d "{\"title\": \"gitops\", \"text\": \"Deployment failed!\"}"
+    git restore .
+    git clean -fd
   fi
 }
 
