@@ -1,0 +1,27 @@
+---
+version: '3.8'
+
+services:
+  kavita:
+    image: ${KAVITA_SERVICE_IMAGE:?}:${KAVITA_SERVICE_VERSION:?}
+    container_name: ${KAVITA_SERVICE_NAME:?}
+    ports:
+      - "${KAVITA_SERVICE_PORT:?}:${KAVITA_INTERNAL_PORT:?}"
+    volumes:
+      - "${DOCKER_DATA:?}/${KAVITA_SERVICE_NAME:?}:/kavita/config"
+      - "${MEDIA_DATA:?}/books/Books:/books"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    environment:
+      TZ: Europe/Vienna
+    labels:
+      traefik.enable: true
+      traefik.http.routers.kavita-router.entrypoints: https
+      traefik.http.routers.kavita-router.rule: Host(`${KAVITA_SERVICE_NAME:?}.${DOMAIN:?}`)
+      traefik.http.routers.kavita-router.tls: true
+      traefik.http.routers.kavita-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.kavita-router.service: ${KAVITA_SERVICE_NAME:?}-service
+      traefik.http.services.kavita-service.loadbalancer.server.port: ${KAVITA_INTERNAL_PORT:?}
+    restart: unless-stopped
