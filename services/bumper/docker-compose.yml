@@ -1,0 +1,44 @@
+---
+version: '3.8'
+
+services:
+  deconz:
+    image: ${BUMPER_SERVICE_IMAGE:?}:${BUMPER_SERVICE_VERSION:?}
+    container_name: ${BUMPER_SERVICE_NAME:?}
+    ports:
+      - 8007:8007
+      - 8883:8883
+      - 5223:5223
+    networks:
+      - private
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKER_DATA:?}/${BUMPER_SERVICE_NAME:?}/data:/bumper/data
+      - ${DOCKER_DATA:?}/${BUMPER_SERVICE_NAME:?}/certs:/bumper/certs
+      - ${DOCKER_DATA:?}/${BUMPER_SERVICE_NAME:?}/logs:/bumper/logs
+    security_opt:
+      - "label:disable"
+    environment:
+      BUMPER_ANNOUNCE_IP: "192.168.178.100"
+      # BUMPER_LISTEN: "192.168.178.100"
+      BUMPER_LISTEN: "0.0.0.0"
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Europe/Vienna"
+      LOG_TO_STDOUT: true
+      BUMPER_DEBUG: true
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bumper-insecure.entrypoints: http
+      traefik.http.routers.bumper-insecure.rule: HostRegexp(`{subdomain:[a-z0-9._-]+}.ecovacs.net`, `{subdomain:[a-z0-9._-]+}.ecovacs.com`, `{subdomain:[a-z0-9._-]+}.ecouser.net`)
+      traefik.http.routers.bumper-insecure.middlewares: bumper-https@docker
+      traefik.http.routers.bumper.entrypoints: https
+      traefik.http.routers.bumper.tls.certresolver: letsEncrypt
+      traefik.http.routers.bumper.tls: true
+      traefik.http.routers.bumper.tls.domains[0].main: ecovacs.net
+      traefik.http.routers.bumper.tls.domains[0].sans: "*.ecovacs.net"
+      traefik.http.routers.bumper.rule: HostRegexp(`{subdomain:[a-z0-9._-]+}.ecovacs.net`, `{subdomain:[a-z0-9._-]+}.ecovacs.com`, `{subdomain:[a-z0-9._-]+}.ecouser.net`)
+      traefik.http.services.bumper.loadbalancer.server.port: 80
+      traefik.http.middlewares.bumper-https.redirectscheme.scheme: https
