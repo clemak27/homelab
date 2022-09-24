@@ -2,7 +2,7 @@
 version: '3.8'
 
 services:
-  deconz:
+  bumper:
     image: ${BUMPER_SERVICE_IMAGE:?}:${BUMPER_SERVICE_VERSION:?}
     container_name: ${BUMPER_SERVICE_NAME:?}
     ports:
