@@ -23,11 +23,11 @@ services:
       BUMPER_ANNOUNCE_IP: "192.168.178.100"
       # BUMPER_LISTEN: "192.168.178.100"
       BUMPER_LISTEN: "0.0.0.0"
-      PUID: "1000"
-      PGID: "1000"
+      PUID: "1001"
+      PGID: "1001"
       TZ: "Europe/Vienna"
-      LOG_TO_STDOUT: true
-      BUMPER_DEBUG: true
+      LOG_TO_STDOUT: "true"
+      BUMPER_DEBUG: "true"
     restart: unless-stopped
     labels:
       traefik.enable: true
