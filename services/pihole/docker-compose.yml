@@ -24,7 +24,6 @@ services:
       - "${FIREFLYIII_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${GITEA_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${GRAFANA_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
-      - "${HOMER_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${HOME_ASSISTANT_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${JACKETT_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${JELLYFIN_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
