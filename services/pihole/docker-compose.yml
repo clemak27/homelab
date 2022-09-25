@@ -20,6 +20,7 @@ services:
       - NET_ADMIN
     extra_hosts:
       - "${DEEMIX_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${FILEBROWSER_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${FIREFLYIII_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${GITEA_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${GRAFANA_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
