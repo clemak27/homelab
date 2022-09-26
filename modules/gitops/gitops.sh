@@ -18,9 +18,9 @@ __deploy() {
 
 if [ ! -f "/tmp/git_status_old" ]
 then
-  touch /var/mnt/data/docker/traefik/traefik.log
-  touch /var/mnt/data/docker/traefik/acme.json
-  touch /var/mnt/data/docker/home-assistant/bumper-certs/custom_ca.pem
+  touch /var/mnt/docker/traefik/traefik.log
+  touch /var/mnt/docker/traefik/acme.json
+  touch /var/mnt/docker/home-assistant/bumper-certs/custom_ca.pem
   __deploy
 fi
 
