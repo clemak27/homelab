@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.10"
+python = "3.10.7"
 qobuz-dl = "0.9.9.7"
 fastapi = {extras = ["all"], version = "0.85.0"}
 
