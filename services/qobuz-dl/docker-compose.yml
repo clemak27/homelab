@@ -1,0 +1,26 @@
+---
+version: '3.8'
+
+services:
+  qobuz-dl:
+    container_name: ${QOBUZ_SERVICE_NAME:?}
+    image: ${QOBUZ_SERVICE_NAME:?}:${QOBUZ_SERVICE_VERSION:?}
+    build:
+      context: qobuz-dl/src
+      args:
+        QOBUZ_EMAIL: ${QOBUZ_EMAIL:?}
+        QOBUZ_PASSWORD: ${QOBUZ_PASSWORD:?}
+    ports:
+      - "${QOBUZ_SERVICE_PORT:?}:${QOBUZ_INTERNAL_PORT:?}"
+    volumes:
+      - "${MEDIA_DATA:?}/music:/app/music"
+    security_opt:
+      - "label:disable"
+    networks:
+      - private
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${QOBUZ_INTERNAL_PORT:?}/health"]
+      interval: 20s
+      timeout: 60s
+      start_period: 15s
