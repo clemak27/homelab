@@ -60,6 +60,8 @@ function __add_secrets() {
       echo "VAULTWARDEN_YUBICO_SECRET_KEY=someSecret"
       echo "HOMELAB_BOT_TELEGRAM_CHAT_ID=someSecret"
       echo "HOMELAB_BOT_TELEGRAM_CHAT_URL=someSecret"
+      echo "QOBUZ_EMAIL=someSecret"
+      echo "QOBUZ_PASSWORD=someSecret"
     } >> .env
   fi
 }
