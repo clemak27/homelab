@@ -32,6 +32,7 @@ services:
       - "${PROMETHEUS_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${RADARR_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${RECIPES_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
+      - "${QOBUZ_DL_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${SONARR_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${SYNCTHING_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
       - "${TRAEFIK_SERVICE_NAME:?}.${DOMAIN:?}:${SERVER_IP:?}"
