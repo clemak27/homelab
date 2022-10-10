@@ -3,15 +3,15 @@ version: '3.8'
 
 services:
   qobuz-dl:
-    container_name: ${QOBUZ_SERVICE_NAME:?}
-    image: ${QOBUZ_SERVICE_NAME:?}:${QOBUZ_SERVICE_VERSION:?}
+    container_name: ${QOBUZ_DL_SERVICE_NAME:?}
+    image: ${QOBUZ_DL_SERVICE_NAME:?}:${QOBUZ_DL_SERVICE_VERSION:?}
     build:
       context: qobuz-dl/src
       args:
         QOBUZ_EMAIL: ${QOBUZ_EMAIL:?}
         QOBUZ_PASSWORD: ${QOBUZ_PASSWORD:?}
     ports:
-      - "${QOBUZ_SERVICE_PORT:?}:${QOBUZ_INTERNAL_PORT:?}"
+      - "${QOBUZ_DL_SERVICE_PORT:?}:${QOBUZ_DL_INTERNAL_PORT:?}"
     volumes:
       - "${MEDIA_DATA:?}/music:/app/music"
     security_opt:
@@ -19,8 +19,16 @@ services:
     networks:
       - private
     restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.qobuz-dl-router.entrypoints: https
+      traefik.http.routers.qobuz-dl-router.rule: Host(`${QOBUZ_DL_SERVICE_NAME:?}.${DOMAIN:?}`)
+      traefik.http.routers.qobuz-dl-router.tls: true
+      traefik.http.routers.qobuz-dl-router.tls.certresolver: letsEncrypt
+      traefik.http.routers.qobuz-dl-router.service: ${QOBUZ_DL_SERVICE_NAME:?}-service
+      traefik.http.services.qobuz-dl-service.loadbalancer.server.port: ${QOBUZ_DL_INTERNAL_PORT:?}
     healthcheck:
-      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${QOBUZ_INTERNAL_PORT:?}/health"]
+      test: ["CMD", "curl", "-s", "-f", "-i", "http://localhost:${QOBUZ_DL_INTERNAL_PORT:?}/health"]
       interval: 20s
       timeout: 60s
       start_period: 15s
