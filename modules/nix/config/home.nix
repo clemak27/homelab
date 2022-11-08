@@ -9,7 +9,7 @@ let
     git commit -m "chore(flake): Update $(date -I)"
 
     echo "Reloading home-manager config"
-    home-manager switch --flake '.?submodules=1' --impure
+    home-manager switch --flake '/var/home/clemens/Projects/homelab/modules/nix/config'
 
     echo "Collecting garbage"
     nix-collect-garbage
