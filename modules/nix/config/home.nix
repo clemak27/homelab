@@ -1,13 +1,15 @@
 { config, pkgs, lib, ... }:
 let
   updateHM = pkgs.writeShellScriptBin "update-homecfg" ''
+    set -eo pipefail
+
     echo "Updating flake"
     nix flake update
     git add flake.nix flake.lock
     git commit -m "chore(flake): Update $(date -I)"
 
     echo "Reloading home-manager config"
-    home-manager switch --flake '/var/home/clemens/Projects/homelab/modules/nix/config'
+    home-manager switch --flake '.?submodules=1' --impure
 
     echo "Collecting garbage"
     nix-collect-garbage
@@ -17,6 +19,12 @@ let
 
     echo "Updating nvim plugins"
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+    echo "Updating nvim-treesitter"
+    nvim --headless -c 'TSUpdateSync' -c 'q!'
+
+    echo "Pushing new version"
+    git push
   '';
 in
 {
