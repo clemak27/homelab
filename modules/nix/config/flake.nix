@@ -10,7 +10,6 @@
     sops-nix.url = github:Mic92/sops-nix;
     homecfg = {
       url = "github:clemak27/homecfg";
-      flake = false;
     };
   };
 
@@ -20,7 +19,7 @@
         "clemens@toolbox" = home-manager.lib.homeManagerConfiguration {
           pkgs = self.inputs.nixpkgs.legacyPackages.x86_64-linux;
           modules = [
-            "${self.inputs.homecfg}/default.nix"
+            homecfg.nixosModules.homecfg
             /var/home/clemens/Projects/homelab/modules/nix/config/home.nix
             {
               home = {
