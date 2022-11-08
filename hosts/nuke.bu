@@ -21,6 +21,7 @@ storage:
         inline: nuke
 systemd:
   units:
+    # uranium-235
     - name: var-mnt-archive.mount
       enabled: true
       contents: |
@@ -91,15 +92,17 @@ systemd:
 
         [Install]
         WantedBy=multi-user.target
-  # disks:
-  #   - device: /dev/sdb
-  #     wipe_table: false
-  #     partitions:
-  #       - number: 1
-  #         label: hdd0
-  # filesystems:
-  #   - path: /var/mnt/data
-  #     device: /dev/disk/by-partlabel/hdd0
-  #     format: btrfs
-  #     label: uranium-235
-  #     with_mount_unit: true
+    # uranium-233
+    - name: var-mnt-backups.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount backup directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b
+        Where=/var/mnt/backups
+        Type=btrfs
+
+        [Install]
+        WantedBy=multi-user.target
