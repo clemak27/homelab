@@ -16,9 +16,10 @@ then
   echo "Done"
 fi
 
-# prepare mountpoints for btrfs subvolumes
+# prepare mountpoints for btrfs mounts
 sudo mkdir -p /var/mnt/docker && sudo chown -R clemens:clemens /var/mnt/docker
 sudo mkdir -p /var/mnt/archive && sudo chown -R clemens:clemens /var/mnt/archive
 sudo mkdir -p /var/mnt/media && sudo chown -R clemens:clemens /var/mnt/media
 sudo mkdir -p /var/mnt/emulation && sudo chown -R clemens:clemens /var/mnt/emulation
 sudo mkdir -p /var/lib/docker
+sudo mkdir -p /var/mnt/backups && sudo chown -R clemens:clemens /var/mnt/backups
