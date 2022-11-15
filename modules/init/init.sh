@@ -23,3 +23,7 @@ sudo mkdir -p /var/mnt/media && sudo chown -R clemens:clemens /var/mnt/media
 sudo mkdir -p /var/mnt/emulation && sudo chown -R clemens:clemens /var/mnt/emulation
 sudo mkdir -p /var/lib/docker
 sudo mkdir -p /var/mnt/backups && sudo chown -R clemens:clemens /var/mnt/backups
+
+# start nfs service
+systemctl restart nfs-server
+systemctl enable nfs-server
