@@ -24,6 +24,12 @@ sudo mkdir -p /var/mnt/emulation && sudo chown -R clemens:clemens /var/mnt/emula
 sudo mkdir -p /var/lib/docker
 sudo mkdir -p /var/mnt/backups && sudo chown -R clemens:clemens /var/mnt/backups
 
+# create mountpoints for nfs shares
+sudo mkdir -p /var/nfs/media && sudo chown -R clemens:clemens /var/nfs/media
+
 # start nfs service
 systemctl restart nfs-server
 systemctl enable nfs-server
+
+# export nfs shares
+exportfs -a
