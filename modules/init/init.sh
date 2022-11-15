@@ -25,7 +25,9 @@ sudo mkdir -p /var/lib/docker
 sudo mkdir -p /var/mnt/backups && sudo chown -R clemens:clemens /var/mnt/backups
 
 # create mountpoints for nfs shares
+sudo mkdir -p /var/nfs/archive && sudo chown -R clemens:clemens /var/nfs/archive
 sudo mkdir -p /var/nfs/media && sudo chown -R clemens:clemens /var/nfs/media
+sudo mkdir -p /var/nfs/emulation && sudo chown -R clemens:clemens /var/nfs/emulation
 
 # start nfs service
 systemctl restart nfs-server
