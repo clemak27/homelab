@@ -19,6 +19,14 @@ storage:
       mode: 0644
       contents:
         inline: nuke
+    - path: /etc/exports
+      mode: 0644
+      contents:
+        inline: |
+          /var/nfs                192.168.178.0/24(rw,fsid=0,no_subtree_check) 10.6.0.0/24(rw,fsid=0,no_subtree_check)
+          # /var/nfs/archive        192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+          /var/nfs/media          192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+          # /var/nfs/emulation      192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
 systemd:
   units:
     # uranium-235
@@ -89,6 +97,21 @@ systemd:
         Where=/var/lib/docker
         Type=btrfs
         Options=subvol=lib_docker
+
+        [Install]
+        WantedBy=multi-user.target
+    # nfs bind-mounts
+    - name: var-nfs-media.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Bind-mount media directory
+
+        [Mount]
+        What=/var/mnt/media
+        Where=/var/nfs/media
+        Type=none
+        Options=bind
 
         [Install]
         WantedBy=multi-user.target
