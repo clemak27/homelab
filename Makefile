@@ -1,4 +1,4 @@
-FCOS_VERSION = 36.20220820.3.0
+FCOS_VERSION = 36.20221030.3.0
 SOPS_BIN_VERSION = v3.7.3
 
 PODMAN = /usr/bin/flatpak-spawn --host podman
