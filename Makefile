@@ -44,7 +44,10 @@ modules/gitops/gitops.ign: modules/gitops/gitops.bu modules/gitops/gitops.sh
 modules/nix/nix.ign: modules/nix/nix.bu modules/nix/create_nix_toolbox.sh
 	$(BUTANE) --files-dir /pwd/modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
 
-ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/gitops/gitops.ign modules/ssh/ssh.ign modules/nix/nix.ign
+modules/k3s/k3s.ign: modules/k3s/k3s.bu
+	$(BUTANE) --files-dir /pwd/modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
+
+ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/gitops/gitops.ign modules/ssh/ssh.ign modules/nix/nix.ign modules/k3s/k3s.ign
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
