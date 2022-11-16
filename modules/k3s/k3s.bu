@@ -1,0 +1,10 @@
+---
+variant: fcos
+version: 1.4.0
+storage:
+  files:
+    - path: /etc/rancher/k3s/config.yaml
+      mode: 0644
+      contents:
+        inline: |
+          write-kubeconfig-mode: "0644"

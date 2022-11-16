@@ -4,14 +4,12 @@ version: 1.4.0
 ignition:
   config:
     merge:
-      - local: modules/autoupdates.ign
       - local: modules/i18n.ign
       - local: modules/overlays.ign
       - local: modules/user.ign
       - local: modules/init/init.ign
-      # - local: modules/gitops/gitops.ign
-      # - local: modules/ssh/ssh.ign
       - local: modules/nix/nix.ign
+      - local: modules/k3s/k3s.ign
 storage:
   files:
     - path: /etc/hostname
