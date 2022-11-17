@@ -1,7 +1,7 @@
 serve:
 	poetry run uvicorn server:app --reload
 
-VERSION = 0.0.1local
+VERSION = 0.0.2local
 
 build:
 	docker build --build-arg QOBUZ_PASSWORD=${QOBUZ_PASSWORD} --build-arg QOBUZ_EMAIL=${QOBUZ_EMAIL} -t qobuz-dl:$(VERSION) .

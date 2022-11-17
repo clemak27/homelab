@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "qobuz-dl-server"
-version = "0.0.1"
+version = "0.0.2"
 description = "A REST API to download music from qobuz"
 authors = ["clemak27 <clemak27@mailbox.org>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.10.8"
-qobuz-dl = "0.9.9.7"
+python = "3.11.0"
+qobuz-dl = "0.9.9.8"
 fastapi = {extras = ["all"], version = "0.85.1"}
 
 
