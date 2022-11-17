@@ -29,9 +29,9 @@ let
 in
 {
   homecfg = {
-    dev.enable = true;
+    dev.enable = false;
     fun.enable = false;
-    k8s.enable = false;
+    k8s.enable = true;
     git = {
       enable = true;
       user = "clemak27";
@@ -40,8 +40,8 @@ in
       gh = false;
       glab = false;
     };
-    nvim.enable = true;
-    tmux.enable = true;
+    nvim.enable = false;
+    tmux.enable = false;
     tools.enable = true;
     zsh.enable = true;
   };
