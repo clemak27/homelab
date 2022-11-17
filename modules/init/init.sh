@@ -35,3 +35,8 @@ systemctl enable nfs-server
 
 # export nfs shares
 exportfs -a
+
+# init k3s
+curl -sfL https://get.k3s.io | sh -
+cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
+kubectl create namespace test
