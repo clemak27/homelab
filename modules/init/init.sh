@@ -17,17 +17,17 @@ then
 fi
 
 # prepare mountpoints for btrfs mounts
-sudo mkdir -p /var/mnt/docker && sudo chown -R clemens:clemens /var/mnt/docker
-sudo mkdir -p /var/mnt/archive && sudo chown -R clemens:clemens /var/mnt/archive
-sudo mkdir -p /var/mnt/media && sudo chown -R clemens:clemens /var/mnt/media
-sudo mkdir -p /var/mnt/emulation && sudo chown -R clemens:clemens /var/mnt/emulation
-sudo mkdir -p /var/lib/docker
-sudo mkdir -p /var/mnt/backups && sudo chown -R clemens:clemens /var/mnt/backups
+mkdir -p /var/mnt/docker && chown -R clemens:clemens /var/mnt/docker
+mkdir -p /var/mnt/archive && chown -R clemens:clemens /var/mnt/archive
+mkdir -p /var/mnt/media && chown -R clemens:clemens /var/mnt/media
+mkdir -p /var/mnt/emulation && chown -R clemens:clemens /var/mnt/emulation
+mkdir -p /var/lib/docker
+mkdir -p /var/mnt/backups && chown -R clemens:clemens /var/mnt/backups
 
 # create mountpoints for nfs shares
-sudo mkdir -p /var/nfs/archive && sudo chown -R clemens:clemens /var/nfs/archive
-sudo mkdir -p /var/nfs/media && sudo chown -R clemens:clemens /var/nfs/media
-sudo mkdir -p /var/nfs/emulation && sudo chown -R clemens:clemens /var/nfs/emulation
+mkdir -p /var/nfs/archive && chown -R clemens:clemens /var/nfs/archive
+mkdir -p /var/nfs/media && chown -R clemens:clemens /var/nfs/media
+mkdir -p /var/nfs/emulation && chown -R clemens:clemens /var/nfs/emulation
 
 # start nfs service
 systemctl restart nfs-server
