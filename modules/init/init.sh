@@ -41,4 +41,4 @@ curl -sfL https://get.k3s.io | sh -
 mkdir -p /var/home/clemens/.kube
 cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
 chown -R clemens:clemens /var/home/clemens/.kube
-kubectl create namespace test
+kubectl create namespace services
