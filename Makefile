@@ -1,11 +1,13 @@
 FCOS_VERSION = 36.20221030.3.0
 SOPS_BIN_VERSION = v3.7.3
 
-PODMAN = /usr/bin/flatpak-spawn --host podman
+RUN_HOST = /usr/bin/flatpak-spawn --host
+PODMAN =  $(RUN_HOST) podman
 PODMAN_RUN_PWD = $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
 BUTANE = $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER = $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS = $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
+K3D = $(RUN_HOST) sudo -S bin/k3d
 
 default: ignition
 
@@ -128,3 +130,22 @@ clean:
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 	rm fcos.iso
 	rm -rf bin
+
+# k3d
+
+k3d/create_cluster: bin/k3d
+	$(K3D) cluster create --config ${PWD}/k3d.yaml
+
+k3d/destroy_cluster: bin/k3d
+	$(K3D) cluster delete
+	rm -rf kubeconfig.yaml
+
+k3d/create_kubeconfig: bin/k3d
+	$(K3D) kubeconfig get k3s-default > kubeconfig.yaml
+	echo "kubeconfig written to kubeconfig.yaml"
+	echo "use with export KUBECONFIG=${PWD}/kubeconfig.yaml"
+
+bin/k3d:
+	mkdir -p bin
+	curl -L --url https://github.com/k3d-io/k3d/releases/download/v5.4.6/k3d-linux-amd64 -o bin/k3d -C -
+	chmod +x bin/k3d

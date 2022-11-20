@@ -1,0 +1,8 @@
+---
+# k3d configuration file
+apiVersion: k3d.io/v1alpha4
+kind: Simple
+metadata:
+  name: local
+servers: 1
+agents: 1
