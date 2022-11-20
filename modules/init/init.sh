@@ -7,8 +7,7 @@ project_dir=/var/home/clemens/Projects
 chown -R clemens:clemens /var/home/clemens/.config
 
 # git repo
-if [ ! -d "$project_dir/homelab" ]
-then
+if [ ! -d "$project_dir/homelab" ]; then
   echo "Checking out homelab repo..."
   mkdir -p $project_dir
   cd $project_dir && git clone https://github.com/clemak27/homelab
