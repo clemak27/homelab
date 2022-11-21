@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: Yamllint
         uses: karancode/yamllint-github-action@master
   shellcheck:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: shellcheck
         uses: ludeeus/action-shellcheck@master
   hadolint:
@@ -23,7 +23,7 @@ jobs:
       HADOLINT_RECURSIVE: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: Hadolint
         uses: hadolint/hadolint-action@v2.0.0
         with:
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: Go setup
         uses: actions/setup-go@v3
         with:

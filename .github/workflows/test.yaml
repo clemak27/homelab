@@ -9,14 +9,14 @@ jobs:
       DEPLOY_TEST: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: Test docker-compose file
         run: cd services && ./deploy.sh
   ignition:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: Nix setup
         uses: cachix/install-nix-action@v16
       - name: Run ignition test
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.0.0
+        uses: actions/checkout@v3
       - name: Go setup
         uses: actions/setup-go@v3
         with:
