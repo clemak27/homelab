@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Hadolint
-        uses: hadolint/hadolint-action@v2.0.0
+        uses: hadolint/hadolint-action@v2.1.0
         with:
           dockerfile: Dockerfile
   homelab_bot:
