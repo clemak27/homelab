@@ -37,15 +37,6 @@
         "\\s*.+_VERSION=(?<currentValue>.*)  # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
       ],
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
-    },
-    {
-      "fileMatch": [
-        "\\.github/workflows/renovate.yaml"
-      ],
-      "matchStrings": [
-        "\\s*uses: renovatebot/github-action@(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
     }
   ]
 }
