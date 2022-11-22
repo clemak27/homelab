@@ -1,5 +1,7 @@
 FCOS_VERSION = 36.20221030.3.0
 SOPS_BIN_VERSION = v3.7.3
+K3D_BIN_VERSION = v5.4.6
+ARGOCD_BIN_VERSION = v2.5.2
 
 RUN_HOST = /usr/bin/flatpak-spawn --host
 PODMAN =  $(RUN_HOST) podman
@@ -84,7 +86,7 @@ create_iso/nuke: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/nuke.ign
 
 bin/sops:
 	mkdir -p bin
-	curl -L -o bin/sops --url https://github.com/mozilla/sops/releases/download/$(SOPS_BIN_VERSION)/sops-$(SOPS_BIN_VERSION).linux
+	curl -L --url https://github.com/mozilla/sops/releases/download/$(SOPS_BIN_VERSION)/sops-$(SOPS_BIN_VERSION).linux -o bin/sops  -C -
 	chmod +x bin/sops
 
 fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
@@ -140,12 +142,31 @@ k3d/destroy_cluster: bin/k3d
 	$(K3D) cluster delete local
 	rm -rf kubeconfig.yaml
 
-k3d/create_kubeconfig: bin/k3d
+k3d/create_kubeconfig: kubeconfig.yaml
+
+kubeconfig.yaml:
 	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
 	echo "use with export KUBECONFIG=${PWD}/kubeconfig.yaml"
 
+# k3d/init_argocd: k3d/create_kubeconfig bin/argocd
+#   kubectl create namespace services && \
+# 	kubectl create namespace argocd && \
+# 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml && \
+# 	echo "Waiting 30 secs until argocd has started..." && \
+# 	sleep 30 && \
+	# export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
+  # export ARGOCD_OPTS='--insecure --port-forward-namespace argocd' && \
+  # export ARGOCD_PASSWD=$$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) && \
+  # bin/argocd login k3d.wallstreet30.local:8080 --username admin --password ${ARGOCD_PASSWD} && \
+  # bin/argocd cluster add k3d-local -y
+
 bin/k3d:
 	mkdir -p bin
-	curl -L --url https://github.com/k3d-io/k3d/releases/download/v5.4.6/k3d-linux-amd64 -o bin/k3d -C -
+	curl -L --url https://github.com/k3d-io/k3d/releases/download/$(K3D_BIN_VERSION)/k3d-linux-amd64 -o bin/k3d -C -
 	chmod +x bin/k3d
+
+bin/argocd:
+	mkdir -p bin
+	curl -L --url https://github.com/argoproj/argo-cd/releases/download/$(ARGOCD_BIN_VERSION)/argocd-linux-amd64 -o bin/argocd -C -
+	chmod +x bin/argocd
