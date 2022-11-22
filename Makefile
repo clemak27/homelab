@@ -137,11 +137,11 @@ k3d/create_cluster: bin/k3d
 	$(K3D) cluster create --config ${PWD}/k3d.yaml
 
 k3d/destroy_cluster: bin/k3d
-	$(K3D) cluster delete
+	$(K3D) cluster delete local
 	rm -rf kubeconfig.yaml
 
 k3d/create_kubeconfig: bin/k3d
-	$(K3D) kubeconfig get k3s-default > kubeconfig.yaml
+	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
 	echo "use with export KUBECONFIG=${PWD}/kubeconfig.yaml"
 

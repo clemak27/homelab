@@ -31,7 +31,8 @@ Since I use Fedora Silverblue, it requires some additional steps:
 - enable the podman socket:
   - `sudo systemctl enable --now podman.socket`
 - make sure the docker socket is pointed at the right file:
-  - /run/podman/podman.sock <-> /var/run/docker.sock
+  - /var/run/docker.sock -> /run/podman/podman.sock
+  - add `127.0.0.1   k3d.wallstreet30.local` to `/etc/hosts`
 - run `make bin/k3d`
 - install the cluster with `make k3d/cluster_create`
 - ???
