@@ -149,17 +149,14 @@ kubeconfig.yaml:
 	echo "kubeconfig written to kubeconfig.yaml"
 	echo "use with export KUBECONFIG=${PWD}/kubeconfig.yaml"
 
-# k3d/init_argocd: k3d/create_kubeconfig bin/argocd
-#   kubectl create namespace services && \
-# 	kubectl create namespace argocd && \
-# 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml && \
-# 	echo "Waiting 30 secs until argocd has started..." && \
-# 	sleep 30 && \
-	# export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-  # export ARGOCD_OPTS='--insecure --port-forward-namespace argocd' && \
-  # export ARGOCD_PASSWD=$$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) && \
-  # bin/argocd login k3d.wallstreet30.local:8080 --username admin --password ${ARGOCD_PASSWD} && \
-  # bin/argocd cluster add k3d-local -y
+k3d/init_argocd: k3d/create_kubeconfig
+	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
+  kubectl create namespace services && \
+	kubectl create namespace argocd && \
+	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml && \
+	echo "Waiting 30 secs until argocd has started..." && \
+	sleep 30 && \
+  kubectl apply -n argocd -f k3s/argocd/application.yaml
 
 bin/k3d:
 	mkdir -p bin
