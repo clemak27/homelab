@@ -41,3 +41,5 @@ mkdir -p /var/home/clemens/.kube
 cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
 chown -R clemens:clemens /var/home/clemens/.kube
 kubectl create namespace services
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
