@@ -154,8 +154,8 @@ k3d/init_argocd: k3d/create_kubeconfig
   kubectl create namespace services && \
 	kubectl create namespace argocd && \
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml && \
-	echo "Waiting 30 secs until argocd has started..." && \
-	sleep 30 && \
+	echo "Waiting 45 secs until argocd has started..." && \
+	sleep 45 && \
   kubectl apply -n argocd -f k3s/argocd/application.yaml
 
 bin/k3d:
