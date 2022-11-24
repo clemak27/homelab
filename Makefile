@@ -135,6 +135,8 @@ clean:
 
 # k3d
 
+k3d: k3d/create_cluster k3d/create_kubeconfig k3d/init_argocd
+
 k3d/create_cluster: bin/k3d
 	$(K3D) cluster create --config ${PWD}/k3d.yaml
 
@@ -147,7 +149,6 @@ k3d/create_kubeconfig: kubeconfig.yaml
 kubeconfig.yaml:
 	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
-	echo "use with export KUBECONFIG=${PWD}/kubeconfig.yaml"
 
 k3d/init_argocd: k3d/create_kubeconfig
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
