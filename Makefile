@@ -2,6 +2,7 @@ FCOS_VERSION = 36.20221030.3.0
 SOPS_BIN_VERSION = v3.7.3
 K3D_BIN_VERSION = v5.4.6
 ARGOCD_BIN_VERSION = v2.5.2
+KUSTOMIZE_VERSION = v4.5.7
 
 RUN_HOST = /usr/bin/flatpak-spawn --host
 PODMAN =  $(RUN_HOST) podman
@@ -168,3 +169,11 @@ bin/argocd:
 	mkdir -p bin
 	curl -L --url https://github.com/argoproj/argo-cd/releases/download/$(ARGOCD_BIN_VERSION)/argocd-linux-amd64 -o bin/argocd -C -
 	chmod +x bin/argocd
+
+bin/kustomize:
+	mkdir -p bin
+	curl -L --url https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/$(KUSTOMIZE_VERSION)/kustomize_$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz -o bin/kustomize.tar.gz -C -
+	tar -xvf bin/kustomize.tar.gz -C bin
+	rm bin/kustomize.tar.gz
+	chmod +x bin/kustomize
+
