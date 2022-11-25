@@ -138,7 +138,7 @@ clean:
 
 # k3d
 
-k3d: k3d/create_cluster k3d/create_kubeconfig k3d/init_argocd
+k3d: k3d/create_cluster k3d/init_argocd
 
 k3d/create_cluster: bin/k3d
 	$(K3D) cluster create --config ${PWD}/k3d.yaml
@@ -161,6 +161,7 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	echo "Waiting 45 seconds until argocd has started..." && \
   sleep 45 && \
   bin/helm template k3s/services/ | bin/kubectl apply -n argocd -f -
+  # bin/kubectl delete secret -l owner=helm,name=argocd
 
 update_charts: k3d/create_kubeconfig bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
