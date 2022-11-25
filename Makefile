@@ -3,6 +3,7 @@ SOPS_BIN_VERSION = v3.7.3
 K3D_BIN_VERSION = v5.4.6
 ARGOCD_BIN_VERSION = v2.5.2
 KUSTOMIZE_VERSION = v4.5.7
+HELM_VERSION = v3.10.2
 
 RUN_HOST = /usr/bin/flatpak-spawn --host
 PODMAN =  $(RUN_HOST) podman
@@ -177,3 +178,10 @@ bin/kustomize:
 	rm -f bin/kustomize.tar.gz
 	chmod +x bin/kustomize
 
+bin/helm:
+	mkdir -p bin
+	curl -L --url https://get.helm.sh/helm-$(HELM_VERSION)-linux-amd64.tar.gz -o bin/helm.tar.gz -C -
+	tar -zxvf bin/helm.tar.gz -C bin
+	mv bin/linux-amd64/helm bin/helm
+	rm -rf bin/linux-amd64
+	chmod +x bin/helm
