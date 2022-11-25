@@ -153,13 +153,16 @@ kubeconfig.yaml:
 	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
 
-k3d/init_argocd: k3d/create_kubeconfig bin/helm
+k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-	bin/helm install argocd k3s/argocd && \
+  bin/kubectl create namespace services && \
+	bin/kubectl create namespace argocd && \
+	bin/helm install -n argocd argocd k3s/argocd && \
+	echo "Waiting 45 seconds until argocd has started..." && \
   sleep 45 && \
-  bin/helm template k3s/services/ | kubectl apply -f -
+  bin/helm template k3s/services/ | bin/kubectl apply -n argocd -f -
 
-update_charts: bin/helm
+update_charts: k3d/create_kubeconfig bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
 	cd k3s/argocd && \
 	../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm
