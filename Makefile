@@ -1,5 +1,6 @@
 FCOS_VERSION = 36.20221030.3.0
 SOPS_BIN_VERSION = v3.7.3
+KUBECTL_VERSION = v1.25.0
 K3D_BIN_VERSION = v5.4.6
 ARGOCD_BIN_VERSION = v2.5.2
 KUSTOMIZE_VERSION = v4.5.7
@@ -168,6 +169,11 @@ bin/k3d:
 	mkdir -p bin
 	curl -L --url https://github.com/k3d-io/k3d/releases/download/$(K3D_BIN_VERSION)/k3d-linux-amd64 -o bin/k3d -C -
 	chmod +x bin/k3d
+
+bin/kubectl:
+	mkdir -p bin
+	curl -L --url https://dl.k8s.io/release/$(KUBECTL_VERSION)/bin/linux/amd64/kubectl -o bin/kubectl -C -
+	chmod +x bin/kubectl
 
 bin/argocd:
 	mkdir -p bin
