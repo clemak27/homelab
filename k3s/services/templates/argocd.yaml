@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/clemak27/homelab'
+    path: k3s/argocd
+    targetRevision: k3s
+  destination:
+    namespace: services
+    name: in-cluster
+  syncPolicy:
+    automated: {}
