@@ -168,6 +168,12 @@ update_charts: k3d/create_kubeconfig bin/helm
 	../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm
 	bin/helm dep update k3s/argocd
 
+k3d/argocd_port_forward:
+	bin/kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+k3d/argocd_default_password:
+	bin/kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
 bin/k3d:
 	mkdir -p bin
 	curl -L --url https://github.com/k3d-io/k3d/releases/download/$(K3D_BIN_VERSION)/k3d-linux-amd64 -o bin/k3d -C -
