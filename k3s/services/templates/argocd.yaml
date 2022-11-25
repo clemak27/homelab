@@ -3,7 +3,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argocd
-  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -13,7 +12,9 @@ spec:
     path: k3s/argocd
     targetRevision: k3s
   destination:
-    namespace: services
+    namespace: argocd
     name: in-cluster
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
