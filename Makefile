@@ -174,6 +174,6 @@ bin/kustomize:
 	mkdir -p bin
 	curl -L --url https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/$(KUSTOMIZE_VERSION)/kustomize_$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz -o bin/kustomize.tar.gz -C -
 	tar -xvf bin/kustomize.tar.gz -C bin
-	rm bin/kustomize.tar.gz
+	rm -f bin/kustomize.tar.gz
 	chmod +x bin/kustomize
 
