@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: services
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/clemak27/homelab
+        revision: k3s
+        directories:
+          - path: k3s/services/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/clemak27/homelab
+        targetRevision: k3s
+        path: '{{path}}'
+      destination:
+        name: in-cluster
+        namespace: services
