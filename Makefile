@@ -160,7 +160,7 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	bin/helm install -n argocd argocd k3s/argocd && \
 	echo "Waiting 45 seconds until argocd has started..." && \
   sleep 45 && \
-  bin/helm template k3s/services/ | bin/kubectl apply -n argocd -f -
+  bin/kubectl apply -n argocd -f k3s/argocd/applications.yaml
   # bin/kubectl delete secret -l owner=helm,name=argocd
 
 update_charts: k3d/create_kubeconfig bin/helm
