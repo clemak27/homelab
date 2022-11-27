@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: services
+  name: git
   namespace: argocd
 spec:
   generators:
@@ -31,7 +31,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: services
+  name: helm
   namespace: argocd
 spec:
   generators:
@@ -39,7 +39,7 @@ spec:
         elements:
           - appName: homer
             namespace: services
-            version: 0.2.2
+            version: 8.0.2
   template:
     metadata:
       name: "{{appName}}"
@@ -52,6 +52,7 @@ spec:
           releaseName: "{{appName}}"
           valueFiles:
             - values.yaml
+        chart: "{{appName}}"
       destination:
         name: in-cluster
         namespace: "{{namespace}}"
