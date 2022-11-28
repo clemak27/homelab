@@ -24,6 +24,10 @@ spec:
         repoURL: https://github.com/clemak27/homelab
         targetRevision: k3s
         path: '{{path}}'
+        helm:
+          valueFiles:
+            - values.yaml
+            # - secrets+gpg-import-kubernetes://argocd/helm-secrets-private-keys#key.asc?secrets.yaml
       destination:
         name: in-cluster
         namespace: services
