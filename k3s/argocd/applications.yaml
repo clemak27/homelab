@@ -27,7 +27,7 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-            # - secrets+gpg-import-kubernetes://argocd/helm-secrets-private-keys#key.asc?secrets.yaml
+            - secrets+age-import:///helm-secrets-private-keys/age_key?https://raw.githubusercontent.com/clemak27/homelab/k3s/{{path}}/secrets.yaml
       destination:
         name: in-cluster
         namespace: services
