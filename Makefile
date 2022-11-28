@@ -153,7 +153,7 @@ kubeconfig.yaml:
 	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
 
-k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm k3d/add_helmsecret
+k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
   bin/kubectl create namespace services && \
 	bin/kubectl create namespace argocd && \
