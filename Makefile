@@ -157,14 +157,14 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
   bin/kubectl create namespace services && \
 	bin/kubectl create namespace argocd && \
-	$(SOPS) --decrypt modules/init/age_key.enc > key.asc
-	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.asc
+	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
+	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
 	bin/helm install -n argocd argocd k3s/argocd && \
 	echo "Waiting 45 seconds until argocd has started..." && \
   sleep 45 && \
   bin/kubectl apply -n argocd -f k3s/argocd/repositories.yaml && \
   bin/kubectl apply -n argocd -f k3s/argocd/applications.yaml
-	rm key.asc
+	rm key.txt
 
 update_charts: k3d/create_kubeconfig bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
