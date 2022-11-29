@@ -14,6 +14,18 @@ argo-cd:
         https
 
   repoServer:
+    serviceAccount:
+      create: true
+      name: argocd-repo-server
+
+    rbac:
+      - apiGroups:
+          - ""
+        resources:
+          - secrets
+        verbs:
+          - get
+
     env:
       - name: HELM_PLUGINS
         value: /custom-tools/helm-plugins/
@@ -35,12 +47,14 @@ argo-cd:
         # helm secrets wrapper mode installation (optional)
         # - name: HELM_SECRETS_HELM_PATH
         #   value: /usr/local/bin/helm
+
     volumes:
       - name: custom-tools
         emptyDir: {}
       - name: helm-secrets-private-keys
         secret:
           secretName: helm-secrets-private-keys
+
     volumeMounts:
       - mountPath: /custom-tools
         name: custom-tools
