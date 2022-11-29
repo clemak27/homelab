@@ -88,6 +88,7 @@ argo-cd:
             wget -qO /custom-tools/curl https://github.com/moparisthebest/static-curl/releases/latest/download/curl-amd64 \
 
             chmod +x /custom-tools/*
+            export PATH=/custom-tools/:$PATH
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
