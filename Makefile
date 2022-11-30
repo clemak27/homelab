@@ -162,7 +162,6 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	bin/helm install -n argocd argocd services/argocd && \
 	echo "Waiting 45 seconds until argocd has started..." && \
   sleep 45 && \
-  bin/kubectl apply -n argocd -f services/argocd/repositories.yaml && \
   bin/kubectl apply -n argocd -f services/argocd/applications.yaml
 	rm key.txt
 

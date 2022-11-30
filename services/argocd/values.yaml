@@ -77,3 +77,13 @@ argo-cd:
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
+  configs:
+    repositories:
+      argocd-helm:
+        type: helm
+        name: argo-cd
+        url: https://argoproj.github.io/argo-helm
+      bjw-s-helm:
+        type: helm
+        name: bjw-s
+        url: https://bjw-s.github.io/helm-charts
