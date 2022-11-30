@@ -15,14 +15,14 @@ app-template:
   env:
     TZ: Europe/Vienna
 
-#   service:
-#     main:
-#       type: LoadBalancer
+  service:
+    main:
+      type: LoadBalancer
       # loadBalancerIP: ${METALLB_JELLYFIN_ADDR}
       # externalTrafficPolicy: Local
-      # ports:
-      #   http:
-      #     port: 8096
+      ports:
+        http:
+          port: 8096
 
   # ingress:
   #   main:
