@@ -153,6 +153,10 @@ kubeconfig.yaml:
 	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
 
+k3d/init_storage:
+	mkdir -p tmp/media/music
+	touch tmp/media/music/fake.flac
+
 k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
   bin/kubectl create namespace services && \
