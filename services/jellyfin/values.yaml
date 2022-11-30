@@ -4,26 +4,29 @@ jellyin:
     repository: ghcr.io/onedr0p/jellyfin
     tag: 10.8.8@sha256:c2858a6c300af1b9f71517d9008756cede49085f6218f6c647b4bb984238de56
 
-  readinessProbe:
-    httpGet:
-      path: /
-      port: 8096
+  probes:
+    readiness:
+      enabled: false
+    startup:
+      enabled: false
+    liveness:
+      enabled: false
 
   env:
     TZ: Europe/Vienna
 
-  service:
-    main:
-      type: LoadBalancer
+#   service:
+#     main:
+#       type: LoadBalancer
       # loadBalancerIP: ${METALLB_JELLYFIN_ADDR}
       # externalTrafficPolicy: Local
-      ports:
-        http:
-          port: 8096
+      # ports:
+      #   http:
+      #     port: 8096
 
-  ingress:
-    main:
-      enabled: true
+  # ingress:
+  #   main:
+  #     enabled: true
       # ingressClassName: traefik
       # annotations:
       #   cert-manager.io/cluster-issuer: letsencrypt-production
