@@ -38,16 +38,15 @@ app-template:
 #   fsGroup: ${RUN_AS_GROUP}
 #   fsGroupChangePolicy: OnRootMismatch
 
-# persistence:
-#   config:
-#     enabled: true
-#     existingClaim: jellyfin-config-v1
-#   media:
-#     enabled: true
-#     type: nfs
-#     server: ${NAS_ADDR}
-#     path: ${NAS_MEDIA_DIR}
-#     mountPath: /media
+persistence:
+  # config:
+  #   enabled: true
+  #   existingClaim: jellyfin-config-v1
+  media:
+    enabled: true
+    storageClass: local-path
+    path: tmp/media
+    mountPath: /media
 #   transcode:
 #     enabled: true
 #     type: emptyDir
