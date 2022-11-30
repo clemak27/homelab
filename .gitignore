@@ -6,3 +6,4 @@ wg0.conf
 age_key
 .env.secret
 kubeconfig.yaml
+tmp
