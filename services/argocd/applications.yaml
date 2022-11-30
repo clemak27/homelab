@@ -11,6 +11,8 @@ spec:
         revision: k3s
         directories:
           - path: services/*
+          - path: services/argocd
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
@@ -31,22 +33,22 @@ spec:
       destination:
         name: in-cluster
         namespace: services
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: argocd
-#   namespace: argocd
-# spec:
-#   project: default
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#   source:
-#     repoURL: https://github.com/clemak27/homelab
-#     targetRevision: k3s
-#     path: k3s/argocd
-#   destination:
-#     name: in-cluster
-#     namespace: argocd
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: k3s
+    path: services/argocd
+  destination:
+    name: in-cluster
+    namespace: argocd
