@@ -159,18 +159,18 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
-	bin/helm install -n argocd argocd k3s/argocd && \
+	bin/helm install -n argocd argocd services/argocd && \
 	echo "Waiting 45 seconds until argocd has started..." && \
   sleep 45 && \
-  bin/kubectl apply -n argocd -f k3s/argocd/repositories.yaml && \
-  bin/kubectl apply -n argocd -f k3s/argocd/applications.yaml
+  bin/kubectl apply -n argocd -f services/argocd/repositories.yaml && \
+  bin/kubectl apply -n argocd -f services/argocd/applications.yaml
 	rm key.txt
 
 update_charts: k3d/create_kubeconfig bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-	cd k3s/argocd && \
+	cd services/argocd && \
 	../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm
-	bin/helm dep update k3s/argocd
+	bin/helm dep update services/argocd
 
 k3d/argocd_port_forward:
 	bin/kubectl port-forward svc/argocd-server -n argocd 8080:443
