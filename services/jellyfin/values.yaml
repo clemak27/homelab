@@ -4,13 +4,13 @@ app-template:
     repository: ghcr.io/onedr0p/jellyfin
     tag: 10.8.8@sha256:c2858a6c300af1b9f71517d9008756cede49085f6218f6c647b4bb984238de56
 
-  probes:
-    readiness:
-      enabled: false
-    startup:
-      enabled: false
-    liveness:
-      enabled: false
+  # probes:
+  #   readiness:
+  #     enabled: false
+  #   startup:
+  #     enabled: false
+  #   liveness:
+  #     enabled: false
 
   env:
     TZ: Europe/Vienna
