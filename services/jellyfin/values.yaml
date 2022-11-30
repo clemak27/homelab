@@ -4,6 +4,11 @@ jellyin:
     repository: ghcr.io/onedr0p/jellyfin
     tag: 10.8.8@sha256:c2858a6c300af1b9f71517d9008756cede49085f6218f6c647b4bb984238de56
 
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 8096
+
   env:
     TZ: Europe/Vienna
 
