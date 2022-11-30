@@ -12,9 +12,9 @@ jellyin:
       type: LoadBalancer
       # loadBalancerIP: ${METALLB_JELLYFIN_ADDR}
       # externalTrafficPolicy: Local
-      # ports:
-      #   http:
-      #     port: &port 8096
+      ports:
+        http:
+          port: 8096
 
   ingress:
     main:
