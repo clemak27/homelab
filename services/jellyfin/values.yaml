@@ -4,14 +4,6 @@ app-template:
     repository: ghcr.io/onedr0p/jellyfin
     tag: 10.8.8@sha256:c2858a6c300af1b9f71517d9008756cede49085f6218f6c647b4bb984238de56
 
-  # probes:
-  #   readiness:
-  #     enabled: false
-  #   startup:
-  #     enabled: false
-  #   liveness:
-  #     enabled: false
-
   env:
     TZ: Europe/Vienna
 
@@ -24,38 +16,38 @@ app-template:
         http:
           port: 8096
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        # cert-manager.io/cluster-issuer: letsencrypt-production
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      #   traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
-      hosts:
-        - host: "jellyfin.wallstreet30.local"
-          paths:
-            - path: /
-              pathType: Prefix
-      # tls:
-      #   - secretName: "{{ .Release.Name }}-tls"
-      #     hosts:
-      #       - *host
+# ingress:
+#   main:
+#     enabled: true
+#     ingressClassName: traefik
+#     annotations:
+# cert-manager.io/cluster-issuer: letsencrypt-production
+# traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#   traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
+# hosts:
+#   - host: "jellyfin.wallstreet30.local"
+#     paths:
+#       - path: /
+#         pathType: Prefix
+# tls:
+#   - secretName: "{{ .Release.Name }}-tls"
+#     hosts:
+#       - *host
 
-  # podSecurityContext:
-  #   fsGroup: ${RUN_AS_GROUP}
-  #   fsGroupChangePolicy: OnRootMismatch
+# podSecurityContext:
+#   fsGroup: ${RUN_AS_GROUP}
+#   fsGroupChangePolicy: OnRootMismatch
 
-  # persistence:
-  #   config:
-  #     enabled: true
-  #     existingClaim: jellyfin-config-v1
-  #   media:
-  #     enabled: true
-  #     type: nfs
-  #     server: ${NAS_ADDR}
-  #     path: ${NAS_MEDIA_DIR}
-  #     mountPath: /media
-  #   transcode:
-  #     enabled: true
-  #     type: emptyDir
+# persistence:
+#   config:
+#     enabled: true
+#     existingClaim: jellyfin-config-v1
+#   media:
+#     enabled: true
+#     type: nfs
+#     server: ${NAS_ADDR}
+#     path: ${NAS_MEDIA_DIR}
+#     mountPath: /media
+#   transcode:
+#     enabled: true
+#     type: emptyDir
