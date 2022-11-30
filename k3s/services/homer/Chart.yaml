@@ -1,9 +1,0 @@
----
-apiVersion: v2
-name: helm-homer
-type: application
-version: 8.0.2
-dependencies:
-  - name: homer
-    version: 8.0.2
-    repository: https://k8s-at-home.com/charts

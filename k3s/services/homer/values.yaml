@@ -1,8 +1,0 @@
----
-homer:
-  ingress:
-    main:
-      enabled: true
-  configmap:
-    config:
-      enabled: true
