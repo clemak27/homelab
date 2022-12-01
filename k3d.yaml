@@ -10,6 +10,11 @@ kubeAPI:
   host: "k3d.wallstreet30.local"
   hostIP: "127.0.0.1"
   hostPort: "6445"
+volumes:
+  - volume: /var/home/clemens/Projects/homelab/tmp:/var/mnt
+    nodeFilters:
+      - server:*
+      - agent:*
 options:
   k3s:
     extraArgs:
