@@ -16,23 +16,23 @@ app-template:
         http:
           port: 8096
 
-# ingress:
-#   main:
-#     enabled: true
-#     ingressClassName: traefik
-#     annotations:
-# cert-manager.io/cluster-issuer: letsencrypt-production
-# traefik.ingress.kubernetes.io/router.entrypoints: websecure
-#   traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
-# hosts:
-#   - host: "jellyfin.wallstreet30.local"
-#     paths:
-#       - path: /
-#         pathType: Prefix
-# tls:
-#   - secretName: "{{ .Release.Name }}-tls"
-#     hosts:
-#       - *host
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      # annotations:
+      #   cert-manager.io/cluster-issuer: letsencrypt-production
+      #   traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      #   traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
+      hosts:
+        - host: "jellyfin.wallstreet30.local"
+          paths:
+            - path: /
+              pathType: Prefix
+      # tls:
+      #   - secretName: "{{ .Release.Name }}-tls"
+      #     hosts:
+      #       - *host
 
 # podSecurityContext:
 #   fsGroup: ${RUN_AS_GROUP}
