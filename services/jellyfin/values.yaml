@@ -45,7 +45,7 @@ persistence:
   media:
     enabled: true
     storageClass: local-path
-    path: tmp/media
+    path: /var/mnt/media
     mountPath: /media
 #   transcode:
 #     enabled: true
