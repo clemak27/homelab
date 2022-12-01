@@ -38,16 +38,16 @@ app-template:
 #   fsGroup: ${RUN_AS_GROUP}
 #   fsGroupChangePolicy: OnRootMismatch
 
-persistence:
-  config:
-    enabled: true
-    type: pvc
-    accessMode: ReadWriteOnce
-    size: 1Gi
-    mountPath: /config
-  media:
-    enabled: true
-    type: pvc
-    accessMode: ReadWriteOnce
-    size: 5Gi
-    mountPath: /media
+  persistence:
+    config:
+      enabled: true
+      type: pvc
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      mountPath: /config
+    media:
+      enabled: true
+      type: pvc
+      accessMode: ReadWriteOnce
+      size: 5Gi
+      mountPath: /media
