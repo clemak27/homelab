@@ -167,8 +167,8 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
 	bin/helm install -n argocd argocd services/argocd && \
-	echo "Waiting 45 seconds until argocd has started..." && \
-  sleep 45 && \
+	echo "Waiting 60 seconds until argocd has started..." && \
+  sleep 60 && \
   bin/kubectl apply -n argocd -f services/argocd/applications.yaml
 	rm key.txt
 
