@@ -39,14 +39,9 @@ app-template:
 #   fsGroupChangePolicy: OnRootMismatch
 
 persistence:
-  # config:
-  #   enabled: true
-  #   existingClaim: jellyfin-config-v1
-  media:
+  config:
     enabled: true
-    storageClass: local-path
-    path: /var/mnt/media
-    mountPath: /media
-#   transcode:
-#     enabled: true
-#     type: emptyDir
+    existingClaim: jellyfin-media-claim
+  # media:
+  #   enabled: true
+  #   existingClaim: jellyfin-media-claim
