@@ -39,15 +39,11 @@ app-template:
 #   fsGroupChangePolicy: OnRootMismatch
 
   persistence:
-    config:
-      enabled: true
-      type: pvc
-      accessMode: ReadWriteOnce
-      size: 1Gi
-      mountPath: /config
     media:
       enabled: true
-      type: pvc
-      accessMode: ReadWriteOnce
-      size: 5Gi
-      mountPath: /media
+      storageClass: manual
+      accessMode: "ReadWriteOnce"
+      size: "1Gi"
+      hostPath:
+        path: "/var/mnt/media"
+      mountPath: "/media"
