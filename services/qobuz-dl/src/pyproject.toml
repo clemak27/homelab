@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "3.10.8"
-qobuz-dl = "0.9.9.7"
+qobuz-dl = "0.9.9.8"
 fastapi = {extras = ["all"], version = "0.85.1"}
 
 
