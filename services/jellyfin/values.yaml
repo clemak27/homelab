@@ -41,7 +41,13 @@ app-template:
 persistence:
   config:
     enabled: true
-    existingClaim: jellyfin-media-claim
-  # media:
-  #   enabled: true
-  #   existingClaim: jellyfin-media-claim
+    type: pvc
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    mountPath: /config
+  media:
+    enabled: true
+    type: pvc
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    mountPath: /media
