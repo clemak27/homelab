@@ -41,7 +41,7 @@ app-template:
   persistence:
     media:
       enabled: true
-      storageClass: manual
+      storageClass: local-path
       accessMode: "ReadWriteOnce"
       size: "1Gi"
       hostPath:
