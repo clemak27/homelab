@@ -17,6 +17,11 @@ kubeAPI:
 #   - port: 8096:8096
 #     nodeFilters:
 #       - loadbalancer
+volumes:
+  - volume: /var/home/clemens/Projects/homelab/tmp:/var/mnt
+    nodeFilters:
+      - server:*
+      - agent:*
 options:
   k3s:
     extraArgs:

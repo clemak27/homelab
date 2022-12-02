@@ -40,12 +40,15 @@ app-template:
   #   fsGroupChangePolicy: OnRootMismatch
 
   persistence:
+    config:
+      enabled: true
+      type: hostPath
+      hostPath: /var/mnt/services/jellyfin
+      path: /var/mnt/services/jellyfin
+      mountPath: /config
     media:
       enabled: true
-      # existingClaim: nfs-media-pvc
+      type: hostPath
+      hostPath: /var/mnt/media
+      path: /var/mnt/media
       mountPath: /media
-      size: 4T
-      storageClass: nfs-media
-      server: 192.168.178.100
-      path: /nfs/media
-      accessMode: ReadWriteOnce
