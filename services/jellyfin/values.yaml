@@ -42,13 +42,13 @@ app-template:
   persistence:
     config:
       enabled: true
-      type: hostPath
-      hostPath: /var/mnt/services/jellyfin
-      path: /var/mnt/services/jellyfin
-      mountPath: /config
+      # type: hostPath
+      # hostPath:
+      #   path: /var/mnt/services/jellyfin
+      # mountPath: /config
     media:
       enabled: true
       type: hostPath
       hostPath: /var/mnt/media
-      path: /var/mnt/media
+      # path: /var/mnt/media
       mountPath: /media
