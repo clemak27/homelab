@@ -157,7 +157,7 @@ k3d/init_storage: tmp
 
 tmp:
 	mkdir -p tmp/media/music
-	mkdir -p tmp/services
+	mkdir -p tmp/services/jellyfin
 	touch tmp/media/music/fake.flac
 
 k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
