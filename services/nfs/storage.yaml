@@ -1,0 +1,27 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: nfs-media
+  namespace: kube-system
+spec:
+  chart: nfs-subdir-external-provisioner
+  repo: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner
+  targetNamespace: kube-system
+  set:
+    nfs.server: 192.168.178.100
+    nfs.path: /nfs/media
+    storageClass.name: nfs-media
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-media-pvc
+  namespace: services
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: nfs-media
+  resources:
+    requests:
+      storage: 4T

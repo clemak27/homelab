@@ -35,16 +35,17 @@ app-template:
       #     hosts:
       #       - *host
 
-# podSecurityContext:
-#   fsGroup: ${RUN_AS_GROUP}
-#   fsGroupChangePolicy: OnRootMismatch
+  # podSecurityContext:
+  #   fsGroup: ${RUN_AS_GROUP}
+  #   fsGroupChangePolicy: OnRootMismatch
 
   persistence:
     media:
       enabled: true
-      storageClass: local-path
-      accessMode: "ReadWriteOnce"
-      size: "1Gi"
-      hostPath:
-        path: "/var/mnt/media"
-      mountPath: "/media"
+      # existingClaim: nfs-media-pvc
+      mountPath: /media
+      size: 4T
+      storageClass: nfs-media
+      server: 192.168.178.100
+      path: /nfs/media
+      accessMode: ReadWriteOnce

@@ -13,6 +13,8 @@ spec:
           - path: services/*
           - path: services/argocd
             exclude: true
+          - path: services/nfs
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
