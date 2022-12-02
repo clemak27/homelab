@@ -140,7 +140,7 @@ clean:
 
 k3d: k3d/create_cluster k3d/init_argocd
 
-k3d/create_cluster: bin/k3d k3d/init_storage
+k3d/create_cluster: bin/k3d
 	$(K3D) cluster create --config ${PWD}/k3d.yaml
 
 k3d/destroy_cluster: bin/k3d
@@ -153,17 +153,11 @@ kubeconfig.yaml:
 	$(K3D) kubeconfig get local > kubeconfig.yaml
 	echo "kubeconfig written to kubeconfig.yaml"
 
-k3d/init_storage: tmp
-
-tmp:
-	mkdir -p tmp/media/music
-	mkdir -p tmp/services
-	touch tmp/media/music/fake.flac
-
 k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
   bin/kubectl create namespace services && \
 	bin/kubectl create namespace argocd && \
+  bin/kubectl apply -f services/nfs/storage.yaml
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
 	bin/helm install -n argocd argocd services/argocd && \
@@ -171,6 +165,11 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
   sleep 60 && \
   bin/kubectl apply -n argocd -f services/argocd/applications.yaml
 	rm key.txt
+
+
+k3d/init_nfs: k3d/create_kubeconfig bin/kubectl
+	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
+  bin/kubectl apply -f services/nfs/storage.yaml
 
 update_charts: k3d/create_kubeconfig bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
