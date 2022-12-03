@@ -141,7 +141,7 @@ clean:
 k3d: k3d/create_cluster k3d/init_argocd
 
 k3d/create_cluster: bin/k3d k3d/init_storage
-	$(K3D) cluster create --config ${PWD}/k3d.yaml
+	$(K3D) cluster create --config ${PWD}/k3d/config.yaml
 
 k3d/destroy_cluster: bin/k3d
 	$(K3D) cluster delete local
