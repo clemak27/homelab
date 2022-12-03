@@ -141,6 +141,7 @@ clean:
 k3d: k3d/create_cluster k3d/init_argocd
 
 k3d/create_cluster: bin/k3d k3d/init_storage
+	# cd k3d && $(RUN_HOST) sudo -S podman build -t k3s_nfs:local .
 	$(K3D) cluster create --config ${PWD}/k3d/config.yaml
 
 k3d/destroy_cluster: bin/k3d
@@ -162,7 +163,7 @@ tmp:
 
 k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-  bin/kubectl create namespace services && \
+  # bin/kubectl create namespace services && \
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
