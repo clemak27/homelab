@@ -52,3 +52,9 @@ app-template:
       hostPath: /var/mnt/media
       # path: /var/mnt/media
       mountPath: /media
+    testy:
+      enabled: true
+      type: nfs
+      server: 192.168.178.100
+      path: /var/nfs/media/
+      mountPath: /media2
