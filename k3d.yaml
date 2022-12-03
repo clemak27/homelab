@@ -10,13 +10,10 @@ kubeAPI:
   host: "k3d.wallstreet30.local"
   hostIP: "127.0.0.1"
   hostPort: "6445"
-# ports:
-#   - port: 8080:8080
-#     nodeFilters:
-#       - loadbalancer
-#   - port: 8096:8096
-#     nodeFilters:
-#       - loadbalancer
+ports:
+  - port: 8081:80
+    nodeFilters:
+      - loadbalancer
 volumes:
   - volume: /var/home/clemens/Projects/homelab/tmp:/var/mnt
     nodeFilters:
