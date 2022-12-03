@@ -3,16 +3,16 @@ argo-cd:
   dex:
     enabled: false
   server:
-    # ingress:
-    #   enabled: true
-    #   ingressClassName: traefik
-    #   annotations:
-    #     ingress.kubernetes.io/ssl-redirect: "false"
-    #   hosts:
-    #     - argocd.wallstreet30.local
-    #   paths:
-    #     - /
-    #   pathType: Prefix
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "false"
+      hosts:
+        - argocd.wallstreet30.local
+      paths:
+        - /
+      pathType: Prefix
 
     extraArgs:
       - --insecure
