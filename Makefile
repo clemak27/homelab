@@ -163,7 +163,7 @@ tmp:
 
 k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-  # bin/kubectl create namespace services && \
+  bin/kubectl create namespace services && \
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
