@@ -24,7 +24,8 @@ argo-cd:
         secrets,secrets+literal,
         https
       resourceHealthChecks:
-        - kind: Ingress
+        - group: networking.k8s.io
+          kind: Ingress
           check: |
             hs = {}
             hs.status = "Healthy"
