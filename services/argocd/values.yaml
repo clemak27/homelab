@@ -23,10 +23,10 @@ argo-cd:
         secrets+age-import, secrets+age-import-kubernetes,
         secrets,secrets+literal,
         https
-      resource.customizations.health.networking.k8s.io_Ingress: |
-        hs = {}
-        hs.status = "Healthy"
-        return hs
+      # resource.customizations.health.networking.k8s.io_Ingress: |
+      #   hs = {}
+      #   hs.status = "Healthy"
+      #   return hs
 
   repoServer:
     serviceAccount:
