@@ -6,7 +6,6 @@ metadata:
   name: local
 servers: 1
 agents: 1
-# image: k3s_nfs:local
 kubeAPI:
   host: "k3d.wallstreet30.local"
   hostIP: "127.0.0.1"

@@ -11,7 +11,7 @@ app-template:
     main:
       type: LoadBalancer
       # loadBalancerIP: ${METALLB_JELLYFIN_ADDR}
-      # externalTrafficPolicy: Local
+      externalTrafficPolicy: Local
       ports:
         http:
           port: 8096
@@ -22,9 +22,9 @@ app-template:
       ingressClassName: traefik
       annotations:
         ingress.kubernetes.io/ssl-redirect: "false"
-      #   cert-manager.io/cluster-issuer: letsencrypt-production
-      #   traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      #   traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
+        # cert-manager.io/cluster-issuer: letsencrypt-production
+        # traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        # traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
       hosts:
         - host: "jellyfin.wallstreet30.local"
           paths:
@@ -42,15 +42,10 @@ app-template:
   persistence:
     config:
       enabled: true
-      # type: hostPath
-      # hostPath:
-      #   path: /var/mnt/services/jellyfin
-      # mountPath: /config
     media:
       enabled: true
       type: hostPath
       hostPath: /var/mnt/media
-      # path: /var/mnt/media
       mountPath: /media
     # media2:
     #   enabled: true
