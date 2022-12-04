@@ -13,7 +13,7 @@ spec:
           - path: services/*
           - path: services/argocd
             exclude: true
-          - path: services/nfs
+          - path: services/traefik
             exclude: true
   template:
     metadata:
@@ -58,3 +58,22 @@ spec:
   destination:
     name: in-cluster
     namespace: argocd
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-dashboard
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: k3s
+    path: services/traefik
+  destination:
+    name: in-cluster
+    namespace: kube-system
