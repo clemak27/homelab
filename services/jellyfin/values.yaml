@@ -10,8 +10,8 @@ app-template:
   service:
     main:
       type: LoadBalancer
-      # loadBalancerIP: ${METALLB_JELLYFIN_ADDR}
-      externalTrafficPolicy: Local
+      # loadBalancerIP: 10.43.220.93
+      # externalTrafficPolicy: Local
       ports:
         http:
           port: 8096
@@ -27,7 +27,7 @@ app-template:
         traefik.ingress.kubernetes.io/router.entrypoints: web
         # traefik.ingress.kubernetes.io/router.middlewares: networking-internal@kubernetescrd
       hosts:
-        - host: "jellyfin.wallstreet30.local"
+        - host: jellyfin.wallstreet30.local
           paths:
             - path: /
               pathType: Prefix
