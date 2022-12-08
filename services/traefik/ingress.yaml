@@ -17,4 +17,4 @@ spec:
               service:
                 name: traefik-dashboard
                 port:
-                  number: 8888
+                  number: 9000
