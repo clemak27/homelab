@@ -8,7 +8,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: k3s
+        revision: k3s-part2
         directories:
           - path: cluster/*
           - path: cluster/argocd
@@ -26,7 +26,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: k3s
+        targetRevision: k3s-part2
         path: '{{path}}'
         helm:
           valueFiles:
@@ -49,7 +49,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: k3s
+    targetRevision: k3s-part2
     path: cluster/argocd
     helm:
       valueFiles:
@@ -72,7 +72,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: k3s
+    targetRevision: k3s-part2
     path: cluster/traefik
   destination:
     name: in-cluster
