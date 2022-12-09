@@ -1,20 +1,37 @@
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: traefik-ingress
+#   namespace: kube-system
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+# spec:
+#   rules:
+#     - host: traefik-k3s.wallstreet30.cc
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: traefik-dashboard
+#                 port:
+#                   number: 9000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: traefik-ingress
+  name: traefik-dashboard
   namespace: kube-system
-  annotations:
-    kubernetes.io/ingress.class: traefik
 spec:
-  rules:
-    - host: traefik-k3s.wallstreet30.cc
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: traefik-dashboard
-                port:
-                  number: 9000
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik-k3s.wallstreet30.cc`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+  # tls:
+  #   certResolver: le-staging
