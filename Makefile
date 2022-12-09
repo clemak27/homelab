@@ -169,7 +169,8 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	bin/helm install -n argocd argocd services/argocd && \
 	echo "Waiting 60 seconds until argocd has started..." && \
   sleep 60 && \
-  bin/kubectl apply -n argocd -f services/argocd/applications.yaml
+	bin/kubectl apply -n argocd -f services/argocd/applications.yaml && \
+	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 	rm key.txt
 
 update_charts: k3d/create_kubeconfig bin/helm
@@ -181,9 +182,6 @@ update_charts: k3d/create_kubeconfig bin/helm
 k3d/argocd_port_forward:
 	bin/kubectl port-forward svc/argocd-server -n argocd 8080:443
 
-k3d/argocd_default_password:
-	bin/kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-
 # k3s
 
 k3s/init_argocd: bin/kubectl bin/helm
@@ -194,7 +192,8 @@ k3s/init_argocd: bin/kubectl bin/helm
 	bin/helm install -n argocd argocd services/argocd && \
 	echo "Waiting 60 seconds until argocd has started..." && \
 	sleep 60 && \
-	bin/kubectl apply -n argocd -f services/argocd/applications.yaml
+	bin/kubectl apply -n argocd -f services/argocd/applications.yaml && \
+	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 	rm key.txt
 
 # bin
