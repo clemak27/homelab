@@ -11,3 +11,15 @@ storage:
           tls-san:
             - "k3d.wallstreet30.cc"
           selinux: true
+    - path: /var/lib/rancher/k3s/server/manifests/traefik-dashboard.yaml
+      contents:
+        inline: |
+          apiVersion: helm.cattle.io/v1
+          kind: HelmChartConfig
+          metadata:
+            name: traefik
+            namespace: kube-system
+          spec:
+            valuesContent: |-
+              dashboard:
+                enabled: true
