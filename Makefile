@@ -166,18 +166,18 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
-	bin/helm install -n argocd argocd services/argocd && \
+	bin/helm install -n argocd argocd cluster/argocd && \
 	echo "Waiting 60 seconds until argocd has started..." && \
   sleep 60 && \
-	bin/kubectl apply -n argocd -f services/argocd/applications.yaml && \
+	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 	rm key.txt
 
 update_charts: k3d/create_kubeconfig bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-	cd services/argocd && \
+	cd cluster/argocd && \
 	../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm
-	bin/helm dep update services/argocd
+	bin/helm dep update cluster/argocd
 
 # k3s
 
@@ -186,10 +186,10 @@ k3s/init_argocd: bin/kubectl bin/helm
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
-	bin/helm install -n argocd argocd services/argocd && \
+	bin/helm install -n argocd argocd cluster/argocd && \
 	echo "Waiting 60 seconds until argocd has started..." && \
 	sleep 60 && \
-	bin/kubectl apply -n argocd -f services/argocd/applications.yaml && \
+	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 	rm key.txt
 
