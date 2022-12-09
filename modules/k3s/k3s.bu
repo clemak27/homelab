@@ -21,5 +21,6 @@ storage:
             namespace: kube-system
           spec:
             valuesContent: |-
-              dashboard:
-                enabled: true
+              globalArguments:
+                - "--global.sendanonymoususage=false"
+                - "--api.insecure=true"
