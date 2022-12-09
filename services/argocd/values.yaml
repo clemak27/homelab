@@ -7,15 +7,13 @@ argo-cd:
       enabled: true
       ingressClassName: traefik
       annotations:
-        ingress.kubernetes.io/ssl-redirect: "false"
+        ingress.kubernetes.io/ssl-redirect: "true"
       hosts:
-        - argocd.wallstreet30.local
+        - argocd.wallstreet30.cc
       paths:
         - /
       pathType: Prefix
 
-    extraArgs:
-      - --insecure
     config:
       kustomize.buildOptions: "--enable-alpha-plugins"
       helm.valuesFileSchemes: >-

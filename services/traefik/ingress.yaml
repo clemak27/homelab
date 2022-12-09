@@ -8,7 +8,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - host: traefik.wallstreet30.local
+    - host: traefik.wallstreet30.cc
       http:
         paths:
           - path: /

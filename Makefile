@@ -184,6 +184,21 @@ k3d/argocd_port_forward:
 k3d/argocd_default_password:
 	bin/kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
+# k3s
+
+k3s/init_argocd: bin/kubectl bin/helm
+	bin/kubectl create namespace services && \
+	bin/kubectl create namespace argocd && \
+	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
+	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
+	bin/helm install -n argocd argocd services/argocd && \
+	echo "Waiting 60 seconds until argocd has started..." && \
+	sleep 60 && \
+	bin/kubectl apply -n argocd -f services/argocd/applications.yaml
+	rm key.txt
+
+# bin
+
 bin/k3d:
 	mkdir -p bin
 	curl -L --url https://github.com/k3d-io/k3d/releases/download/$(K3D_BIN_VERSION)/k3d-linux-amd64 -o bin/k3d -C -

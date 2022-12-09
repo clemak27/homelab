@@ -40,6 +40,7 @@ curl -sfL https://get.k3s.io | sh -
 mkdir -p /var/home/clemens/.kube
 cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
 chown -R clemens:clemens /var/home/clemens/.kube
-kubectl create namespace services
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+# copy kube-config to main PC
+# scp 192.168.178.101:/home/clemens/.kube/config /var/home/clemens/.kube/config
+# edit the IP in the kubeconfig and edit /etc/hosts if necessary
+# install argocd by runnin make k3s/init_argocd

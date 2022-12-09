@@ -8,3 +8,6 @@ storage:
       contents:
         inline: |
           write-kubeconfig-mode: "0644"
+          tls-san:
+            - "k3d.wallstreet30.cc"
+          selinux: true
