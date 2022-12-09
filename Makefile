@@ -124,6 +124,7 @@ test:
 	butane --files-dir modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
 	butane --files-dir modules/gitops modules/gitops/gitops.bu -o modules/gitops/gitops.ign
 	butane --files-dir modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
+	butane --files-dir modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
 	butane --files-dir . hosts/virtual.bu -o hosts/virtual.ign
 	butane --files-dir . hosts/nuke.bu -o hosts/nuke.ign
 	rm modules/wireguard/wg0.conf
