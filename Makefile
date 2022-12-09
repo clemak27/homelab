@@ -179,9 +179,6 @@ update_charts: k3d/create_kubeconfig bin/helm
 	../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm
 	bin/helm dep update services/argocd
 
-k3d/argocd_port_forward:
-	bin/kubectl port-forward svc/argocd-server -n argocd 8080:443
-
 # k3s
 
 k3s/init_argocd: bin/kubectl bin/helm
