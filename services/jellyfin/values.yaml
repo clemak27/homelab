@@ -9,8 +9,8 @@ app-template:
 
   service:
     main:
-      type: LoadBalancer
-      externalTrafficPolicy: Local
+      type: ClusterIP
+      # externalTrafficPolicy: Local
       ports:
         http:
           port: 8096
