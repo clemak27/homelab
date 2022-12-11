@@ -15,7 +15,7 @@ spec:
             exclude: true
           - path: cluster/traefik-dashboard
             exclude: true
-          - path: cluster/cert-manager/issuer
+          - path: cluster/cert-manager
             exclude: true
   template:
     metadata:
@@ -60,6 +60,29 @@ spec:
   destination:
     name: in-cluster
     namespace: argocd
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: k3s-part2
+    path: cluster/cert-manager
+    helm:
+      valueFiles:
+        - values.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s-part2/cluster/cert-manager/secrets.yaml
+  destination:
+    name: in-cluster
+    namespace: cert-manager
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
