@@ -20,8 +20,8 @@ app-template:
       enabled: true
       ingressClassName: traefik
       annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        cert-manager.io/issuer: wallstreet30-issuer
+        ingress.kubernetes.io/ssl-redirect: true
+        # cert-manager.io/issuer: wallstreet30-issuer
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
       hosts:
         - host: jellyfin-k3s.wallstreet30.cc
@@ -29,8 +29,7 @@ app-template:
             - path: /
               pathType: Prefix
       tls:
-        - secretName: jellyfin-tls
-          hosts:
+        - hosts:
             - jellyfin-k3s.wallstreet30.cc
 
   podSecurityContext:
