@@ -8,11 +8,16 @@ argo-cd:
       ingressClassName: traefik
       annotations:
         ingress.kubernetes.io/ssl-redirect: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: letsencrypt-staging
       hosts:
         - argocd.wallstreet30.cc
       paths:
         - /
       pathType: Prefix
+      tls:
+        - hosts:
+            - argocd.wallstreet30.cc
 
     extraArgs:
       - --insecure
