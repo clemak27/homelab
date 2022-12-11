@@ -108,3 +108,7 @@ argo-cd:
         type: helm
         name: bjw-s
         url: https://bjw-s.github.io/helm-charts
+      jetstack:
+        type: helm
+        name: jetstack
+        url: https://charts.jetstack.io
