@@ -164,6 +164,7 @@ tmp:
 k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
 	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
   bin/kubectl create namespace services && \
+  bin/kubectl create namespace cert-manager && \
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
@@ -184,6 +185,7 @@ update_charts: k3d/create_kubeconfig bin/helm
 
 k3s/init_argocd: bin/kubectl bin/helm
 	bin/kubectl create namespace services && \
+  bin/kubectl create namespace cert-manager && \
 	bin/kubectl create namespace argocd && \
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
@@ -198,7 +200,7 @@ k3s/create_cert_issuer: bin/kubectl bin/sops
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt && \
   export SOPS_AGE_KEY_FILE=./key.txt && \
   bin/sops --decrypt cluster/cert-manager/issuer/issuer.yaml > cluster/cert-manager/issuer/issuer_unenc.yaml && \
-	bin/kubectl apply -n services -f cluster/cert-manager/issuer/issuer_unenc.yaml && \
+	bin/kubectl apply -n cert-manager -f cluster/cert-manager/issuer/issuer_unenc.yaml && \
 	rm -f key.txt && \
 	rm -f cluster/cert-manager/issuer/issuer_unenc.yaml
 
