@@ -33,7 +33,7 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-            - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s/{{path}}/secrets.yaml
+            - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s-part2/{{path}}/secrets.yaml
       destination:
         name: in-cluster
         namespace: services
@@ -56,7 +56,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s/cluster/argocd/secrets.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s-part2/cluster/argocd/secrets.yaml
   destination:
     name: in-cluster
     namespace: argocd
