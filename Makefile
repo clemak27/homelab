@@ -194,6 +194,14 @@ k3s/init_argocd: bin/kubectl bin/helm
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 	rm key.txt
 
+k3s/create_cert_issuer: bin/kubectl bin/sops
+	$(SOPS) --decrypt modules/init/age_key.enc > key.txt && \
+  export SOPS_AGE_KEY_FILE=./key.txt && \
+  bin/sops --decrypt cluster/cert-manager/issuer/issuer.yaml > cluster/cert-manager/issuer/issuer_unenc.yaml && \
+	bin/kubectl apply -n services -f cluster/cert-manager/issuer/issuer_unenc.yaml && \
+	rm -f key.txt && \
+	rm -f cluster/cert-manager/issuer/issuer_unenc.yaml
+
 # bin
 
 bin/k3d:
