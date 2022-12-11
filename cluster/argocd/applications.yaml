@@ -13,7 +13,7 @@ spec:
           - path: cluster/*
           - path: cluster/argocd
             exclude: true
-          - path: cluster/traefik
+          - path: cluster/traefik-dashboard
             exclude: true
           - path: cluster/cert-manager/issuer
             exclude: true
@@ -75,7 +75,7 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: k3s-part2
-    path: cluster/traefik
+    path: cluster/traefik-dashboard
   destination:
     name: in-cluster
     namespace: kube-system
