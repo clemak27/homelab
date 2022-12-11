@@ -20,7 +20,7 @@ app-template:
       enabled: true
       ingressClassName: traefik
       annotations:
-        ingress.kubernetes.io/ssl-redirect: true
+        ingress.kubernetes.io/ssl-redirect: "true"
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         cert-manager.io/cluster-issuer: letsencrypt-staging
       hosts:
