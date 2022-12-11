@@ -7,3 +7,4 @@ age_key
 .env.secret
 kubeconfig.yaml
 tmp
+key.txt
