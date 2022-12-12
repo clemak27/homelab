@@ -31,6 +31,7 @@ app-template:
       tls:
         - hosts:
             - jellyfin-k3s.wallstreet30.cc
+          secretName: jellyfin-tls
 
   podSecurityContext:
     fsGroup: 1000
