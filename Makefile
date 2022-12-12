@@ -13,6 +13,9 @@ BUTANE = $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER = $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS = $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 K3D = $(RUN_HOST) sudo -S bin/k3d
+LOCAL_KUBECTL = KUBECONFIG="${PWD}/kubeconfig.yaml" bin/kubectl
+LOCAL_SOPS = SOPS_AGE_KEY_FILE=./key.txt bin/sops
+
 
 default: ignition
 
@@ -136,6 +139,10 @@ clean:
 	rm fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 	rm fcos.iso
 	rm -rf bin
+	rm -f key.txt
+
+key.txt:
+	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 
 # k3d
 
@@ -161,47 +168,38 @@ tmp:
 	mkdir -p tmp/services/jellyfin
 	touch tmp/media/music/fake.flac
 
-k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm
-	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
-  bin/kubectl create namespace services && \
-  bin/kubectl create namespace cert-manager && \
-	bin/kubectl create namespace argocd && \
-	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
-	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
+k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm key.txt
+	$(LOCAL_KUBECTL) create namespace services && \
+  $(LOCAL_KUBECTL) create namespace cert-manager && \
+	$(LOCAL_KUBECTL) create namespace argocd && \
+	$(LOCAL_KUBECTL) -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
 	bin/helm install -n argocd argocd cluster/argocd && \
 	echo "Waiting 60 seconds until argocd has started..." && \
-  sleep 60 && \
-	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
-	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
-	rm key.txt
+	sleep 60 && \
+	$(LOCAL_KUBECTL) apply -n argocd -f cluster/argocd/applications.yaml && \
+	$(LOCAL_KUBECTL) delete -n argocd secrets argocd-initial-admin-secret
 
 update_charts: k3d/create_kubeconfig bin/helm
-	export KUBECONFIG="${PWD}/kubeconfig.yaml" && \
 	cd cluster/argocd && \
-	../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm
-	bin/helm dep update cluster/argocd
+	KUBECONFIG="${PWD}/kubeconfig.yaml" ../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm && \
+	KUBECONFIG="${PWD}/kubeconfig.yaml" bin/helm dep update cluster/argocd
 
 # k3s
 
-k3s/init_argocd: bin/kubectl bin/helm
+k3s/init_argocd: bin/kubectl bin/helm key.txt
 	bin/kubectl create namespace services && \
   bin/kubectl create namespace cert-manager && \
 	bin/kubectl create namespace argocd && \
-	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
-	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt
+	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
 	bin/helm install -n argocd argocd cluster/argocd && \
 	echo "Waiting 60 seconds until argocd has started..." && \
 	sleep 60 && \
 	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
-	rm key.txt
 
-k3s/create_cert_issuer: bin/kubectl bin/sops
-	$(SOPS) --decrypt modules/init/age_key.enc > key.txt && \
-  export SOPS_AGE_KEY_FILE=./key.txt && \
-  bin/sops --decrypt cluster/cert-manager/issuer/issuer.yaml > cluster/cert-manager/issuer/issuer_unenc.yaml && \
+k3s/create_cert_issuer: bin/kubectl bin/sops key.txt
+	$(LOCAL_SOPS) --decrypt cluster/cert-manager/issuer/issuer.yaml > cluster/cert-manager/issuer/issuer_unenc.yaml && \
 	bin/kubectl apply -n cert-manager -f cluster/cert-manager/issuer/issuer_unenc.yaml && \
-	rm -f key.txt && \
 	rm -f cluster/cert-manager/issuer/issuer_unenc.yaml
 
 # bin
