@@ -39,7 +39,7 @@ app-template:
   persistence:
     config:
       enabled: true
-    media2:
+    media:
       enabled: true
       type: nfs
       server: 192.168.178.100
