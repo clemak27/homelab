@@ -18,6 +18,7 @@ argo-cd:
       tls:
         - hosts:
             - argocd.wallstreet30.cc
+          secretName: argocd-tls
 
     extraArgs:
       - --insecure

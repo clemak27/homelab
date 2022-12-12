@@ -13,5 +13,7 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-  # tls:
-  #   certResolver: letsencrypt-staging
+      tls:
+        - hosts:
+            - traefik-k3s.wallstreet30.cc
+          secretName: traefik-dashboard-tls
