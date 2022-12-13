@@ -1,0 +1,73 @@
+---
+# app-template:
+#   image:
+#     repository: docker.io/miniflux/miniflux
+#     tag: 2.0.41
+
+#   env:
+#     TZ: Europe/Vienna
+#     DATABASE_URL: "postgres://${MINIFLUX_DB_USER:?}:${MINIFLUX_DB_PASSWORD:?}@miniflux_db/${MINIFLUX_DB_NAME:?}?sslmode=disable"
+#     RUN_MIGRATIONS: "1"
+#     CREATE_ADMIN: "1"
+#     ADMIN_USERNAME: "${MINIFLUX_ADMIN_USER:?}"
+#     ADMIN_PASSWORD: "${MINIFLUX_ADMIN_PASSWORD:?}"
+#     BASE_URL: "https://miniflux.${DOMAIN:?}"
+#     LISTEN_ADDR: "0.0.0.0:${MINIFLUX_INTERNAL_PORT:?}"
+#     POLLING_FREQUENCY: "15"
+#     BATCH_SIZE: "50"
+
+#   service:
+#     main:
+#       type: ClusterIP
+#       ports:
+#         http:
+#           port: 8096
+
+#   ingress:
+#     main:
+#       enabled: true
+#       ingressClassName: traefik
+#       annotations:
+#         ingress.kubernetes.io/ssl-redirect: "true"
+#         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#         cert-manager.io/cluster-issuer: letsencrypt-staging
+#       hosts:
+#         - host: miniflux-k3s.wallstreet30.cc
+#           paths:
+#             - path: /
+#               pathType: Prefix
+#       tls:
+#         - hosts:
+#             - miniflux-k3s.wallstreet30.cc
+#           secretName: miniflux-tls
+
+postgresql:
+  image:
+    repository: postgres
+    tag: 15.1@sha256:afc1a69f07ad01430f8757ec00e96c27e3a48bf03d09e4c447fc2553dc571fba
+
+  auth:
+    username: miniflux
+    password: test1234
+    database: miniflux
+
+  primary:
+    podSecurityContext:
+      enabled: false
+      fsGroup: ""
+    containerSecurityContext:
+      enabled: false
+      runAsUser: "auto"
+
+  readReplicas:
+    podSecurityContext:
+      enabled: false
+      fsGroup: ""
+    containerSecurityContext:
+      enabled: false
+      runAsUser: "auto"
+
+  volumePermissions:
+    enabled: false
+    securityContext:
+      runAsUser: "auto"
