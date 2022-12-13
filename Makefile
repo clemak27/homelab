@@ -174,7 +174,7 @@ k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm key.txt
 	$(LOCAL_KUBECTL) create namespace argocd && \
 	$(LOCAL_KUBECTL) -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
 	bin/helm install -n argocd argocd cluster/argocd && \
-	echo "Waiting 60 seconds until argocd has started..." && \
+	while [ "$($(LOCAL_KUBECTL) get deployment -n argocd argocd-repo-server -o jsonpath="{.status.conditions[?(@.type=='Available')].status}")" != "True" ]; do echo "Waiting for argocd-repo-server deployment to become ready..." && sleep 5; done && \
 	sleep 60 && \
 	$(LOCAL_KUBECTL) apply -n argocd -f cluster/argocd/applications.yaml && \
 	$(LOCAL_KUBECTL) delete -n argocd secrets argocd-initial-admin-secret
@@ -192,8 +192,7 @@ k3s/init_argocd: bin/kubectl bin/helm key.txt
 	bin/kubectl create namespace argocd && \
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
 	bin/helm install -n argocd argocd cluster/argocd && \
-	echo "Waiting 60 seconds until argocd has started..." && \
-	sleep 60 && \
+	while [ "$(bin/kubectl get deployment -n argocd argocd-repo-server -o jsonpath="{.status.conditions[?(@.type=='Available')].status}")" != "True" ]; do echo "Waiting for argocd-repo-server deployment to become ready..." && sleep 5; done && \
 	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 
