@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: ghcr.io/onedr0p/jellyfin
-    tag: 10.8.8@sha256:c2858a6c300af1b9f71517d9008756cede49085f6218f6c647b4bb984238de56
+    tag: 10.8.8@sha256:0cd6af05f8623f7ae7262babf2dfd50acd4f890d8c59b3685b1e47a6a33e4fd6
 
   env:
     TZ: Europe/Vienna
