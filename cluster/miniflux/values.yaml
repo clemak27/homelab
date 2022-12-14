@@ -8,7 +8,6 @@ app-template:
     TZ: Europe/Vienna
     DATABASE_URL: "postgres://miniflux:test1234@miniflux-postgresql/miniflux?sslmode=disable"
     RUN_MIGRATIONS: "1"
-    # CREATE_ADMIN: "1"
     BASE_URL: "https://miniflux-k3s.wallstreet30.cc"
     LISTEN_ADDR: "0.0.0.0:8080"
     POLLING_FREQUENCY: "15"
