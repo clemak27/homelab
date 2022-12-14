@@ -8,7 +8,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: k3s-part2
+        revision: master
         directories:
           - path: cluster/*
           - path: cluster/argocd
@@ -28,12 +28,12 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: k3s-part2
+        targetRevision: master
         path: '{{path}}'
         helm:
           valueFiles:
             - values.yaml
-            - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s-part2/{{path}}/secrets.yaml
+            - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/{{path}}/secrets.yaml
       destination:
         name: in-cluster
         namespace: services
@@ -51,12 +51,12 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: k3s-part2
+    targetRevision: master
     path: cluster/argocd
     helm:
       valueFiles:
         - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s-part2/cluster/argocd/secrets.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/argocd/secrets.yaml
   destination:
     name: in-cluster
     namespace: argocd
@@ -74,12 +74,12 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: k3s-part2
+    targetRevision: master
     path: cluster/cert-manager
     helm:
       valueFiles:
         - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/k3s-part2/cluster/cert-manager/secrets.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/cert-manager/secrets.yaml
   destination:
     name: in-cluster
     namespace: cert-manager
@@ -97,7 +97,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: k3s-part2
+    targetRevision: master
     path: cluster/traefik-dashboard
   destination:
     name: in-cluster
