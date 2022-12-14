@@ -6,7 +6,6 @@ app-template:
 
   env:
     TZ: Europe/Vienna
-    DATABASE_URL: "postgres://miniflux:test1234@miniflux-postgresql/miniflux?sslmode=disable"
     RUN_MIGRATIONS: "1"
     BASE_URL: "https://miniflux-k3s.wallstreet30.cc"
     LISTEN_ADDR: "0.0.0.0:8080"
@@ -42,11 +41,6 @@ postgresql:
   image:
     repository: postgres
     tag: 15.1@sha256:afc1a69f07ad01430f8757ec00e96c27e3a48bf03d09e4c447fc2553dc571fba
-
-  auth:
-    username: miniflux
-    password: test1234
-    database: miniflux
 
   primary:
     podSecurityContext:
