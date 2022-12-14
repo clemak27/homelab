@@ -21,6 +21,7 @@ mkdir -p /var/mnt/archive && chown -R clemens:clemens /var/mnt/archive
 mkdir -p /var/mnt/media && chown -R clemens:clemens /var/mnt/media
 mkdir -p /var/mnt/emulation && chown -R clemens:clemens /var/mnt/emulation
 mkdir -p /var/lib/docker
+mkdir -p /var/lib/rancher/k3s/storage
 mkdir -p /var/mnt/backups && chown -R clemens:clemens /var/mnt/backups
 
 # create mountpoints for nfs shares

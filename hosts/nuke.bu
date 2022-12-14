@@ -100,6 +100,20 @@ systemd:
 
         [Install]
         WantedBy=multi-user.target
+    - name: var-lib-rancher-k3s-storage.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount k3s storage directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
+        Where=/var/lib/rancher/k3s/storage
+        Type=btrfs
+        Options=subvol=k3s_storage
+
+        [Install]
+        WantedBy=multi-user.target
     # nfs bind-mounts
     - name: var-nfs-media.mount
       enabled: true
