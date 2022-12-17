@@ -62,25 +62,3 @@ storage:
         server=1.1.1.1
         listen-address=::1,127.0.0.1,192.168.178.100
         addn-hosts=/etc/hosts.d/homelab
-
-systemd:
-  units:
-    - name: startup.service
-      enabled: true
-      contents: |
-        [Unit]
-        Before=systemd-user-sessions.service
-        Description=Server Startup
-        Wants=network-online.target
-        After=network-online.target rpm-ostree-install.service
-        ConditionPathExists=!/var/lib/init_done
-
-        [Service]
-        Type=oneshot
-        TimeoutStartSec=0
-        ExecStart=/usr/local/sbin/initServer
-        ExecStartPost=/usr/bin/touch /var/lib/init_done
-        RemainAfterExit=yes
-
-        [Install]
-        WantedBy=multi-user.target
