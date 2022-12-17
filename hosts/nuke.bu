@@ -13,6 +13,7 @@ ignition:
       - local: modules/ssh/ssh.ign
       - local: modules/nix/nix.ign
       - local: modules/wireguard/wireguard.ign
+      - local: modules/dns/dns.ign
 storage:
   files:
     - path: /etc/hostname
