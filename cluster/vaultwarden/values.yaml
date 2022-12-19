@@ -1,0 +1,44 @@
+---
+app-template:
+  image:
+    repository: docker.io/vaultwarden/server
+    tag: 1.26.0
+
+  env:
+    TZ: Europe/Vienna
+
+  service:
+    main:
+      type: ClusterIP
+      ports:
+        http:
+          port: 80
+        websocket:
+          enabled: true
+          port: 3012
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: vaultwarden.wallstreet30.cc
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - vaultwarden.wallstreet30.cc
+          secretName: vaultwarden-tls
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    config:
+      enabled: true
