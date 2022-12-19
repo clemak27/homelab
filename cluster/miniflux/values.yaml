@@ -2,12 +2,12 @@
 app-template:
   image:
     repository: docker.io/miniflux/miniflux
-    tag: 2.0.41@sha256:16a982997b7f18af3d55a4dc04887d3ea77c749caad5171337f4969a3ba38b4f
+    tag: 2.0.41
 
   env:
     TZ: Europe/Vienna
     RUN_MIGRATIONS: "1"
-    BASE_URL: "https://miniflux-k3s.wallstreet30.cc"
+    BASE_URL: "https://miniflux.wallstreet30.cc"
     LISTEN_ADDR: "0.0.0.0:8080"
     POLLING_FREQUENCY: "15"
     BATCH_SIZE: "50"
@@ -28,19 +28,19 @@ app-template:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         cert-manager.io/cluster-issuer: letsencrypt-staging
       hosts:
-        - host: miniflux-k3s.wallstreet30.cc
+        - host: miniflux.wallstreet30.cc
           paths:
             - path: /
               pathType: Prefix
       tls:
         - hosts:
-            - miniflux-k3s.wallstreet30.cc
+            - miniflux.wallstreet30.cc
           secretName: miniflux-tls
 
 postgresql:
   image:
     repository: postgres
-    tag: 15.1@sha256:afc1a69f07ad01430f8757ec00e96c27e3a48bf03d09e4c447fc2553dc571fba
+    tag: 15.1
 
   primary:
     podSecurityContext:

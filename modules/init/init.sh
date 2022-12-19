@@ -42,6 +42,7 @@ mkdir -p /var/home/clemens/.kube
 cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
 chown -R clemens:clemens /var/home/clemens/.kube
 # copy kube-config to main PC
-# scp 192.168.178.101:/home/clemens/.kube/config /var/home/clemens/.kube/config
-# edit the IP in the kubeconfig and edit /etc/hosts if necessary
+# scp 192.168.178.100:/home/clemens/.kube/config /var/home/clemens/.kube/config
+# edit the IP in the kubeconfig
 # install argocd by runnin make k3s/init_argocd
+# install cert-manager by runnin make k3s/create_cert_issuer

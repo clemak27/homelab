@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: docker.io/jellyfin/jellyfin
-    tag: 10.8.8@sha256:fa9123ffc9e8060cb168e2146778433a985a28cb346d722430d3f12bbe84d4b5
+    tag: 10.8.8
 
   env:
     TZ: Europe/Vienna
@@ -21,15 +21,15 @@ app-template:
       annotations:
         ingress.kubernetes.io/ssl-redirect: "true"
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-staging
+        cert-manager.io/cluster-issuer: letsencrypt-production
       hosts:
-        - host: jellyfin-k3s.wallstreet30.cc
+        - host: jellyfin.wallstreet30.cc
           paths:
             - path: /
               pathType: Prefix
       tls:
         - hosts:
-            - jellyfin-k3s.wallstreet30.cc
+            - jellyfin.wallstreet30.cc
           secretName: jellyfin-tls
 
   podSecurityContext:

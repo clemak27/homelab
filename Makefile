@@ -196,7 +196,7 @@ k3s/init_argocd: bin/kubectl bin/helm key.txt
 	bin/kubectl create namespace argocd && \
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
 	bin/helm install -n argocd argocd cluster/argocd && \
-	while [ "$(bin/kubectl get deployment -n argocd argocd-repo-server -o jsonpath="{.status.conditions[?(@.type=='Available')].status}")" != "True" ]; do echo "Waiting for argocd-repo-server deployment to become ready..." && sleep 5; done && \
+	sleep 75 && \
 	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 
