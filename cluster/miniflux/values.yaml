@@ -26,7 +26,7 @@ app-template:
       annotations:
         ingress.kubernetes.io/ssl-redirect: "true"
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-staging
+        cert-manager.io/cluster-issuer: letsencrypt-production
       hosts:
         - host: miniflux.wallstreet30.cc
           paths:
