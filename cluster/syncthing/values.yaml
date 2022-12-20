@@ -1,50 +1,50 @@
 ---
-app-template:
-  image:
-    repository: docker.io/syncthing/syncthing
-    tag: 1.22.2
+# app-template:
+#   image:
+#     repository: docker.io/syncthing/syncthing
+#     tag: 1.22.2
 
-  env:
-    TZ: Europe/Vienna
+#   env:
+#     TZ: Europe/Vienna
 
-  service:
-    main:
-      type: ClusterIP
-      ports:
-        http:
-          port: 8384
+#   service:
+#     main:
+#       type: ClusterIP
+#       ports:
+#         http:
+#           port: 8384
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - host: syncthing.wallstreet30.cc
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - syncthing.wallstreet30.cc
-          secretName: syncthing-tls
+#   ingress:
+#     main:
+#       enabled: true
+#       ingressClassName: traefik
+#       annotations:
+#         ingress.kubernetes.io/ssl-redirect: "true"
+#         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#         cert-manager.io/cluster-issuer: letsencrypt-production
+#       hosts:
+#         - host: syncthing.wallstreet30.cc
+#           paths:
+#             - path: /
+#               pathType: Prefix
+#       tls:
+#         - hosts:
+#             - syncthing.wallstreet30.cc
+#           secretName: syncthing-tls
 
-  podSecurityContext:
-    fsGroup: 1000
-    fsGroupChangePolicy: OnRootMismatch
+#   podSecurityContext:
+#     fsGroup: 1000
+#     fsGroupChangePolicy: OnRootMismatch
 
-  persistence:
-    config:
-      enabled: true
-      storageClass: longhorn
-      mountPath: /var/syncthing
-    data:
-      enabled: true
-      type: pvc
-      mountPath: /data
-      storageClass: longhorn
-      accessMode: ReadWriteOnce
-      size: 50Gi
+#   persistence:
+#     config:
+#       enabled: true
+#       storageClass: longhorn
+#       mountPath: /var/syncthing
+#     data:
+#       enabled: true
+#       type: pvc
+#       mountPath: /data
+#       storageClass: longhorn
+#       accessMode: ReadWriteOnce
+#       size: 100Gi
