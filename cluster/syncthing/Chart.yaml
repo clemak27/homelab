@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+name: helm-syncthing
+type: application
+version: 1.22.2
+dependencies:
+  - name: app-template
+    version: 1.2.0
+    repository: https://bjw-s.github.io/helm-charts
