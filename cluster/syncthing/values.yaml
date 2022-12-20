@@ -43,6 +43,8 @@ app-template:
       mountPath: /var/syncthing
     data:
       enabled: true
-      storageClass: longhorn
-      size: 50Gi
+      type: pvc
       mountPath: /data
+      storageClass: longhorn
+      accessMode: ReadWriteOnce
+      size: 50Gi
