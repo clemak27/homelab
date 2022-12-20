@@ -8,12 +8,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik-k3s.wallstreet30.cc`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    - match: Host(`traefik.wallstreet30.cc`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       services:
         - name: api@internal
           kind: TraefikService
       tls:
         - hosts:
-            - traefik-k3s.wallstreet30.cc
+            - traefik.wallstreet30.cc
           secretName: traefik-dashboard-tls
