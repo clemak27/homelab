@@ -49,6 +49,7 @@ postgresql:
     containerSecurityContext:
       enabled: false
       runAsUser: "auto"
+    storageClass: longhorn
 
   readReplicas:
     podSecurityContext:
