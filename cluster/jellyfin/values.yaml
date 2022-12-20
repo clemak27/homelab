@@ -40,6 +40,7 @@ app-template:
     config:
       enabled: true
       storageClass: longhorn
+      size: 10Gi
     media:
       enabled: true
       type: nfs

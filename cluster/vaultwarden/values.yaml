@@ -43,3 +43,4 @@ app-template:
     data:
       enabled: true
       storageClass: longhorn
+      accessMode: ReadWriteOnce
