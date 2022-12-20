@@ -13,7 +13,3 @@ spec:
       services:
         - name: longhorn-frontend
           port: 80
-      tls:
-        - hosts:
-            - longhorn.wallstreet30.cc
-          secretName: longhorn-frontend-tls
