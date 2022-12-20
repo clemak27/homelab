@@ -39,6 +39,7 @@ app-template:
   persistence:
     config:
       enabled: true
+      storageClass: longhorn
     media:
       enabled: true
       type: nfs

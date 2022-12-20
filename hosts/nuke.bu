@@ -101,17 +101,17 @@ systemd:
 
         [Install]
         WantedBy=multi-user.target
-    - name: var-lib-rancher-k3s-storage.mount
+    - name: var-mnt-longhorn.mount
       enabled: true
       contents: |
         [Unit]
-        Description=Mount k3s storage directory
+        Description=Mount longhorn storage
 
         [Mount]
         What=/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865
-        Where=/var/lib/rancher/k3s/storage
+        Where=/var/mnt/longhorn
         Type=btrfs
-        Options=subvol=k3s_storage
+        Options=subvol=longhorn
 
         [Install]
         WantedBy=multi-user.target
