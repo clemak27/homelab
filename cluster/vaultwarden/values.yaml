@@ -40,7 +40,7 @@ app-template:
     fsGroupChangePolicy: OnRootMismatch
 
   persistence:
-    data:
+    config:
       enabled: true
       storageClass: longhorn
-      accessMode: ReadWriteOnce
+      mountPath: /data
