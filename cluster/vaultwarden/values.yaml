@@ -40,6 +40,6 @@ app-template:
     fsGroupChangePolicy: OnRootMismatch
 
   persistence:
-    config:
+    data:
       enabled: true
       storageClass: longhorn
