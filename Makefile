@@ -205,6 +205,9 @@ k3s/create_cert_issuer: bin/kubectl bin/sops key.txt
 	bin/kubectl apply -n cert-manager -f cluster/cert-manager/issuer/issuer_unenc.yaml && \
 	rm -f cluster/cert-manager/issuer/issuer_unenc.yaml
 
+k3s/init_longhorn: bin/kubectl bin/helm key.txt
+	bin/kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
+
 # bin
 
 bin/k3d:
