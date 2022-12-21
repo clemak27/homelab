@@ -43,6 +43,7 @@ app-template:
   persistence:
     config:
       enabled: true
+      mountPath: /opt/deCONZ
       storageClass: longhorn
       size: 1Gi
 
