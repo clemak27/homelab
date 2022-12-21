@@ -6,3 +6,11 @@ app-template:
 
   env:
     TZ: Europe/Vienna
+
+  service:
+    main:
+      enabled: false
+
+  ingress:
+    main:
+      enabled: false
