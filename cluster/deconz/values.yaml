@@ -1,0 +1,51 @@
+---
+app-template:
+  image:
+    repository: docker.io/deconzcommunity/deconz
+    tag: 2.16.01
+
+  env:
+    TZ: Europe/Vienna
+    DECONZ_WEB_PORT: "8082"
+    DECONZ_WS_PORT: "8443"
+    DECONZ_UID: "1000"
+    DECONZ_GID: "1000"
+
+  service:
+    main:
+      type: ClusterIP
+      ports:
+        http:
+          port: 8082
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: deconz.wallstreet30.cc
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - deconz.wallstreet30.cc
+          secretName: deconz-tls
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: longhorn
+      size: 1Gi
+
+  # https://stackoverflow.com/a/59291859/19520885
+  securityContext:
+    privileged: true
