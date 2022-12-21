@@ -1,0 +1,61 @@
+---
+app-template:
+  image:
+    repository: docker.io/hurlenko/filebrowser
+    tag: v2.23.0
+
+  env:
+    TZ: Europe/Vienna
+    FB_PORT: "8755"
+
+  service:
+    main:
+      type: ClusterIP
+      ports:
+        http:
+          port: 8755
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: filebrowser.wallstreet30.cc
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - filebrowser.wallstreet30.cc
+          secretName: filebrowser-tls
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: longhorn
+    archive:
+      enabled: true
+      type: nfs
+      server: 192.168.178.100
+      path: /var/nfs/archive/
+      mountPath: /data/archive
+    media:
+      enabled: true
+      type: nfs
+      server: 192.168.178.100
+      path: /var/nfs/media/
+      mountPath: /data/media
+    emulation:
+      enabled: true
+      type: nfs
+      server: 192.168.178.100
+      path: /var/nfs/emulation/
+      mountPath: /data/emulation
