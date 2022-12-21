@@ -1,0 +1,8 @@
+---
+app-template:
+  image:
+    repository: docker.io/oznu/cloudflare-ddns
+    tag: latest
+
+  env:
+    TZ: Europe/Vienna
