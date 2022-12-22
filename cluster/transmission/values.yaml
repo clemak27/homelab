@@ -38,6 +38,8 @@ app-template:
           paths:
             - path: /
               pathType: Prefix
+              service:
+                port: 9091
       tls:
         - hosts:
             - transmission.wallstreet30.cc
