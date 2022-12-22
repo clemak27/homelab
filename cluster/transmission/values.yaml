@@ -52,7 +52,7 @@ app-template:
       enabled: false
 
   podSecurityContext:
-    fsGroup: 1000
+    fsGroup: 1001
     fsGroupChangePolicy: OnRootMismatch
 
   persistence:
