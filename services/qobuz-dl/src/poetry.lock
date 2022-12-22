@@ -595,14 +595,14 @@ files = [
 
 [[package]]
 name = "qobuz-dl"
-version = "0.9.9.8"
+version = "0.9.9.9"
 description = "The complete Lossless and Hi-Res music downloader for Qobuz"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "qobuz-dl-0.9.9.8.tar.gz", hash = "sha256:682da53e27d607308ec8dda26bc69dc320de2f6db422e7b1eeba58904582a628"},
-    {file = "qobuz_dl-0.9.9.8-py3-none-any.whl", hash = "sha256:25162582d697c6ad179ee10be890424b7e6678bf8f40631b3a5c682b116a4e0a"},
+    {file = "qobuz-dl-0.9.9.9.tar.gz", hash = "sha256:a06ade1ee89ae65bc6385051d8ca1e423529461ecdabde71858e4c27940613b1"},
+    {file = "qobuz_dl-0.9.9.9-py3-none-any.whl", hash = "sha256:6b1b436c15145603a7b709258087c321cbc3bbffe0e397ee956d9e149b0ca9fb"},
 ]
 
 [package.dependencies]
@@ -1039,4 +1039,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.0"
-content-hash = "f21e6a8f10b5d43cb6ba9b6a1015027376942a6ca748923e234169599695dc4a"
+content-hash = "acaf07272ab546bf4d57e93274412e648514d4fa01d809227d218388474cd08a"
