@@ -43,6 +43,14 @@ app-template:
             - transmission.wallstreet30.cc
           secretName: transmission-tls
 
+  probes:
+    liveness:
+      enabled: false
+    readiness:
+      enabled: false
+    startup:
+      enabled: false
+
   podSecurityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
