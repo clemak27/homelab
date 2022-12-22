@@ -6,6 +6,8 @@ app-template:
 
   env:
     TZ: Europe/Vienna
+    PUID: "1001"
+    PGID: "1001"
 
   service:
     main:
