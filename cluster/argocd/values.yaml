@@ -122,3 +122,7 @@ argo-cd:
         type: helm
         name: bitnami
         url: https://charts.bitnami.com/bitnami
+      gitea-charts:
+        type: helm
+        name: gitea-charts
+        url: https://dl.gitea.io/charts/
