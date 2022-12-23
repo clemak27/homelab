@@ -19,6 +19,7 @@ export PATH
 export HISTCONTROL="ignoredups:ignorespace"
 
 alias tb='toolbox'
+alias nix='SHELL=/var/home/clemens/.nix-profile/bin/zsh toolbox enter --container nix'
 alias lsa='ls -hal'
 alias dps='docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
 alias dpsw='watch docker ps --format \"table {{.Names}}\\t{{.Image}}\\t{{.Status}}\"'
