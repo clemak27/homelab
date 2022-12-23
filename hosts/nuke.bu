@@ -9,7 +9,6 @@ ignition:
       - local: modules/overlays.ign
       - local: modules/user.ign
       - local: modules/init/init.ign
-      - local: modules/gitops/gitops.ign
       - local: modules/ssh/ssh.ign
       - local: modules/nix/nix.ign
       - local: modules/wireguard/wireguard.ign

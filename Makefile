@@ -47,9 +47,6 @@ modules/ssh/ssh.ign: modules/ssh/ssh.bu
 	$(BUTANE) --files-dir /pwd/modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
 	rm modules/ssh/id_ed25519
 
-modules/gitops/gitops.ign: modules/gitops/gitops.bu modules/gitops/gitops.sh
-	$(BUTANE) --files-dir /pwd/modules/gitops modules/gitops/gitops.bu -o modules/gitops/gitops.ign
-
 modules/nix/nix.ign: modules/nix/nix.bu modules/nix/create_nix_toolbox.sh
 	$(BUTANE) --files-dir /pwd/modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
 
@@ -59,7 +56,7 @@ modules/k3s/k3s.ign: modules/k3s/k3s.bu
 modules/dns/dns.ign: modules/dns/dns.bu
 	$(BUTANE) modules/dns.bu -o modules/dns.ign
 
-ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/gitops/gitops.ign modules/ssh/ssh.ign modules/nix/nix.ign modules/k3s/k3s.ign modules/dns/dns.ign
+ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/ssh/ssh.ign modules/nix/nix.ign modules/k3s/k3s.ign modules/dns/dns.ign
 
 serve: ignition
 	$(PODMAN) run --interactive --rm --security-opt label=disable \
@@ -123,7 +120,6 @@ test:
 	butane --files-dir modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
 	butane --files-dir modules/init modules/init/init.bu -o modules/init/init.ign
 	butane --files-dir modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
-	butane --files-dir modules/gitops modules/gitops/gitops.bu -o modules/gitops/gitops.ign
 	butane --files-dir modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
 	butane --files-dir modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
 	butane --files-dir . hosts/virtual.bu -o hosts/virtual.ign
