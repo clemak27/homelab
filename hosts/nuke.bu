@@ -27,6 +27,7 @@ storage:
           /var/nfs/archive        192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
           /var/nfs/media          192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
           /var/nfs/emulation      192.168.178.0/24(rw,nohide,insecure,no_subtree_check) 10.6.0.0/24(rw,nohide,insecure,no_subtree_check)
+          /var/nfs/backups        192.168.178.0/24(rw,no_root_squash,sync)
 systemd:
   units:
     # uranium-235
@@ -138,6 +139,20 @@ systemd:
         [Mount]
         What=/var/mnt/emulation
         Where=/var/nfs/emulation
+        Type=none
+        Options=bind
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-nfs-backups.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Bind-mount backups directory
+
+        [Mount]
+        What=/var/mnt/backups
+        Where=/var/nfs/backups
         Type=none
         Options=bind
 

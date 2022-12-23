@@ -20,7 +20,6 @@ mkdir -p /var/mnt/docker && chown -R clemens:clemens /var/mnt/docker
 mkdir -p /var/mnt/archive && chown -R clemens:clemens /var/mnt/archive
 mkdir -p /var/mnt/media && chown -R clemens:clemens /var/mnt/media
 mkdir -p /var/mnt/emulation && chown -R clemens:clemens /var/mnt/emulation
-mkdir -p /var/lib/docker
 mkdir -p /var/mnt/longhorn && chown -R clemens:clemens /var/mnt/longhorn
 mkdir -p /var/mnt/backups && chown -R clemens:clemens /var/mnt/backups
 
@@ -28,6 +27,7 @@ mkdir -p /var/mnt/backups && chown -R clemens:clemens /var/mnt/backups
 mkdir -p /var/nfs/archive && chown -R clemens:clemens /var/nfs/archive
 mkdir -p /var/nfs/media && chown -R clemens:clemens /var/nfs/media
 mkdir -p /var/nfs/emulation && chown -R clemens:clemens /var/nfs/emulation
+mkdir -p /var/nfs/backups && chown -R clemens:clemens /var/nfs/backups
 
 # start nfs service
 systemctl restart nfs-server
