@@ -18,7 +18,7 @@ gitea:
     ssh:
       type: ClusterIP
       port: 222
-      clusterIP: None
+      clusterIP:
 
   ingress:
     enabled: true

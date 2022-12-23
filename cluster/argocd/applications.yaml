@@ -19,6 +19,8 @@ spec:
             exclude: true
           - path: cluster/longhorn-frontend
             exclude: true
+          - path: cluster/gitea-ssh
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
@@ -123,3 +125,22 @@ spec:
   destination:
     name: in-cluster
     namespace: longhorn-system
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea-ssh
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: master
+    path: cluster/gitea-ssh
+  destination:
+    name: in-cluster
+    namespace: services

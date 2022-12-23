@@ -21,6 +21,10 @@ storage:
             namespace: kube-system
           spec:
             valuesContent: |-
+              ports:
+                gitea-ssh:
+                  port: 222
+                  expose: true
               globalArguments:
                 - "--global.sendanonymoususage=false"
                 - "--api.insecure=true"
