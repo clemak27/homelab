@@ -16,14 +16,6 @@ app-template:
         http:
           primary: true
           port: 9091
-        tcp:
-          enabled: true
-          protocol: TCP
-          port: 49153
-        udp:
-          enabled: true
-          protocol: UDP
-          port: 49153
 
   ingress:
     main:
