@@ -1,5 +1,5 @@
 ---
-gitea-charts/gitea:
+gitea:
   image:
     registry: "docker.io"
     repository: gitea/gitea
