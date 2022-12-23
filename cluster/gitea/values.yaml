@@ -1,5 +1,8 @@
 ---
 gitea:
+  global:
+    storageClass: longhorn
+
   image:
     registry: "docker.io"
     repository: gitea/gitea
