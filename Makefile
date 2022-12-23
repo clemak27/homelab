@@ -16,7 +16,6 @@ K3D = $(RUN_HOST) sudo -S bin/k3d
 LOCAL_KUBECTL = KUBECONFIG="${PWD}/kubeconfig.yaml" bin/kubectl
 LOCAL_SOPS = SOPS_AGE_KEY_FILE=./key.txt bin/sops
 
-
 default: ignition
 
 # modules
@@ -92,11 +91,6 @@ create_iso/nuke: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/nuke.ign
 		-o fcos.iso fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso
 
 # files
-
-bin/sops:
-	mkdir -p bin
-	curl -L --url https://github.com/mozilla/sops/releases/download/$(SOPS_BIN_VERSION)/sops-$(SOPS_BIN_VERSION).linux -o bin/sops  -C -
-	chmod +x bin/sops
 
 fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso:
 	curl -O --url https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/$(FCOS_VERSION)/x86_64/fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso -C -
@@ -209,6 +203,11 @@ k3s/init_longhorn: bin/kubectl bin/helm key.txt
 	bin/kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
 
 # bin
+
+bin/sops:
+	mkdir -p bin
+	curl -L --url https://github.com/mozilla/sops/releases/download/$(SOPS_BIN_VERSION)/sops-$(SOPS_BIN_VERSION).linux -o bin/sops  -C -
+	chmod +x bin/sops
 
 bin/k3d:
 	mkdir -p bin
