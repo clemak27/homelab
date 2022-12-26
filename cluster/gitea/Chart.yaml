@@ -2,7 +2,7 @@
 apiVersion: v2
 name: helm-gitea
 type: application
-version: 10.8.8
+version: 0.0.1
 dependencies:
   - name: gitea
     version: 6.0.3
