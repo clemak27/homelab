@@ -2,7 +2,7 @@
 apiVersion: v2
 name: helm-cloudflare-ddns
 type: application
-version: 10.8.8
+version: 0.0.1
 dependencies:
   - name: app-template
     version: 1.2.0
