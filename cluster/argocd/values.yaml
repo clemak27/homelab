@@ -126,3 +126,32 @@ argo-cd:
         type: helm
         name: gitea-charts
         url: https://dl.gitea.io/charts/
+
+  notifications:
+    argocdUrl: argocd.wallstreet30.cc
+    notifiers:
+      service.telegram: |
+        token: $telegram-token
+    subscriptions:
+      - recipients:
+          - telegram
+        triggers:
+          - on-deployed
+          - on-sync-failed
+    templates:
+      template.app-deployed: |
+        message: New version of an application {{.app.metadata.name}} is up and running.
+      template.app-sync-failed: |
+        message: Failed to sync application {{.app.metadata.name}}.
+    triggers:
+      trigger.on-deployed: |
+        - description: Application is synced and healthy. Triggered once per commit.
+          oncePer: app.status.sync.revision
+          send:
+          - app-deployed
+          when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+      trigger.on-sync-failed: |
+        - description: Application syncing has failed
+          send:
+          - app-sync-failed
+          when: app.status.operationState.phase in ['Error', 'Failed']
