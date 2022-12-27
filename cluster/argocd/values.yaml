@@ -132,10 +132,9 @@ argo-cd:
     notifiers:
       service.telegram: |
         token: $telegram-token
-        chat: $telegram-chat
     subscriptions:
       - recipients:
-          - telegram
+          - telegram:$telegram-chat
         triggers:
           - on-deployed
           - on-sync-failed
