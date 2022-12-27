@@ -1,7 +1,6 @@
 FCOS_VERSION = 36.20221030.3.0
 SOPS_BIN_VERSION = v3.7.3
 KUBECTL_VERSION = v1.25.0
-K3D_BIN_VERSION = v5.4.6
 ARGOCD_BIN_VERSION = v2.5.2
 KUSTOMIZE_VERSION = v4.5.7
 HELM_VERSION = v3.10.2
@@ -12,7 +11,6 @@ PODMAN_RUN_PWD = $(PODMAN) run --interactive --rm --security-opt label=disable -
 BUTANE = $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER = $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS = $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
-K3D = $(RUN_HOST) sudo -S bin/k3d
 LOCAL_KUBECTL = KUBECONFIG="${PWD}/kubeconfig.yaml" bin/kubectl
 LOCAL_SOPS = SOPS_AGE_KEY_FILE=./key.txt bin/sops
 
@@ -138,46 +136,6 @@ clean:
 key.txt:
 	$(SOPS) --decrypt modules/init/age_key.enc > key.txt
 
-# k3d
-
-k3d: k3d/create_cluster k3d/init_argocd
-
-k3d/create_cluster: bin/k3d k3d/init_storage
-	$(K3D) cluster create --config ${PWD}/k3d/config.yaml
-
-k3d/destroy_cluster: bin/k3d
-	$(K3D) cluster delete local
-	rm -rf kubeconfig.yaml
-
-k3d/create_kubeconfig: kubeconfig.yaml
-
-kubeconfig.yaml:
-	$(K3D) kubeconfig get local > kubeconfig.yaml
-	echo "kubeconfig written to kubeconfig.yaml"
-
-k3d/init_storage: tmp
-
-tmp:
-	mkdir -p tmp/media/music
-	mkdir -p tmp/services/jellyfin
-	touch tmp/media/music/fake.flac
-
-k3d/init_argocd: k3d/create_kubeconfig bin/kubectl bin/helm key.txt
-	$(LOCAL_KUBECTL) create namespace services && \
-  $(LOCAL_KUBECTL) create namespace cert-manager && \
-	$(LOCAL_KUBECTL) create namespace argocd && \
-	$(LOCAL_KUBECTL) -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
-	bin/helm install -n argocd argocd cluster/argocd && \
-	while [ "$($(LOCAL_KUBECTL) get deployment -n argocd argocd-repo-server -o jsonpath="{.status.conditions[?(@.type=='Available')].status}")" != "True" ]; do echo "Waiting for argocd-repo-server deployment to become ready..." && sleep 5; done && \
-	sleep 60 && \
-	$(LOCAL_KUBECTL) apply -n argocd -f cluster/argocd/applications.yaml && \
-	$(LOCAL_KUBECTL) delete -n argocd secrets argocd-initial-admin-secret
-
-update_charts: k3d/create_kubeconfig bin/helm
-	cd cluster/argocd && \
-	KUBECONFIG="${PWD}/kubeconfig.yaml" ../../bin/helm repo add argo-cd https://argoproj.github.io/argo-helm && \
-	KUBECONFIG="${PWD}/kubeconfig.yaml" bin/helm dep update cluster/argocd
-
 # k3s
 
 k3s/init_argocd: bin/kubectl bin/helm key.txt
@@ -204,11 +162,6 @@ bin/sops:
 	mkdir -p bin
 	curl -L --url https://github.com/mozilla/sops/releases/download/$(SOPS_BIN_VERSION)/sops-$(SOPS_BIN_VERSION).linux -o bin/sops  -C -
 	chmod +x bin/sops
-
-bin/k3d:
-	mkdir -p bin
-	curl -L --url https://github.com/k3d-io/k3d/releases/download/$(K3D_BIN_VERSION)/k3d-linux-amd64 -o bin/k3d -C -
-	chmod +x bin/k3d
 
 bin/kubectl:
 	mkdir -p bin
