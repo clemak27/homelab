@@ -132,13 +132,6 @@ argo-cd:
     notifiers:
       service.telegram: |
         token: $telegram-token
-    subscriptions:
-      - recipients:
-          - telegram:$telegram-chat
-        triggers:
-          - on-deployed
-          - on-sync-failed
-          - on-sync-succeeded
     templates:
       template.app-deployed: |
         message: New version of an application {{.app.metadata.name}} is up and running.
