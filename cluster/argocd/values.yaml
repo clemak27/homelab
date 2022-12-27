@@ -138,11 +138,14 @@ argo-cd:
         triggers:
           - on-deployed
           - on-sync-failed
+          - on-sync-succeeded
     templates:
       template.app-deployed: |
         message: New version of an application {{.app.metadata.name}} is up and running.
       template.app-sync-failed: |
         message: Failed to sync application {{.app.metadata.name}}.
+      template.app-sync-succeeded: |
+        message: Application {{.app.metadata.name}} has been successfully synced.
     triggers:
       trigger.on-deployed: |
         - description: Application is synced and healthy. Triggered once per commit.
@@ -155,3 +158,8 @@ argo-cd:
           send:
           - app-sync-failed
           when: app.status.operationState.phase in ['Error', 'Failed']
+      trigger.on-sync-succeeded: |
+        - description: Application syncing has succeeded
+          send:
+          - app-sync-succeeded
+          when: app.status.operationState.phase in ['Succeeded']
