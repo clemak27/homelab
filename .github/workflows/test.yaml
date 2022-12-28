@@ -8,7 +8,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Nix setup
-        uses: cachix/install-nix-action@v18
       - name: Run ignition test
-        run: nix shell nixpkgs#gnumake nixpkgs#butane -c make test
+        run: make test

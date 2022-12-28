@@ -4,11 +4,11 @@ KUBECTL_VERSION = v1.25.0
 ARGOCD_BIN_VERSION = v2.5.2
 KUSTOMIZE_VERSION = v4.5.7
 HELM_VERSION = v3.10.2
+BUTANE_BIN_VERSION = v0.16.0
 
 RUN_HOST = /usr/bin/flatpak-spawn --host
 PODMAN =  $(RUN_HOST) podman
 PODMAN_RUN_PWD = $(PODMAN) run --interactive --rm --security-opt label=disable --volume ${PWD}:/pwd --workdir /pwd
-BUTANE = $(PODMAN_RUN_PWD) quay.io/coreos/butane:release --pretty --strict
 COREOS_INSTALLER = $(PODMAN_RUN_PWD) quay.io/coreos/coreos-installer:release
 SOPS = $(PODMAN_RUN_PWD) --volume ${HOME}/.config/sops/age/keys.txt:/pwd/keys.txt:ro -e SOPS_AGE_KEY_FILE=/pwd/keys.txt nixery.dev/sops sops
 LOCAL_KUBECTL = KUBECONFIG="${PWD}/kubeconfig.yaml" bin/kubectl
@@ -18,41 +18,41 @@ default: ignition
 
 # modules
 
-modules/user.ign: modules/user.bu
-	$(BUTANE) modules/user.bu -o modules/user.ign
+modules/user.ign: modules/user.bu bin/butane
+	bin/butane modules/user.bu -o modules/user.ign
 
-modules/overlays.ign: modules/overlays.bu
-	$(BUTANE) modules/overlays.bu -o modules/overlays.ign
+modules/overlays.ign: modules/overlays.bu bin/butane
+	bin/butane modules/overlays.bu -o modules/overlays.ign
 
-modules/i18n.ign: modules/i18n.bu
-	$(BUTANE) modules/i18n.bu -o modules/i18n.ign
+modules/i18n.ign: modules/i18n.bu bin/butane
+	bin/butane modules/i18n.bu -o modules/i18n.ign
 
-modules/autoupdates.ign: modules/autoupdates.bu
-	$(BUTANE) modules/autoupdates.bu -o modules/autoupdates.ign
+modules/autoupdates.ign: modules/autoupdates.bu bin/butane
+	bin/butane modules/autoupdates.bu -o modules/autoupdates.ign
 
-modules/wireguard/wireguard.ign: modules/wireguard/wireguard.bu modules/wireguard/wg0.enc.conf
+modules/wireguard/wireguard.ign: modules/wireguard/wireguard.bu modules/wireguard/wg0.enc.conf bin/butane
 	$(SOPS) --decrypt modules/wireguard/wg0.enc.conf > modules/wireguard/wg0.conf
-	$(BUTANE) --files-dir /pwd/modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
+	bin/butane --files-dir /pwd/modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
 	rm modules/wireguard/wg0.conf
 
-modules/init/init.ign: modules/init/init.bu modules/init/init.sh modules/init/age_key.enc
+modules/init/init.ign: modules/init/init.bu modules/init/init.sh modules/init/age_key.enc bin/butane
 	$(SOPS) --decrypt modules/init/age_key.enc > modules/init/age_key
-	$(BUTANE) --files-dir /pwd/modules/init modules/init/init.bu -o modules/init/init.ign
+	bin/butane --files-dir /pwd/modules/init modules/init/init.bu -o modules/init/init.ign
 	rm modules/init/age_key
 
-modules/ssh/ssh.ign: modules/ssh/ssh.bu
+modules/ssh/ssh.ign: modules/ssh/ssh.bu bin/butane
 	$(SOPS) --decrypt modules/ssh/id_ed25519.enc > modules/ssh/id_ed25519
-	$(BUTANE) --files-dir /pwd/modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
+	bin/butane --files-dir /pwd/modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
 	rm modules/ssh/id_ed25519
 
-modules/nix/nix.ign: modules/nix/nix.bu modules/nix/create_nix_toolbox.sh
-	$(BUTANE) --files-dir /pwd/modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
+modules/nix/nix.ign: modules/nix/nix.bu modules/nix/create_nix_toolbox.sh bin/butane
+	bin/butane --files-dir /pwd/modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
 
-modules/k3s/k3s.ign: modules/k3s/k3s.bu
-	$(BUTANE) --files-dir /pwd/modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
+modules/k3s/k3s.ign: modules/k3s/k3s.bu bin/butane
+	bin/butane --files-dir /pwd/modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
 
-modules/dns/dns.ign: modules/dns/dns.bu
-	$(BUTANE) modules/dns.bu -o modules/dns.ign
+modules/dns/dns.ign: modules/dns/dns.bu bin/butane
+	bin/butane modules/dns.bu -o modules/dns.ign
 
 ignition: modules/user.ign modules/overlays.ign modules/i18n.ign modules/autoupdates.ign modules/init/init.ign modules/wireguard/wireguard.ign modules/ssh/ssh.ign modules/nix/nix.ign modules/k3s/k3s.ign modules/dns/dns.ign
 
@@ -63,8 +63,8 @@ serve: ignition
 
 # virtual machine config
 
-hosts/virtual.ign: hosts/virtual.bu ignition
-	$(BUTANE) --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
+hosts/virtual.ign: hosts/virtual.bu ignition bin/butane
+	bin/butane --files-dir /pwd hosts/virtual.bu -o hosts/virtual.ign
 
 create_iso/virtual: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.ign
 	rm -f fcos.iso
@@ -75,8 +75,8 @@ create_iso/virtual: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/virtual.
 
 # nuke config
 
-hosts/nuke.ign: hosts/nuke.bu ignition
-	$(BUTANE) --files-dir /pwd hosts/nuke.bu -o hosts/nuke.ign
+hosts/nuke.ign: hosts/nuke.bu ignition bin/butane
+	bin/butane --files-dir /pwd hosts/nuke.bu -o hosts/nuke.ign
 
 create_iso/nuke: fedora-coreos-$(FCOS_VERSION)-live.x86_64.iso hosts/nuke.ign
 	rm -f fcos.iso
@@ -106,22 +106,22 @@ shellcheck:
 hadolint:
 	find . -name "Dockerfile" -type f | xargs $(PODMAN_RUN_PWD) nixery.dev/hadolint:latest hadolint
 
-test:
+test: bin/butane
 	echo "unencrypted content" > modules/wireguard/wg0.conf
 	echo "unencrypted content" > modules/init/age_key
 	echo "unencrypted content" > modules/ssh/id_ed25519
-	butane modules/user.bu -o modules/user.ign
-	butane modules/overlays.bu -o modules/overlays.ign
-	butane modules/i18n.bu -o modules/i18n.ign
-	butane modules/autoupdates.bu -o modules/autoupdates.ign
-	butane modules/dns/dns.bu -o modules/dns/dns.ign
-	butane --files-dir modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
-	butane --files-dir modules/init modules/init/init.bu -o modules/init/init.ign
-	butane --files-dir modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
-	butane --files-dir modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
-	butane --files-dir modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
-	butane --files-dir . hosts/virtual.bu -o hosts/virtual.ign
-	butane --files-dir . hosts/nuke.bu -o hosts/nuke.ign
+	bin/butane modules/user.bu -o modules/user.ign
+	bin/butane modules/overlays.bu -o modules/overlays.ign
+	bin/butane modules/i18n.bu -o modules/i18n.ign
+	bin/butane modules/autoupdates.bu -o modules/autoupdates.ign
+	bin/butane modules/dns/dns.bu -o modules/dns/dns.ign
+	bin/butane --files-dir modules/wireguard modules/wireguard/wireguard.bu -o modules/wireguard/wireguard.ign
+	bin/butane --files-dir modules/init modules/init/init.bu -o modules/init/init.ign
+	bin/butane --files-dir modules/ssh modules/ssh/ssh.bu -o modules/ssh/ssh.ign
+	bin/butane --files-dir modules/nix modules/nix/nix.bu -o modules/nix/nix.ign
+	bin/butane --files-dir modules/k3s modules/k3s/k3s.bu -o modules/k3s/k3s.ign
+	bin/butane --files-dir . hosts/virtual.bu -o hosts/virtual.ign
+	bin/butane --files-dir . hosts/nuke.bu -o hosts/nuke.ign
 	rm modules/wireguard/wg0.conf
 	rm modules/init/age_key
 	rm modules/ssh/id_ed25519
@@ -157,6 +157,11 @@ k3s/init_longhorn: bin/kubectl bin/helm key.txt
 	bin/kubectl apply -f https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
 
 # bin
+
+bin/butane:
+	mkdir -p bin
+	curl -L --url https://github.com/coreos/butane/releases/download/$(BUTANE_BIN_VERSION)/butane-x86_64-unknown-linux-gnu -o bin/butane  -C -
+	chmod +x bin/butane
 
 bin/sops:
 	mkdir -p bin
