@@ -17,3 +17,15 @@ spec:
         - hosts:
             - traefik.wallstreet30.cc
           secretName: traefik-dashboard-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-dashboard-tls
+spec:
+  secretName: traefik-dashboard-tls
+  dnsNames:
+    - traefik.wallstreet30.cc
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
