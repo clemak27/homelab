@@ -47,5 +47,5 @@ app-template:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/media/torrents/complete
+      path: /media/torrents/complete
       mountPath: /downloads
