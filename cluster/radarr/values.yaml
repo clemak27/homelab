@@ -47,11 +47,11 @@ app-template:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/media/torrents
+      path: /media/torrents
       mountPath: /downloads
     movies:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/media/movies
+      path: /media/movies
       mountPath: /downloads/movies
