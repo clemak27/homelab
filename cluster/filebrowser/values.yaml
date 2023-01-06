@@ -45,17 +45,17 @@ app-template:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/archive/
+      path: /archive
       mountPath: /data/archive
     media:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/media/
+      path: /media
       mountPath: /data/media
     emulation:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/emulation/
+      path: /emulation
       mountPath: /data/emulation
