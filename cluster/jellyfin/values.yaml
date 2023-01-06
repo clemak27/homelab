@@ -45,5 +45,5 @@ app-template:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/media/
+      path: /media
       mountPath: /media
