@@ -44,9 +44,9 @@ app-template:
       enabled: true
       storageClass: longhorn
       size: 1Gi
-    media:
+    downloads:
       enabled: true
       type: nfs
       server: 192.168.178.100
-      path: /var/nfs/media/torrents
+      path: /media/torrents
       mountPath: /downloads
