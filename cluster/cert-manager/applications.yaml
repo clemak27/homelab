@@ -1,8 +1,13 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
+  name: cert-manager
   namespace: argocd
 spec:
   project: default
@@ -13,11 +18,11 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
-    path: cluster/argocd
+    path: cluster/cert-manager/cert-manager
     helm:
       valueFiles:
         - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/argocd/secrets.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/cert-manager/cert-manager/secrets.yaml
   destination:
     name: in-cluster
-    namespace: argocd
+    namespace: cert-manager
