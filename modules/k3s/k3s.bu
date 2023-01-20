@@ -28,3 +28,11 @@ storage:
               globalArguments:
                 - "--global.sendanonymoususage=false"
                 - "--api.insecure=true"
+    - path: /etc/rancher/k3s/registries.yaml
+      mode: 0644
+      contents:
+        inline: |
+          mirrors:
+            "registry.wallstreet30.cc":
+              endpoint:
+                - "https://registry.wallstreet30.cc"
