@@ -1,0 +1,45 @@
+---
+app-template:
+  image:
+    repository: registry.wallstreet30.cc/qobuz-dl
+    tag: 0.0.1
+
+  env:
+    TZ: Europe/Vienna
+
+  service:
+    main:
+      type: ClusterIP
+      ports:
+        http:
+          port: 8526
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: qobuz-dl.wallstreet30.cc
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - qobuz-dl.wallstreet30.cc
+          secretName: qobuz-dl-tls
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    media:
+      enabled: true
+      type: nfs
+      server: 192.168.178.100
+      path: /media
+      mountPath: /app/music
