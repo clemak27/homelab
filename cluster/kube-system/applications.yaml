@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-dashboard
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: master
+    path: cluster/kube-system/traefik-dashboard
+  destination:
+    name: in-cluster
+    namespace: kube-system
