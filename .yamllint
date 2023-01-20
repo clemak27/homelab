@@ -2,9 +2,8 @@
 extends: default
 
 ignore: |
-  services/secrets.yaml
-  cluster/*/secrets.yaml
-  cluster/cert-manager/issuer/issuer.yaml
+  cluster/**/secrets.yaml
+  cluster/cert-manager/cert-manager/issuer/issuer.yaml
 
 rules:
   line-length: false
