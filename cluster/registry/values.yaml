@@ -1,0 +1,48 @@
+---
+app-template:
+  image:
+    repository: docker.io/registry
+    tag: "2"
+
+  env:
+    TZ: Europe/Vienna
+    REGISTRY_HTTP_ADDR: :5000
+    REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+
+  service:
+    main:
+      type: ClusterIP
+      ports:
+        http:
+          port: 5000
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+        - host: registry.wallstreet30.cc
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - registry.wallstreet30.cc
+          secretName: registry-tls
+
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+  persistence:
+    data:
+      enabled: true
+      type: pvc
+      mountPath: /var/lib/registry
+      storageClass: longhorn
+      accessMode: ReadWriteOnce
+      size: 10Gi
