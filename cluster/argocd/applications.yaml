@@ -21,6 +21,8 @@ spec:
             exclude: true
           - path: cluster/gitea-ssh
             exclude: true
+          - path: cluster/registry
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
@@ -144,3 +146,26 @@ spec:
   destination:
     name: in-cluster
     namespace: services
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: registry
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: feat/add-container-registry
+    path: cluster/registry
+    helm:
+      valueFiles:
+        - values.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/feat/add-container-registry/cluster/registry/secrets.yaml
+  destination:
+    name: in-cluster
+    namespace: registry
