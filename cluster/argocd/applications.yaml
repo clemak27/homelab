@@ -48,25 +48,6 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: longhorn-frontend
-  namespace: argocd
-spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-  source:
-    repoURL: https://github.com/clemak27/homelab
-    targetRevision: master
-    path: cluster/longhorn-frontend
-  destination:
-    name: in-cluster
-    namespace: longhorn-system
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: registry
   namespace: argocd
 spec:
