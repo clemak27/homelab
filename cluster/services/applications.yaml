@@ -1,0 +1,59 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: services
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: git
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/clemak27/homelab
+        revision: master
+        directories:
+          - path: cluster/services/*
+          - path: cluster/services/gitea-ssh
+            exclude: true
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/clemak27/homelab
+        targetRevision: master
+        path: '{{path}}'
+        helm:
+          valueFiles:
+            - values.yaml
+            - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/{{path}}/secrets.yaml
+      destination:
+        name: in-cluster
+        namespace: services
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea-ssh
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: master
+    path: cluster/gitea-ssh
+  destination:
+    name: in-cluster
+    namespace: services
