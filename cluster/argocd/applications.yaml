@@ -1,4 +1,9 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -13,11 +18,11 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
-    path: cluster/argocd
+    path: cluster/argocd/argocd
     helm:
       valueFiles:
         - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/argocd/secrets.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/argocd/argocd/secrets.yaml
   destination:
     name: in-cluster
     namespace: argocd
