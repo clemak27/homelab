@@ -139,14 +139,14 @@ key.txt:
 # k3s
 
 k3s/init_argocd: bin/kubectl bin/helm key.txt
-	bin/kubectl create namespace services && \
-  bin/kubectl create namespace cert-manager && \
 	bin/kubectl create namespace argocd && \
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
 	bin/helm install -n argocd argocd cluster/argocd && \
 	sleep 75 && \
-	bin/kubectl apply -n argocd -f cluster/argocd/applications.yaml && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
+
+k3s/create_argocd_applications: bin/kubectl
+	find ./cluster -name 'applications.yaml' -exec bin/kubectl -n argocd apply -f {} \;
 
 k3s/create_cert_issuer: bin/kubectl bin/sops key.txt
 	$(LOCAL_SOPS) --decrypt cluster/cert-manager/issuer/issuer.yaml > cluster/cert-manager/issuer/issuer_unenc.yaml && \
