@@ -129,9 +129,9 @@ argo-cd:
 
   notifications:
     argocdUrl: argocd.wallstreet30.cc
-    notifiers:
-      service.telegram: |
-        token: $telegram-token
+    # notifiers:
+    #   service.telegram: |
+    #     token: $telegram-token
     templates:
       template.app-deployed: |
         message: New version of {{.app.metadata.name}} is up and running.
