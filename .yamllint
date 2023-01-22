@@ -3,7 +3,7 @@ extends: default
 
 ignore: |
   cluster/**/secrets.yaml
-  cluster/cert-manager/cert-manager/issuer/issuer.yaml
+  cluster/cert-manager/issuer/issuer.yaml
 
 rules:
   line-length: false
