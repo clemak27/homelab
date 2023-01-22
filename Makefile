@@ -141,7 +141,7 @@ key.txt:
 k3s/init_argocd: bin/kubectl bin/helm key.txt
 	bin/kubectl create namespace argocd && \
 	kubectl -n argocd create secret generic helm-secrets-private-keys --from-file=key.txt && \
-	bin/helm install -n argocd argocd cluster/argocd && \
+	bin/helm install -n argocd argocd cluster/argocd/application && \
 	sleep 75 && \
 	bin/kubectl delete -n argocd secrets argocd-initial-admin-secret
 

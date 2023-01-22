@@ -18,11 +18,11 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
-    path: cluster/argocd/argocd
+    path: cluster/argocd/application
     helm:
       valueFiles:
         - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/argocd/argocd/secrets.yaml
+        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/argocd/application/secrets.yaml
   destination:
     name: in-cluster
     namespace: argocd
