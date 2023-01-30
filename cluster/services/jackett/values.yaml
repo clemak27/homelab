@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: docker.io/linuxserver/jackett
-    tag: 0.20.2679
+    tag: 0.20.2767
 
   env:
     TZ: Europe/Vienna
