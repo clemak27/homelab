@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+name: helm-docker-registry
+type: application
+version: 0.0.1
+dependencies:
+  - name: longhorn
+    version: 1.4.0
+    repository: https://charts.longhorn.io

@@ -126,6 +126,10 @@ argo-cd:
         type: helm
         name: gitea-charts
         url: https://dl.gitea.io/charts/
+      longhorn:
+        type: helm
+        name: longhorn
+        url: https://charts.longhorn.io
 
   notifications:
     argocdUrl: argocd.wallstreet30.cc
