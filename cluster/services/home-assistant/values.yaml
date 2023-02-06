@@ -39,4 +39,4 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
+      existingClaim: home-assistant-config

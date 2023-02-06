@@ -39,8 +39,7 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
-      size: 10Gi
+      existingClaim: jellyfin-config
     media:
       enabled: true
       type: nfs

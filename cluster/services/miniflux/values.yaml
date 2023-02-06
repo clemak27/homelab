@@ -50,7 +50,7 @@ postgresql:
       enabled: false
       runAsUser: "auto"
     persistence:
-      storageClass: longhorn
+      existingClaim: "miniflux-postgresql"
 
   readReplicas:
     podSecurityContext:

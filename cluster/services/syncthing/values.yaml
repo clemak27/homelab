@@ -39,12 +39,9 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
+      existingClaim: syncthing-config
       mountPath: /var/syncthing
     data:
       enabled: true
-      type: pvc
+      existingClaim: syncthing-data
       mountPath: /data
-      storageClass: longhorn
-      accessMode: ReadWriteOnce
-      size: 100Gi

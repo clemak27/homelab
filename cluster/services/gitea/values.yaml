@@ -38,7 +38,7 @@ gitea:
         secretName: gitea-tls
 
   persistence:
-    storageClass: longhorn
+    existingClaim: "gitea-data"
 
   gitea:
     config:

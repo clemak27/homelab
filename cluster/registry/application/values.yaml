@@ -41,8 +41,5 @@ app-template:
   persistence:
     data:
       enabled: true
-      type: pvc
+      existingClaim: registry-data
       mountPath: /var/lib/registry
-      storageClass: longhorn
-      accessMode: ReadWriteOnce
-      size: 10Gi

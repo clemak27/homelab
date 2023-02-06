@@ -41,8 +41,7 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
-      size: 1Gi
+      existingClaim: radarr-config
     downloads:
       enabled: true
       type: nfs

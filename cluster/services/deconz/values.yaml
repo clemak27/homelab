@@ -44,8 +44,7 @@ app-template:
     config:
       enabled: true
       mountPath: /opt/deCONZ
-      storageClass: longhorn
-      size: 1Gi
+      existingClaim: deconz-config
 
   # https://stackoverflow.com/a/59291859/19520885
   securityContext:

@@ -40,7 +40,7 @@ app-template:
   persistence:
     config:
       enabled: true
-      storageClass: longhorn
+      existingClaim: filebrowser-config
     archive:
       enabled: true
       type: nfs

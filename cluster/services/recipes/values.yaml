@@ -47,7 +47,7 @@ postgresql:
       enabled: false
       runAsUser: "auto"
     persistence:
-      storageClass: longhorn
+      existingClaim: "recipes-postgresql"
 
   readReplicas:
     podSecurityContext:
