@@ -53,7 +53,7 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
-    path: cluster/gitea-ssh
+    path: cluster/services/gitea-ssh
   destination:
     name: in-cluster
     namespace: services
