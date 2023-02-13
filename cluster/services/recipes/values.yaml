@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: docker.io/vabene1111/recipes
-    tag: 1.4.6
+    tag: 1.4.7
 
   env:
     TZ: Europe/Vienna
