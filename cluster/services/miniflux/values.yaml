@@ -40,7 +40,7 @@ app-template:
 postgresql:
   image:
     repository: postgres
-    tag: 15.1
+    tag: 15.2
 
   primary:
     podSecurityContext:
