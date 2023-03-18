@@ -50,7 +50,7 @@ storage:
           192.168.178.100 transmission.wallstreet30.cc
           192.168.178.100 vaultwarden.wallstreet30.cc
 
-          192.168.178.100 k3d.wallstreet30.cc
+          192.168.178.100 k3s.wallstreet30.cc
           192.168.178.100 argocd.wallstreet30.cc
           # 192.168.178.101 traefik-k3s.wallstreet30.cc
           # 192.168.178.101 jellyfin-k3s.wallstreet30.cc
