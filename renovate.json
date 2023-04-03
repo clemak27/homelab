@@ -9,34 +9,5 @@
   "repositories": [
     "clemak27/homelab"
   ],
-  "packageRules": [
-    {
-      "matchPaths": [
-        "services/homelab_bot/**"
-      ],
-      "branchPrefix": "renovate/homelab_bot-",
-      "semanticCommits": "enabled",
-      "semanticCommitScope": "homelab_bot"
-    },
-    {
-      "matchPaths": [
-        "services/qobuz-dl/**"
-      ],
-      "branchPrefix": "renovate/qobuz-dl-",
-      "semanticCommits": "enabled",
-      "semanticCommitScope": "qobuz-dl"
-    }
-  ],
-  "commitMessageAction": "update",
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "^.*/\\.env$"
-      ],
-      "matchStrings": [
-        "\\s*.+_VERSION=(?<currentValue>.*) # renovate: datasource=(?<datasource>.*) depName=(?<depName>.*)( versioning=(?<versioning>.*))?\\s*"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
-    }
-  ]
+  "commitMessageAction": "update"
 }
