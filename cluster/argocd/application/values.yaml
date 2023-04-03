@@ -130,7 +130,14 @@ argo-cd:
         type: helm
         name: longhorn
         url: https://charts.longhorn.io
-
+      kyverno:
+        type: helm
+        name: kyverno
+        url: https://kyverno.github.io/kyverno
+      incubator:
+        type: helm
+        name: incubator
+        url: https://charts.helm.sh/incubator
   notifications:
     argocdUrl: argocd.wallstreet30.cc
     # notifiers:

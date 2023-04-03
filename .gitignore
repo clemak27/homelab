@@ -9,3 +9,4 @@ kubeconfig.yaml
 tmp
 key.txt
 .direnv
+result
