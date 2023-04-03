@@ -8,3 +8,4 @@ age_key
 kubeconfig.yaml
 tmp
 key.txt
+.direnv
