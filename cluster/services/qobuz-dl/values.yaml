@@ -2,7 +2,7 @@
 app-template:
   image:
     repository: registry.wallstreet30.cc/qobuz-dl
-    tag: 0.0.2
+    tag: 0.0.3
 
   env:
     TZ: Europe/Vienna
