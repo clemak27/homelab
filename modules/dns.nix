@@ -3,6 +3,7 @@
   services.dnsmasq = {
     enable = true;
     settings = {
+      interface = "enp3s0,wg0";
       listen-address = "::1,127.0.0.1,192.168.178.100";
       server = [
         "1.1.1.1"
