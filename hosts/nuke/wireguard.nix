@@ -1,5 +1,12 @@
 { config, pkgs, ... }:
 {
+  # Enable NAT
+  networking.nat = {
+    enable = true;
+    externalInterface = "enp3s0";
+    internalInterfaces = [ "wg0" ];
+  };
+
   environment.systemPackages = with pkgs; [
     wireguard-tools
   ];
