@@ -15,10 +15,10 @@ It currently consists of a server running NixOS, with k3s to deploy containers.
 - `setup`
   notes for setting up my homelab
 
-## Hardware
+<!-- ## Hardware -->
 
-HDDs
-nfs
+<!-- HDDs -->
+<!-- nfs -->
 
 ## Software
 
