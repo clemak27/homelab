@@ -62,6 +62,7 @@
           kustomize
           sops
           dnsutils
+          yamllint
         ];
       };
     };

@@ -27,3 +27,8 @@ k3s/create_cert_issuer: key.txt
 	$(SOPS) --decrypt cluster/cert-manager/issuer/issuer.yaml > cluster/cert-manager/issuer/issuer_unenc.yaml && \
 	kubectl apply -n cert-manager -f cluster/cert-manager/issuer/issuer_unenc.yaml && \
 	rm -f cluster/cert-manager/issuer/issuer_unenc.yaml
+
+# lint
+
+yamllint:
+	yamllint .
