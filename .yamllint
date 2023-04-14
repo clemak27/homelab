@@ -2,8 +2,10 @@
 extends: default
 
 ignore: |
+  hosts/**/secrets.yaml
   cluster/**/secrets.yaml
   cluster/cert-manager/issuer/issuer.yaml
+  cluster/longhorn-system/longhorn.yaml
 
 rules:
   line-length: false
