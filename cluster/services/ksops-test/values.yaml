@@ -1,0 +1,18 @@
+---
+app-template:
+  image:
+    repository: registry.wallstreet30.cc/qobuz-dl
+    tag: 0.0.3
+
+  env:
+    TZ: Europe/Vienna
+    USER:
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: user
+    PW:
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: password
