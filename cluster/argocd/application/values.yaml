@@ -89,6 +89,9 @@ argo-cd:
         name: sops-age
         subPath: keys.txt
         readOnly: true
+      - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
+        name: custom-tools
+        subPath: ksops
     initContainers:
       - name: download-tools
         image: alpine:latest
