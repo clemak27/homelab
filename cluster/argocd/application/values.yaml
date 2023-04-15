@@ -24,7 +24,7 @@ argo-cd:
       - --insecure
 
     config:
-      kustomize.buildOptions: "--enable-alpha-plugins"
+      kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
         secrets+age-import, secrets+age-import-kubernetes,
@@ -74,6 +74,12 @@ argo-cd:
     volumeMounts:
       - mountPath: /custom-tools
         name: custom-tools
+      - mountPath: /usr/local/bin/kustomize
+        name: custom-tools
+        subPath: kustomize
+      - mountPath: /usr/local/bin/ksops
+        name: custom-tools
+        subPath: ksops
 
     initContainers:
       - name: download-tools
@@ -101,6 +107,17 @@ argo-cd:
             # wget -qO /custom-tools/curl https://github.com/moparisthebest/static-curl/releases/latest/download/curl-aarch64  \
 
             chmod +x /custom-tools/*
+        volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+      - name: install-ksops
+        image: viaductoss/ksops:v4.1.1
+        command: ["/bin/sh", "-c"]
+        args:
+          - echo "Installing KSOPS...";
+            mv ksops /custom-tools/;
+            mv $GOPATH/bin/kustomize /custom-tools/;
+            echo "Done.";
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
