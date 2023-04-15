@@ -1,20 +1,28 @@
----
 apiVersion: v1
 kind: Secret
 metadata:
     name: mysecret
 type: Opaque
 data:
-    username: ENC[AES256_GCM,data:M2zpxWpZczo=,iv:VCGOwk4dgUoi+XPrypbwDAwho/n0PGxpgjOsGrMtIS8=,tag:LUz+bi1qpBnO5Q8IxJb1CQ==,type:str]
-    password: ENC[AES256_GCM,data:dnB9QEN5Ngh0JFyyG2c4tA==,iv:kJco9GxDsLs1c5lW1pOJ54MBMq+9E/iZzjMvWomW6mI=,tag:dWhIO38BKjx4Wla16r+geA==,type:str]
+    username: ENC[AES256_GCM,data:Z8mxUjCk4Ak=,iv:WyfXDpSzeGEvfKoQZnV1iW1F7WmZ8n3gXEMEN/0K5DY=,tag:NEj/vKiRuGiMEb7ZzIs8Ww==,type:str]
+    password: ENC[AES256_GCM,data:itUe1UwJ6gnTXBTOCpPPWw==,iv:0gmpVpJDfQBk4QvpJbqHqX8kQqL6t/L7h+HjypQ0xRc=,tag:yM8gpdKCemmzMvJ+j96kiA==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
-    age: []
-    lastmodified: "2023-04-15T20:04:31Z"
-    mac: ENC[AES256_GCM,data:y40+cOC2IG+KVSUe+0meRabVk4L7msNRTDKgMBc7rOrW7nNjClBIsM0t+sCayI6U3GC+j3VXCznIxlLRvO52zWl0v0iq1pUhytBIR3mA6KPGSHAkaZuNC9jqf7LARM6764DAgkaciWnDJTgnuVaFXUp4d6WJNvR8PMAvlKRmuio=,iv:kE7Csy09E73kPjFwkw57on7w0Q0tFm6ZPr6Hgu/dDy4=,tag:VYzx/+YD9c6QGhrUTddCxw==,type:str]
+    age:
+        - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA3Q29BWFNhQ2Y5a0YxNTVs
+            c3JPRFlzSzF6MWNGWWRiN05WVWJiS1JMaG1JCm5Jb0xNY1Q4RFR4TnQySDMvWFRy
+            TytVQ3BlTGFKYVdwbGVmaFNIajZvc00KLS0tIFFKSFdHZEVJY3Y3STNBOWFVOWpK
+            Z2NGMEdRakFqcXppV3Z6YWhRMkhEY2cKxlOf63T6WWg46L+RgzQRbD6EJCXqZhYz
+            +rS2A46mv+y+CeiEDs4FFgJYwXMKBj3Aab4ve6v/0aMJDz0yEldFpg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-04-15T20:58:12Z"
+    mac: ENC[AES256_GCM,data:if/P0MIA1/Kt027Refi7pLXrLAzaecMdyCxmbjeuw1WwS32smz/BQc9+4YbTavbTkjKtPPc442OZUla5g2uadDkSTXBOQOhL8iW0ODBKIHHFtwy5rBJ+UmBHtGBbDr/73F5+aLQUf7Tv7IaM+eaw6Qbp2Fwj+TWLsfPqNT5/o4M=,iv:yyah4QVJ1yUBhQ+M/9xZdxC9S4iFGjAbvXXqsgUtmLU=,tag:nOMluPMmUuzQW3X3SMQLjQ==,type:str]
     pgp: []
     unencrypted_regex: ^(apiVersion|metadata|kind|type)$
     version: 3.7.3
