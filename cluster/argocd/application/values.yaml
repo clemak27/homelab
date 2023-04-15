@@ -85,11 +85,11 @@ argo-cd:
       - mountPath: /usr/local/bin/ksops
         name: custom-tools
         subPath: ksops
-      - mountPath: /.config/sops/age/keys.txt
+      - mountPath: /home/argocd/.config/sops/age/keys.txt
         name: sops-age
         subPath: keys.txt
         readOnly: true
-      - mountPath: /.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
+      - mountPath: /home/argocd/.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
         name: custom-tools
         subPath: ksops
     initContainers:
