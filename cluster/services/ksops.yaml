@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ksops-test
+  namespace: argocd
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    repoURL: https://github.com/clemak27/homelab
+    targetRevision: feat/gitea-kustomize
+    path: cluster/services/ksops-test
+  destination:
+    name: in-cluster
+    namespace: services

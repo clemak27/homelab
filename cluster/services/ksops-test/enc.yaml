@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: mysecret
+type: Opaque
+data:
+    username: ENC[AES256_GCM,data:M2zpxWpZczo=,iv:VCGOwk4dgUoi+XPrypbwDAwho/n0PGxpgjOsGrMtIS8=,tag:LUz+bi1qpBnO5Q8IxJb1CQ==,type:str]
+    password: ENC[AES256_GCM,data:dnB9QEN5Ngh0JFyyG2c4tA==,iv:kJco9GxDsLs1c5lW1pOJ54MBMq+9E/iZzjMvWomW6mI=,tag:dWhIO38BKjx4Wla16r+geA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-04-15T20:04:31Z"
+    mac: ENC[AES256_GCM,data:y40+cOC2IG+KVSUe+0meRabVk4L7msNRTDKgMBc7rOrW7nNjClBIsM0t+sCayI6U3GC+j3VXCznIxlLRvO52zWl0v0iq1pUhytBIR3mA6KPGSHAkaZuNC9jqf7LARM6764DAgkaciWnDJTgnuVaFXUp4d6WJNvR8PMAvlKRmuio=,iv:kE7Csy09E73kPjFwkw57on7w0Q0tFm6ZPr6Hgu/dDy4=,tag:VYzx/+YD9c6QGhrUTddCxw==,type:str]
+    pgp: []
+    unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+    version: 3.7.3
