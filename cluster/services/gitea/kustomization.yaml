@@ -9,6 +9,8 @@ helmCharts:
     namespace: services
     valuesFile: values.yaml
     includeCRDs: true
+    apiVersions:
+      - networking.k8s.io/v1/Ingress
 generators:
   - ./ksops-generator.yaml
 resources:

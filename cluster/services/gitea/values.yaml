@@ -48,38 +48,17 @@ gitea:
     server:
       SSH_PORT: 222
   admin:
-    username:
+    existingSecret: gitea-admin
+  additionalConfigFromEnvs:
+    - name: ENV_TO_INI__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
-          name: gitea-admin
-          key: username
-    password:
-      valueFrom:
-        secretKeyRef:
-          name: gitea-admin
-          key: password
-    email:
-      valueFrom:
-        secretKeyRef:
-          name: gitea-admin
-          key: email
+          name: gitea-postgresql
+          key: postgresql-password
 
 postgresql:
   global:
     postgresql:
-      postgresqlDatabase:
-        valueFrom:
-          secretKeyRef:
-            name: gitea-postgresql
-            key: database
-      postgresqlUsername:
-        valueFrom:
-          secretKeyRef:
-            name: gitea-postgresql
-            key: username
-      postgresqlPassword:
-        valueFrom:
-          secretKeyRef:
-            name: gitea-postgresql
-            key: password
+      postgresqlDatabase: gitea
+      postgresqlUsername: gitea
       servicePort: 5432
