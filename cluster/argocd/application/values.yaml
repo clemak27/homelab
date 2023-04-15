@@ -70,7 +70,12 @@ argo-cd:
     volumes:
       - name: custom-tools
         emptyDir: {}
-
+      - name: sops-age
+        secret:
+          secretName: helm-secrets-private-keys
+          items:
+            - key: key.txt
+              path: keys.txt
     volumeMounts:
       - mountPath: /custom-tools
         name: custom-tools
@@ -80,7 +85,10 @@ argo-cd:
       - mountPath: /usr/local/bin/ksops
         name: custom-tools
         subPath: ksops
-
+      - mountPath: /.config/sops/age/keys.txt
+        name: sops-age
+        subPath: keys.txt
+        readOnly: true
     initContainers:
       - name: download-tools
         image: alpine:latest
