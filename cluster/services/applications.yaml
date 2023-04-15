@@ -16,7 +16,7 @@ spec:
         revision: master
         directories:
           - path: cluster/services/*
-          - path: cluster/services/gitea-ssh
+          - path: cluster/services/gitea
             exclude: true
   template:
     metadata:
@@ -40,20 +40,31 @@ spec:
         namespace: services
 ---
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: gitea-ssh
+  name: services
   namespace: argocd
 spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-  source:
-    repoURL: https://github.com/clemak27/homelab
-    targetRevision: master
-    path: cluster/services/gitea-ssh
-  destination:
-    name: in-cluster
-    namespace: services
+  generators:
+    - git:
+        repoURL: https://github.com/clemak27/homelab
+        revision: feat/gitea-kustomize
+        directories:
+          # - path: cluster/services/*
+          - path: cluster/services/gitea
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/clemak27/homelab
+        targetRevision: feat/gitea-kustomize
+        path: '{{path}}'
+      destination:
+        name: in-cluster
+        namespace: services

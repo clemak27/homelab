@@ -1,50 +1,85 @@
 ---
+global:
+  storageClass: longhorn
+
+image:
+  registry: "docker.io"
+  repository: gitea/gitea
+  tag: "1.19.0"
+
+podSecurityContext:
+  fsGroup: 1000
+
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+  ssh:
+    type: ClusterIP
+    port: 222
+    clusterIP:
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  hosts:
+    - host: gitea.wallstreet30.cc
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - gitea.wallstreet30.cc
+      secretName: gitea-tls
+
+persistence:
+  existingClaim: "gitea-data"
+
 gitea:
+  config:
+    service:
+      DISABLE_REGISTRATION: false
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+      SHOW_REGISTRATION_BUTTON: false
+    server:
+      SSH_PORT: 222
+  admin:
+    username:
+      valueFrom:
+        secretKeyRef:
+          name: gitea-admin
+          key: username
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: gitea-admin
+          key: password
+    email:
+      valueFrom:
+        secretKeyRef:
+          name: gitea-admin
+          key: email
+
+postgresql:
   global:
-    storageClass: longhorn
-
-  image:
-    registry: "docker.io"
-    repository: gitea/gitea
-    tag: "1.19.0"
-
-  podSecurityContext:
-    fsGroup: 1000
-
-  service:
-    http:
-      type: ClusterIP
-      port: 3000
-    ssh:
-      type: ClusterIP
-      port: 222
-      clusterIP:
-
-  ingress:
-    enabled: true
-    className: traefik
-    annotations:
-      ingress.kubernetes.io/ssl-redirect: "true"
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      cert-manager.io/cluster-issuer: letsencrypt-production
-    hosts:
-      - host: gitea.wallstreet30.cc
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - gitea.wallstreet30.cc
-        secretName: gitea-tls
-
-  persistence:
-    existingClaim: "gitea-data"
-
-  gitea:
-    config:
-      service:
-        DISABLE_REGISTRATION: false
-        ALLOW_ONLY_EXTERNAL_REGISTRATION: true
-        SHOW_REGISTRATION_BUTTON: false
-      server:
-        SSH_PORT: 222
+    postgresql:
+      postgresqlDatabase:
+        valueFrom:
+          secretKeyRef:
+            name: gitea-postgresql
+            key: database
+      postgresqlUsername:
+        valueFrom:
+          secretKeyRef:
+            name: gitea-postgresql
+            key: username
+      postgresqlPassword:
+        valueFrom:
+          secretKeyRef:
+            name: gitea-postgresql
+            key: password
+      servicePort: 5432

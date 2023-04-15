@@ -1,0 +1,9 @@
+---
+apiVersion: viaduct.ai/v1
+kind: ksops
+metadata:
+  name: gitea-ksops-generator
+  annotations:
+    path: ksops
+files:
+  - ./secrets.yaml
