@@ -7,3 +7,12 @@ type: Opaque
 data:
   username: YWRtaW4=
   password: MWYyZDFlMmU2N2Rm
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret2
+type: Opaque
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
