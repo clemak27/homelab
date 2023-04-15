@@ -48,7 +48,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: feat/gitea-kustomize
+        revision: master
         directories:
           # - path: cluster/services/*
           - path: cluster/services/gitea
@@ -63,7 +63,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: feat/gitea-kustomize
+        targetRevision: master
         path: '{{path}}'
       destination:
         name: in-cluster
