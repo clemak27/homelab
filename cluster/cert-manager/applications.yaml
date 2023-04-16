@@ -18,11 +18,7 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
-    path: cluster/cert-manager/application
-    helm:
-      valueFiles:
-        - values.yaml
-        - secrets+age-import-kubernetes://argocd/helm-secrets-private-keys#key.txt?https://raw.githubusercontent.com/clemak27/homelab/master/cluster/cert-manager/application/secrets.yaml
+    path: cluster/cert-manager/cert-manager
   destination:
     name: in-cluster
     namespace: cert-manager
