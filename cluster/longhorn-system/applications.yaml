@@ -18,26 +18,7 @@ spec:
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
-    path: cluster/longhorn-system/application
-  destination:
-    name: in-cluster
-    namespace: longhorn-system
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: longhorn-frontend
-  namespace: argocd
-spec:
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-  source:
-    repoURL: https://github.com/clemak27/homelab
-    targetRevision: master
-    path: cluster/longhorn-system/longhorn-frontend
+    path: cluster/longhorn-system/longhorn
   destination:
     name: in-cluster
     namespace: longhorn-system
