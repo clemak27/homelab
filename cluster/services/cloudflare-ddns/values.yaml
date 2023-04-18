@@ -1,16 +1,25 @@
 ---
-app-template:
-  image:
-    repository: docker.io/oznu/cloudflare-ddns
-    tag: latest
+image:
+  repository: docker.io/oznu/cloudflare-ddns
+  tag: latest
 
-  env:
-    TZ: Europe/Vienna
+env:
+  TZ: Europe/Vienna
+  API_KEY:
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-api
+        key: api-key
+  ZONE:
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-api
+        key: zone
 
-  service:
-    main:
-      enabled: false
+service:
+  main:
+    enabled: false
 
-  ingress:
-    main:
-      enabled: false
+ingress:
+  main:
+    enabled: false
