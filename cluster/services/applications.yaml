@@ -16,7 +16,6 @@ spec:
         revision: master
         directories:
           - path: cluster/services/cloudflare-ddns
-          - path: cluster/services/deconz
           - path: cluster/services/home-assistant
           - path: cluster/services/jackett
           - path: cluster/services/jellyfin
@@ -61,6 +60,7 @@ spec:
         revision: master
         directories:
           # - path: cluster/services/*
+          - path: cluster/services/deconz
           - path: cluster/services/filebrowser
           - path: cluster/services/gitea
   template:
