@@ -15,7 +15,6 @@ spec:
         repoURL: https://github.com/clemak27/homelab
         revision: master
         directories:
-          - path: cluster/services/jackett
           - path: cluster/services/jellyfin
           - path: cluster/services/miniflux
           - path: cluster/services/qobuz-dl
@@ -63,6 +62,7 @@ spec:
           - path: cluster/services/filebrowser
           - path: cluster/services/gitea
           - path: cluster/services/home-assistant
+          - path: cluster/services/jackett
   template:
     metadata:
       name: '{{path.basename}}'
