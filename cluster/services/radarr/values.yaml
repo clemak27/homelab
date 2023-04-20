@@ -1,56 +1,55 @@
 ---
-app-template:
-  image:
-    repository: docker.io/linuxserver/radarr
-    tag: 4.4.4
+image:
+  repository: docker.io/linuxserver/radarr
+  tag: 4.4.4
 
-  env:
-    TZ: Europe/Vienna
-    PUID: "1001"
-    PGID: "1001"
+env:
+  TZ: Europe/Vienna
+  PUID: "1001"
+  PGID: "1001"
 
-  service:
-    main:
-      type: ClusterIP
-      ports:
-        http:
-          port: 7878
+service:
+  main:
+    type: ClusterIP
+    ports:
+      http:
+        port: 7878
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - host: radarr.wallstreet30.cc
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - radarr.wallstreet30.cc
-          secretName: radarr-tls
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: radarr.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - radarr.wallstreet30.cc
+        secretName: radarr-tls
 
-  podSecurityContext:
-    fsGroup: 1001
-    fsGroupChangePolicy: OnRootMismatch
+podSecurityContext:
+  fsGroup: 1001
+  fsGroupChangePolicy: OnRootMismatch
 
-  persistence:
-    config:
-      enabled: true
-      existingClaim: radarr-config
-    downloads:
-      enabled: true
-      type: nfs
-      server: 192.168.178.100
-      path: /media/torrents
-      mountPath: /downloads
-    movies:
-      enabled: true
-      type: nfs
-      server: 192.168.178.100
-      path: /media/movies
-      mountPath: /downloads/movies
+persistence:
+  config:
+    enabled: true
+    existingClaim: radarr-config
+  downloads:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/torrents
+    mountPath: /downloads
+  movies:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/movies
+    mountPath: /downloads/movies
