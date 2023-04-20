@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/deconzcommunity/deconz
-  tag: 2.21.02
+  tag: 2.22.00
 
 env:
   TZ: Europe/Vienna
