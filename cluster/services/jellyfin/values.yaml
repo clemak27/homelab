@@ -1,48 +1,47 @@
 ---
-app-template:
-  image:
-    repository: docker.io/jellyfin/jellyfin
-    tag: 10.8.9
+image:
+  repository: docker.io/jellyfin/jellyfin
+  tag: 10.8.9
 
-  env:
-    TZ: Europe/Vienna
+env:
+  TZ: Europe/Vienna
 
-  service:
-    main:
-      type: ClusterIP
-      ports:
-        http:
-          port: 8096
+service:
+  main:
+    type: ClusterIP
+    ports:
+      http:
+        port: 8096
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - host: jellyfin.wallstreet30.cc
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - jellyfin.wallstreet30.cc
-          secretName: jellyfin-tls
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: jellyfin.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - jellyfin.wallstreet30.cc
+        secretName: jellyfin-tls
 
-  podSecurityContext:
-    fsGroup: 1000
-    fsGroupChangePolicy: OnRootMismatch
+podSecurityContext:
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
 
-  persistence:
-    config:
-      enabled: true
-      existingClaim: jellyfin-config
-    media:
-      enabled: true
-      type: nfs
-      server: 192.168.178.100
-      path: /media
-      mountPath: /media
+persistence:
+  config:
+    enabled: true
+    existingClaim: jellyfin-config
+  media:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media
+    mountPath: /media
