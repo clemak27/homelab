@@ -1,0 +1,32 @@
+---
+image:
+  repository: postgres
+  tag: 15.2
+
+primary:
+  podSecurityContext:
+    enabled: false
+    fsGroup: ""
+  containerSecurityContext:
+    enabled: false
+    runAsUser: "auto"
+  persistence:
+    existingClaim: "recipes-postgresql"
+
+readReplicas:
+  podSecurityContext:
+    enabled: false
+    fsGroup: ""
+  containerSecurityContext:
+    enabled: false
+    runAsUser: "auto"
+
+volumePermissions:
+  enabled: false
+  securityContext:
+    runAsUser: "auto"
+
+auth:
+  username: r3c1p1e5
+  database: recipies
+  existingSecret: recipes-db-auth
