@@ -1,42 +1,41 @@
 ---
-app-template:
-  image:
-    repository: docker.io/homeassistant/home-assistant
-    tag: "2023.4"
+image:
+  repository: docker.io/homeassistant/home-assistant
+  tag: "2023.4"
 
-  env:
-    TZ: Europe/Vienna
+env:
+  TZ: Europe/Vienna
 
-  service:
-    main:
-      type: ClusterIP
-      ports:
-        http:
-          port: 8123
+service:
+  main:
+    type: ClusterIP
+    ports:
+      http:
+        port: 8123
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - host: home-assistant.wallstreet30.cc
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - home-assistant.wallstreet30.cc
-          secretName: home-assistant-tls
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: home-assistant.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - home-assistant.wallstreet30.cc
+        secretName: home-assistant-tls
 
-  podSecurityContext:
-    fsGroup: 1000
-    fsGroupChangePolicy: OnRootMismatch
+podSecurityContext:
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
 
-  persistence:
-    config:
-      enabled: true
-      existingClaim: home-assistant-config
+persistence:
+  config:
+    enabled: true
+    existingClaim: home-assistant-config
