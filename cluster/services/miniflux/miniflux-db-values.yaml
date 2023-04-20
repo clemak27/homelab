@@ -1,0 +1,32 @@
+---
+image:
+  repository: postgres
+  tag: 15.2
+
+primary:
+  podSecurityContext:
+    enabled: false
+    fsGroup: ""
+  containerSecurityContext:
+    enabled: false
+    runAsUser: "auto"
+  persistence:
+    existingClaim: "miniflux-postgresql"
+
+readReplicas:
+  podSecurityContext:
+    enabled: false
+    fsGroup: ""
+  containerSecurityContext:
+    enabled: false
+    runAsUser: "auto"
+
+volumePermissions:
+  enabled: false
+  securityContext:
+    runAsUser: "auto"
+
+auth:
+  username: miniflux
+  database: miniflux
+  existingSecret: miniflux-db-auth
