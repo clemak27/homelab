@@ -15,7 +15,6 @@ spec:
         repoURL: https://github.com/clemak27/homelab
         revision: master
         directories:
-          - path: cluster/services/radarr
           - path: cluster/services/recipes
           - path: cluster/services/sonarr
           - path: cluster/services/syncthing
@@ -63,6 +62,7 @@ spec:
           - path: cluster/services/jellyfin
           - path: cluster/services/miniflux
           - path: cluster/services/qobuz-dl
+          - path: cluster/services/radarr
   template:
     metadata:
       name: '{{path.basename}}'
