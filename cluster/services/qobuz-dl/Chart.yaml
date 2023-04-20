@@ -1,9 +1,0 @@
----
-apiVersion: v2
-name: helm-qobuz-dl
-type: application
-version: 0.0.1
-dependencies:
-  - name: app-template
-    version: 1.4.0
-    repository: https://bjw-s.github.io/helm-charts
