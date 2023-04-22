@@ -15,7 +15,6 @@ spec:
         repoURL: https://github.com/clemak27/homelab
         revision: master
         directories:
-          - path: cluster/services/transmission
           - path: cluster/services/vaultwarden
   template:
     metadata:
@@ -63,6 +62,7 @@ spec:
           - path: cluster/services/recipes
           - path: cluster/services/sonarr
           - path: cluster/services/syncthing
+          - path: cluster/services/transmission
   template:
     metadata:
       name: '{{path.basename}}'

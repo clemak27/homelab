@@ -1,51 +1,64 @@
 ---
-app-template:
-  image:
-    repository: docker.io/linuxserver/transmission
-    tag: version-3.00-r6
+image:
+  repository: docker.io/linuxserver/transmission
+  tag: version-3.00-r6
 
-  env:
-    TZ: Europe/Vienna
-    PUID: "1001"
-    PGID: "1001"
+env:
+  TZ: Europe/Vienna
+  PUID: "1001"
+  PGID: "1001"
+  PEER_PORT: "32767"
 
-  service:
-    main:
-      type: ClusterIP
-      ports:
-        http:
-          primary: true
-          port: 9091
+service:
+  main:
+    type: ClusterIP
+    ports:
+      http:
+        primary: true
+        port: 9091
+      bt:
+        type: NodePort
+        ports:
+          tcp:
+            enabled: true
+            protocol: TCP
+            port: 32767
+            nodePort: 32767
+          udp:
+            enabled: true
+            protocol: UDP
+            port: 32767
+            nodePort: 32767
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - host: transmission.wallstreet30.cc
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - transmission.wallstreet30.cc
-          secretName: transmission-tls
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: transmission.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - transmission.wallstreet30.cc
+        secretName: transmission-tls
 
-  podSecurityContext:
-    fsGroup: 1001
-    fsGroupChangePolicy: OnRootMismatch
+podSecurityContext:
+  fsGroup: 1001
+  fsGroupChangePolicy: OnRootMismatch
 
-  persistence:
-    config:
-      enabled: true
-      existingClaim: transmission-config
-    downloads:
-      enabled: true
-      type: nfs
-      server: 192.168.178.100
-      path: /media/torrents
-      mountPath: /downloads
+persistence:
+  config:
+    enabled: true
+    existingClaim: transmission-config
+  downloads:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/torrents
+    mountPath: /downloads
