@@ -1,0 +1,93 @@
+From 2d99ef18b141d0f6dd5839a6cd48f680a9be6ea7 Mon Sep 17 00:00:00 2001
+From: Alexandre Badez <alexandre@badez.eu>
+Date: Fri, 31 Mar 2023 15:47:29 +0200
+Subject: [PATCH 1/2] kustomize: 4.5.4 -> 5.0.1
+
+---
+ pkgs/development/tools/kustomize/default.nix | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/pkgs/development/tools/kustomize/default.nix b/pkgs/development/tools/kustomize/default.nix
+index 49bf3f35ad8..da6c42b4235 100644
+--- a/pkgs/development/tools/kustomize/default.nix
++++ b/pkgs/development/tools/kustomize/default.nix
+@@ -2,7 +2,7 @@
+
+ buildGoModule rec {
+   pname = "kustomize";
+-  version = "4.5.4";
++  version = "5.0.1";
+
+   ldflags = let t = "sigs.k8s.io/kustomize/api/provenance"; in
+     [
+@@ -15,14 +15,12 @@ buildGoModule rec {
+     owner = "kubernetes-sigs";
+     repo = pname;
+     rev = "kustomize/v${version}";
+-    sha256 = "sha256-7Ode+ONgWJRNSbIpvIjhuT+oVvZgJfByFqS/iSUhcXw=";
++    hash = "sha256-wVdB9fTLYg7Ma0dRgDt7X7ncN0+04DyT8kp2+/aQ018=";
+   };
+
+   # avoid finding test and development commands
+   modRoot = "kustomize";
+
+-  vendorSha256 = "sha256-beIbeY/+k2NgotGw5zQFkYuqMKlwctoxuToZfiFlCm4=";
+-
+   nativeBuildInputs = [ installShellFiles ];
+
+   postInstall = ''
+--
+2.39.2
+
+
+From f8977d282ccd1276aba93029fe6793003421f7cf Mon Sep 17 00:00:00 2001
+From: clemak27 <clemak27@mailbox.org>
+Date: Sat, 22 Apr 2023 23:15:14 +0200
+Subject: [PATCH 2/2] fix: set vendorhash
+
+---
+ pkgs/development/tools/kustomize/default.nix | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/pkgs/development/tools/kustomize/default.nix b/pkgs/development/tools/kustomize/default.nix
+index da6c42b4235..98c68507afe 100644
+--- a/pkgs/development/tools/kustomize/default.nix
++++ b/pkgs/development/tools/kustomize/default.nix
+@@ -21,6 +21,9 @@ buildGoModule rec {
+   # avoid finding test and development commands
+   modRoot = "kustomize";
+
++  proxyVendor = true;
++  vendorHash = "sha256-E7DRRf/izgFQhwSKT3NyG+5gwVOd+y3gzC4Q0aWZbVE=";
++
+   nativeBuildInputs = [ installShellFiles ];
+
+   postInstall = ''
+--
+2.39.2
+
+From 5499e85c808caea18d8c875ef2a8ed3e7a390451 Mon Sep 17 00:00:00 2001
+From: Tristan Gosselin-Hane <starcraft66@gmail.com>
+Date: Mon, 30 May 2022 18:41:28 -0400
+Subject: [PATCH] kustomize-sops: rename exec plugin to ksops
+
+---
+ pkgs/development/tools/kustomize/kustomize-sops.nix | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/development/tools/kustomize/kustomize-sops.nix b/pkgs/development/tools/kustomize/kustomize-sops.nix
+index 4b5e6d8bb3882..388fc13d2341b 100644
+--- a/pkgs/development/tools/kustomize/kustomize-sops.nix
++++ b/pkgs/development/tools/kustomize/kustomize-sops.nix
+@@ -14,8 +14,10 @@ buildGoModule rec {
+   vendorSha256 = "sha256-aRS+MwME72qIMyhnnIRqmrx5hcQ1V0pLIBJqSoR+Fkk=";
+
+   installPhase = ''
++    mkdir -p $out/lib/viaduct.ai/v1/ksops/
+     mkdir -p $out/lib/viaduct.ai/v1/ksops-exec/
+-    mv $GOPATH/bin/kustomize-sops $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec
++    mv $GOPATH/bin/kustomize-sops $out/lib/viaduct.ai/v1/ksops/ksops
++    ln -s $out/lib/viaduct.ai/v1/ksops/ksops $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec
+   '';
+
+   # Tests are broken in a nix environment

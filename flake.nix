@@ -16,16 +16,20 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils, nixos-generators }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils, nixos-generators, flake-utils-plus }:
     let
-      devpkgs = nixpkgs.legacyPackages.x86_64-linux;
-      overlay-stable = final: prev: {
-        stable = self.inputs.nixpkgs-stable.legacyPackages.x86_64-darwin;
-      };
+      devpkgs = self.pkgs.x86_64-linux.nixpkgs;
     in
-    {
+    flake-utils-plus.lib.mkFlake {
+
+      # `self` and `inputs` arguments are REQUIRED!
+      inherit self inputs;
+      channels.nixpkgs.patches = [ ./kustomize.patch ];
+
       nixosConfigurations = {
         nuke = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -54,16 +58,31 @@
         };
       };
 
-      devShell.x86_64-linux = devpkgs.mkShell {
-        nativeBuildInputs = with devpkgs; [
-          argocd
-          kubernetes-helm
-          kubectl
-          kustomize
-          sops
-          dnsutils
-          yamllint
-        ];
+      outputsBuilder = channels: {
+
+        devShell = channels.nixpkgs.mkShell {
+          nativeBuildInputs = with devpkgs; [
+            argocd
+            kubernetes-helm
+            kubectl
+            kustomize
+            sops
+            dnsutils
+            yamllint
+          ];
+
+          KUSTOMIZE_PLUGIN_HOME = devpkgs.buildEnv {
+            name = "kustomize-plugins";
+            paths = with devpkgs; [
+              kustomize-sops
+            ];
+            postBuild = ''
+              mv $out/lib/* $out
+              rm -r $out/lib
+            '';
+            pathsToLink = [ "/lib" ];
+          };
+        };
       };
     };
 }
