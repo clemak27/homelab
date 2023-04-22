@@ -16,19 +16,19 @@ service:
       http:
         primary: true
         port: 9091
-      bt:
-        type: NodePort
-        ports:
-          tcp:
-            enabled: true
-            protocol: TCP
-            port: 32767
-            nodePort: 32767
-          udp:
-            enabled: true
-            protocol: UDP
-            port: 32767
-            nodePort: 32767
+  bt:
+    type: NodePort
+    ports:
+      tcp:
+        enabled: true
+        protocol: TCP
+        port: 32767
+        nodePort: 32767
+      udp:
+        enabled: true
+        protocol: UDP
+        port: 32767
+        nodePort: 32767
 
 ingress:
   main:
