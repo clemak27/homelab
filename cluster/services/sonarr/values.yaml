@@ -1,56 +1,55 @@
 ---
-app-template:
-  image:
-    repository: docker.io/linuxserver/sonarr
-    tag: 3.0.10
+image:
+  repository: docker.io/linuxserver/sonarr
+  tag: 3.0.10
 
-  env:
-    TZ: Europe/Vienna
-    PUID: "1001"
-    PGID: "1001"
+env:
+  TZ: Europe/Vienna
+  PUID: "1001"
+  PGID: "1001"
 
-  service:
-    main:
-      type: ClusterIP
-      ports:
-        http:
-          port: 8989
+service:
+  main:
+    type: ClusterIP
+    ports:
+      http:
+        port: 8989
 
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        ingress.kubernetes.io/ssl-redirect: "true"
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        cert-manager.io/cluster-issuer: letsencrypt-production
-      hosts:
-        - host: sonarr.wallstreet30.cc
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - sonarr.wallstreet30.cc
-          secretName: sonarr-tls
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: sonarr.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - sonarr.wallstreet30.cc
+        secretName: sonarr-tls
 
-  podSecurityContext:
-    fsGroup: 1001
-    fsGroupChangePolicy: OnRootMismatch
+podSecurityContext:
+  fsGroup: 1001
+  fsGroupChangePolicy: OnRootMismatch
 
-  persistence:
-    config:
-      enabled: true
-      existingClaim: sonarr-config
-    downloads:
-      enabled: true
-      type: nfs
-      server: 192.168.178.100
-      path: /media/torrents
-      mountPath: /downloads
-    series:
-      enabled: true
-      type: nfs
-      server: 192.168.178.100
-      path: /media/series
-      mountPath: /downloads/series
+persistence:
+  config:
+    enabled: true
+    existingClaim: sonarr-config
+  downloads:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/torrents
+    mountPath: /downloads
+  series:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/series
+    mountPath: /downloads/series
