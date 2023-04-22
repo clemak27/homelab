@@ -15,22 +15,7 @@ spec:
         repoURL: https://github.com/clemak27/homelab
         revision: master
         directories:
-          # - path: cluster/services/*
-          - path: cluster/services/cloudflare-ddns
-          - path: cluster/services/deconz
-          - path: cluster/services/filebrowser
-          - path: cluster/services/gitea
-          - path: cluster/services/home-assistant
-          - path: cluster/services/jackett
-          - path: cluster/services/jellyfin
-          - path: cluster/services/miniflux
-          - path: cluster/services/qobuz-dl
-          - path: cluster/services/radarr
-          - path: cluster/services/recipes
-          - path: cluster/services/sonarr
-          - path: cluster/services/syncthing
-          - path: cluster/services/transmission
-          - path: cluster/services/vaultwarden
+          - path: cluster/services/*
   template:
     metadata:
       name: '{{path.basename}}'
