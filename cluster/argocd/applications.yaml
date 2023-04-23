@@ -17,7 +17,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: feat/argocd-kustomize
+    targetRevision: master
     path: cluster/argocd/argocd
   destination:
     name: in-cluster
