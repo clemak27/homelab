@@ -46,12 +46,12 @@ which watches the cluster directory for changes and automatically
 applies them to the cluster.
 
 Storage and backups are managed with [longhorn](https://github.com/longhorn/longhorn).
-Secrets are handled using [helm-secrets](https://github.com/jkroepke/helm-secrets).
+Secrets are handled using [ksops](https://github.com/viaduct-ai/kustomize-sops).
 
 ### other
 
 [Sops](https://github.com/mozilla/sops) is used for secrets,
-both with helm-secrets and [nix-sops](https://github.com/Mic92/sops-nix)
+both with ksops and [nix-sops](https://github.com/Mic92/sops-nix)
 
 [Renovate](https://github.com/renovatebot/renovate) automatically
 creates pull requests for updating dependencies.
