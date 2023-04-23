@@ -1,0 +1,9 @@
+---
+apiVersion: viaduct.ai/v1
+kind: ksops
+metadata:
+  name: argocd-ksops-generator
+  annotations:
+    path: ksops
+files:
+  - ./secrets.yaml

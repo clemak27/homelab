@@ -1,0 +1,121 @@
+---
+dex:
+  enabled: false
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - argocd.wallstreet30.cc
+    paths:
+      - /
+    pathType: Prefix
+    tls:
+      - hosts:
+          - argocd.wallstreet30.cc
+        secretName: argocd-tls
+
+  extraArgs:
+    - --insecure
+
+  config:
+    kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
+    resource.customizations.health.networking.k8s.io_Ingress: |
+      hs = {}
+      hs.status = "Healthy"
+      return hs
+
+repoServer:
+  serviceAccount:
+    create: true
+    name: argocd-repo-server
+
+  rbac:
+    - apiGroups:
+        - ""
+      resources:
+        - secrets
+      verbs:
+        - get
+
+  volumes:
+    - name: custom-tools
+      emptyDir: {}
+    - name: sops-age
+      secret:
+        secretName: argocd-age-key
+        items:
+          - key: keys.txt
+            path: keys.txt
+
+  volumeMounts:
+    - mountPath: /custom-tools
+      name: custom-tools
+    - mountPath: /usr/local/bin/kustomize
+      name: custom-tools
+      subPath: kustomize
+    - mountPath: /usr/local/bin/ksops
+      name: custom-tools
+      subPath: ksops
+    - mountPath: /home/argocd/.config/sops/age/keys.txt
+      name: sops-age
+      subPath: keys.txt
+      readOnly: true
+    - mountPath: /home/argocd/.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
+      name: custom-tools
+      subPath: ksops
+
+  initContainers:
+    - name: install-ksops
+      image: viaductoss/ksops:v4.1.1
+      command: ["/bin/sh", "-c"]
+      args:
+        - echo "Installing KSOPS...";
+          mv ksops /custom-tools/;
+          mv $GOPATH/bin/kustomize /custom-tools/;
+          echo "Done.";
+      volumeMounts:
+        - mountPath: /custom-tools
+          name: custom-tools
+
+configs:
+  repositories:
+    argocd-helm:
+      type: helm
+      name: argo-cd
+      url: https://argoproj.github.io/argo-helm
+    bjw-s-helm:
+      type: helm
+      name: bjw-s
+      url: https://bjw-s.github.io/helm-charts
+    jetstack:
+      type: helm
+      name: jetstack
+      url: https://charts.jetstack.io
+    bitnami:
+      type: helm
+      name: bitnami
+      url: https://charts.bitnami.com/bitnami
+    gitea-charts:
+      type: helm
+      name: gitea-charts
+      url: https://dl.gitea.io/charts/
+    longhorn:
+      type: helm
+      name: longhorn
+      url: https://charts.longhorn.io
+    kyverno:
+      type: helm
+      name: kyverno
+      url: https://kyverno.github.io/kyverno
+    incubator:
+      type: helm
+      name: incubator
+      url: https://charts.helm.sh/incubator
+  secret:
+    argocdServerAdminPasswordMtime: "2023-04-23T15:20:00Z"
