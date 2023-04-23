@@ -10,58 +10,59 @@
     homecfg = {
       url = "github:clemak27/homecfg";
     };
+
     sops-nix.url = "github:Mic92/sops-nix";
-    flake-utils.url = "github:numtide/flake-utils";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils, nixos-generators, flake-utils-plus }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils-plus }:
     let
-      devpkgs = self.pkgs.x86_64-linux.nixpkgs;
+      pkgs = self.pkgs.x86_64-linux.nixpkgs;
     in
     flake-utils-plus.lib.mkFlake {
-
-      # `self` and `inputs` arguments are REQUIRED!
       inherit self inputs;
-      channels.nixpkgs.patches = [ ./kustomize.patch ];
 
-      nixosConfigurations = {
-        nuke = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+      supportedSystems = [ "x86_64-linux" ];
+
+      channels.nixpkgs = {
+        config = { allowUnfree = true; };
+        overlaysBuilder = channels: [
+          (final: prev: { stable = self.inputs.nixpkgs-stable.legacyPackages.x86_64-linux; })
+        ];
+        patches = [ ./kustomize.patch ];
+      };
+
+      hostDefaults = {
+        system = "x86_64-linux";
+        modules = [
+          sops-nix.nixosModules.sops
+          ./modules/general.nix
+          ./modules/zsh.nix
+        ];
+        channelName = "nixpkgs";
+      };
+
+      hosts = {
+        nuke = {
           modules = [
-            sops-nix.nixosModules.sops
             ./hosts/nuke/configuration.nix
             ./modules/dns.nix
-            ./modules/general.nix
             ./modules/gitops.nix
             ./modules/k3s.nix
-            ./modules/zsh.nix
           ];
         };
 
-        virtual = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+        virtual = {
           modules = [
-            sops-nix.nixosModules.sops
             ./hosts/virtual/configuration.nix
-            ./modules/general.nix
-            ./modules/gitops.nix
-            # ./modules/dns.nix
-            ./modules/k3s.nix
-            ./modules/zsh.nix
           ];
         };
       };
 
       outputsBuilder = channels: {
-
         devShell = channels.nixpkgs.mkShell {
-          nativeBuildInputs = with devpkgs; [
+          nativeBuildInputs = with pkgs; [
             argocd
             kubernetes-helm
             kubectl
@@ -71,9 +72,9 @@
             yamllint
           ];
 
-          KUSTOMIZE_PLUGIN_HOME = devpkgs.buildEnv {
+          KUSTOMIZE_PLUGIN_HOME = pkgs.buildEnv {
             name = "kustomize-plugins";
-            paths = with devpkgs; [
+            paths = with pkgs; [
               kustomize-sops
             ];
             postBuild = ''
