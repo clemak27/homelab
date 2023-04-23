@@ -109,13 +109,5 @@ configs:
       type: helm
       name: longhorn
       url: https://charts.longhorn.io
-    kyverno:
-      type: helm
-      name: kyverno
-      url: https://kyverno.github.io/kyverno
-    incubator:
-      type: helm
-      name: incubator
-      url: https://charts.helm.sh/incubator
   secret:
     argocdServerAdminPasswordMtime: "2023-04-23T15:20:00Z"
