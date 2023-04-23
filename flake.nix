@@ -19,7 +19,7 @@
   outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils-plus }:
     let
       pkgs = self.pkgs.x86_64-linux.nixpkgs;
-      UpdateArgoCDApplications = pkgs.writeShellScriptBin "update-argocd-applications" ''
+      updateArgoCDApplications = pkgs.writeShellScriptBin "update-argocd-applications" ''
         find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
       '';
     in
@@ -66,7 +66,7 @@
       outputsBuilder = channels: {
         devShell = channels.nixpkgs.mkShell {
           nativeBuildInputs = with pkgs; [
-            UpdateArgoCDApplications
+            updateArgoCDApplications
             argocd
             kubernetes-helm
             kubectl
