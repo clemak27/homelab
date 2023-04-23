@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/transmission
-  tag: 4.0.3
+  tag: 2021.11.18
 
 env:
   TZ: Europe/Vienna
