@@ -14,9 +14,10 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils-plus }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils-plus, pre-commit-hooks }:
     let
       pkgs = self.pkgs.x86_64-linux.nixpkgs;
       updateArgoCDApplications = pkgs.writeShellScriptBin "update-argocd-applications" ''
@@ -63,9 +64,21 @@
         };
       };
 
+      checks.x86_64-linux = {
+        pre-commit-check = pre-commit-hooks.lib.x86_64-linux.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+            yamllint.enable = true;
+          };
+        };
+      };
+
       outputsBuilder = channels: {
         devShell = channels.nixpkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
+          inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
+
+          packages = with pkgs; [
             updateArgoCDApplications
             argocd
             kubernetes-helm
@@ -73,7 +86,6 @@
             kustomize
             sops
             dnsutils
-            yamllint
           ];
 
           KUSTOMIZE_PLUGIN_HOME = pkgs.buildEnv {
