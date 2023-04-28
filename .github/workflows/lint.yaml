@@ -8,5 +8,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Yamllint
+      - name: Run yamllint
         uses: karancode/yamllint-github-action@master
