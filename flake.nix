@@ -69,6 +69,7 @@
           src = ./.;
           hooks = {
             nixpkgs-fmt.enable = true;
+            actionlint.enable = true;
             yamllint.enable = true;
           };
         };
