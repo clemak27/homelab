@@ -59,6 +59,9 @@ gitea:
 postgresql:
   global:
     postgresql:
-      postgresqlDatabase: gitea
-      postgresqlUsername: gitea
-      servicePort: 5432
+      auth:
+        database: gitea
+        username: gitea
+      service:
+        ports:
+          postgresql: 5432
