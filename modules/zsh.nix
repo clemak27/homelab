@@ -21,6 +21,7 @@
         "export VISUAL=vim"
         "unsetopt beep"
         "setopt HIST_SAVE_NO_DUPS"
+        "bindkey -e"
       ]
     );
   };
