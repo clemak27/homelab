@@ -71,12 +71,13 @@
 
           packages = with pkgs; [
             updateArgoCDApplications
+
             argocd
-            kubernetes-helm
+            dnsutils
             kubectl
+            kubernetes-helm
             kustomize
             sops
-            dnsutils
           ];
 
           KUSTOMIZE_PLUGIN_HOME = pkgs.buildEnv {
