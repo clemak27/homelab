@@ -3,7 +3,8 @@ name: update-flake-lock
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 20 * * THU'
+    # https://github.com/orgs/community/discussions/13454
+    - cron: '0 18 * * THU'
 
 jobs:
   lockfile:
