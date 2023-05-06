@@ -2,22 +2,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    homecfg = {
-      url = "github:clemak27/homecfg";
-    };
-
     sops-nix.url = "github:Mic92/sops-nix";
-
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, homecfg, sops-nix, flake-utils-plus, pre-commit-hooks }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, sops-nix, flake-utils-plus, pre-commit-hooks }:
     let
       pkgs = self.pkgs.x86_64-linux.nixpkgs;
       updateArgoCDApplications = pkgs.writeShellScriptBin "update-argocd-applications" ''

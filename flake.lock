@@ -85,42 +85,6 @@
         "type": "github"
       }
     },
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1683221986,
-        "narHash": "sha256-n688GK4wO2pZpI4gHOxj/PF85bzUMPEJ8B3Wd3cHSjk=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "f3824311a16cbe70dbaeedc17a97dfcd11901c3f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "homecfg": {
-      "locked": {
-        "lastModified": 1683182314,
-        "narHash": "sha256-kc54JVNxGq4WDUDwRyQv7cmJcsgcRhasQCACFzouBP4=",
-        "owner": "clemak27",
-        "repo": "homecfg",
-        "rev": "a8b0c9f93f0208daeea1c4880fd66f069b242dfb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "clemak27",
-        "repo": "homecfg",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1683014792,
@@ -242,8 +206,6 @@
     "root": {
       "inputs": {
         "flake-utils-plus": "flake-utils-plus",
-        "home-manager": "home-manager",
-        "homecfg": "homecfg",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "pre-commit-hooks": "pre-commit-hooks",
