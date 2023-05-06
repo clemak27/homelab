@@ -15,10 +15,15 @@ It currently consists of a server running NixOS, with k3s to deploy containers.
 - `setup`
   notes for setting up my homelab
 
-<!-- ## Hardware -->
+## Hardware
 
-<!-- HDDs -->
-<!-- nfs -->
+- Fractal Node 304
+- AMD Ryzen 5 3600
+- ASRock A520M-ITX
+- 16 GB RAM
+- 256 GB SSD
+- 8 TB HDD
+- 4 TB HDD
 
 ## Software
 
