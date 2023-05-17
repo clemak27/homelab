@@ -10,14 +10,12 @@ service:
   main:
     type: ClusterIP
     ports:
-      mqtt1:
-        enabled: true
-        protocol: TCP
-        port: 1883
-      mqtt2:
-        enabled: true
-        protocol: TCP
+      http:
+        primary: true
         port: 9001
+      mqtt:
+        enabled: true
+        port: 1883
 
 # ingress:
 #   main:
