@@ -1,0 +1,47 @@
+---
+image:
+  repository: docker.io/eclipse-mosquitto
+  tag: 2.0
+
+env:
+  TZ: Europe/Vienna
+
+service:
+  main:
+    type: ClusterIP
+    ports:
+      mqtt1:
+        enabled: true
+        protocol: TCP
+        port: 1883
+      mqtt2:
+        enabled: true
+        protocol: TCP
+        port: 9001
+
+# ingress:
+#   main:
+#     enabled: true
+#     ingressClassName: traefik
+#     annotations:
+#       ingress.kubernetes.io/ssl-redirect: "true"
+#       traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#       cert-manager.io/cluster-issuer: letsencrypt-production
+#     hosts:
+#       - host: jellyfin.wallstreet30.cc
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#     tls:
+#       - hosts:
+#           - jellyfin.wallstreet30.cc
+#         secretName: jellyfin-tls
+
+podSecurityContext:
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
+
+persistence:
+  config:
+    enabled: true
+    existingClaim: mqtt-config
