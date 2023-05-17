@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+helmCharts:
+  - name: app-template
+    repo: https://bjw-s.github.io/helm-charts
+    version: 1.5.0
+    releaseName: mqtt
+    namespace: services
+    valuesFile: mqtt-values.yaml
+    includeCRDs: true
+  # - name: app-template
+  #   repo: https://bjw-s.github.io/helm-charts
+  #   version: 1.5.0
+  #   releaseName: zigbee2mqtt
+  #   namespace: services
+  #   valuesFile: zigbee2mqtt-values.yaml
+  #   includeCRDs: true
