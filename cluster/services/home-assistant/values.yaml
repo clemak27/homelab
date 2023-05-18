@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/homeassistant/home-assistant
-  tag: "2023.4"
+  tag: "2023.5"
 
 env:
   TZ: Europe/Vienna
