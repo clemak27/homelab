@@ -16,6 +16,8 @@ spec:
         revision: feat/zigbee2mqtt
         directories:
           - path: cluster/services/*
+          - path: cluster/services/deconz
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
