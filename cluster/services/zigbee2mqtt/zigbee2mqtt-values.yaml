@@ -3,34 +3,20 @@ image:
   repository: docker.io/koenkk/zigbee2mqtt
   tag: 1.30.4
 
-# command:
-#   - /bin/sleep
-
-# args:
-#   - 300000m
-
 env:
   TZ: Europe/Vienna
 
 service:
   main:
-    enabled: false
+    enabled: true
     type: ClusterIP
     ports:
       http:
         port: 8080
 
-probes:
-  liveness:
-    enabled: false
-  readiness:
-    enabled: false
-  startup:
-    enabled: false
-
 ingress:
   main:
-    enabled: false
+    enabled: true
     ingressClassName: traefik
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
