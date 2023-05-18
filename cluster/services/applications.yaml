@@ -13,7 +13,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: feat/zigbee2mqtt
+        revision: master
         directories:
           - path: cluster/services/*
           - path: cluster/services/deconz
@@ -29,7 +29,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: feat/zigbee2mqtt
+        targetRevision: master
         path: '{{path}}'
       destination:
         name: in-cluster
