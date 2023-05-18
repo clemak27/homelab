@@ -3,6 +3,13 @@ image:
   repository: docker.io/eclipse-mosquitto
   tag: 2.0.15
 
+command:
+  - mosquitto
+
+args:
+  - -c
+  - /mosquitto-no-auth.conf
+
 env:
   TZ: Europe/Vienna
 
