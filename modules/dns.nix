@@ -31,5 +31,6 @@
     192.168.178.100 traefik.wallstreet30.cc
     192.168.178.100 transmission.wallstreet30.cc
     192.168.178.100 vaultwarden.wallstreet30.cc
+    192.168.178.100 zigbee2mqtt.wallstreet30.cc
   '';
 }
