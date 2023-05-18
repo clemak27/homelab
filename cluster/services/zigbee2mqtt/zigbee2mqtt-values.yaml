@@ -1,0 +1,61 @@
+---
+image:
+  repository: docker.io/koenkk/zigbee2mqtt
+  tag: 1.30.4
+
+# command:
+#   - /bin/sleep
+
+# args:
+#   - 300000m
+
+env:
+  TZ: Europe/Vienna
+
+service:
+  main:
+    enabled: false
+    type: ClusterIP
+    ports:
+      http:
+        port: 8080
+
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
+
+ingress:
+  main:
+    enabled: false
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: zigbee2mqtt.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - zigbee2mqtt.wallstreet30.cc
+        secretName: zigbee2mqtt-tls
+
+podSecurityContext:
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
+
+persistence:
+  config:
+    enabled: true
+    mountPath: /app/data
+    existingClaim: zigbee2mqtt-config
+
+# https://stackoverflow.com/a/59291859/19520885
+securityContext:
+  privileged: true
