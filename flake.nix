@@ -24,7 +24,6 @@
         overlaysBuilder = channels: [
           (final: prev: { stable = self.inputs.nixpkgs-stable.legacyPackages.x86_64-linux; })
         ];
-        patches = [ ./kustomize.patch ];
       };
 
       hostDefaults = {
