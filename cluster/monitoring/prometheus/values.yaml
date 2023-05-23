@@ -25,3 +25,6 @@ server:
   persistentVolume:
     enabled: true
     existingClaim: "prometheus-data"
+
+alertmanager:
+  enabled: false
