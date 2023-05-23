@@ -1,0 +1,30 @@
+---
+env:
+  TZ: Europe/Vienna
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  hosts:
+    - grafana.wallstreet30.cc
+  path: /
+  pathType: Prefix
+  tls:
+    - hosts:
+        - grafana.wallstreet30.cc
+      secretName: grafana-tls
+
+persistence:
+  type: pvc
+  enabled: true
+  existingClaim: grafana-data
+
+admin:
+  ## Name of the secret. Can be templated.
+  existingSecret: "grafana-admin"
+  userKey: user
+  passwordKey: password
