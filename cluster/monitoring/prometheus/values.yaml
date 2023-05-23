@@ -1,7 +1,5 @@
 ---
 server:
-  baseURL: "prometheus.wallstreet30.cc"
-
   env:
     - name: TZ
       value: Europe/Vienna
