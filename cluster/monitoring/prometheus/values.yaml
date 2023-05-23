@@ -3,7 +3,8 @@ server:
   baseURL: "prometheus.wallstreet30.cc"
 
   env:
-    TZ: Europe/Vienna
+    - name: TZ
+      value: Europe/Vienna
 
   ingress:
     enabled: true
