@@ -13,7 +13,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: feat/monitoring
+        revision: master
         directories:
           - path: cluster/monitoring/*
   template:
@@ -27,7 +27,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: feat/monitoring
+        targetRevision: master
         path: '{{path}}'
       destination:
         name: in-cluster
