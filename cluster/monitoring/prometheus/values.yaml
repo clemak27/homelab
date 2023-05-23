@@ -1,0 +1,26 @@
+---
+server:
+  baseURL: "prometheus.wallstreet30.cc"
+
+  env:
+    TZ: Europe/Vienna
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - prometheus.wallstreet30.cc
+    path: /
+    pathType: Prefix
+    tls:
+      - hosts:
+          - prometheus.wallstreet30.cc
+        secretName: prometheus-tls
+
+  persistentVolume:
+    enabled: true
+    existingClaim: "prometheus-data"
