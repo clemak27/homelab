@@ -16,6 +16,7 @@
     192.168.178.100 deconz.wallstreet30.cc
     192.168.178.100 filebrowser.wallstreet30.cc
     192.168.178.100 gitea.wallstreet30.cc
+    192.168.178.100 grafana.wallstreet30.cc
     192.168.178.100 home-assistant.wallstreet30.cc
     192.168.178.100 jackett.wallstreet30.cc
     192.168.178.100 jellyfin.wallstreet30.cc
