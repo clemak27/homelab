@@ -1,0 +1,7 @@
+---
+persistence:
+  enabled: true
+  existingClaim: influxdb-data
+
+ingress:
+  enabled: false
