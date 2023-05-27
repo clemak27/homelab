@@ -5,9 +5,3 @@ persistence:
 
 ingress:
   enabled: false
-
-initScripts:
-  enabled: true
-  scripts:
-    init.iql: |+
-      CREATE DATABASE "home_assistant"
