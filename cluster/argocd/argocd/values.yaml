@@ -117,5 +117,9 @@ configs:
       type: helm
       name: grafana
       url: https://grafana.github.io/helm-charts
+    influxdata:
+      type: helm
+      name: influxdata
+      url: https://helm.influxdata.com/
   secret:
     argocdServerAdminPasswordMtime: "2023-04-23T15:20:00Z"
