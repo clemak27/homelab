@@ -60,6 +60,22 @@
             nixpkgs-fmt.enable = true;
             actionlint.enable = true;
             yamllint.enable = true;
+            kustomize = {
+              enable = true;
+              name = "kustomize";
+              types = [ "go" ];
+              language = "system";
+              pass_filenames = true;
+              entry =
+                let
+                  script = pkgs.writeShellScript "pre-commit-kustomize" ''
+                    # TODO
+                    exit 0
+                  '';
+                in
+                toString
+                  script;
+            };
           };
         };
       };
