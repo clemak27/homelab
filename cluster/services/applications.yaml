@@ -16,8 +16,6 @@ spec:
         revision: master
         directories:
           - path: cluster/services/*
-          - path: cluster/services/deconz
-            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
