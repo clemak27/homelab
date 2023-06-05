@@ -10,14 +10,22 @@ jobs:
   lockfile:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: checkout
         uses: actions/checkout@v3
-      - name: Install Nix
+      - name: nix
         uses: DeterminateSystems/nix-installer-action@v3
-      - name: Update flake.lock
+      - name: update
         uses: DeterminateSystems/update-flake-lock@v19
         with:
           pr-title: "chore: update flake"
           token: ${{ secrets.UPDATE_FLAKE_TOKEN }}
-          pr-assignees: clemak27
+          pr-reviewers: clemak27
           commit-msg: "chore: update flake"
+      - name: approve
+        run: gh pr review --approve "${{ steps.update.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: automerge
+        run: gh pr merge --rebase --auto "1"
+        env:
+          GH_TOKEN: ${{ secrets.UPDATE_FLAKE_TOKEN }}
