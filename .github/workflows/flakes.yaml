@@ -20,8 +20,12 @@ jobs:
         with:
           pr-title: "chore: update flake"
           token: ${{ secrets.UPDATE_FLAKE_TOKEN }}
-          pr-reviewers: clemak27
+          pr-assignees: clemak27
           commit-msg: "chore: update flake"
+          git-author-name: 'clemak27'
+          git-author-email: 'clemak27@mailbox.org'
+          git-committer-name: 'clemak27'
+          git-committer-email: 'clemak27@mailbox.org'
       - name: automerge
         run: gh pr merge --rebase --auto "${{ steps.update.outputs.pull-request-number }}"
         env:
