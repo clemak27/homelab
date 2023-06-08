@@ -13,7 +13,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v3
       - name: install nix
-        uses: DeterminateSystems/nix-installer-action@v3
+        uses: DeterminateSystems/nix-installer-action@v4
       - name: update lockfile
         id: update
         uses: DeterminateSystems/update-flake-lock@v19
