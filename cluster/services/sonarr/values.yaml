@@ -34,7 +34,7 @@ ingress:
         secretName: sonarr-tls
 
 podSecurityContext:
-  fsGroup: 1001
+  fsGroup: 1000
   fsGroupChangePolicy: OnRootMismatch
 
 persistence:
