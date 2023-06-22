@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/jackett
-  tag: 0.21.188
+  tag: 0.21.275
 
 env:
   TZ: Europe/Vienna
