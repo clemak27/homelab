@@ -49,7 +49,7 @@ ingress:
         secretName: transmission-tls
 
 podSecurityContext:
-  fsGroup: 1001
+  fsGroup: 1000
   fsGroupChangePolicy: OnRootMismatch
 
 persistence:
