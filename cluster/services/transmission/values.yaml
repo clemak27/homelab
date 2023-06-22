@@ -5,8 +5,8 @@ image:
 
 env:
   TZ: Europe/Vienna
-  PUID: "1001"
-  PGID: "1001"
+  PUID: "1000"
+  PGID: "1000"
   PEER_PORT: "32767"
 
 service:
