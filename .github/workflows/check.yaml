@@ -1,0 +1,21 @@
+---
+name: check
+on:
+  - pull_request
+jobs:
+  flake_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v4
+      - name: Replace needed files
+        run: |
+          touch someFile && \
+          sed -i 's#builtins\.readFile .*#builtins\.readFile /home/runner/work/homelab/homelab/someFile;#g' hosts/nuke/wireguard.nix && \
+          sed -i 's#/home/clemens/homelab/hosts/nuke/secrets.yaml#/home/runner/work/homelab/homelab/someFile#g' hosts/nuke/sops.nix
+      - name: Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Run Check
+        run: nix flake check --impure
