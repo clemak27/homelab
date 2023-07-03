@@ -35,4 +35,17 @@
     192.168.178.100 vaultwarden.wallstreet30.cc
     192.168.178.100 zigbee2mqtt.wallstreet30.cc
   '';
+
+  systemd.services.prometheus-dnsmasq-exporter = {
+    description = "dnsmasq_exporter";
+    wantedBy = [ "multi-user.target" ];
+    path = [
+      pkgs.prometheus-dnsmasq-exporter
+    ];
+    serviceConfig = {
+      ExecStart = "${pkgs.prometheus-dnsmasq-exporter}/bin/dnsmasq_exporter";
+      Type = "oneshot";
+      User = "prometheus";
+    };
+  };
 }
