@@ -5,7 +5,7 @@ global:
 image:
   registry: "docker.io"
   repository: gitea/gitea
-  tag: "1.19.3"
+  tag: "1.19.4"
 
 podSecurityContext:
   fsGroup: 1000
