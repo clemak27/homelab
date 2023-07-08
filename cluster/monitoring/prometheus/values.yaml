@@ -24,5 +24,11 @@ server:
     enabled: true
     existingClaim: "prometheus-data"
 
+extraScrapeConfigs: |
+ - job_name: 'dnsmasq'
+   static_configs:
+     - targets:
+       - 192.168.178.100:9153
+
 alertmanager:
   enabled: false
