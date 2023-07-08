@@ -44,8 +44,6 @@
     ];
     serviceConfig = {
       ExecStart = "${pkgs.prometheus-dnsmasq-exporter}/bin/dnsmasq_exporter";
-      Type = "oneshot";
-      User = "prometheus";
     };
   };
 }
