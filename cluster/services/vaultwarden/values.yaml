@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/vaultwarden/server
-  tag: 1.28.1
+  tag: 1.29.0
 
 env:
   TZ: Europe/Vienna
