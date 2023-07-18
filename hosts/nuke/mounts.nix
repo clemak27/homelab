@@ -23,11 +23,11 @@
   };
 
   # uranium-233
-  fileSystems."/var/mnt/backups" = {
-    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
-    fsType = "btrfs";
-    options = [ "defaults" ];
-  };
+  # fileSystems."/var/mnt/backups" = {
+  #   device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+  #   fsType = "btrfs";
+  #   options = [ "defaults" ];
+  # };
 
   # nfs bind-mounts
   fileSystems."/var/nfs/archive" = {
@@ -42,10 +42,10 @@
     device = "/var/mnt/emulation";
     options = [ "bind" ];
   };
-  fileSystems."/var/nfs/backups" = {
-    device = "/var/mnt/backups";
-    options = [ "bind" ];
-  };
+  # fileSystems."/var/nfs/backups" = {
+  #   device = "/var/mnt/backups";
+  #   options = [ "bind" ];
+  # };
 
   # nfs
   services.nfs.server = {
@@ -55,7 +55,7 @@
       /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/emulation      *(rw,nohide,insecure,no_subtree_check)
-      /var/nfs/backups        *(rw,no_root_squash,sync)
+      # /var/nfs/backups        *(rw,no_root_squash,sync)
     '';
   };
 }
