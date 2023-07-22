@@ -22,15 +22,6 @@
     options = [ "subvol=longhorn" ];
   };
 
-  systemd.services.hd-idle = {
-    description = "Spin down HDD";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "forking";
-      ExecStart = "${pkgs.hd-idle}/bin/hd-idle -i 0 -a 6f6e045e-8a0c-4bdf-9be0-89697d208865 -i 600";
-    };
-  };
-
   # uranium-233
   # fileSystems."/var/mnt/backups" = {
   #   device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
