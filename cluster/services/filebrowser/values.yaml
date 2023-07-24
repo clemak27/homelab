@@ -3,6 +3,9 @@ image:
   repository: docker.io/hurlenko/filebrowser
   tag: v2.23.0
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
   FB_PORT: "8755"

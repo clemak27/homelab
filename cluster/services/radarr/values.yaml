@@ -3,6 +3,9 @@ image:
   repository: docker.io/linuxserver/radarr
   tag: 4.6.4
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
   PUID: "1000"

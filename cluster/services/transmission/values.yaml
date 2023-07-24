@@ -3,6 +3,9 @@ image:
   repository: docker.io/linuxserver/transmission
   tag: 4.0.3
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
   PUID: "1000"

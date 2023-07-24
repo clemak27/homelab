@@ -3,6 +3,9 @@ image:
   repository: registry.wallstreet30.cc/qobuz-dl
   tag: 0.0.4
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
 
