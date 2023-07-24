@@ -3,6 +3,9 @@ image:
   repository: docker.io/jellyfin/jellyfin
   tag: 10.8.10
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
 

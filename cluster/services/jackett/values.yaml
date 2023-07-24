@@ -3,6 +3,9 @@ image:
   repository: docker.io/linuxserver/jackett
   tag: 0.21.456
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
   PUID: "1000"

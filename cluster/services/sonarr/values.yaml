@@ -3,6 +3,9 @@ image:
   repository: docker.io/linuxserver/sonarr
   tag: 3.0.10
 
+podLabels:
+  requires-nfs: "true"
+
 env:
   TZ: Europe/Vienna
   PUID: "1000"
