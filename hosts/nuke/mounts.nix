@@ -1,33 +1,31 @@
 { config, pkgs, ... }:
 {
-  # uranium-235
+  # uranium-233
   fileSystems."/var/mnt/archive" = {
-    device = "/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865";
+    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
     fsType = "btrfs";
     options = [ "subvol=archive" ];
   };
   fileSystems."/var/mnt/media" = {
-    device = "/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865";
+    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
     fsType = "btrfs";
     options = [ "subvol=media" ];
   };
   fileSystems."/var/mnt/emulation" = {
-    device = "/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865";
+    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
     fsType = "btrfs";
     options = [ "subvol=emulation" ];
   };
   fileSystems."/var/mnt/longhorn" = {
-    device = "/dev/disk/by-uuid/6f6e045e-8a0c-4bdf-9be0-89697d208865";
+    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
     fsType = "btrfs";
     options = [ "subvol=longhorn" ];
   };
-
-  # uranium-233
-  # fileSystems."/var/mnt/backups" = {
-  #   device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
-  #   fsType = "btrfs";
-  #   options = [ "defaults" ];
-  # };
+  fileSystems."/var/mnt/backups" = {
+    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+    fsType = "btrfs";
+    options = [ "subvol=backups" ];
+  };
 
   # nfs bind-mounts
   fileSystems."/var/nfs/archive" = {
@@ -42,10 +40,10 @@
     device = "/var/mnt/emulation";
     options = [ "bind" ];
   };
-  # fileSystems."/var/nfs/backups" = {
-  #   device = "/var/mnt/backups";
-  #   options = [ "bind" ];
-  # };
+  fileSystems."/var/nfs/backups" = {
+    device = "/var/mnt/backups";
+    options = [ "bind" ];
+  };
 
   # nfs
   services.nfs.server = {
@@ -55,7 +53,7 @@
       /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/emulation      *(rw,nohide,insecure,no_subtree_check)
-      # /var/nfs/backups        *(rw,no_root_squash,sync)
+      /var/nfs/backups        *(rw,no_root_squash,sync)
     '';
   };
 }
