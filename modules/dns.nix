@@ -23,6 +23,7 @@
     192.168.178.100 k3d.wallstreet30.cc
     192.168.178.100 longhorn.wallstreet30.cc
     192.168.178.100 miniflux.wallstreet30.cc
+    192.168.178.100 navidrome.wallstreet30.cc
     192.168.178.100 prometheus.wallstreet30.cc
     192.168.178.100 qobuz-dl.wallstreet30.cc
     192.168.178.100 radarr.wallstreet30.cc
