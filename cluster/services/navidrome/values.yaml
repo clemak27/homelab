@@ -18,6 +18,16 @@ env:
       secretKeyRef:
         name: navidrome-lastfm
         key: secret
+  ND_SPOTIFY_ID:
+    valueFrom:
+      secretKeyRef:
+        name: navidrome-spotify
+        key: id
+  ND_SPOTIFY_SECRET:
+    valueFrom:
+      secretKeyRef:
+        name: navidrome-spotify
+        key: secret
 
 service:
   main:
