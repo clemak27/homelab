@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     sops-nix.url = "github:Mic92/sops-nix";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
@@ -17,7 +17,7 @@
     flake-utils-plus.lib.mkFlake {
       inherit self inputs;
 
-      supportedSystems = [ "x86_64-linux" ];
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
 
       channels.nixpkgs = {
         config = { allowUnfree = true; };
@@ -27,7 +27,6 @@
       };
 
       hostDefaults = {
-        system = "x86_64-linux";
         modules = [
           sops-nix.nixosModules.sops
           ./modules/general.nix
@@ -38,6 +37,7 @@
 
       hosts = {
         nuke = {
+          system = "x86_64-linux";
           modules = [
             ./hosts/nuke/configuration.nix
             ./modules/dns.nix
@@ -46,7 +46,15 @@
           ];
         };
 
+        armadillo = {
+          system = "aarch64-linux";
+          modules = [
+            ./hosts/armadillo/configuration.nix
+          ];
+        };
+
         virtual = {
+          system = "x86_64-linux";
           modules = [
             ./hosts/virtual/configuration.nix
           ];
