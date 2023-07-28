@@ -7,6 +7,7 @@
       [
         { name = "cd.."; value = "cd .."; }
         { name = "clear"; value = "[[ -e /usr/bin/clear ]] && /usr/bin/clear || printf '\\33c\\e[3J'; [[ -n $TMUX ]] && tmux clearhist;"; }
+        { name = "lsa"; value = "ls -hal"; }
         { name = "q"; value = "exit"; }
       ]
     );
