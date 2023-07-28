@@ -58,5 +58,6 @@
     parted
     nfs-utils
   ];
+
   programs.zsh.enable = true;
 }
