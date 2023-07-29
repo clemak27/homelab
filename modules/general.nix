@@ -49,6 +49,7 @@
     ];
   };
   security.sudo.wheelNeedsPassword = false;
+  nix.settings.trusted-users = [ "root" "@wheel" ];
 
   environment.systemPackages = with pkgs; [
     vim
