@@ -12,6 +12,4 @@
   networking.hostName = "armadillo";
 
   system.stateVersion = "23.05";
-  security.sudo.wheelNeedsPassword = false;
 }
-
