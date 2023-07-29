@@ -139,9 +139,11 @@ syncing.
 - `nix build --no-write-lock-file --override-input nixpkgs github:nixos/nixpkgs/nixpkgs-unstable .#rockPro64 --impure`
 - `sudo dd if=./result of=/dev/sda iflag=direct oflag=direct bs=16M status=progress`
 
+<!-- markdownlint-restore -->
+
 After that, the device should be able to boot from the SD card.
 
-#### proper NixOS Setup
+#### Proper NixOS Setup
 
 - Shutdown the device and insert the microSD in another device.
 - Create `/etc/ssh/authorized_keys.d/nixos` and copy-paste at least one ssh
@@ -149,7 +151,13 @@ After that, the device should be able to boot from the SD card.
 - Insert the SD card back in the device, and you should now have ssh-access
   after booting is finished: `ssh nixos@<ip>`
 - run `sudo nixos-generate-config` and update the config of the host if needed
-- `sudo mkdir /home/clemens`, `sudo chown -R 1000:100 /home/clemens` and clone
-  this repo inside of it.
-
-<!-- markdownlint-restore -->
+- `sudo mkdir /home/clemens` this repo inside of it: `nix-shell -p git` and
+  `git clone https://github.com/clemak27/homelab.git --branch=feat/add-pine64`
+- rebuild: `sudo nixos-rebuild boot --flake .#armadillo --impure` (change the
+  hostname accordingly)
+- after rebooting, you can connect with the `clemens` user with ssh
+- use `sudo chown -R clemens:100 /home/clemens` to have the correct permissions
+  and `sudo rm -rf /home/nixos` to cleanup
+- New generations can (and should) now be built remotely, e.g.:
+  <!-- markdownlint-disable-next-line -->
+  `sudo nixos-rebuild --impure --flake .#armadillo --target-host clemens@10.0.0.3  switch`
