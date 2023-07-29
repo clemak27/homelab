@@ -48,6 +48,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA35xMqpMFnqqkPUyDR5KMNQsDMkEKQLIvyvMk0HzVux nuke"
     ];
   };
+  security.sudo.wheelNeedsPassword = false;
 
   environment.systemPackages = with pkgs; [
     vim
