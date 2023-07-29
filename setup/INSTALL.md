@@ -1,8 +1,8 @@
 # Homelab Setup
 
-## Setup
+## Hosts
 
-### nuke
+### x86_64-linux
 
 #### Preparation
 
@@ -40,7 +40,67 @@ sudo nixos-rebuild boot --impure --flake .
 sudo nixos-rebuild switch --impure --flake .
 ```
 
-### k3s
+### aarch64-linux
+
+<!-- markdownlint-disable-next-line -->
+#### Preparation
+
+- have a big enough microSD card (32 GB+)
+- create new branch for host
+- prepare config in hosts directory
+
+#### Initial Setup
+
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable MD031 -->
+
+- we need to build an image for the system:
+- checkout [nixos-aarch64-images](https://github.com/Mic92/nixos-aarch64-images)
+  locally
+- building the `uboot` and `idbloader` images locally didn't work:
+  - download the latest builds from
+    [hydra](https://hydra.nixos.org/job/nixpkgs/trunk/ubootRockPro64.aarch64-linux)
+  - save it e.g. in the path of the git repo
+  - add this path to the nix store: `nix store add-path .`
+  - add this path to the `let` block in `rockchip.nix`:
+    ```nix
+    let
+      ...
+      uboot = /nix/store/kqh7j0hzr2wl4mgm82x0wglrw5j5bgz8-.;
+    in
+    ```
+- update the aarch64 image that is used:
+  - run
+    `curl -s -L -I -o /dev/null -w '%{url_effective}' "https://hydra.nixos.org/job/nixos/release-23.05/nixos.sd_image.aarch64-linux/latest/download/1"`
+  - replace `url` and `hash` in `aarch64-image/default.nix`
+  <!-- markdownlint-disable-next-line -->
+- `nix build --no-write-lock-file --override-input nixpkgs github:nixos/nixpkgs/nixpkgs-unstable .#rockPro64 --impure`
+- `sudo dd if=./result of=/dev/sda iflag=direct oflag=direct bs=16M status=progress`
+
+<!-- markdownlint-restore -->
+
+After that, the device should be able to boot from the SD card.
+
+#### Proper NixOS Setup
+
+- Shutdown the device and insert the microSD in another device.
+- Create `/etc/ssh/authorized_keys.d/nixos` and copy-paste at least one ssh
+  public key inside of it.
+- Insert the SD card back in the device, and you should now have ssh-access
+  after booting is finished: `ssh nixos@<ip>`
+- run `sudo nixos-generate-config` and update the config of the host if needed
+- `sudo mkdir /home/clemens` this repo inside of it: `nix-shell -p git` and
+  `git clone https://github.com/clemak27/homelab.git --branch=feat/add-pine64`
+- rebuild: `sudo nixos-rebuild boot --flake .#armadillo --impure` (change the
+  hostname accordingly)
+- after rebooting, you can connect with the `clemens` user with ssh
+- use `sudo chown -R clemens:100 /home/clemens` to have the correct permissions
+  and `sudo rm -rf /home/nixos` to cleanup
+- New generations can (and should) now be built remotely, e.g.:
+  <!-- markdownlint-disable-next-line -->
+  `sudo nixos-rebuild --impure --flake .#armadillo --target-host clemens@10.0.0.3  switch`
+
+## k3s
 
 `k3s` is installed as server by enabling the `k3s.nix` module.
 
@@ -100,64 +160,3 @@ syncing.
 
 <!-- ### longhorn -->
 <!-- TODO spicy nixOS stuff -->
-
-<!-- /etc/ssh/authorized_keys.d/clemens -->
-
-### pine64
-
-#### Preparation
-
-- have a big enough microSD card (32 GB+)
-- create new branch for host
-- prepare config in hosts directory
-
-#### Initial Setup
-
-<!-- markdownlint-capture -->
-<!-- markdownlint-disable MD031 -->
-
-- we need to build an image for the system:
-- checkout [nixos-aarch64-images](https://github.com/Mic92/nixos-aarch64-images)
-  locally
-- building the `uboot` and `idbloader` images locally didn't work:
-  - download the latest builds from
-    [hydra](https://hydra.nixos.org/job/nixpkgs/trunk/ubootRockPro64.aarch64-linux)
-  - save it e.g. in the path of the git repo
-  - add this path to the nix store: `nix store add-path .`
-  - add this path to the `let` block in `rockchip.nix`:
-    ```nix
-    let
-      ...
-      uboot = /nix/store/kqh7j0hzr2wl4mgm82x0wglrw5j5bgz8-.;
-    in
-    ```
-- update the aarch64 image that is used:
-  - run
-    `curl -s -L -I -o /dev/null -w '%{url_effective}' "https://hydra.nixos.org/job/nixos/release-23.05/nixos.sd_image.aarch64-linux/latest/download/1"`
-  - replace `url` and `hash` in `aarch64-image/default.nix`
-  <!-- markdownlint-disable-next-line -->
-- `nix build --no-write-lock-file --override-input nixpkgs github:nixos/nixpkgs/nixpkgs-unstable .#rockPro64 --impure`
-- `sudo dd if=./result of=/dev/sda iflag=direct oflag=direct bs=16M status=progress`
-
-<!-- markdownlint-restore -->
-
-After that, the device should be able to boot from the SD card.
-
-#### Proper NixOS Setup
-
-- Shutdown the device and insert the microSD in another device.
-- Create `/etc/ssh/authorized_keys.d/nixos` and copy-paste at least one ssh
-  public key inside of it.
-- Insert the SD card back in the device, and you should now have ssh-access
-  after booting is finished: `ssh nixos@<ip>`
-- run `sudo nixos-generate-config` and update the config of the host if needed
-- `sudo mkdir /home/clemens` this repo inside of it: `nix-shell -p git` and
-  `git clone https://github.com/clemak27/homelab.git --branch=feat/add-pine64`
-- rebuild: `sudo nixos-rebuild boot --flake .#armadillo --impure` (change the
-  hostname accordingly)
-- after rebooting, you can connect with the `clemens` user with ssh
-- use `sudo chown -R clemens:100 /home/clemens` to have the correct permissions
-  and `sudo rm -rf /home/nixos` to cleanup
-- New generations can (and should) now be built remotely, e.g.:
-  <!-- markdownlint-disable-next-line -->
-  `sudo nixos-rebuild --impure --flake .#armadillo --target-host clemens@10.0.0.3  switch`
