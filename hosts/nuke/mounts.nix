@@ -1,28 +1,30 @@
 { config, pkgs, ... }:
 {
-  # uranium-233
+  # enriched-uranium
   fileSystems."/var/mnt/archive" = {
-    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+    device = "/dev/disk/by-uuid/31e021ea-9e33-4ab3-bb50-8940c4da43ac";
     fsType = "btrfs";
     options = [ "subvol=archive" ];
   };
   fileSystems."/var/mnt/media" = {
-    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+    device = "/dev/disk/by-uuid/31e021ea-9e33-4ab3-bb50-8940c4da43ac";
     fsType = "btrfs";
     options = [ "subvol=media" ];
   };
   fileSystems."/var/mnt/emulation" = {
-    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+    device = "/dev/disk/by-uuid/31e021ea-9e33-4ab3-bb50-8940c4da43ac";
     fsType = "btrfs";
     options = [ "subvol=emulation" ];
   };
   fileSystems."/var/mnt/longhorn" = {
-    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+    device = "/dev/disk/by-uuid/31e021ea-9e33-4ab3-bb50-8940c4da43ac";
     fsType = "btrfs";
     options = [ "subvol=longhorn" ];
   };
+
+  # coolant
   fileSystems."/var/mnt/backups" = {
-    device = "/dev/disk/by-uuid/eec432c4-abd0-491f-b4b0-af2bba294b6b";
+    device = "/dev/disk/by-uuid/87850e16-1642-4e0c-b9c0-2c94adc63d5e";
     fsType = "btrfs";
     options = [ "subvol=backups" ];
   };
