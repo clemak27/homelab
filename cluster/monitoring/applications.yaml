@@ -16,6 +16,7 @@ spec:
         revision: master
         directories:
           - path: cluster/monitoring/*
+            exclude: true
   template:
     metadata:
       name: '{{path.basename}}'
