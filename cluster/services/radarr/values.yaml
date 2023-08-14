@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/radarr
-  tag: 4.6.4
+  tag: 4.7.5
 
 podLabels:
   requires-nfs: "true"
