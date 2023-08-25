@@ -23,11 +23,11 @@
   };
 
   # coolant
-  fileSystems."/var/mnt/backups" = {
-    device = "/dev/disk/by-uuid/87850e16-1642-4e0c-b9c0-2c94adc63d5e";
-    fsType = "btrfs";
-    options = [ "subvol=backups" ];
-  };
+  # fileSystems."/var/mnt/backups" = {
+  #   device = "/dev/disk/by-uuid/87850e16-1642-4e0c-b9c0-2c94adc63d5e";
+  #   fsType = "btrfs";
+  #   options = [ "subvol=backups" ];
+  # };
 
   # nfs bind-mounts
   fileSystems."/var/nfs/archive" = {
@@ -42,10 +42,10 @@
     device = "/var/mnt/emulation";
     options = [ "bind" ];
   };
-  fileSystems."/var/nfs/backups" = {
-    device = "/var/mnt/backups";
-    options = [ "bind" ];
-  };
+  # fileSystems."/var/nfs/backups" = {
+  #   device = "/var/mnt/backups";
+  #   options = [ "bind" ];
+  # };
 
   # nfs
   services.nfs.server = {
