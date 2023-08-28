@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/jackett
-  tag: 0.21.689
+  tag: 0.21.705
 
 podLabels:
   requires-nfs: "true"
