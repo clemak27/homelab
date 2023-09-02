@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - name: influxdb
     repo: https://helm.influxdata.com/
-    version: 4.12.4
+    version: 4.12.5
     releaseName: influxdb
     namespace: monitoring
     valuesFile: values.yaml
