@@ -9,5 +9,8 @@
   "repositories": [
     "clemak27/homelab"
   ],
+  "ignorePaths": [
+    "cluster/monitoring"
+  ],
   "commitMessageAction": "update"
 }
