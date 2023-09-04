@@ -8,6 +8,7 @@ on:
 
 jobs:
   lockfile:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
