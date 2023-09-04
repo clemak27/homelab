@@ -30,32 +30,32 @@
   # };
 
   # nfs bind-mounts
-  # fileSystems."/var/nfs/archive" = {
-  #   device = "/var/mnt/archive";
-  #   options = [ "bind" ];
-  # };
-  # fileSystems."/var/nfs/media" = {
-  #   device = "/var/mnt/media";
-  #   options = [ "bind" ];
-  # };
-  # fileSystems."/var/nfs/emulation" = {
-  #   device = "/var/mnt/emulation";
-  #   options = [ "bind" ];
-  # };
-  # fileSystems."/var/nfs/backups" = {
-  #   device = "/var/mnt/backups";
-  #   options = [ "bind" ];
-  # };
+  fileSystems."/var/nfs/archive" = {
+    device = "/var/mnt/hdd/archive";
+    options = [ "bind" ];
+  };
+  fileSystems."/var/nfs/media" = {
+    device = "/var/mnt/hdd/media";
+    options = [ "bind" ];
+  };
+  fileSystems."/var/nfs/emulation" = {
+    device = "/var/mnt/hdd/emulation";
+    options = [ "bind" ];
+  };
+  fileSystems."/var/nfs/backups" = {
+    device = "/var/mnt/hdd/backups";
+    options = [ "bind" ];
+  };
 
   # nfs
-  # services.nfs.server = {
-  #   enable = true;
-  #   exports = ''
-  #     /var/nfs                *(rw,fsid=0,no_subtree_check)
-  #     /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
-  #     /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
-  #     /var/nfs/emulation      *(rw,nohide,insecure,no_subtree_check)
-  #     /var/nfs/backups        *(rw,no_root_squash,sync)
-  #   '';
-  # };
+  services.nfs.server = {
+    enable = true;
+    exports = ''
+      /var/nfs                *(rw,fsid=0,no_subtree_check)
+      /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
+      /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
+      /var/nfs/emulation      *(rw,nohide,insecure,no_subtree_check)
+      /var/nfs/backups        *(rw,no_root_squash,sync)
+    '';
+  };
 }
