@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    ./dns.nix
+    ./dnsmasq.nix
     ./mounts.nix
     ./sops.nix
     ./wireguard.nix
