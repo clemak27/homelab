@@ -40,7 +40,6 @@
           system = "x86_64-linux";
           modules = [
             ./hosts/nuke/configuration.nix
-            ./modules/dns.nix
             ./modules/gitops.nix
             ./modules/k3s.nix
           ];

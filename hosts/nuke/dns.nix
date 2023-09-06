@@ -7,7 +7,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = "enp3s0,wg0";
+      interface = "end0,wg0";
       listen-address = "::1,127.0.0.1,${dnsIP}";
       server = [
         "1.1.1.1"

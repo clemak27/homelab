@@ -2,6 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+
+    ./dns.nix
     ./mounts.nix
     ./sops.nix
     ./wireguard.nix
