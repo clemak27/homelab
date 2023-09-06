@@ -40,15 +40,4 @@ in
     ${lbIP} vaultwarden.wallstreet30.cc
     ${lbIP} zigbee2mqtt.wallstreet30.cc
   '';
-
-  systemd.services.prometheus-dnsmasq-exporter = {
-    description = "dnsmasq_exporter";
-    wantedBy = [ "multi-user.target" ];
-    path = [
-      pkgs.prometheus-dnsmasq-exporter
-    ];
-    serviceConfig = {
-      ExecStart = "${pkgs.prometheus-dnsmasq-exporter}/bin/dnsmasq_exporter";
-    };
-  };
 }
