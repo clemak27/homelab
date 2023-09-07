@@ -51,13 +51,6 @@
             ./hosts/armadillo/configuration.nix
           ];
         };
-
-        virtual = {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/virtual/configuration.nix
-          ];
-        };
       };
 
       checks.x86_64-linux = {
