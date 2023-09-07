@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
 
     ./dnsmasq.nix
-    ./mounts.nix
+    # ./mounts.nix
     ./sops.nix
     ./wireguard.nix
   ];
