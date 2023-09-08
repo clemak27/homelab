@@ -46,18 +46,18 @@ persistence:
   archive:
     enabled: true
     type: nfs
-    server: 192.168.178.101
+    server: 192.168.178.100
     path: /archive
     mountPath: /data/archive
   media:
     enabled: true
     type: nfs
-    server: 192.168.178.101
+    server: 192.168.178.100
     path: /media
     mountPath: /data/media
   emulation:
     enabled: true
     type: nfs
-    server: 192.168.178.101
+    server: 192.168.178.100
     path: /emulation
     mountPath: /data/emulation
