@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./mounts.nix
+    ./dnsmasq.nix
   ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
