@@ -5,8 +5,8 @@
 
     # ./dnsmasq.nix
     # ./mounts.nix
-    ./sops.nix
-    ./wireguard.nix
+    # ./sops.nix
+    # ./wireguard.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
