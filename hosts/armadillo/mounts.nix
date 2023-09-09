@@ -37,4 +37,10 @@
     '';
     # /var/nfs/backups        *(rw,no_root_squash,sync)
   };
+
+  # swap
+  swapDevices = [{
+    device = "/swapfile";
+    size = 8 * 1024;
+  }];
 }
