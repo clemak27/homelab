@@ -3,54 +3,51 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     sops-nix.url = "github:Mic92/sops-nix";
-    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    # flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, sops-nix, flake-utils-plus, pre-commit-hooks }:
+  outputs = { self, nixpkgs, nixpkgs-stable, sops-nix, pre-commit-hooks }:
     let
-      pkgs = self.pkgs.x86_64-linux.nixpkgs;
-      updateArgoCDApplications = pkgs.writeShellScriptBin "update-argocd-applications" ''
-        find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
-      '';
+      legacyPkgs = nixpkgs.legacyPackages.x86_64-linux;
+      overlay-stable = final: prev: {
+        stable = nixpkgs-stable.legacyPackages.x86_64-linux;
+      };
+      nixModule = ({ config, pkgs, ... }: {
+        nixpkgs.overlays = [ overlay-stable ];
+        nix.registry.nixpkgs.flake = self.inputs.nixpkgs;
+        nixpkgs.config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "nodejs-16.20.0"
+            "nodejs-16.20.1"
+            "nodejs-16.20.2"
+          ];
+        };
+      });
+      defaultModules = [
+        nixModule
+        sops-nix.nixosModules.sops
+        ./hosts/nuke/configuration.nix
+        ./modules/general.nix
+        ./modules/zsh.nix
+      ];
     in
-    flake-utils-plus.lib.mkFlake {
-      inherit self inputs;
-
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-
-      channels.nixpkgs = {
-        config = { allowUnfree = true; };
-        overlaysBuilder = channels: [
-          (final: prev: { stable = self.inputs.nixpkgs-stable.legacyPackages.x86_64-linux; })
+    {
+      nixosConfigurations.nuke = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = defaultModules ++ [
+          ./modules/gitops.nix
+          ./modules/k3s.nix
         ];
       };
 
-      hostDefaults = {
-        modules = [
-          sops-nix.nixosModules.sops
-          ./modules/general.nix
-          ./modules/zsh.nix
+      nixosConfigurations.armadillo = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = defaultModules ++ [
+          # ./modules/gitops.nix
+          # ./modules/k3s.nix
         ];
-        channelName = "nixpkgs";
-      };
-
-      hosts = {
-        nuke = {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/nuke/configuration.nix
-            ./modules/gitops.nix
-            ./modules/k3s.nix
-          ];
-        };
-
-        armadillo = {
-          system = "aarch64-linux";
-          modules = [
-            ./hosts/armadillo/configuration.nix
-          ];
-        };
       };
 
       checks.x86_64-linux = {
@@ -64,11 +61,16 @@
         };
       };
 
-      outputsBuilder = channels: {
-        devShell = channels.nixpkgs.mkShell {
+      devShells.x86_64-linux.default =
+        let
+          updateArgoCDApplications = legacyPkgs.writeShellScriptBin "update-argocd-applications" ''
+            find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
+          '';
+        in
+        legacyPkgs.mkShell {
           inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
 
-          packages = with pkgs; [
+          packages = with legacyPkgs; [
             updateArgoCDApplications
 
             argocd
@@ -79,9 +81,9 @@
             sops
           ];
 
-          KUSTOMIZE_PLUGIN_HOME = pkgs.buildEnv {
+          KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
             name = "kustomize-plugins";
-            paths = with pkgs; [
+            paths = with legacyPkgs; [
               kustomize-sops
             ];
             postBuild = ''
@@ -91,6 +93,5 @@
             pathsToLink = [ "/lib" ];
           };
         };
-      };
     };
 }
