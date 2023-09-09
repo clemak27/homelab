@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   dnsIP = "192.168.178.100";
-  lbIP = "192.168.178.101";
+  lbIP = "192.168.178.142";
 in
 {
   services.dnsmasq = {
