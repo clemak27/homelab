@@ -1,5 +1,26 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
+let
+  mountDisks = pkgs.writeShellScriptBin "init-disks" ''
+    partition="/dev/disk/by-uuid/af25b786-2539-4632-890f-5ceee01ffa87"
+    luksMapper="cryptssd"
+    unencryptedDisk="/dev/mapper/$luksMapper"
+
+    cryptsetup open "$partition" "$luksMapper"
+
+    mkdir -p /var/lib/rancher/k3s/data
+    mkdir -p /var/mnt/longhorn
+
+    mount -o compress=zstd,subvol=k3s $unencryptedDisk /var/lib/rancher/k3s/data
+    mount -o compress=zstd,subvol=longhorn $unencryptedDisk /var/mnt/longhorn
+
+    # sudo systemctl start k3s.service
+  '';
+in
 {
+  environment.systemPackages = [
+    mountDisks
+  ];
+
   # uranium-233
   fileSystems."/var/mnt/hdd" = {
     device = "/dev/disk/by-uuid/5b079fd4-12f0-45e3-8cf4-2cd3ae6d4926";
