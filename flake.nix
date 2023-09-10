@@ -28,7 +28,6 @@
       defaultModules = [
         nixModule
         sops-nix.nixosModules.sops
-        ./hosts/nuke/configuration.nix
         ./modules/general.nix
         ./modules/zsh.nix
       ];
@@ -37,6 +36,7 @@
       nixosConfigurations.nuke = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = defaultModules ++ [
+          ./hosts/nuke/configuration.nix
           ./modules/gitops.nix
           ./modules/k3s.nix
         ];
@@ -45,6 +45,7 @@
       nixosConfigurations.armadillo = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
+          ./hosts/armadillo/configuration.nix
           # ./modules/gitops.nix
           # ./modules/k3s.nix
         ];
