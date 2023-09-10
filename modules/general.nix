@@ -38,6 +38,7 @@
   services.openssh.enable = true;
 
   users.users.clemens = {
+    uid = 1000;
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
