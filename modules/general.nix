@@ -60,6 +60,7 @@
     git
     parted
     nfs-utils
+    cryptsetup
   ];
 
   programs.zsh.enable = true;
