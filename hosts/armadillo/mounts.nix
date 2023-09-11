@@ -41,10 +41,10 @@ in
     device = "/var/mnt/hdd/emulation";
     options = [ "bind" ];
   };
-  # fileSystems."/var/nfs/backups" = {
-  #   device = "/var/mnt/hdd/backups";
-  #   options = [ "bind" ];
-  # };
+  fileSystems."/var/nfs/backups" = {
+    device = "/var/mnt/hdd/backups";
+    options = [ "bind" ];
+  };
 
   # nfs
   networking.firewall.enable = false;
@@ -55,8 +55,8 @@ in
       /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/emulation      *(rw,nohide,insecure,no_subtree_check)
+      /var/nfs/backups        *(rw,no_root_squash,sync)
     '';
-    # /var/nfs/backups        *(rw,no_root_squash,sync)
   };
 
   # swap
