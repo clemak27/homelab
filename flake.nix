@@ -42,10 +42,10 @@
         ];
       };
 
-      nixosConfigurations.armadillo = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.phobos = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
-          ./hosts/armadillo/configuration.nix
+          ./hosts/phobos/configuration.nix
           # ./modules/gitops.nix
           # ./modules/k3s.nix
         ];
