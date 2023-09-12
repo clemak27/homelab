@@ -91,14 +91,14 @@ After that, the device should be able to boot from the SD card.
 - run `sudo nixos-generate-config` and update the config of the host if needed
 - `sudo mkdir /home/clemens` this repo inside of it: `nix-shell -p git` and
   `sudo git clone https://github.com/clemak27/homelab.git`
-- rebuild: `sudo nixos-rebuild boot --flake .#armadillo --impure` (change the
+- rebuild: `sudo nixos-rebuild boot --flake .#phobos --impure` (change the
   hostname accordingly)
 - after rebooting, you can connect with the `clemens` user with ssh
 - use `sudo chown -R clemens:100 /home/clemens` to have the correct permissions
   and `sudo rm -rf /home/nixos` to clean up
 - New generations can (and should) now be built remotely, e.g.:
   <!-- markdownlint-disable-next-line -->
-  `sudo nixos-rebuild --impure --flake .#armadillo --target-host clemens@<ip> switch`
+  `sudo nixos-rebuild --impure --flake .#phobos --target-host clemens@<ip> switch`
 
 ## k3s
 

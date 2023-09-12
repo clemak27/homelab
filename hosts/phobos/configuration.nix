@@ -17,7 +17,7 @@
   boot.kernelPackages = pkgs.linuxPackages_5_10;
   hardware.enableAllFirmware = true;
 
-  networking.hostName = "armadillo";
+  networking.hostName = "phobos";
 
   system.stateVersion = "23.05";
 }
