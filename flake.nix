@@ -51,6 +51,15 @@
         ];
       };
 
+      nixosConfigurations.deimos = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = defaultModules ++ [
+          ./hosts/deimos/configuration.nix
+          # ./modules/gitops.nix
+          # ./modules/k3s.nix
+        ];
+      };
+
       checks.x86_64-linux = {
         pre-commit-check = pre-commit-hooks.lib.x86_64-linux.run {
           src = ./.;
