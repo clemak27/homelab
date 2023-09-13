@@ -54,6 +54,8 @@ sudo nixos-rebuild switch --impure --flake .
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD031 -->
 
+##### RockPro64
+
 - we need to build an image for the system:
 - checkout [nixos-aarch64-images](https://github.com/Mic92/nixos-aarch64-images)
   locally
@@ -77,7 +79,19 @@ sudo nixos-rebuild switch --impure --flake .
 - `nix build --no-write-lock-file --override-input nixpkgs github:nixos/nixpkgs/nixpkgs-unstable .#rockPro64 --impure`
 - `sudo dd if=./result of=/dev/sda iflag=direct oflag=direct bs=16M status=progress`
 
-<!-- markdownlint-restore -->
+After that, the device should be able to boot from the SD card.
+
+##### Raspberry Pi 4B
+
+Download the latest NixOS SD image from here:
+
+[https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image.aarch64-linux](https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image.aarch64-linux)
+decompress it and write it to the SD card:
+
+```sh
+unzstd -d nixos-sd-image-23.11pre524605.3a2786eea085-aarch64-linux.img.zst
+sudo dd if=nixos-sd-image-23.11pre524605.3a2786eea085-aarch64-linux.img of=/dev/sdX bs=4096 conv=fsync status=progress
+```
 
 After that, the device should be able to boot from the SD card.
 
@@ -91,11 +105,12 @@ After that, the device should be able to boot from the SD card.
 - run `sudo nixos-generate-config` and update the config of the host if needed
 - `sudo mkdir /home/clemens` this repo inside of it: `nix-shell -p git` and
   `sudo git clone https://github.com/clemak27/homelab.git`
-- rebuild: `sudo nixos-rebuild boot --flake .#phobos --impure` (change the
-  hostname accordingly)
+- rebuild: `sudo nixos-rebuild boot --flake .#<hostname> --impure`
+- reboot: `sudo Shutdown -r 0`
 - after rebooting, you can connect with the `clemens` user with ssh
 - use `sudo chown -R clemens:100 /home/clemens` to have the correct permissions
-  and `sudo rm -rf /home/nixos` to clean up
+  and `sudo rm -rf /home/nixos` and `sudo rm /etc/ssh/authorized_keys.d/nixos`
+  to clean up
 - New generations can (and should) now be built remotely, e.g.:
   <!-- markdownlint-disable-next-line -->
   `sudo nixos-rebuild --impure --flake .#phobos --target-host clemens@<ip> switch`
