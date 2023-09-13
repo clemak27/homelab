@@ -1,8 +1,8 @@
 { pkgs, ... }:
 let
   mountDisks = pkgs.writeShellScriptBin "init-disks" ''
-    partition="/dev/disk/by-uuid/af25b786-2539-4632-890f-5ceee01ffa87"
-    luksMapper="cryptssd"
+    partition="/dev/disk/by-uuid/170bfbea-0807-499b-973e-f7df73d006ec"
+    luksMapper="cryptdata"
     unencryptedDisk="/dev/mapper/$luksMapper"
 
     cryptsetup open "$partition" "$luksMapper"
