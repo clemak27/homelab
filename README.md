@@ -2,65 +2,68 @@
 
 This repo the setup for my homelab.
 
-It currently consists of a server running NixOS, with k3s to deploy containers.
+![image](https://github.com/clemak27/homelab/assets/26412249/f6d92603-4be2-40f5-8254-31cf9a7de758)
 
-## Structure
+<!-- markdownlint-disable -->
+<!-- It currently consists of a server running NixOS, with k3s to deploy containers. -->
 
-- `cluster`  
-  definition of all services running in the cluster
-- `hosts`  
-  configuration files for server and virtual machine
-- `modules`  
-  general configuration files used by all hosts
-- `setup`  
-  notes for setting up my homelab
+<!-- ## Structure -->
 
-## Hardware
+<!-- - `cluster` -->
+<!--   definition of all services running in the cluster -->
+<!-- - `hosts` -->
+<!--   configuration files for server and virtual machine -->
+<!-- - `modules` -->
+<!--   general configuration files used by all hosts -->
+<!-- - `setup` -->
+<!--   notes for setting up my homelab -->
 
-- Fractal Node 304
-- AMD Ryzen 5 3600
-- ASRock A520M-ITX
-- 16 GB RAM
-- 256 GB SSD
-- 4 TB HDD
+<!-- ## Hardware -->
 
-## Software
+<!-- - Fractal Node 304 -->
+<!-- - AMD Ryzen 5 3600 -->
+<!-- - ASRock A520M-ITX -->
+<!-- - 16 GB RAM -->
+<!-- - 256 GB SSD -->
+<!-- - 4 TB HDD -->
 
-### NixOS
+<!-- ## Software -->
 
-My homelab runs [NixOS](https://nixos.org/). The host's `configuration.nix` sets
-the base and machine-specific settings and imports from `modules` as needed.
+<!-- ### NixOS -->
 
-The update-process works via gitops, so the state of the servers is always equal
-to the definition in this repo. To achieve this, the `gitops.nix` module creates
-a systemd-service that runs regularly. This service updates the repo (that is
-checked out on the host), and checks if any nix-config files changed. If yes,
-the new configuration is applied. Should the `flake.lock` have changed, a reboot
-is scheduled.
+<!-- My homelab runs [NixOS](https://nixos.org/). The host's `configuration.nix` sets -->
+<!-- the base and machine-specific settings and imports from `modules` as needed. -->
 
-There 2 other services directly running on the host and configured with nix:
-[WireGuard](https://www.wireguard.com/), for accessing my homelab from the
-outside, and [dnsmasq](https://dnsmasq.org/), for resolving hostnames and some
-ad-blocking.
+<!-- The update-process works via gitops, so the state of the servers is always equal -->
+<!-- to the definition in this repo. To achieve this, the `gitops.nix` module creates -->
+<!-- a systemd-service that runs regularly. This service updates the repo (that is -->
+<!-- checked out on the host), and checks if any nix-config files changed. If yes, -->
+<!-- the new configuration is applied. Should the `flake.lock` have changed, a reboot -->
+<!-- is scheduled. -->
 
-### k3s
+<!-- There 2 other services directly running on the host and configured with nix: -->
+<!-- [WireGuard](https://www.wireguard.com/), for accessing my homelab from the -->
+<!-- outside, and [dnsmasq](https://dnsmasq.org/), for resolving hostnames and some -->
+<!-- ad-blocking. -->
 
-Most other services run in a Kubernetes cluster. To deploy it I use
-[k3s](https://k3s.io/). The cluster is managed with
-[argoCD](https://argoproj.github.io/cd), which watches the cluster directory for
-changes and automatically applies them to the cluster.
+<!-- ### k3s -->
 
-Storage and backups are managed with
-[longhorn](https://github.com/longhorn/longhorn). Secrets are handled using
-[ksops](https://github.com/viaduct-ai/kustomize-sops).
+<!-- Most other services run in a Kubernetes cluster. To deploy it I use -->
+<!-- [k3s](https://k3s.io/). The cluster is managed with -->
+<!-- [argoCD](https://argoproj.github.io/cd), which watches the cluster directory for -->
+<!-- changes and automatically applies them to the cluster. -->
 
-### other
+<!-- Storage and backups are managed with -->
+<!-- [longhorn](https://github.com/longhorn/longhorn). Secrets are handled using -->
+<!-- [ksops](https://github.com/viaduct-ai/kustomize-sops). -->
 
-[Sops](https://github.com/mozilla/sops) is used for secrets, both with ksops and
-[nix-sops](https://github.com/Mic92/sops-nix)
+<!-- ### other -->
 
-[Renovate](https://github.com/renovatebot/renovate) automatically creates pull
-requests for updating dependencies.
+<!-- [Sops](https://github.com/mozilla/sops) is used for secrets, both with ksops and -->
+<!-- [nix-sops](https://github.com/Mic92/sops-nix) -->
 
-There are also a few configs for linting and corresponding github-actions that
-lint new pull requests.
+<!-- [Renovate](https://github.com/renovatebot/renovate) automatically creates pull -->
+<!-- requests for updating dependencies. -->
+
+<!-- There are also a few configs for linting and corresponding github-actions that -->
+<!-- lint new pull requests. -->
