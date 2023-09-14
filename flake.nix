@@ -37,8 +37,6 @@
         system = "x86_64-linux";
         modules = defaultModules ++ [
           ./hosts/nuke/configuration.nix
-          ./modules/gitops.nix
-          ./modules/k3s.nix
         ];
       };
 
@@ -46,8 +44,6 @@
         system = "aarch64-linux";
         modules = defaultModules ++ [
           ./hosts/phobos/configuration.nix
-          # ./modules/gitops.nix
-          # ./modules/k3s.nix
         ];
       };
 
@@ -55,8 +51,6 @@
         system = "aarch64-linux";
         modules = defaultModules ++ [
           ./hosts/deimos/configuration.nix
-          # ./modules/gitops.nix
-          # ./modules/k3s.nix
         ];
       };
 

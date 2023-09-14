@@ -3,10 +3,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    # ./dnsmasq.nix
-    # ./mounts.nix
-    # ./sops.nix
-    # ./wireguard.nix
+    ./k3s-server.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
