@@ -4,6 +4,7 @@ let
   lbIP = "192.168.178.142";
 in
 {
+  networking.firewall.enable = false;
   services.dnsmasq = {
     enable = true;
     settings = {
