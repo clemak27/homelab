@@ -16,6 +16,7 @@ spec:
         revision: master
         directories:
           - path: cluster/services/*
+
   template:
     metadata:
       name: '{{path.basename}}'

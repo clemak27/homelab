@@ -62,6 +62,6 @@ persistence:
   downloads:
     enabled: true
     type: nfs
-    server: 192.168.178.100
+    server: 192.168.178.101
     path: /media/torrents
     mountPath: /downloads
