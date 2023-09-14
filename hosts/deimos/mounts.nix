@@ -1,5 +1,32 @@
 { pkgs, ... }:
+let
+  mountDisks = pkgs.writeShellScriptBin "init-disks" ''
+    partition="/dev/a6b8c496-901c-4a83-95f6-3290b6564eee"
+    luksMapper="cryptmedia"
+    unencryptedDisk="/dev/mapper/$luksMapper"
+
+    cryptsetup open "$partition" "$luksMapper"
+
+    mkdir -p /var/mnt/media
+    mkdir -p /var/mnt/backups
+
+    mount -o compress=zstd,subvol=media $unencryptedDisk /var/mnt/media
+    mount -o compress=zstd,subvol=backups $unencryptedDisk /var/mnt/backups
+
+    mkdir -p /var/nfs/media
+    mkdir -p /var/nfs/backups
+
+    mount --bind /var/mnt/media /var/nfs/media
+    mount --bind /var/mnt/backups /var/nfs/backups
+
+    # sudo systemctl start nfs-server.service
+  '';
+in
 {
+  # environment.systemPackages = [
+  #   mountDisks
+  # ];
+
   # uranium-233
   fileSystems."/var/mnt/hdd" = {
     device = "/dev/disk/by-uuid/5b079fd4-12f0-45e3-8cf4-2cd3ae6d4926";
