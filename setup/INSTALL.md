@@ -117,9 +117,11 @@ After that, the device should be able to boot from the SD card.
 
 ## k3s
 
-`k3s` is installed as server by enabling the `k3s.nix` module.
+`k3s` is installed as server by importing the `k3s-server.nix` module.
 
 There are still some manual steps needed:
+
+### kubeconfig
 
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD031 -->
@@ -131,14 +133,14 @@ There are still some manual steps needed:
    cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
    chown -R clemens:clemens /var/home/clemens/.kube
    ```
-3. Copy kubeconfig to main PC:
+3. Copy `kubeconfig` to main PC:
    ```sh
    scp <ip>:/home/clemens/.kube/config /var/home/clemens/.kube/config
    ```
-4. Edit the IP in the kubeconfig to match the server's ip.
+4. Edit the IP in the `kubeconfig` to match the server's IP.
 <!-- markdownlint-restore -->
 
-#### ArgoCD
+### ArgoCD
 
 ArgoCD needs to be setup manually:
 
@@ -173,5 +175,17 @@ ArgoCD needs to be setup manually:
 syncing.
 <!-- markdownlint-restore -->
 
-<!-- ### longhorn -->
-<!-- TODO spicy nixOS stuff -->
+### longhorn
+
+All of my hosts use NixOS as OS. Since Nix does not adhere to the FSH standard,
+longhorn doesn't work with it out of the box. It is usable with these steps:
+
+- ssh to the host where it should run
+- `cd` into `cluster/longhorn-system/longhorn`
+- build the adapted image using the Dockerfile:
+  `sudo docker build -t longhornio/longhorn-instance-manager-nix:v1.5.1 .`
+- export the image to the internal registry of k3s:
+  <!-- markdownlint-disable-next-line MD013 -->
+  `sudo docker save longhornio/longhorn-instance-manager-nix:v1.5.1 | sudo k3s ctr images import -`
+- the `kustomize.yaml` patches the upstream `longhorn.yaml` accordingly, and
+  ArgoCD should deploy it successfully.
