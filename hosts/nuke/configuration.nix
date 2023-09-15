@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    ./k3s-server.nix
+    # ./k3s-server.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
