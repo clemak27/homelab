@@ -2,7 +2,9 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./mounts.nix
+
+    ./k3s-server.nix
+
     ./dnsmasq.nix
     ./sops.nix
     ./wireguard.nix
@@ -17,7 +19,12 @@
   boot.kernelPackages = pkgs.linuxPackages_5_10;
   hardware.enableAllFirmware = true;
 
-  networking.hostName = "phobos";
+  networking.hostName = "ares";
 
   system.stateVersion = "23.05";
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16 * 1024;
+  }];
 }

@@ -6,6 +6,12 @@ image:
 env:
   TZ: Europe/Vienna
 
+# command:
+#   - sleep
+
+# args:
+#   - "3000"
+
 service:
   main:
     enabled: true

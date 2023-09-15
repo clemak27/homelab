@@ -75,7 +75,7 @@ After that, the device should be able to boot from the SD card.
   to clean up
 - New generations can (and should) now be built remotely, e.g.:
   <!-- markdownlint-disable-next-line -->
-  `sudo nixos-rebuild --impure --flake .#phobos --target-host clemens@<ip> switch`
+  `sudo nixos-rebuild --impure --flake .#<hostname> --target-host clemens@<ip> switch`
 
 #### Moving to an SSD
 
@@ -139,17 +139,17 @@ ArgoCD needs to be setup manually:
    helm install argo-cd argo-cd/argo-cd --create-namespace --values ./cluster/argocd/argocd/values.yaml
    ```
 4. Wait until everything is healthy (should take max 2 minutes)
-5. Create all ArgoCD applications:
+5. Create the ArgoCD application properly:
    <!-- markdownlint-disable-next-line -->
    ```sh
-   find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
+   kubectl -n argocd apply -f cluster/argocd/applications.yaml
    ```
 6. Delete the initial admin-secret:
    ```sh
    kubectl delete -n argocd secrets argocd-initial-admin-secret
    ```
-7. You should now be able to log in to ArgoCD and watch all applications
-syncing.
+7. You should now be able to log in to ArgoCD.
+
 <!-- markdownlint-restore -->
 
 ### longhorn
