@@ -77,6 +77,20 @@ After that, the device should be able to boot from the SD card.
   <!-- markdownlint-disable-next-line -->
   `sudo nixos-rebuild --impure --flake .#phobos --target-host clemens@<ip> switch`
 
+#### Moving to an SSD
+
+In some cases, it is preferably to install the system to an ssd for improved
+performance. The rough outline to do this is:
+
+- mount the SSD to use: `sudo mount /dev/sda1 /mnt`
+- install NixOS to it:
+  `sudo nixos-install --root /mnt --flake .#<hostname> --impure --no-root-password`
+- generate a new config: `sudo nixos-generate-config --root /mnt`
+- copy the generated boot-config to the SD card: `cp -R /mnt/boot/* /`
+- update the `hardware-configuration.nix` of the host so the SD is mounted on
+  `/boot` and the SSD on `/`
+- hope it works :)
+
 ## k3s
 
 `k3s` is installed as server by importing the `k3s-server.nix` module.
@@ -91,13 +105,13 @@ There are still some manual steps needed:
 1. Connect with ssh
 2. On the server, run:
    ```sh
-   mkdir -p /var/home/clemens/.kube
-   cp /etc/rancher/k3s/k3s.yaml /var/home/clemens/.kube/config
-   chown -R clemens:clemens /var/home/clemens/.kube
+   mkdir -p /home/clemens/.kube
+   cp /etc/rancher/k3s/k3s.yaml /home/clemens/.kube/config
+   chown -R clemens:users /home/clemens/.kube
    ```
 3. Copy `kubeconfig` to main PC:
    ```sh
-   scp <ip>:/home/clemens/.kube/config /var/home/clemens/.kube/config
+   scp <ip>:/home/clemens/.kube/config /home/clemens/.kube/config
    ```
 4. Edit the IP in the `kubeconfig` to match the server's IP.
 <!-- markdownlint-restore -->
@@ -115,13 +129,14 @@ ArgoCD needs to be setup manually:
    ```
 2. Create a secret with the age key:
    ```sh
-   kubectl -n argocd create secret generic && \
+   kubectl -n argocd create secret generic \
      argocd-age-key --from-literal keys.txt=AGE-SECRET-KEY-1234
    ```
 3. Use helm for the initial ArgoCD deployment:
    ```sh
    helm repo add argo-cd https://argoproj.github.io/argo-helm
-   helm install -n argocd argo-cd/argo-cd --values ./cluster/argocd/argocd/values.yaml
+   kns argocd
+   helm install argo-cd argo-cd/argo-cd --create-namespace --values ./cluster/argocd/argocd/values.yaml
    ```
 4. Wait until everything is healthy (should take max 2 minutes)
 5. Create all ArgoCD applications:
@@ -151,3 +166,4 @@ longhorn doesn't work with it out of the box. It is usable with these steps:
   `sudo docker save longhornio/longhorn-instance-manager-nix:v1.5.1 | sudo k3s ctr images import -`
 - the `kustomize.yaml` patches the upstream `longhorn.yaml` accordingly, and
   ArgoCD should deploy it successfully.
+- this needs to be done on every worker node
