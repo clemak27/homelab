@@ -13,9 +13,13 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: master
+        revision: feat/homelab-v7
         directories:
           - path: cluster/services/*
+          - path: cluster/services/gitea
+            exclude: true
+          - path: cluster/services/qobuz-dl
+            exclude: true
 
   template:
     metadata:
@@ -28,7 +32,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: master
+        targetRevision: feat/homelab-v7
         path: '{{path}}'
       destination:
         name: in-cluster

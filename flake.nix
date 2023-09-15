@@ -40,10 +40,10 @@
         ];
       };
 
-      nixosConfigurations.phobos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.ares = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
-          ./hosts/phobos/configuration.nix
+          ./hosts/ares/configuration.nix
         ];
       };
 

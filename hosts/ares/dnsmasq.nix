@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   dnsIP = "192.168.178.100";
-  lbIP = "192.168.178.142";
+  lbIP = "192.168.178.100";
 in
 {
   networking.firewall.enable = false;
@@ -18,14 +18,12 @@ in
 
   networking.extraHosts = ''
     ${lbIP} argocd.wallstreet30.cc
-    ${lbIP} deconz.wallstreet30.cc
     ${lbIP} filebrowser.wallstreet30.cc
     ${lbIP} gitea.wallstreet30.cc
     ${lbIP} grafana.wallstreet30.cc
     ${lbIP} home-assistant.wallstreet30.cc
     ${lbIP} jackett.wallstreet30.cc
     ${lbIP} jellyfin.wallstreet30.cc
-    ${lbIP} k3d.wallstreet30.cc
     ${lbIP} longhorn.wallstreet30.cc
     ${lbIP} miniflux.wallstreet30.cc
     ${lbIP} navidrome.wallstreet30.cc

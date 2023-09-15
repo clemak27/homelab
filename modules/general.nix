@@ -63,5 +63,7 @@
     cryptsetup
   ];
 
+  boot.kernelModules = [ "dm_crypt" ];
+
   programs.zsh.enable = true;
 }
