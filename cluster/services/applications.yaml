@@ -16,8 +16,9 @@ spec:
         revision: feat/homelab-v7
         directories:
           - path: cluster/services/*
-          - path: cluster/services/gitea
-            exclude: true
+          # - path: cluster/services/gitea
+          #   exclude: true
+          # TODO build for aarch64
           - path: cluster/services/qobuz-dl
             exclude: true
 

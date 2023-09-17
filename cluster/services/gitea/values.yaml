@@ -37,7 +37,9 @@ ingress:
       secretName: gitea-tls
 
 persistence:
-  existingClaim: "gitea-data"
+  enabled: true
+  claimName: "gitea-data"
+  volumeName: "gitea-data"
 
 gitea:
   config:
@@ -50,16 +52,16 @@ gitea:
   admin:
     existingSecret: gitea-admin
   additionalConfigFromEnvs:
-    - name: ENV_TO_INI__DATABASE__PASSWD
-      valueFrom:
-        secretKeyRef:
-          name: gitea-postgresql
-          key: postgresql-password
+    - name: GITEA__DATABASE__DB_TYPE
+      value: sqlite3
+    - name: GITEA__SESSION__PROVIDER
+      value: memory
+    - name: GITEA__CACHE__ADAPTER
+      value: memory
 
-# data-gitea-postgresql-0 10Gi
+redis-cluster:
+  enabled: false
 postgresql:
-  global:
-    postgresql:
-      postgresqlDatabase: gitea
-      postgresqlUsername: gitea
-      servicePort: 5432
+  enabled: false
+postgresql-ha:
+  enabled: false
