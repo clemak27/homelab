@@ -13,9 +13,9 @@ jobs:
       - name: Replace needed files
         run: |
           touch someFile && \
-          sed -i 's#builtins\.readFile .*#builtins\.readFile /home/runner/work/homelab/homelab/someFile;#g' hosts/nuke/wireguard.nix && \
-          sed -i 's#builtins\.readFile .*#builtins\.readFile /home/runner/work/homelab/homelab/someFile;#g' hosts/armadillo/wireguard.nix && \
-          sed -i 's#/home/clemens/homelab/hosts/nuke/secrets.yaml#/home/runner/work/homelab/homelab/someFile#g' hosts/nuke/sops.nix
+          sed -i 's#builtins\.readFile .*#builtins\.readFile /home/runner/work/homelab/homelab/someFile;#g' hosts/ares/wireguard.nix && \
+          sed -i 's#builtins\.readFile .*#builtins\.readFile /home/runner/work/homelab/homelab/someFile;#g' hosts/ares/wireguard.nix && \
+          sed -i 's#/home/clemens/homelab/hosts/ares/secrets.yaml#/home/runner/work/homelab/homelab/someFile#g' hosts/ares/sops.nix
       - name: Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Run Check
