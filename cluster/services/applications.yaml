@@ -18,8 +18,20 @@ spec:
           - path: cluster/services/*
           # - path: cluster/services/gitea
           #   exclude: true
+          - path: cluster/services/filebrowser
+            exclude: true
+          - path: cluster/services/jellyfin
+            exclude: true
           # TODO build for aarch64
           - path: cluster/services/qobuz-dl
+            exclude: true
+          - path: cluster/services/jackett
+            exclude: true
+          - path: cluster/services/radarr
+            exclude: true
+          - path: cluster/services/sonarr
+            exclude: true
+          - path: cluster/services/transmission
             exclude: true
 
   template:
