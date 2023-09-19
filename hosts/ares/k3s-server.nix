@@ -1,12 +1,18 @@
-{ config, pkgs, lib, ... }:
+{ lib, ... }:
 {
   networking.firewall.enable = false;
-  services.k3s.enable = true;
-  services.k3s.role = "server";
-  environment.systemPackages = [ pkgs.k3s_1_26 pkgs.openiscsi ];
 
-  services.openiscsi.enable = true;
-  services.openiscsi.name = "iqn.2020-08.org.linux-iscsi.initiatorhost:longhorn";
+  services.k3s = {
+    enable = true;
+    role = "server";
+    # TODO pin to 1.27 once available
+    # package = pkgs.k3s_1_26;
+  };
+
+  services.openiscsi = {
+    enable = true;
+    name = "iqn.2020-08.org.linux-iscsi.initiatorhost:longhorn";
+  };
 
   virtualisation.docker = {
     enable = true;
