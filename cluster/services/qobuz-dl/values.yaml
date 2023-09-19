@@ -1,7 +1,7 @@
 ---
 image:
   repository: registry.wallstreet30.cc/qobuz-dl
-  tag: 0.0.4
+  tag: latest
 
 podLabels:
   requires-nfs: "true"
