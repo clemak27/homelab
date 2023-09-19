@@ -56,6 +56,4 @@
           - "--api.insecure=true"
     EOF
   '';
-
-  systemd.services.k3s.path = [ pkgs.cryptsetup ];
 }
