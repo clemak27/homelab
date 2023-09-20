@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
 
     ./dnsmasq.nix
+    ./k3s-agent.nix
     ./sops.nix
     ./wireguard.nix
   ];
@@ -16,12 +17,13 @@
   boot.kernelPackages = pkgs.linuxPackages_rpi4;
   hardware.enableAllFirmware = true;
 
+  networking.hostName = "phobos";
+
+  system.stateVersion = "23.05";
+
   swapDevices = [{
     device = "/swapfile";
     size = 8 * 1024;
   }];
 
-  networking.hostName = "phobos";
-
-  system.stateVersion = "23.05";
 }
