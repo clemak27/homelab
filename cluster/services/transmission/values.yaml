@@ -6,6 +6,9 @@ image:
 podLabels:
   requires-nfs: "true"
 
+nodeSelector:
+  kubernetes.io/hostname: ares
+
 env:
   TZ: Europe/Vienna
   PUID: "1000"
