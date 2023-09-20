@@ -4,6 +4,9 @@
     ./hardware-configuration.nix
 
     ./nfs.nix
+
+    ./k3s-agent.nix
+    ./sops.nix
   ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
