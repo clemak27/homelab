@@ -12,6 +12,9 @@ env:
 # args:
 #   - "3000"
 
+nodeSelector:
+  kubernetes.io/hostname: ares
+
 service:
   main:
     enabled: true
