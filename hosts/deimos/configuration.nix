@@ -2,7 +2,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./mounts.nix
+
+    ./nfs.nix
   ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -16,4 +17,9 @@
   networking.hostName = "deimos";
 
   system.stateVersion = "23.05";
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 8 * 1024;
+  }];
 }
