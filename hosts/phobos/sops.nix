@@ -1,5 +1,5 @@
 {
-  sops.defaultSopsFile = /home/clemens/homelab/hosts/phobos/secrets.yaml;
+  sops.defaultSopsFile = ./secrets.yaml;
   sops.age.keyFile = "/home/clemens/key.txt";
   sops.age.generateKey = false;
 
