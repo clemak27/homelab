@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/transmission
-  tag: 4.0.3
+  tag: 4.0.4
 
 controllers:
   main:

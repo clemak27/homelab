@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/jackett
-  tag: 0.21.705
+  tag: 0.21.768
 
 controllers:
   main:
