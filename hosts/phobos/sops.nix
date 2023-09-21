@@ -8,10 +8,6 @@
   sops.secrets."wg/private_key" = { };
   sops.secrets."wg/enchilada/public_key" = { };
   sops.secrets."wg/enchilada/pre_shared_key" = { };
-  sops.secrets."wg/argentum/public_key" = { };
-  sops.secrets."wg/argentum/pre_shared_key" = { };
   sops.secrets."wg/silfur/public_key" = { };
   sops.secrets."wg/silfur/pre_shared_key" = { };
-  sops.secrets."wg/deck/public_key" = { };
-  sops.secrets."wg/deck/pre_shared_key" = { };
 }
