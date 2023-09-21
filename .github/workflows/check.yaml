@@ -13,7 +13,6 @@ jobs:
       - name: Replace needed files
         run: |
           touch someFile && \
-          sed -i 's#builtins\.readFile .*#builtins\.readFile /home/runner/work/homelab/homelab/someFile;#g' hosts/phobos/wireguard.nix && \
           sed -i 's#/home/clemens/homelab/hosts/deimos/secrets.yaml#/home/runner/work/homelab/homelab/someFile#g' hosts/deimos/sops.nix && \
           sed -i 's#/home/clemens/homelab/hosts/phobos/secrets.yaml#/home/runner/work/homelab/homelab/someFile#g' hosts/phobos/sops.nix
       - name: Cache
