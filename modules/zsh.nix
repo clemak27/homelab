@@ -15,13 +15,13 @@
     shellInit = builtins.concatStringsSep "\n" (
       [
         "PROMPT_EOL_MARK=\"\""
-        "export BROWSER=firefox"
         "export DIRENV_LOG_FORMAT=\"\""
         "export EDITOR=vim"
         "export PATH=$PATH:$HOME/.local/bin"
         "export VISUAL=vim"
         "unsetopt beep"
         "setopt HIST_SAVE_NO_DUPS"
+        "setopt HIST_IGNORE_SPACE"
         "bindkey -e"
       ]
     );
