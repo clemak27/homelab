@@ -16,18 +16,6 @@ spec:
         revision: feat/homelab-v7
         directories:
           - path: cluster/services/*
-          - path: cluster/services/filebrowser
-            exclude: true
-          - path: cluster/services/jellyfin
-            exclude: true
-          - path: cluster/services/jackett
-            exclude: true
-          - path: cluster/services/radarr
-            exclude: true
-          - path: cluster/services/sonarr
-            exclude: true
-          - path: cluster/services/transmission
-            exclude: true
 
   template:
     metadata:
