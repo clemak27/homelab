@@ -3,8 +3,10 @@ image:
   repository: docker.io/linuxserver/transmission
   tag: 4.0.3
 
-podLabels:
-  requires-nfs: "true"
+controllers:
+  main:
+    labels:
+      requires-nfs: "true"
 
 nodeSelector:
   kubernetes.io/hostname: ares
