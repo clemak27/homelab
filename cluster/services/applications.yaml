@@ -13,7 +13,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: feat/homelab-v7
+        revision: master
         directories:
           - path: cluster/services/*
 
@@ -28,7 +28,7 @@ spec:
           selfHeal: true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: feat/homelab-v7
+        targetRevision: master
         path: '{{path}}'
       destination:
         name: in-cluster
