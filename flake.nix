@@ -63,22 +63,16 @@
             nixpkgs-fmt.enable = true;
             actionlint.enable = true;
             yamllint.enable = true;
+            checkmake.enable = true;
           };
         };
       };
 
       devShells.x86_64-linux.default =
-        let
-          updateArgoCDApplications = legacyPkgs.writeShellScriptBin "update-argocd-applications" ''
-            find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
-          '';
-        in
         legacyPkgs.mkShell {
           inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
 
           packages = with legacyPkgs; [
-            updateArgoCDApplications
-
             argocd
             dnsutils
             kubectl
