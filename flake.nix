@@ -3,7 +3,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     sops-nix.url = "github:Mic92/sops-nix";
-    # flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
@@ -28,13 +27,6 @@
       ];
     in
     {
-      nixosConfigurations.nuke = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = defaultModules ++ [
-          ./hosts/nuke/configuration.nix
-        ];
-      };
-
       nixosConfigurations.ares = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
