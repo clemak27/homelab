@@ -6,11 +6,6 @@
     # options = [ "subvol=archive" ];
   };
 
-  # nfs bind-mounts
-  fileSystems."/var/nfs/archive" = {
-    device = "/var/mnt/hdd/archive";
-    options = [ "bind" ];
-  };
   fileSystems."/var/nfs/media" = {
     device = "/var/mnt/hdd/media";
     options = [ "bind" ];
@@ -26,7 +21,6 @@
     enable = true;
     exports = ''
       /var/nfs                *(rw,fsid=0,no_subtree_check)
-      /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/backups        *(rw,no_root_squash,sync)
     '';
