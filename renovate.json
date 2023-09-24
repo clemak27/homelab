@@ -12,5 +12,11 @@
   "ignorePaths": [
     "cluster/monitoring"
   ],
-  "commitMessageAction": "update"
+  "commitMessageAction": "update",
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["docker.io/linuxserver/transmission"],
+      "matchCurrentVersion": "!/^2021\\./"
+    }
+  ]
 }
