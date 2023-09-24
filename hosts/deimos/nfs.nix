@@ -15,10 +15,6 @@
     device = "/var/mnt/hdd/media";
     options = [ "bind" ];
   };
-  fileSystems."/var/nfs/emulation" = {
-    device = "/var/mnt/hdd/emulation";
-    options = [ "bind" ];
-  };
   fileSystems."/var/nfs/backups" = {
     device = "/var/mnt/hdd/backups";
     options = [ "bind" ];
@@ -32,7 +28,6 @@
       /var/nfs                *(rw,fsid=0,no_subtree_check)
       /var/nfs/archive        *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
-      /var/nfs/emulation      *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/backups        *(rw,no_root_squash,sync)
     '';
   };

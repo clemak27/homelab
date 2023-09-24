@@ -57,9 +57,3 @@ persistence:
     server: 192.168.178.101
     path: /media
     mountPath: /data/media
-  emulation:
-    enabled: true
-    type: nfs
-    server: 192.168.178.101
-    path: /emulation
-    mountPath: /data/emulation
