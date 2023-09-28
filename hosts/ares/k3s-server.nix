@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   networking.firewall.enable = false;
 
@@ -6,7 +6,7 @@
     enable = true;
     role = "server";
     # TODO pin to 1.27 once available
-    # package = pkgs.k3s_1_26;
+    package = (pkgs.k3s.overrideAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.cryptsetup ]; }));
   };
 
   services.openiscsi = {
