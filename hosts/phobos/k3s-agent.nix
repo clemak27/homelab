@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
   networking.firewall.enable = false;
 
@@ -6,7 +6,7 @@
     enable = true;
     role = "agent";
     # TODO pin to 1.27 once available
-    # package = pkgs.k3s_1_26;
+    package = (pkgs.k3s.overrideAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.cryptsetup ]; }));
     tokenFile = config.sops.secrets."k3s_agent_token".path;
     serverAddr = "https://192.168.178.100:6443";
   };
