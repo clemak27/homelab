@@ -16,7 +16,7 @@
   "packageRules": [
     {
       "matchPackagePatterns": ["docker.io/linuxserver/transmission"],
-      "matchCurrentVersion": "!/^2021\\./"
+      "allowedVersions": "< 2021"
     }
   ]
 }
