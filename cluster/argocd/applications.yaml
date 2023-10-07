@@ -1,9 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: argocd
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -15,6 +10,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
   source:
     repoURL: https://github.com/clemak27/homelab
     targetRevision: master
