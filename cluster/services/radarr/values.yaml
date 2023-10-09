@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/linuxserver/radarr
-  tag: 4.7.5
+  tag: 5.0.3
 
 controllers:
   main:
