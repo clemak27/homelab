@@ -4,6 +4,9 @@ kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/longhorn/longhorn/v1.5.1/deploy/longhorn.yaml
   - frontend-ingress.yaml
+  - encryption.yaml
+generators:
+  - ./ksops-generator.yaml
 patchesJSON6902:
   - target:
       group: apps
