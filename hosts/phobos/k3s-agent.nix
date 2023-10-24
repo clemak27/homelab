@@ -33,4 +33,8 @@
     "fs.inotify.max_user_instances" = "1048576";
     "fs.inotify.max_user_watches" = "1048576"; # 128 times the default 8192
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+  ];
 }
