@@ -20,9 +20,6 @@ service:
       http:
         primary: true
         port: 1883
-      # mqtt:
-      #   enabled: true
-      #   port: 1883
 
 probes:
   liveness:
