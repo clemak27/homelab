@@ -70,6 +70,7 @@
             kubectl
             kubernetes-helm
             kustomize
+            pv-migrate
             sops
           ];
 
