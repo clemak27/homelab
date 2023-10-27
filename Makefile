@@ -14,10 +14,7 @@ update-argocd-applications:
 
 .PHONY: update-flake
 update-flake:
-	nix flake update
-	git add flake.lock
-	git commit -m 'chore: update flake'
-	git push
+	nix flake update --commit-lock-file  --option commit-lockfile-summary "chore: update flake"
 
 .PHONY: build
 build:
