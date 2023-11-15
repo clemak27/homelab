@@ -1,7 +1,7 @@
 ---
 image:
   repository: docker.io/syncthing/syncthing
-  tag: 1.25.0
+  tag: 1.26.1
 
 env:
   TZ: Europe/Vienna
