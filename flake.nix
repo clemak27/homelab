@@ -72,6 +72,7 @@
             kustomize
             pv-migrate
             sops
+            nixos-rebuild
           ];
 
           KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
