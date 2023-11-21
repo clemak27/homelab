@@ -24,7 +24,7 @@ build:
 
 .PHONY: deploy/ares
 deploy/ares:
-	sudo nixos-rebuild --impure --flake .#ares --target-host clemens@192.168.178.100 boot
+	nixos-rebuild --use-remote-sudo --impure --flake .#ares --target-host clemens@192.168.178.100 boot
 	kubectl cordon ares
 	ssh clemens@192.168.178.100 -C sudo shutdown -r 0
 	sleep 5
@@ -34,7 +34,7 @@ deploy/ares:
 
 .PHONY: deploy/deimos
 deploy/deimos:
-	sudo nixos-rebuild --impure --flake .#deimos --target-host clemens@192.168.178.101 boot
+	nixos-rebuild --use-remote-sudo --impure --flake .#deimos --target-host clemens@192.168.178.101 boot
 	kubectl drain deimos --ignore-daemonsets --delete-emptydir-data
 	ssh clemens@192.168.178.101 -C sudo shutdown -r 0
 	sleep 5
@@ -44,7 +44,7 @@ deploy/deimos:
 
 .PHONY: deploy/phobos
 deploy/phobos:
-	sudo nixos-rebuild --impure --flake .#phobos --target-host clemens@192.168.178.102 boot
+	nixos-rebuild --use-remote-sudo --impure --flake .#phobos --target-host clemens@192.168.178.102 boot
 	kubectl drain phobos --ignore-daemonsets --delete-emptydir-data
 	ssh clemens@192.168.178.102 -C sudo shutdown -r 0
 	sleep 5
