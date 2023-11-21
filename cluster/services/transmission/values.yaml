@@ -1,21 +1,25 @@
 ---
-image:
-  repository: docker.io/linuxserver/transmission
-  tag: 4.0.4
-
 controllers:
   main:
-    labels:
-      requires-nfs: "true"
+    containers:
+      main:
+        image:
+          repository: docker.io/linuxserver/transmission
+          tag: 4.0.4
+        env:
+          TZ: Europe/Vienna
+          PUID: "1000"
+          PGID: "1000"
+          PEER_PORT: "32767"
 
-nodeSelector:
-  kubernetes.io/hostname: ares
-
-env:
-  TZ: Europe/Vienna
-  PUID: "1000"
-  PGID: "1000"
-  PEER_PORT: "32767"
+defaultPodOptions:
+  nodeSelector:
+    kubernetes.io/hostname: ares
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+  labels:
+    requires-nfs: "true"
 
 service:
   main:
@@ -25,6 +29,7 @@ service:
         primary: true
         port: 9091
   bt:
+    controller: main
     type: NodePort
     ports:
       tcp:
@@ -51,14 +56,12 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - transmission.wallstreet30.cc
         secretName: transmission-tls
-
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
 
 persistence:
   config:
@@ -69,4 +72,6 @@ persistence:
     type: nfs
     server: 192.168.178.101
     path: /media/torrents
-    mountPath: /downloads
+    globalMounts:
+      - path: /downloads
+        readOnly: false
