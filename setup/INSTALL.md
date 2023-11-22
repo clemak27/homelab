@@ -149,21 +149,3 @@ ArgoCD needs to be setup manually:
    kubectl delete -n argocd secrets argocd-initial-admin-secret
    ```
 7. You should now be able to log in to ArgoCD.
-
-<!-- markdownlint-restore -->
-
-### longhorn
-
-All of my hosts use NixOS as OS. Since Nix does not adhere to the FSH standard,
-longhorn doesn't work with it out of the box. It is usable with these steps:
-
-- ssh to the host where it should run
-- `cd` into `cluster/longhorn-system/longhorn`
-- build the adapted image using the Dockerfile:
-  `sudo docker build -t longhornio/longhorn-instance-manager-nix:v1.5.1 .`
-- export the image to the internal registry of k3s:
-  <!-- markdownlint-disable-next-line MD013 -->
-  `sudo docker save longhornio/longhorn-instance-manager-nix:v1.5.1 | sudo k3s ctr images import -`
-- the `kustomize.yaml` patches the upstream `longhorn.yaml` accordingly, and
-  ArgoCD should deploy it successfully.
-- this needs to be done on every worker node
