@@ -1,20 +1,28 @@
 ---
-image:
-  repository: docker.io/vaultwarden/server
-  tag: 1.30.1
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/vaultwarden/server
+          tag: 1.30.1
+        env:
+          TZ: Europe/Vienna
+          YUBICO_CLIENT_ID:
+            valueFrom:
+              secretKeyRef:
+                name: vaultwarden-yubico
+                key: yubico_client_id
+          YUBICO_SECRET_KEY:
+            valueFrom:
+              secretKeyRef:
+                name: vaultwarden-yubico
+                key: yubico_secret_key
 
-env:
-  TZ: Europe/Vienna
-  YUBICO_CLIENT_ID:
-    valueFrom:
-      secretKeyRef:
-        name: vaultwarden-yubico
-        key: yubico_client_id
-  YUBICO_SECRET_KEY:
-    valueFrom:
-      secretKeyRef:
-        name: vaultwarden-yubico
-        key: yubico_secret_key
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
@@ -39,17 +47,17 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - vaultwarden.wallstreet30.cc
         secretName: vaultwarden-tls
 
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
-
 persistence:
   config:
     enabled: true
     existingClaim: vaultwarden-config
-    mountPath: /data
+    globalMounts:
+      - path: /data
+        readOnly: false
