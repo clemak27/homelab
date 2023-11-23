@@ -1,17 +1,25 @@
 ---
-image:
-  repository: docker.io/eclipse-mosquitto
-  tag: 2.0.15
-
-command:
-  - mosquitto
-
-args:
-  - -c
-  - /mosquitto-no-auth.conf
-
-env:
-  TZ: Europe/Vienna
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/eclipse-mosquitto
+          tag: 2.0.15
+        command:
+          - mosquitto
+        args:
+          - -c
+          - /mosquitto-no-auth.conf
+        env:
+          TZ: Europe/Vienna
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
 
 service:
   main:
@@ -21,17 +29,11 @@ service:
         primary: true
         port: 1883
 
-probes:
-  liveness:
-    enabled: false
-  readiness:
-    enabled: false
-  startup:
-    enabled: false
 
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 persistence:
   config:
