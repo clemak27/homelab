@@ -1,19 +1,22 @@
 ---
-image:
-  repository: docker.io/koenkk/zigbee2mqtt
-  tag: 1.30.4
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/koenkk/zigbee2mqtt
+          tag: 1.30.4
+        env:
+          TZ: Europe/Vienna
+        securityContext:
+          privileged: true
 
-env:
-  TZ: Europe/Vienna
-
-# command:
-#   - sleep
-
-# args:
-#   - "3000"
-
-nodeSelector:
-  kubernetes.io/hostname: ares
+defaultPodOptions:
+  nodeSelector:
+    kubernetes.io/hostname: ares
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
@@ -36,21 +39,17 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - zigbee2mqtt.wallstreet30.cc
         secretName: zigbee2mqtt-tls
 
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
-
 persistence:
   config:
     enabled: true
-    mountPath: /app/data
     existingClaim: zigbee2mqtt-config
-
-# https://stackoverflow.com/a/59291859/19520885
-securityContext:
-  privileged: true
+    globalMounts:
+      - path: /app/data
+        readOnly: false
