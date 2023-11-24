@@ -1,12 +1,20 @@
 ---
-image:
-  repository: docker.io/registry
-  tag: "2"
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/registry
+          tag: "2"
+        env:
+          TZ: Europe/Vienna
+          REGISTRY_HTTP_ADDR: :5000
+          REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
 
-env:
-  TZ: Europe/Vienna
-  REGISTRY_HTTP_ADDR: :5000
-  REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+defaultPodOptions:
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
@@ -28,17 +36,17 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - registry.wallstreet30.cc
         secretName: registry-tls
 
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
-
 persistence:
   data:
     enabled: true
     existingClaim: registry-data
-    mountPath: /var/lib/registry
+    globalMounts:
+      - path: /var/lib/registry
+        readOnly: false
