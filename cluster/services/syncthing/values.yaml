@@ -1,10 +1,18 @@
 ---
-image:
-  repository: docker.io/syncthing/syncthing
-  tag: 1.26.1
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/syncthing/syncthing
+          tag: 1.26.1
+        env:
+          TZ: Europe/Vienna
 
-env:
-  TZ: Europe/Vienna
+defaultPodOptions:
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
@@ -26,21 +34,23 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - syncthing.wallstreet30.cc
         secretName: syncthing-tls
 
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
-
 persistence:
   config:
     enabled: true
     existingClaim: syncthing-config
-    mountPath: /var/syncthing
+    globalMounts:
+      - path: /var/syncthing
+        readOnly: false
   data:
     enabled: true
     existingClaim: syncthing-data
-    mountPath: /data
+    globalMounts:
+      - path: /data
+        readOnly: false
