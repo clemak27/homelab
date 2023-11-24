@@ -1,25 +1,28 @@
 ---
-image:
-  repository: docker.io/vabene1111/recipes
-  tag: 1.4.8
-
-env:
-  TZ: Europe/Vienna
-  DB_ENGINE: "django.db.backends.postgresql"
-  POSTGRES_DB: recipies
-  POSTGRES_USER: r3c1p1e5
-  POSTGRES_PORT: "5432"
-  POSTGRES_HOST: recipes-db-postgresql
-  SECRET_KEY:
-    valueFrom:
-      secretKeyRef:
-        name: recipes-db-connection
-        key: secret_key
-  POSTGRES_PASSWORD:
-    valueFrom:
-      secretKeyRef:
-        name: recipes-db-connection
-        key: postgres_password
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/vabene1111/recipes
+          tag: 1.4.8
+        env:
+          TZ: Europe/Vienna
+          DB_ENGINE: "django.db.backends.postgresql"
+          POSTGRES_DB: recipies
+          POSTGRES_USER: r3c1p1e5
+          POSTGRES_PORT: "5432"
+          POSTGRES_HOST: recipes-db-postgresql
+          SECRET_KEY:
+            valueFrom:
+              secretKeyRef:
+                name: recipes-db-connection
+                key: secret_key
+          POSTGRES_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: recipes-db-connection
+                key: postgres_password
 
 service:
   main:
@@ -41,6 +44,8 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - recipes.wallstreet30.cc
