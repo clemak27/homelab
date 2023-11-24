@@ -1,20 +1,23 @@
 ---
-image:
-  repository: docker.io/miniflux/miniflux
-  tag: 2.0.43
-
-env:
-  TZ: Europe/Vienna
-  RUN_MIGRATIONS: "1"
-  BASE_URL: "https://miniflux.wallstreet30.cc"
-  LISTEN_ADDR: "0.0.0.0:8080"
-  POLLING_FREQUENCY: "15"
-  BATCH_SIZE: "50"
-  DATABASE_URL:
-    valueFrom:
-      secretKeyRef:
-        name: miniflux-db-url
-        key: db_url
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/miniflux/miniflux
+          tag: 2.0.43
+        env:
+          TZ: Europe/Vienna
+          RUN_MIGRATIONS: "1"
+          BASE_URL: "https://miniflux.wallstreet30.cc"
+          LISTEN_ADDR: "0.0.0.0:8080"
+          POLLING_FREQUENCY: "15"
+          BATCH_SIZE: "50"
+          DATABASE_URL:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-db-url
+                key: db_url
 
 service:
   main:
@@ -36,6 +39,8 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - miniflux.wallstreet30.cc
