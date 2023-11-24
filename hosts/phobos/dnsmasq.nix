@@ -17,6 +17,10 @@ in
   };
 
   networking.extraHosts = ''
+    192.168.178.100 ares
+    192.168.178.101 deimos
+    192.168.178.102 phobos
+
     ${lbIP} argocd.wallstreet30.cc
     ${lbIP} longhorn.wallstreet30.cc
     ${lbIP} registry.wallstreet30.cc
