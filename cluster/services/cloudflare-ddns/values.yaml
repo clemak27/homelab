@@ -1,20 +1,23 @@
 ---
-image:
-  repository: docker.io/oznu/cloudflare-ddns
-  tag: latest
-
-env:
-  TZ: Europe/Vienna
-  API_KEY:
-    valueFrom:
-      secretKeyRef:
-        name: cloudflare-api
-        key: api-key
-  ZONE:
-    valueFrom:
-      secretKeyRef:
-        name: cloudflare-api
-        key: zone
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/oznu/cloudflare-ddns
+          tag: latest
+        env:
+          TZ: Europe/Vienna
+          API_KEY:
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare-api
+                key: api-key
+          ZONE:
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare-api
+                key: zone
 
 service:
   main:
