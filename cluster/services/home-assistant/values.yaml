@@ -1,10 +1,18 @@
 ---
-image:
-  repository: docker.io/homeassistant/home-assistant
-  tag: "2023.11"
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/homeassistant/home-assistant
+          tag: "2023.11"
+        env:
+          TZ: Europe/Vienna
 
-env:
-  TZ: Europe/Vienna
+defaultPodOptions:
+  podSecurityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
@@ -26,14 +34,12 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
     tls:
       - hosts:
           - home-assistant.wallstreet30.cc
         secretName: home-assistant-tls
-
-podSecurityContext:
-  fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
 
 persistence:
   config:
