@@ -1,19 +1,19 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, sops-nix, pre-commit-hooks }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, sops-nix, pre-commit-hooks }:
     let
       legacyPkgs = nixpkgs.legacyPackages.x86_64-linux;
-      overlay-stable = final: prev: {
-        stable = nixpkgs-stable.legacyPackages.x86_64-linux;
+      overlay-unstable = final: prev: {
+        unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
       };
       nixModule = ({ config, pkgs, ... }: {
-        nixpkgs.overlays = [ overlay-stable ];
+        nixpkgs.overlays = [ overlay-unstable ];
         nix.registry.nixpkgs.flake = self.inputs.nixpkgs;
         nixpkgs.config = {
           allowUnfree = true;
