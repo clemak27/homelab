@@ -32,7 +32,6 @@ in
     ${lbIP} jackett.wallstreet30.cc
     ${lbIP} jellyfin.wallstreet30.cc
     ${lbIP} miniflux.wallstreet30.cc
-    ${lbIP} navidrome.wallstreet30.cc
     ${lbIP} qobuz-dl.wallstreet30.cc
     ${lbIP} radarr.wallstreet30.cc
     ${lbIP} recipes.wallstreet30.cc
