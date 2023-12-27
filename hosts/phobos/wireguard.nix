@@ -38,6 +38,12 @@
           presharedKeyFile = "${config.sops.secrets."wg/silfur/pre_shared_key".path}";
           allowedIPs = [ "10.6.0.4/32" ];
         }
+        {
+          # deck
+          publicKey = "m/I4FN9oYtJFS5NPTT+VjHnCEy0uSBIG6Pg1JvjF23g=";
+          presharedKeyFile = "${config.sops.secrets."wg/deck/pre_shared_key".path}";
+          allowedIPs = [ "10.6.0.4/32" ];
+        }
       ];
     };
   };
