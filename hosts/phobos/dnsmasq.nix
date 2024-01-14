@@ -1,4 +1,3 @@
-{ config, pkgs, ... }:
 let
   dnsIP = "192.168.178.102";
   lbIP = "192.168.178.100";
@@ -34,6 +33,7 @@ in
     ${lbIP} miniflux.wallstreet30.cc
     ${lbIP} qobuz-dl.wallstreet30.cc
     ${lbIP} radarr.wallstreet30.cc
+    ${lbIP} readarr.wallstreet30.cc
     ${lbIP} recipes.wallstreet30.cc
     ${lbIP} sonarr.wallstreet30.cc
     ${lbIP} syncthing.wallstreet30.cc
