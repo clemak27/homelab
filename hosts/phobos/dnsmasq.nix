@@ -25,6 +25,7 @@ in
     ${lbIP} registry.wallstreet30.cc
     ${lbIP} traefik.wallstreet30.cc
 
+    ${lbIP} calibre.wallstreet30.cc
     ${lbIP} filebrowser.wallstreet30.cc
     ${lbIP} gitea.wallstreet30.cc
     ${lbIP} home-assistant.wallstreet30.cc
