@@ -23,9 +23,21 @@ service:
     type: ClusterIP
     ports:
       http:
+        primary: true
         port: 8080
+      # content server
       remote:
         port: 8081
+  # wireless device connection
+  device:
+    controller: main
+    type: NodePort
+    ports:
+      tcp:
+        enabled: true
+        protocol: TCP
+        port: 32700
+        nodePort: 32700
 
 ingress:
   main:
