@@ -2,7 +2,8 @@
 
 This repo the setup for my homelab.
 
-It currently consists of a small cluster running NixOS, with k3s to deploy containers.
+It currently consists of a small cluster running NixOS, with k3s to deploy
+containers.
 
 ## Structure
 
@@ -17,11 +18,11 @@ It currently consists of a small cluster running NixOS, with k3s to deploy conta
 
 ## Hardware
 
-| hostname  | hardware               |
-|---------- | ---------------------- |
-| ares      | Pine64 RockPro64       |
-| phobos    | Raspberry Pi 4 Model B |
-| deimos    | Raspberry Pi 4 Model B |
+| hostname | hardware               |
+| -------- | ---------------------- |
+| theia    | Pine64 RockPro64       |
+| phobos   | Raspberry Pi 4 Model B |
+| deimos   | Raspberry Pi 4 Model B |
 
 ## Software
 

@@ -1,6 +1,6 @@
 let
   dnsIP = "192.168.178.102";
-  lbIP = "192.168.178.100";
+  lbIP = "192.168.178.169";
 in
 {
   networking.firewall.enable = false;
@@ -16,7 +16,7 @@ in
   };
 
   networking.extraHosts = ''
-    192.168.178.100 ares
+    192.168.178.169 theia
     192.168.178.101 deimos
     192.168.178.102 phobos
 

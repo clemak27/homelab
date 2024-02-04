@@ -8,7 +8,7 @@
     # TODO pin to 1.27 once available
     package = (pkgs.k3s.overrideAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.cryptsetup ]; }));
     tokenFile = config.sops.secrets."k3s_agent_token".path;
-    serverAddr = "https://192.168.178.100:6443";
+    serverAddr = "https://192.168.178.169:6443";
   };
 
   services.openiscsi = {
