@@ -27,10 +27,10 @@
       ];
     in
     {
-      nixosConfigurations.ares = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.theia = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
-          ./hosts/ares/configuration.nix
+          ./hosts/theia/configuration.nix
         ];
       };
 

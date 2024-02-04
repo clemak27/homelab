@@ -15,7 +15,7 @@
   boot.kernelPackages = pkgs.linuxPackages_5_10;
   hardware.enableAllFirmware = true;
 
-  networking.hostName = "ares";
+  networking.hostName = "theia";
 
   system.stateVersion = "23.05";
 

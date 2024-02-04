@@ -13,7 +13,7 @@ controllers:
 
 defaultPodOptions:
   nodeSelector:
-    kubernetes.io/hostname: ares
+    kubernetes.io/hostname: theia
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch

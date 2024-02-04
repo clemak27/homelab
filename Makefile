@@ -27,19 +27,19 @@ unmount_nfs:
 
 .PHONY: build
 build:
-	nixos-rebuild --impure --flake .#ares build
+	nixos-rebuild --impure --flake .#theia build
 	nixos-rebuild --impure --flake .#deimos build
 	nixos-rebuild --impure --flake .#phobos build
 
-.PHONY: deploy/ares
-deploy/ares:
-	nixos-rebuild --use-remote-sudo --impure --flake .#ares --target-host clemens@192.168.178.100 boot
-	kubectl cordon ares
-	ssh clemens@192.168.178.100 -C sudo shutdown -r 0
+.PHONY: deploy/theia
+deploy/theia:
+	nixos-rebuild --use-remote-sudo --impure --flake .#theia --target-host clemens@192.168.178.169 boot
+	kubectl cordon theia
+	ssh clemens@192.168.178.169 -C sudo shutdown -r 0
 	sleep 5
-	while ! ssh clemens@192.168.178.100 -C exit 0 &> /dev/null; do sleep 5; done;
-	ssh clemens@192.168.178.100 -C sudo nix-collect-garbage
-	kubectl uncordon ares
+	while ! ssh clemens@192.168.178.169 -C exit 0 &> /dev/null; do sleep 5; done;
+	ssh clemens@192.168.178.169 -C sudo nix-collect-garbage
+	kubectl uncordon theia
 
 .PHONY: deploy/deimos
 deploy/deimos:
