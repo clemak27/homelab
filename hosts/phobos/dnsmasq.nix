@@ -17,6 +17,7 @@ in
 
   networking.extraHosts = ''
     192.168.178.169 theia
+    192.168.178.100 mars
     192.168.178.101 deimos
     192.168.178.102 phobos
 

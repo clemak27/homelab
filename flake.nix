@@ -27,6 +27,13 @@
       ];
     in
     {
+      nixosConfigurations.mars = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = defaultModules ++ [
+          ./hosts/mars/configuration.nix
+        ];
+      };
+
       nixosConfigurations.theia = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
