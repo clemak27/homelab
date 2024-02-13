@@ -7,7 +7,6 @@
     role = "server";
     # TODO pin to 1.27 once available
     package = (pkgs.k3s.overrideAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.cryptsetup ]; }));
-    serverAddr = "https://192.168.178.169:6443";
   };
 
   services.openiscsi = {
