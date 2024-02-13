@@ -4,7 +4,6 @@
 
 ### aarch64-linux
 
-<!-- markdownlint-disable-next-line -->
 #### Preparation
 
 - have a big enough microSD card (32 GB+)
@@ -136,14 +135,19 @@ ArgoCD needs to be setup manually:
    ```sh
    helm repo add argo-cd https://argoproj.github.io/argo-helm
    kns argocd
-   helm install argo-cd argo-cd/argo-cd --create-namespace --values ./cluster/argocd/argocd/values.yaml
+   helm install argo-cd argo-cd/argo-cd --values ./cluster/argocd/argocd/values.yaml
    ```
 4. Wait until everything is healthy (should take max 2 minutes)
 5. Create the ArgoCD application properly:
    <!-- markdownlint-disable-next-line -->
+
    ```sh
    kubectl -n argocd apply -f cluster/argocd/applications.yaml
    ```
+
+   **Note:** It might be needed to add the kustomization-config to the
+   configmap.
+
 6. Delete the initial admin-secret:
    ```sh
    kubectl delete -n argocd secrets argocd-initial-admin-secret

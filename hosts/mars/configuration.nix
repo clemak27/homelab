@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
 
     ./discs.nix
-    # ./k3s-server.nix
+    ./k3s-server.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
