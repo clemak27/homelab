@@ -14,7 +14,7 @@ spec:
       - CreateNamespace=true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: master
+    targetRevision: feat/deploy-k3s-mars
     path: cluster/registry/registry
   destination:
     name: in-cluster

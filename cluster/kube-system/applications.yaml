@@ -12,7 +12,7 @@ spec:
       selfHeal: true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: master
+    targetRevision: feat/deploy-k3s-mars
     path: cluster/kube-system/traefik-dashboard
   destination:
     name: in-cluster
