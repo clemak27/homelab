@@ -1,6 +1,6 @@
 let
   dnsIP = "192.168.178.102";
-  lbIP = "192.168.178.169";
+  lbIP = "192.168.178.100";
 in
 {
   networking.firewall.enable = false;
