@@ -1,4 +1,11 @@
 {
+  # mc-00
+  fileSystems."/var/mnt/longhorn" = {
+    device = "/dev/disk/by-uuid/abceab0b-104d-4706-9822-243379023ecc";
+    fsType = "btrfs";
+    options = [ "subvol=longhorn" ];
+  };
+
   # mc-01
   fileSystems."/var/mnt/media" = {
     device = "/dev/disk/by-uuid/b2c20ad4-3a1a-4656-abea-d9f774170726";
