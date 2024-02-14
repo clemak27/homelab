@@ -14,7 +14,7 @@ controllers:
 
 defaultPodOptions:
   nodeSelector:
-    kubernetes.io/hostname: theia
+    kubernetes.io/hostname: mars
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
