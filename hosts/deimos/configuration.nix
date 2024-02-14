@@ -5,7 +5,7 @@
 
     ./nfs.nix
 
-    ./k3s-agent.nix
+    # ./k3s-agent.nix
     ./sops.nix
   ];
 
