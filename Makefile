@@ -42,20 +42,16 @@ deploy/mars:
 .PHONY: deploy/deimos
 deploy/deimos:
 	nixos-rebuild --use-remote-sudo --impure --flake .#deimos --target-host clemens@192.168.178.101 boot
-	kubectl drain deimos --ignore-daemonsets --delete-emptydir-data
 	ssh clemens@192.168.178.101 -C sudo shutdown -r 0
 	sleep 5
 	while ! ssh clemens@192.168.178.101 -C exit 0 &> /dev/null; do sleep 5; done;
 	ssh clemens@192.168.178.101 -C sudo nix-collect-garbage
-	kubectl uncordon deimos
 
 .PHONY: deploy/phobos
 deploy/phobos:
 	nixos-rebuild --use-remote-sudo --impure --flake .#phobos --target-host clemens@192.168.178.102 boot
-	kubectl drain phobos --ignore-daemonsets --delete-emptydir-data
 	ssh clemens@192.168.178.102 -C sudo shutdown -r 0
 	sleep 5
 	while ! ssh clemens@192.168.178.102 -C exit 0 &> /dev/null; do sleep 5; done;
 	ssh clemens@192.168.178.102 -C sudo nix-collect-garbage
 	sleep 5
-	kubectl uncordon phobos
