@@ -12,11 +12,6 @@
     fsType = "btrfs";
     options = [ "subvol=media" ];
   };
-  fileSystems."/var/mnt/longhorn-hdd" = {
-    device = "/dev/disk/by-uuid/b2c20ad4-3a1a-4656-abea-d9f774170726";
-    fsType = "btrfs";
-    options = [ "subvol=longhorn" ];
-  };
 
   # mc-02
   fileSystems."/var/mnt/backups" = {
