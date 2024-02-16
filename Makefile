@@ -19,7 +19,7 @@ update-flake:
 .PHONY: mount_nfs
 mount_nfs:
 	mkdir -p $$HOME/nfs/media
-	sudo mount -t nfs 192.168.178.101:/media $$HOME/nfs/media
+	sudo mount -t nfs 192.168.178.100:/media $$HOME/nfs/media
 
 .PHONY: unmount_nfs
 unmount_nfs:
