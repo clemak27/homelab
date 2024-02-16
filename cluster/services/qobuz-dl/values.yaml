@@ -47,7 +47,7 @@ persistence:
   media:
     enabled: true
     type: nfs
-    server: 192.168.178.101
+    server: 192.168.178.100
     path: /media/music
     globalMounts:
       - path: /app/music

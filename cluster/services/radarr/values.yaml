@@ -52,7 +52,7 @@ persistence:
   downloads:
     enabled: true
     type: nfs
-    server: 192.168.178.101
+    server: 192.168.178.100
     path: /media/torrents
     globalMounts:
       - path: /downloads
@@ -60,7 +60,7 @@ persistence:
   movies:
     enabled: true
     type: nfs
-    server: 192.168.178.101
+    server: 192.168.178.100
     path: /media/movies
     globalMounts:
       - path: /downloads/movies
