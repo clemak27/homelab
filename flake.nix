@@ -34,13 +34,6 @@
         ];
       };
 
-      nixosConfigurations.deimos = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = defaultModules ++ [
-          ./hosts/deimos/configuration.nix
-        ];
-      };
-
       nixosConfigurations.phobos = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = defaultModules ++ [
