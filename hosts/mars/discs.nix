@@ -21,18 +21,22 @@
   };
 
   # nfs
-  # fileSystems."/var/nfs/media" = {
-  #   device = "/var/mnt/hdd/media";
-  #   options = [ "bind" ];
-  # };
+  fileSystems."/var/nfs/media" = {
+    device = "/var/mnt/media";
+    options = [ "bind" ];
+  };
+  fileSystems."/var/nfs/backups" = {
+    device = "/var/mnt/backups";
+    options = [ "bind" ];
+  };
 
-  # networking.firewall.enable = false;
-  # services.nfs.server = {
-  #   enable = true;
-  #   exports = ''
-  #     /var/nfs                *(rw,fsid=0,no_subtree_check)
-  #     /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
-  #     /var/nfs/backups        *(rw,no_root_squash,sync)
-  #   '';
-  # };
+  networking.firewall.enable = false;
+  services.nfs.server = {
+    enable = true;
+    exports = ''
+      /var/nfs                *(rw,fsid=0,no_subtree_check)
+      /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
+      /var/nfs/backups        *(rw,no_root_squash,sync)
+    '';
+  };
 }
