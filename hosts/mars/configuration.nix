@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
 
     ./discs.nix
+    ./dnsmasq.nix
     ./k3s-server.nix
   ];
 
