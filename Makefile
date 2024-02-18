@@ -28,7 +28,6 @@ unmount_nfs:
 .PHONY: build
 build:
 	nixos-rebuild --impure --flake .#mars build
-	nixos-rebuild --impure --flake .#phobos build
 
 .PHONY: deploy/mars
 deploy/mars:
@@ -37,12 +36,3 @@ deploy/mars:
 	sleep 5
 	while ! ssh clemens@192.168.178.100 -C exit 0 &> /dev/null; do sleep 5; done;
 	ssh clemens@192.168.178.100 -C sudo nix-collect-garbage
-
-.PHONY: deploy/phobos
-deploy/phobos:
-	nixos-rebuild --use-remote-sudo --impure --flake .#phobos --target-host clemens@192.168.178.102 boot
-	ssh clemens@192.168.178.102 -C sudo shutdown -r 0
-	sleep 5
-	while ! ssh clemens@192.168.178.102 -C exit 0 &> /dev/null; do sleep 5; done;
-	ssh clemens@192.168.178.102 -C sudo nix-collect-garbage
-	sleep 5
