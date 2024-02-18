@@ -34,13 +34,6 @@
         ];
       };
 
-      nixosConfigurations.phobos = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = defaultModules ++ [
-          ./hosts/phobos/configuration.nix
-        ];
-      };
-
       checks.x86_64-linux = {
         pre-commit-check = pre-commit-hooks.lib.x86_64-linux.run {
           src = ./.;

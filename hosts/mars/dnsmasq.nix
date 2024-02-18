@@ -17,7 +17,6 @@ in
 
   networking.extraHosts = ''
     192.168.178.100 mars
-    192.168.178.102 phobos
 
     ${lbIP} argocd.wallstreet30.cc
     ${lbIP} longhorn.wallstreet30.cc
