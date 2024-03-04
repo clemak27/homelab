@@ -31,8 +31,10 @@ build:
 
 .PHONY: deploy/mars
 deploy/mars:
+	kubectl delete -n argocd applicationsets.argoproj.io services
 	nixos-rebuild --use-remote-sudo --impure --flake .#mars --target-host clemens@192.168.178.100 boot
 	ssh clemens@192.168.178.100 -C sudo shutdown -r 0
 	sleep 5
 	while ! ssh clemens@192.168.178.100 -C exit 0 &> /dev/null; do sleep 5; done;
 	ssh clemens@192.168.178.100 -C sudo nix-collect-garbage
+	kubectl apply -f ./cluster/services/applications.yaml
