@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+data:
+  dnsmasq.conf: |
+    server=/fritz.box/192.168.178.100
+    address=/wallstreet30.cc/192.168.178.100
+    # user=dnsmasq
+    # group=dnsmasq
+
+    # Use Cloudflare as upstream DNS
+    server=1.1.1.1
+    server=1.0.0.1
+
+    log-queries
+kind: ConfigMap
+metadata:
+  name: dnsmasq-cm

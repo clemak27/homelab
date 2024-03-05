@@ -1,0 +1,36 @@
+---
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/library/dnsmasq-custom
+          tag: latest
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+service:
+  main:
+    type: NodePort
+    ports:
+      http:
+        enabled: false
+      dns:
+        enabled: true
+        protocol: UDP
+        port: 53
+        nodePort: 30053
+
+ingress:
+  main:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: dnsmasq-cm
