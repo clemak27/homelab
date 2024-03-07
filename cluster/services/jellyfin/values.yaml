@@ -1,6 +1,8 @@
 ---
 controllers:
   main:
+    labels:
+      requires-nfs: "true"
     containers:
       main:
         image:
@@ -13,8 +15,6 @@ defaultPodOptions:
   podSecurityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
-  labels:
-    requires-nfs: "true"
 
 service:
   main:
