@@ -58,6 +58,11 @@
           gitea-ssh:
             port: 222
             expose: true
+          web:
+            port: 30053
+            expose: true
+            exposedPort: 53
+            protocol: UDP
         globalArguments:
           - "--global.sendanonymoususage=false"
           - "--api.insecure=true"
