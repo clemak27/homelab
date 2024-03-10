@@ -1,3 +1,5 @@
+include host.mk
+
 .PHONY: all
 all:
 
@@ -32,10 +34,22 @@ build:
 .PHONY: deploy/mars
 deploy/mars:
 	kubectl scale deployments.apps -l requires-nfs=true --replicas 0
-	nixos-rebuild --use-remote-sudo --impure --flake .#mars --target-host clemens@192.168.178.100 boot
+	sleep 15
 	ssh clemens@192.168.178.100 -C sudo shutdown -r 0
 	sleep 5
 	while ! ssh clemens@192.168.178.100 -C exit 0 &> /dev/null; do sleep 5; done;
-	ssh clemens@192.168.178.100 -C sudo nix-collect-garbage
-	kubectl apply -f ./cluster/services/applications.yaml
+	sleep 5
 	kubectl scale deployments.apps -l requires-nfs=true --replicas 1
+	ssh clemens@192.168.178.100 -C sudo systemctl restart dnsmasq
+
+bin/sops:
+	curl -L https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 -o bin/sops
+	chmod +x bin/sops
+
+bin/ksops:
+	mkdir -p tmp
+	mkdir -p bin
+	curl -L https://github.com/viaduct-ai/kustomize-sops/releases/download/v4.3.1/ksops_4.3.1_Linux_x86_64.tar.gz -o tmp/ksops.tar.gz
+	tar -xzf tmp/ksops.tar.gz -C bin
+	mkdir -p bin/kustomize/plugin/viaduct.ai/v1/ksops/
+	cp bin/ksops bin/kustomize/plugin/viaduct.ai/v1/ksops/ksops
