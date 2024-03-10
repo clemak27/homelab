@@ -12,3 +12,5 @@ key.txt
 result
 unenc.yaml
 .pre-commit-config.yaml
+k3sconfig.yaml
+argocd.yaml

@@ -1,0 +1,5 @@
+---
+mirrors:
+  "registry.wallstreet30.cc":
+    endpoint:
+      - "https://registry.wallstreet30.cc"
