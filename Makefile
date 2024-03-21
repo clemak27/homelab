@@ -36,17 +36,19 @@ upgrade:
 
 .PHONY: reboot
 reboot:
-	$(SSH_RUN) sudo systemctl disable --now wg-quick@wg0
-	$(SSH_RUN) sudo systemctl disable --now dnsmasq
-	kubectl scale deployments.apps -l requires-nfs=true --replicas 0
-	sleep 15
-	$(SSH_RUN) sudo shutdown -r 0
-	sleep 5
-	while ! $(SSH_RUN) exit 0 &> /dev/null; do sleep 5; done;
-	sleep 5
-	kubectl scale deployments.apps -l requires-nfs=true --replicas 1
-	$(SSH_RUN) sudo systemctl enable --now wg-quick@wg0
-	$(SSH_RUN) sudo systemctl enable --now dnsmasq
+	echo "don't"
+	# TODO fix
+	# $(SSH_RUN) sudo systemctl disable --now wg-quick@wg0
+	# $(SSH_RUN) sudo systemctl disable --now dnsmasq
+	# kubectl scale deployments.apps -l requires-nfs=true --replicas 0
+	# sleep 15
+	# $(SSH_RUN) sudo shutdown -r 0
+	# sleep 5
+	# while ! $(SSH_RUN) exit 0 &> /dev/null; do sleep 5; done;
+	# sleep 5
+	# kubectl scale deployments.apps -l requires-nfs=true --replicas 1
+	# $(SSH_RUN) sudo systemctl enable --now wg-quick@wg0
+	# $(SSH_RUN) sudo systemctl enable --now dnsmasq
 
 bin/sops:
 	curl -L https://github.com/getsops/sops/releases/download/v$(SOPS_VERSION)/sops-v$(SOPS_VERSION).linux.amd64 -o bin/sops
