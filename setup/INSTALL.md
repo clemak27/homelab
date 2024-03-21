@@ -26,7 +26,7 @@
     - `host/discs`
     - `host/config`
     - `host/k3s`
-  - reboot to be sure
+    - `host/access`
 
 ## k3s
 
@@ -51,7 +51,7 @@ ArgoCD needs to be setup manually:
    kubectl -n argocd create secret generic \
      argocd-age-key --from-literal keys.txt=AGE-SECRET-KEY-1234
    ```
-3. Use kustomize for the initial ArgoCD deployment:
+3. Use `kustomize` for the initial ArgoCD deployment:
 
    ```sh
     make bin/ksops
