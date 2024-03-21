@@ -15,7 +15,7 @@ host/base:
 
 .PHONY: host/discs
 host/discs:
-	scp $$PWD/host/fstab clemens@$(IP):/home/clemens/fstab
+	scp $$PWD/host/discs/fstab clemens@$(IP):/home/clemens/fstab
 	$(SSH_RUN) sudo mv /home/clemens/fstab /etc/fstab
 	$(SSH_RUN) sudo chown -R root:root /etc/fstab
 	$(SSH_RUN) sudo restorecon -R /etc/fstab
@@ -74,8 +74,8 @@ host/config: host/sshd_config host/sysctl host/nfs host/dnsmasq host/wireguard h
 
 .PHONY: host/sshd_config
 host/sshd_config:
-	scp $$PWD/host/sshd_config clemens@$(IP):/home/clemens/01-local.conf
-	scp $$PWD/host/authorized_keys clemens@$(IP):/home/clemens/.ssh/authorized_keys
+	scp $$PWD/host/ssh/sshd_config clemens@$(IP):/home/clemens/01-local.conf
+	scp $$PWD/host/ssh/authorized_keys clemens@$(IP):/home/clemens/.ssh/authorized_keys
 	$(SSH_RUN) sudo mv /home/clemens/01-local.conf /etc/ssh/sshd_config.d/01-local.conf
 	$(SSH_RUN) sudo chown root /etc/ssh/sshd_config.d/01-local.conf
 	$(SSH_RUN) sudo systemctl restart sshd
@@ -95,7 +95,7 @@ host/sysctl:
 
 .PHONY: host/nfs
 host/nfs:
-	scp $$PWD/host/exports clemens@$(IP):/home/clemens/exports
+	scp $$PWD/host/discs/exports clemens@$(IP):/home/clemens/exports
 	$(SSH_RUN) sudo mv /home/clemens/exports /etc/exports
 	$(SSH_RUN) sudo chown -R root:root /etc/exports
 	$(SSH_RUN) sudo systemctl enable --now nfs-server
@@ -104,16 +104,16 @@ host/nfs:
 
 .PHONY: host/dnsmasq
 host/dnsmasq:
-	scp $$PWD/host/dnsmasq clemens@$(IP):/home/clemens/dnsm
+	scp $$PWD/host/dns/dnsmasq clemens@$(IP):/home/clemens/dnsm
 	$(SSH_RUN) sudo mv /home/clemens/dnsm /etc/dnsmasq.d/01-homelab.conf
 	$(SSH_RUN) sudo chown root:root /etc/dnsmasq.d/01-homelab.conf
 	$(SSH_RUN) sudo restorecon -R /etc/dnsmasq.d
-	scp $$PWD/host/homelab_hosts clemens@$(IP):/home/clemens/hlh
+	scp $$PWD/host/dns/homelab_hosts clemens@$(IP):/home/clemens/hlh
 	$(SSH_RUN) sudo mkdir -p /etc/hosts.d
 	$(SSH_RUN) sudo mv /home/clemens/hlh /etc/hosts.d/01-homelab
 	$(SSH_RUN) sudo chown -R root:root /etc/hosts.d
 	$(SSH_RUN) sudo restorecon -R /etc/hosts.d
-	scp $$PWD/host/resolved clemens@$(IP):/home/clemens/resolved
+	scp $$PWD/host/dns/resolved clemens@$(IP):/home/clemens/resolved
 	$(SSH_RUN) sudo mkdir -p /etc/systemd/resolved.conf.d
 	$(SSH_RUN) sudo mv /home/clemens/resolved /etc/systemd/resolved.conf.d/dnsmasq.conf
 	$(SSH_RUN) sudo chown -R root:root /etc/systemd/resolved.conf.d/
