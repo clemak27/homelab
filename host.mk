@@ -1,8 +1,5 @@
 ## host files
 
-IP=192.168.178.100
-SSH_RUN=ssh clemens@$(IP) -C
-
 .PHONY: host/base
 host/base:
 	$(SSH_RUN) sudo rpm-ostree install --idempotent git vim make zsh distrobox nfs-utils wireguard-tools iscsi-initiator-utils
@@ -70,7 +67,7 @@ host/k3s/traefik:
 	$(SSH_RUN) sudo chown -R root:root /var/lib/rancher
 
 .PHONY: host/config
-host/config: host/sshd_config host/sysctl host/nfs host/dnsmasq host/wireguard host/iscsi
+host/config: host/sshd_config host/sysctl host/nfs host/iscsi
 
 .PHONY: host/sshd_config
 host/sshd_config:
@@ -83,9 +80,6 @@ host/sshd_config:
 
 .PHONY: host/sysctl
 host/sysctl:
-	$(SSH_RUN) sudo sysctl -w fs.inotify.max_user_instances=1048576
-	$(SSH_RUN) sudo sysctl -w fs.inotify.max_user_watches=1048576
-	$(SSH_RUN) sudo sysctl -w net.ipv4.ip_forward=0
 	scp $$PWD/host/sysctl/fsnotify clemens@$(IP):/home/clemens/fsnotify
 	scp $$PWD/host/sysctl/ipv4 clemens@$(IP):/home/clemens/ipv4
 	$(SSH_RUN) sudo mv /home/clemens/fsnotify /etc/sysctl.d/01-local.conf
@@ -101,6 +95,15 @@ host/nfs:
 	$(SSH_RUN) sudo systemctl enable --now nfs-server
 	$(SSH_RUN) sudo exportfs -a
 	$(SSH_RUN) sudo systemctl restart nfs-server
+
+.PHONY: host/iscsi
+host/iscsi:
+	$(SSH_RUN) sudo mkdir -p /etc/iscsi
+	$(SSH_RUN) sudo 'echo "InitiatorName=$$(/sbin/iscsi-iname)" \> /etc/iscsi/initiatorname.iscsi'
+	$(SSH_RUN) sudo systemctl enable --now iscsid
+
+.PHONY: host/access
+host/access: host/wireguard host/dnsmasq
 
 .PHONY: host/dnsmasq
 host/dnsmasq:
@@ -118,7 +121,8 @@ host/dnsmasq:
 	$(SSH_RUN) sudo mv /home/clemens/resolved /etc/systemd/resolved.conf.d/dnsmasq.conf
 	$(SSH_RUN) sudo chown -R root:root /etc/systemd/resolved.conf.d/
 	$(SSH_RUN) sudo restorecon -R /etc/systemd/resolved.conf.d/
-	$(SSH_RUN) sudo systemctl enable --now dnsmasq
+	$(SSH_RUN) sudo systemctl restart dnsmasq
+	$(SSH_RUN) sudo systemctl restart systemd-resolved
 
 .PHONY: host/wireguard
 host/wireguard:
@@ -127,10 +131,4 @@ host/wireguard:
 	$(SSH_RUN) sudo mv /home/clemens/wg /etc/wireguard/wg0.conf
 	$(SSH_RUN) sudo chown -R root:root /etc/wireguard
 	$(SSH_RUN) sudo restorecon -R /etc/wireguard
-	$(SSH_RUN) sudo systemctl enable --now wg-quick@wg0
-
-.PHONY: host/iscsi
-host/iscsi:
-	$(SSH_RUN) sudo mkdir -p /etc/iscsi
-	$(SSH_RUN) sudo 'echo "InitiatorName=$$(/sbin/iscsi-iname)" \> /etc/iscsi/initiatorname.iscsi'
-	$(SSH_RUN) sudo systemctl enable --now iscsid
+	$(SSH_RUN) sudo systemctl restart wg-quick@wg0
