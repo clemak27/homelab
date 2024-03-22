@@ -11,7 +11,7 @@ helmCharts:
     includeCRDs: true
   - name: postgresql
     repo: https://charts.bitnami.com/bitnami
-    version: 14.2.4
+    version: 14.3.3
     releaseName: recipes-db
     namespace: services
     valuesFile: recipes-db-values.yaml
