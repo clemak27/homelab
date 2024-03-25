@@ -7,7 +7,9 @@ host/base:
 	sleep 5
 	while ! $(SSH_RUN) exit 0 &> /dev/null; do sleep 5; done;
 	$(SSH_RUN) sudo usermod -s /usr/bin/zsh clemens
-	$(SSH_RUN) sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	$(SSH_RUN) curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+	$(SSH_RUN) install.sh
+	$(SSH_RUN) rm install.sh
 	scp $$PWD/host/zshrc clemens@$(IP):/home/clemens/.zshrc
 
 .PHONY: host/discs
