@@ -36,8 +36,6 @@ host/k3s: host/k3s/config host/k3s/registries host/k3s/traefik
 	$(SSH_RUN) ./k3s.sh
 	$(SSH_RUN) k3s --version
 	$(SSH_RUN) rm -f k3s.sh k3s.she
-	# not ideal, but it works and I did the same in NixOS 🤷
-	$(SSH_RUN) sudo systemctl disable firewalld
 	$(SSH_RUN) sudo shutdown -r 0
 	sleep 5
 	while ! $(SSH_RUN) exit 0 &> /dev/null; do sleep 5; done;
@@ -105,7 +103,13 @@ host/iscsi:
 	$(SSH_RUN) sudo systemctl enable --now iscsid
 
 .PHONY: host/access
-host/access: host/wireguard host/dnsmasq host/dnsmasq_override host/systemd-resolved
+host/access: host/firewalld host/wireguard host/dnsmasq host/dnsmasq_override host/systemd-resolved
+
+.PHONY: host/firewalld
+host/firewalld:
+	# not ideal, but it works and I did the same in NixOS 🤷
+	$(SSH_RUN) sudo systemctl disable firewalld
+	$(SSH_RUN) sudo systemctl stop firewalld
 
 .PHONY: host/wireguard
 host/wireguard:
