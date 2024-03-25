@@ -103,7 +103,7 @@ host/iscsi:
 	$(SSH_RUN) sudo systemctl enable --now iscsid
 
 .PHONY: host/access
-host/access: host/firewalld host/wireguard host/dnsmasq host/dnsmasq_override host/systemd-resolved
+host/access: host/firewalld host/wireguard host/dnsmasq host/systemd-resolved
 
 .PHONY: host/firewalld
 host/firewalld:
@@ -133,16 +133,6 @@ host/dnsmasq:
 	$(SSH_RUN) sudo chown -R root:root /etc/hosts.d
 	$(SSH_RUN) sudo restorecon -R /etc/hosts.d
 	$(SSH_RUN) sudo systemctl enable --now dnsmasq
-	$(SSH_RUN) sudo systemctl restart dnsmasq
-
-.PHONY: host/dnsmasq_override
-host/dnsmasq_override:
-	scp $$PWD/host/dns/dnsmasq_override clemens@$(IP):/home/clemens/dnsmo
-	$(SSH_RUN) sudo mkdir -p /etc/systemd/system/dnsmasq.service.d
-	$(SSH_RUN) sudo mv /home/clemens/dnsmo /etc/systemd/system/dnsmasq.service.d/override.conf
-	$(SSH_RUN) sudo chown root:root /etc/systemd/system/dnsmasq.service.d
-	$(SSH_RUN) sudo restorecon -R /etc/systemd/system/dnsmasq.service.d
-	$(SSH_RUN) sudo systemctl daemon-reload
 	$(SSH_RUN) sudo systemctl restart dnsmasq
 
 .PHONY: host/systemd-resolved
