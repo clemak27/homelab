@@ -1,9 +1,16 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+helmCharts:
+  - name: longhorn
+    repo: https://charts.longhorn.io
+    version: v1.6.0
+    releaseName: longhorn
+    namespace: longhorn-system
+    valuesFile: values.yaml
+    includeCRDs: true
 resources:
-  - https://raw.githubusercontent.com/longhorn/longhorn/v1.5.1/deploy/longhorn.yaml
+  - longhorn-crypto.yaml
   - frontend-ingress.yaml
-  - encryption.yaml
 generators:
   - ./ksops-generator.yaml
