@@ -26,6 +26,7 @@
     - `host/discs`
     - `host/config`
     - `host/k3s`
+  - reboot and pin the deployment just in case
     - `host/access`
 
 ## k3s

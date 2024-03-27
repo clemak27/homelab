@@ -7,7 +7,9 @@ host/base:
 	sleep 5
 	while ! $(SSH_RUN) exit 0 &> /dev/null; do sleep 5; done;
 	$(SSH_RUN) sudo usermod -s /usr/bin/zsh clemens
-	$(SSH_RUN) sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	$(SSH_RUN) curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+	$(SSH_RUN) install.sh
+	$(SSH_RUN) rm install.sh
 	scp $$PWD/host/zshrc clemens@$(IP):/home/clemens/.zshrc
 
 .PHONY: host/discs
@@ -34,8 +36,6 @@ host/k3s: host/k3s/config host/k3s/registries host/k3s/traefik
 	$(SSH_RUN) ./k3s.sh
 	$(SSH_RUN) k3s --version
 	$(SSH_RUN) rm -f k3s.sh k3s.she
-	# not ideal, but it works and I did the same in NixOS 🤷
-	$(SSH_RUN) sudo systemctl disable firewalld
 	$(SSH_RUN) sudo shutdown -r 0
 	sleep 5
 	while ! $(SSH_RUN) exit 0 &> /dev/null; do sleep 5; done;
@@ -103,7 +103,23 @@ host/iscsi:
 	$(SSH_RUN) sudo systemctl enable --now iscsid
 
 .PHONY: host/access
-host/access: host/wireguard host/dnsmasq
+host/access: host/firewalld host/wireguard host/dnsmasq host/systemd-resolved
+
+.PHONY: host/firewalld
+host/firewalld:
+	# not ideal, but it works and I did the same in NixOS 🤷
+	$(SSH_RUN) sudo systemctl disable firewalld
+	$(SSH_RUN) sudo systemctl stop firewalld
+
+.PHONY: host/wireguard
+host/wireguard:
+	scp $$PWD/wg0.conf clemens@$(IP):/home/clemens/wg
+	$(SSH_RUN) sudo mkdir -p /etc/wireguard
+	$(SSH_RUN) sudo mv /home/clemens/wg /etc/wireguard/wg0.conf
+	$(SSH_RUN) sudo chown -R root:root /etc/wireguard
+	$(SSH_RUN) sudo restorecon -R /etc/wireguard
+	$(SSH_RUN) sudo systemctl enable --now wg-quick@wg0
+	$(SSH_RUN) sudo systemctl restart wg-quick@wg0
 
 .PHONY: host/dnsmasq
 host/dnsmasq:
@@ -116,19 +132,14 @@ host/dnsmasq:
 	$(SSH_RUN) sudo mv /home/clemens/hlh /etc/hosts.d/01-homelab
 	$(SSH_RUN) sudo chown -R root:root /etc/hosts.d
 	$(SSH_RUN) sudo restorecon -R /etc/hosts.d
+	$(SSH_RUN) sudo systemctl enable --now dnsmasq
+	$(SSH_RUN) sudo systemctl restart dnsmasq
+
+.PHONY: host/systemd-resolved
+host/systemd-resolved:
 	scp $$PWD/host/dns/resolved clemens@$(IP):/home/clemens/resolved
 	$(SSH_RUN) sudo mkdir -p /etc/systemd/resolved.conf.d
 	$(SSH_RUN) sudo mv /home/clemens/resolved /etc/systemd/resolved.conf.d/dnsmasq.conf
 	$(SSH_RUN) sudo chown -R root:root /etc/systemd/resolved.conf.d/
 	$(SSH_RUN) sudo restorecon -R /etc/systemd/resolved.conf.d/
-	$(SSH_RUN) sudo systemctl restart dnsmasq
 	$(SSH_RUN) sudo systemctl restart systemd-resolved
-
-.PHONY: host/wireguard
-host/wireguard:
-	scp $$PWD/wg0.conf clemens@$(IP):/home/clemens/wg
-	$(SSH_RUN) sudo mkdir -p /etc/wireguard
-	$(SSH_RUN) sudo mv /home/clemens/wg /etc/wireguard/wg0.conf
-	$(SSH_RUN) sudo chown -R root:root /etc/wireguard
-	$(SSH_RUN) sudo restorecon -R /etc/wireguard
-	$(SSH_RUN) sudo systemctl restart wg-quick@wg0
