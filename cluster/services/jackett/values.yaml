@@ -8,7 +8,7 @@ controllers:
       main:
         image:
           repository: docker.io/linuxserver/jackett
-          tag: 0.21.2232
+          tag: 0.21.2324
         env:
           TZ: Europe/Vienna
           PUID: "1000"
