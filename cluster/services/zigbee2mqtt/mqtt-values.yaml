@@ -24,6 +24,7 @@ controllers:
 service:
   main:
     type: ClusterIP
+    controller: main
     ports:
       http:
         primary: true

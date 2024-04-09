@@ -25,6 +25,7 @@ defaultPodOptions:
 service:
   main:
     type: ClusterIP
+    controller: main
     ports:
       http:
         primary: true
@@ -47,7 +48,7 @@ service:
 ingress:
   main:
     enabled: true
-    ingressClassName: traefik
+    className: traefik
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -58,7 +59,8 @@ ingress:
           - path: /
             pathType: Prefix
             service:
-              name: main
+              identifier: main
+              port: http
     tls:
       - hosts:
           - transmission.wallstreet30.cc

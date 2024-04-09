@@ -4,7 +4,7 @@ image:
   tag: 15.2
 
 primary:
-  podSecurityContext:
+  securityContext:
     enabled: false
     fsGroup: ""
   containerSecurityContext:
@@ -14,7 +14,7 @@ primary:
     existingClaim: "recipes-postgresql"
 
 readReplicas:
-  podSecurityContext:
+  securityContext:
     enabled: false
     fsGroup: ""
   containerSecurityContext:
