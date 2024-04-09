@@ -38,6 +38,7 @@ ingress:
 
 persistence:
   enabled: true
+  storageClass: longhorn-crypto
   claimName: "gitea-data"
   volumeName: "gitea-data"
 
