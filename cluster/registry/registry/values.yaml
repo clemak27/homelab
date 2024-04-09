@@ -12,13 +12,14 @@ controllers:
           REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
 
 defaultPodOptions:
-  podSecurityContext:
+  securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
     type: ClusterIP
+    controller: main
     ports:
       http:
         port: 5000
@@ -26,7 +27,7 @@ service:
 ingress:
   main:
     enabled: true
-    ingressClassName: traefik
+    className: traefik
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -37,7 +38,8 @@ ingress:
           - path: /
             pathType: Prefix
             service:
-              name: main
+              identifier: main
+              port: http
     tls:
       - hosts:
           - registry.wallstreet30.cc

@@ -19,10 +19,6 @@ controllers:
                 name: cloudflare-api
                 key: zone
 
-service:
-  main:
-    enabled: false
+# service: {}
 
-ingress:
-  main:
-    enabled: false
+# ingress: {}

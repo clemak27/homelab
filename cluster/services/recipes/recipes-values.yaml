@@ -27,6 +27,7 @@ controllers:
 service:
   main:
     type: ClusterIP
+    controller: main
     ports:
       http:
         port: 8080
@@ -34,7 +35,7 @@ service:
 ingress:
   main:
     enabled: true
-    ingressClassName: traefik
+    className: traefik
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -45,7 +46,8 @@ ingress:
           - path: /
             pathType: Prefix
             service:
-              name: main
+              identifier: main
+              port: http
     tls:
       - hosts:
           - recipes.wallstreet30.cc
