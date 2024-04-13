@@ -25,8 +25,8 @@ test/kustomize: bin/bin/kustomize
 	$(KUSTOMIZE_BUILD) cluster/registry/registry
 	$(KUSTOMIZE_BUILD) cluster/services/calibre
 	$(KUSTOMIZE_BUILD) cluster/services/home-assistant
-	$(KUSTOMIZE_BUILD) cluster/services/jackett
 	$(KUSTOMIZE_BUILD) cluster/services/jellyfin
+	$(KUSTOMIZE_BUILD) cluster/services/prowlarr
 	$(KUSTOMIZE_BUILD) cluster/services/qobuz-dl
 	$(KUSTOMIZE_BUILD) cluster/services/radarr
 	$(KUSTOMIZE_BUILD) cluster/services/readarr
