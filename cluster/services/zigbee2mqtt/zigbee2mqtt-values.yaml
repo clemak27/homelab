@@ -13,7 +13,7 @@ controllers:
 
 defaultPodOptions:
   nodeSelector:
-    kubernetes.io/hostname: mars
+    kubernetes.io/hostname: boltzmann
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch

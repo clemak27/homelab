@@ -2,8 +2,8 @@
 
 This repo the setup for my homelab.
 
-It currently consists of single bare-metal server running Fedora IoT, with k3s
-to deploy containers.
+It currently consists of single bare-metal server running NixOS, with k3s to
+deploy containers.
 
 This is for my own usage and preferences, but you are of course free to use it
 as inspiration.
@@ -26,19 +26,13 @@ as inspiration.
 
 ## Software
 
-### Fedora IoT
+### NixOS
 
-My homelab runs [Fedora IoT](https://fedoraproject.org/iot/). Despite the name,
-it is not just useable on IoT devices but also normal PCs. It is basically
-Fedora Server with the atomic updates of Silverblue/Kinoite.
+My homelab runs [NixOS](https://nixos.org/).
 
 There 2 services directly running and configured on the host:
 [WireGuard](https://www.wireguard.com/), for accessing my homelab from the
 outside, and [dnsmasq](https://dnsmasq.org/), for resolving hostnames.
-
-For configuring, I just use plain Makefiles and no Ansible or terraform Maybe I
-will use ignition in the future, since technically Fedora IoT also supports it,
-but for now I'm fine.
 
 ### k3s
 
