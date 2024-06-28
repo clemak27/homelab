@@ -1,6 +1,0 @@
----
-write-kubeconfig-mode: "0644"
-disable: local-storage,metrics-server
-tls-san:
-  - "k3s.wallstreet30.cc"
-selinux: true

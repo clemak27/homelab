@@ -2,39 +2,51 @@
 
 ## Host
 
-### Install
+### Preparation
 
-- [download the latest ISO](https://fedoraproject.org/iot/download)
-- write to usb
-- plug in and boot from it
-- install fedora
-- login into the installed system and add at least one ssh keys under
-  `/home/clemens/.ssh/authorized_keys`
+- create live USB (if there is none yet)
+- create new branch for host
+- prepare config in hosts directory
 
-### Setup
+### NixOS install
 
-- connect to device via ssh
-- use `visudo` to setup pw-less sudo
-- install everything:
-  - check if all variables are correct
-    - ip
-    - dnsmasq interfaces
-    - wg config
-    - fstab
-  - run these make targets:
-    - `host/base`
-    - `host/discs`
-    - `host/config`
-    - `host/k3s`
-  - reboot and pin the deployment just in case
-    - `host/access`
+- boot from live USB
+- Open a terminal and checkout the repo:
+  `git clone https://github.com/clemak27/homelab`
+- `cd homelab/setup`
+- update `setup_disc.sh` with the device where nix should be installed (check
+  with `lsblk`)
+- run `sudo ./setup_disc.sh`
+- comment out all modules that requires sops (e.g. WireGuard)
+- Install NixOS with
+  `sudo nixos-install --root /mnt --flake .#<hostname> --impure --no-root-password`
+- reboot
+
+### First Boot
+
+- you should now be able to connect via ssh
+- copy the updated/current hw-config to the host:
+  `scp clemens@192.168.178.100:/etc/nixos/hardware-configuration.nix ./hosts/<hostname>/hardware-configuration.nix`
+- set up sops/sops-nix by copying a valid key to the server:
+  `scp key.txt clemens@192.168.178.100:key.txt`
+- Disable the WireGuard module and other modules requiring sops
+- Rebuild with
+  `nixos-rebuild --use-remote-sudo --impure --flake .#boltzmann --target-host clemens@$(IP) boot`
+  and the reboot
+- Enable the WireGuard module and other modules requiring sops
+- Rebuild with
+  `nixos-rebuild --use-remote-sudo --impure --flake .#boltzmann --target-host clemens@$(IP) boot`
+  and the reboot
+- everything should work now
 
 ## k3s
 
-There are some manual steps needed after k3s runs:
+There are some manual steps needed to setup k3s runs:
 
-Edit the IP in the `k3sconfig.yaml` to match the server's IP, and add it to your
-`kubeconfig`.
+- Copy over the kubeconfig:
+  `scp clemens@192.168.178.100:/etc/rancher/k3s/k3s.yaml k3sconfig.yaml`
+- Edit the IP in the `k3sconfig.yaml` to match the server's IP, and add it to
+  your `kubeconfig`.
 
 ### ArgoCD
 
@@ -68,8 +80,9 @@ ArgoCD needs to be setup manually:
    kubectl -n argocd apply -f cluster/argocd/applications.yaml
    ```
 
-   **Note:** It might be needed to add the kustomization-config to the
-   configmap.
+   **Note:** It might be needed to add
+   `kustomize.buildOptions: --enable-alpha-plugins --enable-exec --enable-helm`
+   to the `argocd-cm` configmap via edit.
 
 6. Delete the initial admin-secret:
    ```sh
