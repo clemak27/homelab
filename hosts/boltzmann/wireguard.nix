@@ -48,7 +48,7 @@
           # w2h
           publicKey = "GNunYJIjSQ5BPPRkRcODQQFl+Ev4BzAdtQGeKDZh9Sw=";
           presharedKeyFile = "${config.sops.secrets."wg/w2h/pre_shared_key".path}";
-          allowedIPs = [ "10.6.0.5/32" ];
+          allowedIPs = [ "10.6.0.6/32" ];
         }
       ];
     };
