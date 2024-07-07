@@ -6,18 +6,20 @@ jobs:
   yamllint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v1
       - name: Run yamllint
-        uses: karancode/yamllint-github-action@master
+        shell: bash
+        run: nix develop --command pre-commit run yamllint --all-files
   actionlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Download actionlint
-        id: get_actionlint
-        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-        shell: bash
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v1
       - name: Run actionlint
-        run: ${{ steps.get_actionlint.outputs.executable }} -color
         shell: bash
+        run: nix develop --command pre-commit run actionlint --all-files
