@@ -11,3 +11,6 @@ rules:
   truthy:
     ignore: |
       .github
+  comments:
+    ignore: |
+      .github
