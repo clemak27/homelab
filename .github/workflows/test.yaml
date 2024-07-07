@@ -6,11 +6,10 @@ jobs:
   kustomize:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ConorMacBride/install-package@v1
-        with:
-          apt: make
-      - name: Run kustomize test
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v1
+      - name: Run kustomize-test
         shell: bash
-        run: echo hallo
-        # run: make test/kustomize
+        run: nix develop --command make test/kustomize
