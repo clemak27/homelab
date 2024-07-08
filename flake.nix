@@ -41,7 +41,32 @@
             nixpkgs-fmt.enable = true;
             actionlint.enable = true;
             yamllint.enable = true;
-            checkmake.enable = true;
+            kustomize = {
+              enable = true;
+              name = "kustomize";
+              description = "Runs kustomize build";
+              files = "kustomization\\.yaml$";
+              pass_filenames = true;
+              entry =
+                let
+                  script = legacyPkgs.writeShellScript "pre-commit-kustomize" ''
+                    set -e
+
+                    for var in "$@"; do
+                      dir="$(dirname $var)"
+                      if [[ "$CI" = "true" ]] && [[ -f $dir/secrets.yaml ]]; then
+                        echo "---"
+                        echo "skipping $dir"
+                        echo "---"
+                      else
+                        kustomize build --enable-helm --enable-exec --enable-alpha-plugins $dir
+                      fi
+                    done
+                  '';
+                in
+                toString
+                  script;
+            };
           };
         };
       };
@@ -60,17 +85,18 @@
             sops
           ];
 
-          # KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
-          #   name = "kustomize-plugins";
-          #   paths = with legacyPkgs; [
-          #     kustomize-sops
-          #   ];
-          #   postBuild = ''
-          #     mv $out/lib/* $out
-          #     rm -r $out/lib
-          #   '';
-          #   pathsToLink = [ "/lib" ];
-          # };
+          KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
+            name = "kustomize-plugins";
+            paths = with legacyPkgs; [
+              kustomize-sops
+            ];
+            postBuild = ''
+              mkdir -p $out/viaduct.ai/v1/ksops
+              cp $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec $out/viaduct.ai/v1/ksops/ksops
+              rm -rf $out/lib
+            '';
+            pathsToLink = [ "/lib" ];
+          };
         };
     };
 }
