@@ -12,4 +12,4 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v1
       - name: Run kustomize-test
         shell: bash
-        run: nix develop --command make test/kustomize
+        run: nix develop --command pre-commit run kustomize --all-files
