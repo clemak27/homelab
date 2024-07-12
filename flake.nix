@@ -78,6 +78,7 @@
           packages = with legacyPkgs; [
             argocd
             dnsutils
+            doggo
             kubectl
             kubernetes-helm
             kustomize
