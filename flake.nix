@@ -4,9 +4,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, sops-nix, pre-commit-hooks }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, sops-nix, pre-commit-hooks, deploy-rs }:
     let
       legacyPkgs = nixpkgs.legacyPackages.x86_64-linux;
       overlay-unstable = final: prev: {
@@ -32,6 +33,19 @@
         modules = defaultModules ++ [
           ./hosts/boltzmann/configuration.nix
         ];
+      };
+
+      deploy.nodes.boltzmann = {
+        hostname = "192.168.178.100";
+        fastConnection = false;
+        interactiveSudo = false;
+        user = "root";
+        boot = true;
+        profiles = {
+          system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.boltzmann;
+          };
+        };
       };
 
       checks.x86_64-linux = {
@@ -84,6 +98,7 @@
             kustomize
             pv-migrate
             sops
+            legacyPkgs.deploy-rs
           ];
 
           KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
