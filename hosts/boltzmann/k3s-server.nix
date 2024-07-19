@@ -29,7 +29,7 @@
   environment.etc = {
     "rancher/k3s/config.yaml".text = ''
       write-kubeconfig-mode: "0644"
-      disable: local-storage,metrics-server
+      disable: local-storage
       tls-san:
         - "k3s.wallstreet30.cc"
     '';
