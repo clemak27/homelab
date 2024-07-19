@@ -5,7 +5,7 @@
   services.k3s = {
     enable = true;
     role = "server";
-    package = (pkgs.k3s_1_29.overrideAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.cryptsetup ]; }));
+    package = (pkgs.k3s.overrideAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.cryptsetup ]; }));
   };
 
   services.openiscsi = {
