@@ -67,8 +67,7 @@ ArgoCD needs to be setup manually:
 3. Use `kustomize` for the initial ArgoCD deployment:
 
    ```sh
-    make bin/ksops
-    KUSTOMIZE_PLUGIN_HOME=$PWD/bin/kustomize/plugin kustomize build --enable-helm --enable-exec --enable-alpha-plugins cluster/argocd/argocd/ > argocd.yaml
+    kustomize build --enable-helm --enable-exec --enable-alpha-plugins cluster/argocd/argocd/ > argocd.yaml
     kubectl apply -f argocd.yaml
    ```
 
