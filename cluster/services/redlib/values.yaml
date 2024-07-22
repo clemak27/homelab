@@ -1,0 +1,54 @@
+---
+controllers:
+  main:
+    replicas: null
+    labels:
+      requires-nfs: "true"
+    containers:
+      main:
+        image:
+          repository: quay.io/redlib/redlib
+          tag: 0.35.1
+        env:
+          TZ: Europe/Vienna
+          REDLIB_DEFAULT_WIDE: "on"
+          REDLIB_DEFAULT_THEME: "black"
+          REDLIB_DEFAULT_LAYOUT: "compact"
+          REDLIB_DEFAULT_SHOW_NSFW: "on"
+          REDLIB_DEFAULT_BLUR_NSFW: "on"
+          REDLIB_DEFAULT_USE_HLS: "on"
+          REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    enabled: true
+    className: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: redlib.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - redlib.wallstreet30.cc
+        secretName: redlib-tls
