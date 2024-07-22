@@ -1,4 +1,7 @@
 ---
+global:
+  domain: argocd.wallstreet30.cc
+
 dex:
   enabled: false
 
@@ -15,20 +18,10 @@ server:
     paths:
       - /
     pathType: Prefix
-    tls:
+    extraTls:
       - hosts:
           - argocd.wallstreet30.cc
         secretName: argocd-tls
-
-  extraArgs:
-    - --insecure
-
-  config:
-    kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
-    resource.customizations.health.networking.k8s.io_Ingress: |
-      hs = {}
-      hs.status = "Healthy"
-      return hs
 
 repoServer:
   serviceAccount:
@@ -84,6 +77,8 @@ repoServer:
           name: custom-tools
 
 configs:
+  params:
+    server.insecure: true
   repositories:
     argocd-helm:
       type: helm
@@ -123,3 +118,9 @@ configs:
       url: https://helm.influxdata.com/
   secret:
     argocdServerAdminPasswordMtime: "2023-04-23T15:20:00Z"
+  cm:
+    kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
+    resource.customizations.health.networking.k8s.io_Ingress: |
+      hs = {}
+      hs.status = "Healthy"
+      return hs
