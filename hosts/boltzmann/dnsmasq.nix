@@ -33,6 +33,7 @@ in
     ${lbIP} qobuz-dl.wallstreet30.cc
     ${lbIP} radarr.wallstreet30.cc
     ${lbIP} readarr.wallstreet30.cc
+    ${lbIP} redlib.wallstreet30.cc
     ${lbIP} recipes.wallstreet30.cc
     ${lbIP} sonarr.wallstreet30.cc
     ${lbIP} syncthing.wallstreet30.cc
