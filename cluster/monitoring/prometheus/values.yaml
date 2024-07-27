@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prometheus-community/helm-charts/main/charts/prometheus/values.schema.json
 server:
   env:
     - name: TZ
@@ -24,11 +25,11 @@ server:
     enabled: true
     existingClaim: "prometheus-data"
 
-extraScrapeConfigs: |
- - job_name: 'dnsmasq'
-   static_configs:
-     - targets:
-       - 192.168.178.100:9153
+# extraScrapeConfigs: |
+#  - job_name: 'dnsmasq'
+#    static_configs:
+#      - targets:
+#        - 192.168.178.100:9153
 
 alertmanager:
   enabled: false
