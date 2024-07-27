@@ -54,6 +54,7 @@
             nixpkgs-fmt.enable = true;
             actionlint.enable = true;
             yamllint.enable = true;
+            commitizen.enable = true;
             kustomize = {
               enable = true;
               name = "kustomize";
