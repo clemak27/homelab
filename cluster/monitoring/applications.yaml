@@ -11,6 +11,9 @@ spec:
         revision: master
         directories:
           - path: cluster/monitoring/*
+          - path: cluster/monitoring/loki
+            exclude: true
+          - path: cluster/monitoring/influxdb
             exclude: true
   template:
     metadata:
