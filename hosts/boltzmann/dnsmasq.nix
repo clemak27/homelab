@@ -39,5 +39,7 @@ in
     ${lbIP} transmission.wallstreet30.cc
     ${lbIP} vaultwarden.wallstreet30.cc
     ${lbIP} zigbee2mqtt.wallstreet30.cc
+
+    ${lbIP} grafana.wallstreet30.cc
   '';
 }
