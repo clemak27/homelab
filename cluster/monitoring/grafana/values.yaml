@@ -24,7 +24,6 @@ persistence:
   existingClaim: grafana-data
 
 admin:
-  ## Name of the secret. Can be templated.
   existingSecret: "grafana-admin"
   userKey: user
   passwordKey: password
