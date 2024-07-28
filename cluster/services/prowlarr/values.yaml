@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: docker.io/linuxserver/prowlarr
-          tag: 1.20.1
+          tag: 1.21.2
         env:
           TZ: Europe/Vienna
           PUID: "1000"
