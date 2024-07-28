@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bitnami/charts/main/bitnami/postgresql/values.schema.json
 image:
   repository: postgres
   tag: 15.2
