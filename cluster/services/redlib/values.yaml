@@ -8,7 +8,7 @@ controllers:
       main:
         image:
           repository: quay.io/redlib/redlib
-          tag: 0.35.1
+          tag: latest
         env:
           TZ: Europe/Vienna
           REDLIB_DEFAULT_WIDE: "on"
