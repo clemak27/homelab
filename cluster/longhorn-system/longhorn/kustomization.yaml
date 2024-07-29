@@ -12,5 +12,6 @@ helmCharts:
 resources:
   - longhorn-crypto.yaml
   - frontend-ingress.yaml
+  - longhorn-servicemonitor.yaml
 generators:
   - ./ksops-generator.yaml
