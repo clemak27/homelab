@@ -1,0 +1,132 @@
+---
+fullnameOverride: "kps"
+namespaceOverride: "monitoring"
+
+crds:
+  enabled: true
+
+defaultRules:
+  create: true
+  rules:
+    etcd: false
+    kubeControllerManager: false
+    kubeProxy: false
+    kubeSchedulerAlerting: false
+    kubeSchedulerRecording: false
+
+alertmanager:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts: [alertmanager.wallstreet30.cc]
+    paths: [/]
+    pathType: Prefix
+    tls:
+      - hosts: [alertmanager.wallstreet30.cc]
+        secretName: alertmanager-tls
+grafana:
+  defaultDashboardsEnabled: true
+  defaultDashboardsTimezone: browser
+  defaultDashboardsEditable: false
+
+  admin:
+    existingSecret: "grafana-admin"
+    userKey: user
+    passwordKey: password
+
+  rbac:
+    pspEnabled: false
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts: [grafana.wallstreet30.cc]
+    path: /
+    pathType: Prefix
+    tls:
+      - hosts: [grafana.wallstreet30.cc]
+        secretName: grafana-tls
+
+  persistence:
+    enabled: true
+    type: pvc
+    existingClaim: grafana-data
+
+  serviceAccount:
+    create: true
+    autoMount: true
+
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: ALL
+      annotations:
+        k8s-sidecar-target-directory: "kps"
+      multicluster:
+        global:
+          enabled: false
+        etcd:
+          enabled: false
+      provider:
+        allowUiUpdates: false
+        foldersFromFilesStructure: true
+  ## Configure additional grafana datasources (passed through tpl)
+  ## ref: http://docs.grafana.org/administration/provisioning/#datasources
+  additionalDataSources: []
+  # - name: prometheus-sample
+  #   access: proxy
+  #   basicAuth: true
+  #   basicAuthPassword: pass
+  #   basicAuthUser: daco
+  #   editable: false
+  #   jsonData:
+  #       tlsSkipVerify: true
+  #   orgId: 1
+  #   type: prometheus
+  #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
+  #   version: 1
+
+kubeControllerManager:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts: [prometheus.wallstreet30.cc]
+    paths: [/]
+    pathType: Prefix
+    tls:
+      - hosts: [prometheus.wallstreet30.cc]
+        secretName: prometheus-tls
+  prometheusSpec:
+    retention: 14d
+    retentionSize: "30GB"
+    # storageSpec:
+    #   volumeClaimTemplate:
+    #     selector:
+    #       matchLabels:
+    #         app.kubernetes.io/name: my-example-prometheus
