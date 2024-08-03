@@ -8,16 +8,12 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: feat/kube-stack
+        revision: master
         directories:
           - path: cluster/monitoring/*
           - path: cluster/monitoring/loki
             exclude: true
           - path: cluster/monitoring/influxdb
-            exclude: true
-          - path: cluster/monitoring/grafana
-            exclude: true
-          - path: cluster/monitoring/prometheus
             exclude: true
   template:
     metadata:
@@ -33,7 +29,7 @@ spec:
           - ServerSideApply=true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: feat/kube-stack
+        targetRevision: master
         path: '{{path}}'
       destination:
         name: in-cluster
