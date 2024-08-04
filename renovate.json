@@ -12,8 +12,14 @@
   "commitMessageAction": "update",
   "packageRules": [
     {
-      "matchPackagePatterns": ["docker.io/linuxserver/transmission"],
+      "matchPackagePatterns": [
+        "docker.io/linuxserver/transmission"
+      ],
       "allowedVersions": "< 2021"
     }
+  ],
+  "ignorePaths": [
+    "cluster/monitoring/loki",
+    "cluster/monitoring/influxdb"
   ]
 }
