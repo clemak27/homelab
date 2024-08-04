@@ -27,21 +27,21 @@
       '';
       peers = [
         {
-          # enchilada
+          # planck
           publicKey = "kM5NBf1dpdRxV7X6dtPJ2RCYmScN2Z9eadiSNRcIyQ4=";
-          presharedKeyFile = "${config.sops.secrets."wg/enchilada/pre_shared_key".path}";
+          presharedKeyFile = "${config.sops.secrets."wg/deck/pre_shared_key".path}";
           allowedIPs = [ "10.6.0.2/32" ];
         }
         {
-          # silfur
+          # newton
           publicKey = "SidO/Rk16lghr6awbSGdp0AIh/hC429XuVu2d7EzFHk=";
-          presharedKeyFile = "${config.sops.secrets."wg/silfur/pre_shared_key".path}";
+          presharedKeyFile = "${config.sops.secrets."wg/newton/pre_shared_key".path}";
           allowedIPs = [ "10.6.0.4/32" ];
         }
         {
-          # deck
+          # fermi
           publicKey = "m/I4FN9oYtJFS5NPTT+VjHnCEy0uSBIG6Pg1JvjF23g=";
-          presharedKeyFile = "${config.sops.secrets."wg/deck/pre_shared_key".path}";
+          presharedKeyFile = "${config.sops.secrets."wg/fermi/pre_shared_key".path}";
           allowedIPs = [ "10.6.0.5/32" ];
         }
         {
