@@ -108,5 +108,14 @@ prometheus:
       - hosts: [prometheus.wallstreet30.cc]
         secretName: prometheus-tls
   prometheusSpec:
-    retention: 14d
-    retentionSize: "30GB"
+    retention: 31d
+    storageSpec:
+      # prometheus-kps-prometheus-db-prometheus-kps-prometheus-0
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 50Gi
+          selector:
+            matchLabels:
+              prometheus-data: "true"
