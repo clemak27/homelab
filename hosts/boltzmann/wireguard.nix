@@ -29,7 +29,7 @@
         {
           # planck
           publicKey = "kM5NBf1dpdRxV7X6dtPJ2RCYmScN2Z9eadiSNRcIyQ4=";
-          presharedKeyFile = "${config.sops.secrets."wg/deck/pre_shared_key".path}";
+          presharedKeyFile = "${config.sops.secrets."wg/planck/pre_shared_key".path}";
           allowedIPs = [ "10.6.0.2/32" ];
         }
         {
