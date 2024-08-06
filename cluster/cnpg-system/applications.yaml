@@ -15,7 +15,7 @@ spec:
       - ServerSideApply=true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: feat/deploy-cnpg
+    targetRevision: master
     path: cluster/cnpg-system/cnpg
   destination:
     name: in-cluster
