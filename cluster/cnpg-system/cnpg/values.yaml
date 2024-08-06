@@ -1,0 +1,9 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/cloudnative-pg/charts/main/charts/cloudnative-pg/values.schema.json
+monitoring:
+  podMonitorEnabled: true
+  grafanaDashboard:
+    create: true
+    configMapName: "cnpg-grafana-dashboard"
+    annotations:
+      k8s-sidecar-target-directory: "cnpg"
