@@ -1,13 +1,5 @@
 ---
-# Default values for longhorn.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-# networkPolicies:
-#   enabled: false
-#   # Available types: k3s, rke2, rke1
-#   type: "k3s"
-
+# https://github.com/longhorn/charts/blob/v1.6.x/charts/longhorn/values.yaml
 preUpgradeChecker:
   jobEnabled: false
 
@@ -29,42 +21,6 @@ defaultSettings:
   replicaAutoBalance: disabled
   replicaSoftAntiAffinity: false
   defaultDataLocality: disabled
-  # storageOverProvisioningPercentage: ~
-  # storageMinimalAvailablePercentage: ~
-  # backupstorePollInterval: ~
-  # failedBackupTTL: ~
-  # restoreVolumeRecurringJobs: ~
-  # recurringSuccessfulJobsHistoryLimit: ~
-  # recurringFailedJobsHistoryLimit: ~
-  # supportBundleFailedHistoryLimit: ~
-  # taintToleration: ~
-  # systemManagedComponentsNodeSelector: ~
-  # priorityClass: ~
-  # autoDeletePodWhenVolumeDetachedUnexpectedly: ~
-  # replicaZoneSoftAntiAffinity: ~
-  # replicaReplenishmentWaitInterval: ~
-  # concurrentReplicaRebuildPerNodeLimit: ~
-  # concurrentVolumeBackupRestorePerNodeLimit: ~
-  # systemManagedPodsImagePullPolicy: ~
-  # concurrentAutomaticEngineUpgradePerNodeLimit: ~
-  # backingImageCleanupWaitInterval: ~
-  # backingImageRecoveryWaitInterval: ~
-  # guaranteedEngineManagerCPU: ~
-  # guaranteedReplicaManagerCPU: ~
-  # kubernetesClusterAutoscalerEnabled: ~
-  # storageNetwork: ~
-  # deletingConfirmationFlag: ~
-  # engineReplicaTimeout: ~
-  # snapshotDataIntegrityImmediateCheckAfterSnapshotCreation: ~
-  # snapshotDataIntegrityCronjob: ~
-  # fastReplicaRebuildEnabled: ~
-  # replicaFileSyncHttpClientTimeout: ~
-  # logLevel: ~
-  # backupCompressionMethod: ~
-  # backupConcurrentLimit: ~
-  # restoreConcurrentLimit: ~
-  # v2DataEngine: ~
-  # offlineReplicaRebuilding: ~
 
 ingress:
   enabled: false
@@ -80,51 +36,6 @@ ingress:
 
   path: /
 
-  ## Ingress annotations done as key:value pairs
-  ## If you're using kube-lego, you will want to add:
-  ## kubernetes.io/tls-acme: true
-  ##
-  ## For a full list of possible ingress annotations, please see
-  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md
-  ##
-  ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
-  # annotations:
-  #     ingress.kubernetes.io/ssl-redirect: "true"
-  #     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-  #     cert-manager.io/cluster-issuer: letsencrypt-production
-
-  # secrets:
-  ## If you're providing your own certificates, please use this to add the certificates as secrets
-  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
-  ## -----BEGIN RSA PRIVATE KEY-----
-  ##
-  ## name should line up with a tlsSecret set further up
-  ## If you're using kube-lego, this is unneeded, as it will create the secret for you if it is not set
-  ##
-  ## It is also possible to create and manage the certificates outside of this helm chart
-  ## Please see README.md for more information
-  # - name: longhorn.local-tls
-  #   key:
-  #   certificate:
-  #
-  #
-
-# ingress:
-#   main:
-#     enabled: true
-#     ingressClassName: traefik
-#     annotations:
-#       ingress.kubernetes.io/ssl-redirect: "true"
-#       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-#       cert-manager.io/cluster-issuer: letsencrypt-production
-#     hosts:
-#       - host: syncthing.wallstreet30.cc
-#         paths:
-#           - path: /
-#             pathType: Prefix
-#             service:
-#               name: main
-#     tls:
-#       - hosts:
-#           - syncthing.wallstreet30.cc
-#         secretName: syncthing-tls
+metrics:
+  serviceMonitor:
+    enabled: false
