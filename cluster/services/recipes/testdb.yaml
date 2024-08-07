@@ -7,11 +7,10 @@ metadata:
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.3
   instances: 1
-
   bootstrap:
     initdb:
       database: recipes
       owner: recipes
-
   storage:
+    storageClass: longhorn-crypto
     size: 1Gi
