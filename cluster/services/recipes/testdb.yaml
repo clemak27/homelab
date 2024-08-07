@@ -12,5 +12,7 @@ spec:
       database: recipes
       owner: recipes
   storage:
-    storageClass: longhorn-crypto
+    pvcTemplate:
+      volumeName: recipes-database-test
+      storageClassName: longhorn-crypto
     size: 1Gi
