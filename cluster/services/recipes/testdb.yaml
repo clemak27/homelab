@@ -6,11 +6,13 @@ metadata:
   name: recipes-database-test
 spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16.3
-  instances: 1
+  instances: 3
   bootstrap:
     initdb:
       database: recipes
       owner: recipes
+  minSyncReplicas: 1
+  maxSyncReplicas: 1
   storage:
     # recipes-database-test-X
     storageClass: longhorn-crypto
