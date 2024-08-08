@@ -21,3 +21,6 @@ spec:
       selector:
         matchLabels:
           cnpg-data: recipes-database-test
+  backup:
+    volumeSnapshot:
+      className: longhorn-crypto
