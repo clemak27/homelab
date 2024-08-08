@@ -12,5 +12,10 @@ spec:
       database: recipes
       owner: recipes
   storage:
+    # recipes-database-test-X
     storageClass: longhorn-crypto
     size: 1Gi
+    pvcTemplate:
+      selector:
+        matchLabels:
+          cnpg-data: recipes-database-test
