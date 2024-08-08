@@ -2,6 +2,28 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/values.schema.json
 controllers:
   main:
+    initContainers:
+      db:
+        image:
+          repository: nixery.dev/shell
+          tag: latest
+        env:
+          TZ: Europe/Vienna
+          RUN_MIGRATIONS: "1"
+          BASE_URL: "https://miniflux.wallstreet30.cc"
+          LISTEN_ADDR: "0.0.0.0:8080"
+          POLLING_FREQUENCY: "15"
+          BATCH_SIZE: "50"
+          DATABASE_URL:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-db-url
+                key: db_url
+        command:
+          - /bin/bash
+          - -c
+          - |
+            echo hallo
     containers:
       main:
         image:
