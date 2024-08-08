@@ -14,7 +14,3 @@ spec:
   storage:
     storageClass: longhorn-crypto
     size: 1Gi
-  backup:
-    volumeSnapshot:
-      online: false
-      className: longhorn-crypto
