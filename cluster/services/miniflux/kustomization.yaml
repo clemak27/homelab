@@ -9,13 +9,13 @@ helmCharts:
     namespace: services
     valuesFile: miniflux-values.yaml
     includeCRDs: true
-  - name: postgresql
-    repo: https://charts.bitnami.com/bitnami
-    version: 15.5.18
-    releaseName: miniflux-db
-    namespace: services
-    valuesFile: miniflux-db-values.yaml
-    includeCRDs: true
+#   - name: postgresql
+#     repo: https://charts.bitnami.com/bitnami
+#     version: 15.5.18
+#     releaseName: miniflux-db
+#     namespace: services
+#     valuesFile: miniflux-db-values.yaml
+#     includeCRDs: true
 resources:
   - database.yaml
 generators:
