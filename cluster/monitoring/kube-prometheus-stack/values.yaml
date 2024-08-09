@@ -108,6 +108,10 @@ prometheus:
       - hosts: [prometheus.wallstreet30.cc]
         secretName: prometheus-tls
   prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
     retention: 31d
     storageSpec:
       # prometheus-kps-prometheus-db-prometheus-kps-prometheus-0
