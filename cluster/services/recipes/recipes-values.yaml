@@ -10,10 +10,10 @@ controllers:
         env:
           TZ: Europe/Vienna
           DB_ENGINE: "django.db.backends.postgresql"
-          POSTGRES_DB: recipies
-          POSTGRES_USER: r3c1p1e5
+          POSTGRES_DB: recipes
+          POSTGRES_USER: recipes
           POSTGRES_PORT: "5432"
-          POSTGRES_HOST: recipes-db-postgresql
+          POSTGRES_HOST: recipes-database-rw
           SECRET_KEY:
             valueFrom:
               secretKeyRef:
@@ -22,8 +22,8 @@ controllers:
           POSTGRES_PASSWORD:
             valueFrom:
               secretKeyRef:
-                name: recipes-db-connection
-                key: postgres_password
+                name: recipes-database-app
+                key: password
 
 service:
   main:
