@@ -17,8 +17,8 @@ controllers:
           SECRET_KEY:
             valueFrom:
               secretKeyRef:
-                name: recipes-db-connection
-                key: secret_key
+                name: recipes-secret-key
+                key: key
           POSTGRES_PASSWORD:
             valueFrom:
               secretKeyRef:
