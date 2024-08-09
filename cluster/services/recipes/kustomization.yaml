@@ -17,6 +17,6 @@ helmCharts:
     valuesFile: recipes-db-values.yaml
     includeCRDs: true
 resources:
-  - testdb.yaml
+  - database.yaml
 generators:
   - ./ksops-generator.yaml
