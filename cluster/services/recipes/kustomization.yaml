@@ -9,13 +9,13 @@ helmCharts:
     namespace: services
     valuesFile: recipes-values.yaml
     includeCRDs: true
-  - name: postgresql
-    repo: https://charts.bitnami.com/bitnami
-    version: 15.5.18
-    releaseName: recipes-db
-    namespace: services
-    valuesFile: recipes-db-values.yaml
-    includeCRDs: true
+#   - name: postgresql
+#     repo: https://charts.bitnami.com/bitnami
+#     version: 15.5.18
+#     releaseName: recipes-db
+#     namespace: services
+#     valuesFile: recipes-db-values.yaml
+#     includeCRDs: true
 resources:
   - database.yaml
 generators:
