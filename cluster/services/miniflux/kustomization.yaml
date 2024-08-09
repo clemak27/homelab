@@ -16,5 +16,7 @@ helmCharts:
     namespace: services
     valuesFile: miniflux-db-values.yaml
     includeCRDs: true
+resources:
+  - database.yaml
 generators:
   - ./ksops-generator.yaml
