@@ -11,6 +11,9 @@ spec:
     initdb:
       database: recipes
       owner: recipes
+  monitoring:
+    disableDefaultQueries: false
+    enablePodMonitor: true
   storage:
     # recipes-database-X
     storageClass: longhorn-crypto
