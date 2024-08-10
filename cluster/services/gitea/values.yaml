@@ -1,15 +1,4 @@
 ---
-global:
-  storageClass: longhorn
-
-image:
-  registry: "docker.io"
-  repository: gitea/gitea
-  tag: "1.21.11"
-
-podSecurityContext:
-  fsGroup: 1000
-
 service:
   http:
     type: ClusterIP
@@ -18,6 +7,12 @@ service:
     type: ClusterIP
     port: 222
     clusterIP:
+
+global:
+  storageClass: longhorn-crypto
+
+podSecurityContext:
+  fsGroup: 1000
 
 ingress:
   enabled: true
@@ -39,30 +34,45 @@ ingress:
 persistence:
   enabled: true
   storageClass: longhorn-crypto
-  claimName: "gitea-data"
-  volumeName: "gitea-data"
+  claimName: gitea-data
+  volumeName: gitea-data
 
 gitea:
   config:
+    APP_NAME: 'gitea'
     service:
       DISABLE_REGISTRATION: false
       ALLOW_ONLY_EXTERNAL_REGISTRATION: true
       SHOW_REGISTRATION_BUTTON: false
     server:
       SSH_PORT: 222
+    database:
+      DB_TYPE: postgres
+      HOST: gitea-database-rw
+      NAME: gitea
+      USER: gitea
+      SCHEMA: public
   admin:
     existingSecret: gitea-admin
   additionalConfigFromEnvs:
-    - name: GITEA__DATABASE__DB_TYPE
-      value: sqlite3
-    - name: GITEA__SESSION__PROVIDER
-      value: memory
-    - name: GITEA__CACHE__ADAPTER
-      value: memory
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: gitea-database-app
+          key: password
 
 redis-cluster:
   enabled: false
+
+redis:
+  enabled: true
+  architecture: standalone
+  master:
+    persistence:
+      enabled: false
+
 postgresql:
   enabled: false
+
 postgresql-ha:
   enabled: false
