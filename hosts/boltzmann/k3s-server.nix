@@ -33,13 +33,6 @@
       tls-san:
         - "k3s.wallstreet30.cc"
     '';
-
-    "rancher/k3s/registries.yaml".text = ''
-      mirrors:
-        "registry.wallstreet30.cc":
-          endpoint:
-            - "https://registry.wallstreet30.cc"
-    '';
   };
 
   system.activationScripts.makeK3sTraefikConfig = lib.stringAfter [ "var" ] ''
