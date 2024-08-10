@@ -8,12 +8,15 @@ controllers:
     containers:
       main:
         image:
-          repository: registry.wallstreet30.cc/qobuz-dl
+          repository: gitea.wallstreet30.cc/clemak27/qobuz-dl
           tag: latest
+          pullPolicy: Always
         env:
           TZ: Europe/Vienna
 
 defaultPodOptions:
+  imagePullSecrets:
+    - name: regcred
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
