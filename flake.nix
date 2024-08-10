@@ -98,13 +98,13 @@
           deployHomelab = legacyPkgs.writeShellScriptBin "deploy-homelab" ''
             set -e
 
-            kubectl scale deployments.apps -l requires-nfs=true --replicas 0
+            kubectl scale -n services deployments.apps -l requires-nfs=true --replicas 0
             deploy --boot -s
             ${sshRun} sudo shutdown -r 0
             sleep 5
             while ! ${sshRun} exit 0 &> /dev/null; do sleep 5; done;
             ${sshRun} sudo nix-collect-garbage
-            kubectl scale deployments.apps -l requires-nfs=true --replicas 1
+            kubectl scale -n services deployments.apps -l requires-nfs=true --replicas 1
           '';
         in
         legacyPkgs.mkShell {
