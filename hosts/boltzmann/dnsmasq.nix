@@ -41,6 +41,8 @@ in
     ${lbIP} vaultwarden.wallstreet30.cc
     ${lbIP} zigbee2mqtt.wallstreet30.cc
 
+    ${lbIP} forgejo.wallstreet30.cc
+
     ${lbIP} alertmanager.wallstreet30.cc
     ${lbIP} grafana.wallstreet30.cc
     ${lbIP} prometheus.wallstreet30.cc
