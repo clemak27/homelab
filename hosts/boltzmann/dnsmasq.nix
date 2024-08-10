@@ -21,7 +21,6 @@ in
 
     ${lbIP} argocd.wallstreet30.cc
     ${lbIP} longhorn.wallstreet30.cc
-    ${lbIP} registry.wallstreet30.cc
     ${lbIP} traefik.wallstreet30.cc
 
     ${lbIP} calibre.wallstreet30.cc
