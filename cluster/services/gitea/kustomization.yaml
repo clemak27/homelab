@@ -15,4 +15,5 @@ generators:
   - ./ksops-generator.yaml
 resources:
   - database.yaml
+  - runner.yaml
   - ssh-ingress.yaml
