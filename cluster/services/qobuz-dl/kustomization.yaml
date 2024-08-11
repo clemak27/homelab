@@ -9,3 +9,5 @@ helmCharts:
     namespace: services
     valuesFile: values.yaml
     includeCRDs: true
+generators:
+  - ./ksops-generator.yaml

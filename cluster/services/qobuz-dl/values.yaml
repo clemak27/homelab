@@ -9,10 +9,19 @@ controllers:
       main:
         image:
           repository: gitea.wallstreet30.cc/clemak27/qobuz-dl
-          tag: latest
-          pullPolicy: Always
+          tag: 1.2.0
         env:
           TZ: Europe/Vienna
+          QOBUZ_EMAIL:
+            valueFrom:
+              secretKeyRef:
+                name: qobuz-auth
+                key: email
+          QOBUZ_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: qobuz-auth
+                key: password
 
 defaultPodOptions:
   imagePullSecrets:
