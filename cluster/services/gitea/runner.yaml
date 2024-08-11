@@ -23,6 +23,13 @@ spec:
         - name: runner-data
           persistentVolumeClaim:
             claimName: gitea-runner
+        - name: config
+          configMap:
+            name: gitea-runner-config
+      hostAliases:
+        - ip: "192.168.178.100"
+          hostnames:
+            - "gitea.wallstreet30.cc"
       containers:
         - name: runner
           image: gitea/act_runner:latest
@@ -34,6 +41,8 @@ spec:
               value: /certs/client
             - name: DOCKER_TLS_VERIFY
               value: "1"
+            - name: CONFIG_FILE
+              value: /config.yaml
             - name: GITEA_INSTANCE_URL
               value: http://gitea-http.services.svc.cluster.local:3000
             - name: GITEA_RUNNER_REGISTRATION_TOKEN
@@ -46,6 +55,9 @@ spec:
               mountPath: /certs
             - name: runner-data
               mountPath: /data
+            - name: config
+              mountPath: /config.yaml
+              subPath: config.yaml
         - name: daemon
           image: docker:27.1.1-dind
           env:
@@ -56,3 +68,46 @@ spec:
           volumeMounts:
             - name: docker-certs
               mountPath: /certs
+---
+# see https://forum.gitea.com/t/act-runner-in-k8s-fail-to-connect-to-docker-daemon/8736
+# and https://gist.github.com/mariusrugan/911f5da923c93f3c795d3e84bed9e256
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitea-runner-config
+  namespace: services
+data:
+  config.yaml: |-
+    log:
+      level: debug
+    runner:
+      file: .runner
+      capacity: 1
+      env_file: .env
+      timeout: 30m
+      insecure: false
+      fetch_timeout: 5s
+      fetch_interval: 2s
+      labels:
+        - "ubuntu-latest:docker://gitea/runner-images:ubuntu-latest"
+        - "ubuntu-22.04:docker://gitea/runner-images:ubuntu-22.04"
+        - "ubuntu-20.04:docker://gitea/runner-images:ubuntu-20.04"
+    cache:
+      enabled: true
+      dir: ""
+      host: ""
+      port: 0
+      external_server: ""
+    container:
+      network: ""
+      privileged: false
+      options: |
+        --add-host=docker:host-gateway
+        --add-host=gitea.wallstreet30.cc:192.168.178.100
+        -v /certs:/certs
+        -e "DOCKER_HOST=tcp://docker:2376/"
+        -e "DOCKER_TLS_CERTDIR=/certs"
+        -e "DOCKER_TLS_VERIFY=1"
+        -e "DOCKER_CERT_PATH=/certs/server"
+      valid_volumes:
+        - /certs
