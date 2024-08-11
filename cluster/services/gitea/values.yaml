@@ -38,8 +38,11 @@ persistence:
   volumeName: gitea-data
 
 gitea:
+  # https://docs.gitea.com/administration/config-cheat-sheet
   config:
     APP_NAME: 'gitea'
+    repository:
+      PULL_REQUEST_DEFAULT_MERGE_STYLE: fast-forward-only
     service:
       DISABLE_REGISTRATION: false
       ALLOW_ONLY_EXTERNAL_REGISTRATION: true
