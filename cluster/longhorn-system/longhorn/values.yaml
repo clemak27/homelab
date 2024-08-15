@@ -38,4 +38,4 @@ ingress:
 
 metrics:
   serviceMonitor:
-    enabled: false
+    enabled: true
