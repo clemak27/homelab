@@ -1,4 +1,5 @@
 ---
+# https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
 global:
   domain: argocd.wallstreet30.cc
 
@@ -128,5 +129,8 @@ configs:
 
 controller:
   metrics:
+    enabled: true
     serviceMonitor:
+      enabled: true
+    rules:
       enabled: true
