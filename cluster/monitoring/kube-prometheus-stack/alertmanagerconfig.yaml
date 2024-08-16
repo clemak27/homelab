@@ -1,0 +1,54 @@
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: telegram-config
+  namespace: monitoring
+  labels:
+    alertmanager: config
+spec:
+  route:
+    groupBy:
+      - ENC[AES256_GCM,data:+NIh,iv:+zFnawvcNrlIlR/m+oqMCd0yBELWjK5MdLSmRs0k7tk=,tag:9UwAN7J/IR89+a6bILyQtA==,type:str]
+      - ENC[AES256_GCM,data:8ErN7fM7CBYt,iv:WzoDUfbCNZ1oW9XURlnh5yncfwLWNc1ID5ZiNr9wv18=,tag:5VL8VKDzuc7eJUKwPLHe+w==,type:str]
+    receiver: ENC[AES256_GCM,data:3N9DxeX23F4=,iv:I5meXQN5PGBPABHBfXQtcERow2UDV6C5DHgl3zlSS08=,tag:ym4nFsw6sSqTCFfOptyZQw==,type:str]
+    routes:
+      - receiver: ENC[AES256_GCM,data:Ags7FJ/jNAs=,iv:8brO9alchjmHIQvLuQ1/Qy3iS6QUmZt6wRimQJHqMQ4=,tag:a4qN/d9ENuXRO+gHo77Edg==,type:str]
+        continue: ENC[AES256_GCM,data:ayUXVw==,iv:OmAZ6jijL1o+Vkld4lxjj6NI9hgBZYzaUlgtrJEzZkY=,tag:8YeiglrabwYyGHI4j3rUug==,type:bool]
+        matchers:
+          - name: ENC[AES256_GCM,data:KqzJzxnXsb8P,iv:REHHg2rY75bNCWn8LE4s6jCq2RiIsQ7SHqRoMn/lM/k=,tag:hXn9f0rdVdw58JFiKZPPYA==,type:str]
+            value: ENC[AES256_GCM,data:VSduDoPumP9SFg==,iv:D/BcZFqpTIf2BoW65Cs++WEA0xfVlF8U1FcN1fU6IvY=,tag:XKRSdYObd6tYjWLYY+lFUQ==,type:str]
+          - name: ENC[AES256_GCM,data:KqzJzxnXsb8P,iv:REHHg2rY75bNCWn8LE4s6jCq2RiIsQ7SHqRoMn/lM/k=,tag:hXn9f0rdVdw58JFiKZPPYA==,type:str]
+            value: ENC[AES256_GCM,data:RaztewfSvrzp+Z8sSC/R,iv:3XXQ3oLPw42mwHLQ3EHOiVKJ/eizbFj4HWL1FoNJmaM=,tag:VTg/LCxe00Qju2HbDM9PcQ==,type:str]
+          - name: ENC[AES256_GCM,data:KqzJzxnXsb8P,iv:REHHg2rY75bNCWn8LE4s6jCq2RiIsQ7SHqRoMn/lM/k=,tag:hXn9f0rdVdw58JFiKZPPYA==,type:str]
+            value: ENC[AES256_GCM,data:djiYWsUnVKs=,iv:/2OXDXY7sP62I6hTWrTbB1MY93hR3xiiDsXORC7CEec=,tag:ME9bygov/2vvPMq5X72nFw==,type:str]
+  receivers:
+    - name: ENC[AES256_GCM,data:loCclqFnSqo=,iv:9X4XVXxuNsk8VwMCkNMLodUDIBerZbRDXK6jTR5NG3w=,tag:F9ICQSf5tehGxFjL1723Qw==,type:str]
+      telegramConfigs:
+        - botToken:
+            name: ENC[AES256_GCM,data:zSIpDwPOXfFQnEs1,iv:nSKFKXjzamqHECaSRL9xIrv0N8i0pHx1qNt/N9Dt8eo=,tag:K96zllkwTPGdTJTkVZVf7g==,type:str]
+            key: ENC[AES256_GCM,data:nrxOCNw=,iv:06TBwYqt8LjSdDbxqd52dprRu0PXsuBTI9mI/gFvOd8=,tag:7fMn8qWS62skg1YiaEDrmQ==,type:str]
+          chatID: ENC[AES256_GCM,data:tlanRSZQoCBA7S0pt9I=,iv:J1kV4IW78GLhpReYuhx4iedBvhGwSLyRe/4GWP6W24g=,tag:CNYQDf01uvi8Py4JWl5NsA==,type:int]
+          apiURL: ENC[AES256_GCM,data:L2XfL6mZWaT3S9Cx7JLTHf3fXZml6US+,iv:/IV84S3WRX/j/riAkd11PwG9p8J0ZavqgwBphVkKW4U=,tag:igGQbTLDrE9eEVEWS6XYCQ==,type:str]
+          parseMode: ENC[AES256_GCM,data:M04yEA==,iv:3R1BIlavH7fqVvRRbzjOWlNkX27r0Xrcst/9sNQx5D0=,tag:2lViP1/x+qF+gsJnFCQcmQ==,type:str]
+          message: ENC[AES256_GCM,data:44B9616GqXHXdno1spP4UBJn5aPV358PAlOLI+FDM7PDVS1wnXslSR78r8nGF/ykEYZ9ZuoJkBYefhepVpurOYdTTld88zYZFIp++9gXjDsHBZEh9R7g7mu2WEAW7jI=,iv:ZChgNXM9cn0MT0QgoO0zL+sTTm2212x9doFNitFi5yo=,tag:EHv0KYXIq+F5TVkpR23Bvw==,type:str]
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2RlZSKzU0WEVheGxDNmYw
+        T08zSFozMkdmYURNeXhra0VQS1BwU1hqWm1BCmVNZXlydWJ0RFRyclViTG40S0k3
+        andrbklQUk1OeUtKblp6L3pyRUhnU0UKLS0tIGZuQUthUjZDYjVzN3RlQUJoZE10
+        RmFqV2x2aWdndlRFZCs2b056TEIxRmsKDoJRfd43GcG6cpFJRZd0YSNUW6SlCscd
+        mEWjyB5EO600Mfej3ZC/vMWSSKhkBiFn/FypPiSO70tczAw1rI4Dgg==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2024-09-07T06:29:02Z"
+  mac: ENC[AES256_GCM,data:UD9Y0rBrZgnffzSGumva1g3R7AqFa22qh585MOtZCAFvuL/fV0Uyfw18qYbb3yCCVUG2mhPp54qRpp4HGPg8Ifw5qRFe+FnMGKa6ffiBM7qOns+ET5fNVAMHgykMTChe5AL6iaTrnlAgjP0JJ0aiCeTqRfMIUEF41NjAmacdfNw=,iv:S9f8i6qxLxrMO4Le6uDcKTQ9MS2yb8uSNRhiHdNfZzg=,tag:uceo37lcExWrXQcZDwqzDQ==,type:str]
+  pgp: []
+  unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+  version: 3.8.1

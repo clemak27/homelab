@@ -28,6 +28,13 @@ alertmanager:
     tls:
       - hosts: [alertmanager.wallstreet30.cc]
         secretName: alertmanager-tls
+  alertmanagerSpec:
+    alertmanagerConfigSelector:
+      matchLabels:
+        alertmanager: config
+    secrets:
+      - telegram-bot
+
 grafana:
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: browser
