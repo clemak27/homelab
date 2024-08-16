@@ -1,0 +1,124 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: application-controller
+    app.kubernetes.io/instance: argo-cd
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: v2.12.0
+  name: argo-cd-argocd-application-controller
+  namespace: argocd
+spec:
+  endpoints:
+    - interval: 30s
+      path: /metrics
+      port: http-metrics
+  namespaceSelector:
+    matchNames:
+      - argocd
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: application-controller
+      app.kubernetes.io/instance: argo-cd
+      app.kubernetes.io/name: argocd-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: applicationset-controller
+    app.kubernetes.io/instance: argo-cd
+    app.kubernetes.io/name: argocd-applicationset-controller
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: v2.12.0
+  name: argo-cd-argocd-applicationset-controller
+  namespace: argocd
+spec:
+  endpoints:
+    - interval: 30s
+      path: /metrics
+      port: http-metrics
+  namespaceSelector:
+    matchNames:
+      - argocd
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: applicationset-controller
+      app.kubernetes.io/instance: argo-cd
+      app.kubernetes.io/name: argocd-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: notifications-controller
+    app.kubernetes.io/instance: argo-cd
+    app.kubernetes.io/name: argocd-notifications-controller
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: v2.12.0
+  name: argo-cd-argocd-notifications-controller
+  namespace: argocd
+spec:
+  endpoints:
+    - path: /metrics
+      port: http-metrics
+  namespaceSelector:
+    matchNames:
+      - argocd
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: notifications-controller
+      app.kubernetes.io/instance: argo-cd
+      app.kubernetes.io/name: argocd-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: repo-server
+    app.kubernetes.io/instance: argo-cd
+    app.kubernetes.io/name: argocd-repo-server
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: v2.12.0
+  name: argo-cd-argocd-repo-server
+  namespace: argocd
+spec:
+  endpoints:
+    - interval: 30s
+      path: /metrics
+      port: http-metrics
+  namespaceSelector:
+    matchNames:
+      - argocd
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: repo-server
+      app.kubernetes.io/instance: argo-cd
+      app.kubernetes.io/name: argocd-repo-server-metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: argo-cd
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: v2.12.0
+  name: argo-cd-argocd-server
+  namespace: argocd
+spec:
+  endpoints:
+    - interval: 30s
+      path: /metrics
+      port: http-metrics
+  namespaceSelector:
+    matchNames:
+      - argocd
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: argo-cd
+      app.kubernetes.io/name: argocd-server-metrics
