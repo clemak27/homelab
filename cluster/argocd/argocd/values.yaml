@@ -25,18 +25,13 @@ server:
         secretName: argocd-tls
   metrics:
     enabled: true
-    applicationLabels:
-      enabled: true
     serviceMonitor:
-      enabled: true
-    rules:
       enabled: true
 
 repoServer:
   serviceAccount:
     create: true
     name: argocd-repo-server
-
   rbac:
     - apiGroups:
         - ""
@@ -44,7 +39,6 @@ repoServer:
         - secrets
       verbs:
         - get
-
   volumes:
     - name: custom-tools
       emptyDir: {}
@@ -54,7 +48,6 @@ repoServer:
         items:
           - key: keys.txt
             path: keys.txt
-
   volumeMounts:
     - mountPath: /custom-tools
       name: custom-tools
@@ -71,7 +64,6 @@ repoServer:
     - mountPath: /home/argocd/.config/kustomize/plugin/viaduct.ai/v1/ksops/ksops
       name: custom-tools
       subPath: ksops
-
   initContainers:
     - name: install-ksops
       image: viaductoss/ksops:v4.3.2
@@ -81,6 +73,22 @@ repoServer:
       volumeMounts:
         - mountPath: /custom-tools
           name: custom-tools
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+applicationSet:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+notifications:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
 
 configs:
   params:
