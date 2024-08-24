@@ -1,0 +1,96 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: json-exporter
+  labels:
+    app: json-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: json-exporter
+  template:
+    metadata:
+      labels:
+        app: json-exporter
+    spec:
+      containers:
+        - image: quay.io/prometheuscommunity/json-exporter
+          name: json-exporter
+          volumeMounts:
+            - name: exporter-config
+              mountPath: /config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: exporter-config
+          configMap:
+            name: json-exporter-cm
+            items:
+              - key: config.yaml
+                path: config.yaml
+# TODO add service
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: json-exporter-cm
+data:
+  config.yaml: |
+    modules:
+      jellyfin:
+        headers:
+          Authorization: MediaBrowser Token=ADD_TOKEN_HERE
+          Content-Type: application/json
+          accept: application/json
+
+        # The body is no longer needed since this is now GET
+
+        # This will return all active sessions regardless of
+        # whether something is playing. You can use a combination
+        # of label and value filters in Grafana to only get actively
+        # playing sessions
+        metrics:
+        - name: jellyfin
+          type: object
+          help: User playback metrics from Jellyfin
+          path: '{ [*] }'
+          labels:
+            user_name: '{ .UserName }'
+            # Use PromQL label_join and label_replace to concatenate
+            # these values into a nice item description
+            item_type: '{ .NowPlayingItem.Type }'
+            item_name: '{ .NowPlayingItem.Name }'
+            item_path: '{ .NowPlayingItem.Path }'
+            series_name: '{ .NowPlayingItem.SeriesName }'
+            episode_index: 'e{ .NowPlayingItem.IndexNumber }'
+            season_index: 's{ .NowPlayingItem.ParentIndexNumber }'
+            client_name: '{ .Client }'
+            device_name: '{ .DeviceName }'
+          values:
+            is_paused: '{ .PlayState.IsPaused }'
+# ---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   labels:
+#     app.kubernetes.io/component: application-controller
+#     app.kubernetes.io/instance: argo-cd
+#     app.kubernetes.io/name: argocd-application-controller
+#     app.kubernetes.io/part-of: argocd
+#     app.kubernetes.io/version: v2.12.0
+#   name: argo-cd-argocd-application-controller
+#   namespace: argocd
+# spec:
+#   endpoints:
+#     - interval: 30s
+#       path: /metrics
+#       port: http-metrics
+#   namespaceSelector:
+#     matchNames:
+#       - argocd
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/component: application-controller
+#       app.kubernetes.io/instance: argo-cd
+#       app.kubernetes.io/name: argocd-metrics
