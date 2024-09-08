@@ -13,6 +13,7 @@ defaultRules:
     kubeProxy: false
     kubeSchedulerAlerting: false
     kubeSchedulerRecording: false
+    kubelet: false
 
 alertmanager:
   ingress:
