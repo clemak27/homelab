@@ -34,6 +34,7 @@ in
     ${lbIP} readarr.wallstreet30.cc
     ${lbIP} redlib.wallstreet30.cc
     ${lbIP} recipes.wallstreet30.cc
+    ${lbIP} searxng.wallstreet30.cc
     ${lbIP} sonarr.wallstreet30.cc
     ${lbIP} syncthing.wallstreet30.cc
     ${lbIP} transmission.wallstreet30.cc
