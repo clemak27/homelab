@@ -19,6 +19,12 @@
     options = [ "subvol=backups" ];
   };
 
+  fileSystems."/var/mnt/series" = {
+    device = "/dev/disk/by-uuid/6f4c22d1-60c8-4f91-a2b4-c04f30b77f45";
+    fsType = "btrfs";
+    options = [ "subvol=series" ];
+  };
+
   # nfs
   fileSystems."/var/nfs/media" = {
     device = "/var/mnt/media";
@@ -26,6 +32,10 @@
   };
   fileSystems."/var/nfs/backups" = {
     device = "/var/mnt/backups";
+    options = [ "bind" ];
+  };
+  fileSystems."/var/nfs/series" = {
+    device = "/var/mnt/series";
     options = [ "bind" ];
   };
 
@@ -36,6 +46,7 @@
       /var/nfs                *(rw,fsid=0,no_subtree_check)
       /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
       /var/nfs/backups        *(rw,no_root_squash,sync)
+      /var/nfs/series         *(rw,nohide,insecure,no_subtree_check)
     '';
   };
 }
