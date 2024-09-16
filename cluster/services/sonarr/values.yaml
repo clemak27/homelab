@@ -69,3 +69,11 @@ persistence:
     globalMounts:
       - path: /downloads/series
         readOnly: false
+  series2:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /series
+    globalMounts:
+      - path: /series
+        readOnly: false

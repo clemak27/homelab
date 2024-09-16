@@ -59,3 +59,11 @@ persistence:
     globalMounts:
       - path: /media
         readOnly: false
+  series:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /series
+    globalMounts:
+      - path: /series
+        readOnly: false
