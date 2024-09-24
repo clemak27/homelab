@@ -2,6 +2,15 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/values.schema.json
 controllers:
   main:
+    initContainers:
+      wait-for-database:
+        image:
+          repository: nixery.dev/shell/busybox/postgresql_16
+          tag: latest
+        args:
+          - bash
+          - -c
+          - "set -x; while [[ ! \"$(pg_isready -d miniflux -U miniflux -h miniflux-database-rw)\" ]]; do sleep 5; done"
     containers:
       main:
         image:
