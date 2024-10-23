@@ -3,7 +3,7 @@
 global:
   defaultStorageClass: longhorn-crypto
 
-master:
+primary:
   persistence:
     enabled: false
 
