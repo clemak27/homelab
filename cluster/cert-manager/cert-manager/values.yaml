@@ -1,6 +1,9 @@
 ---
-env:
-  TZ: Europe/Vienna
+# yaml-language-server: $schema=https://raw.githubusercontent.com/cert-manager/cert-manager/refs/heads/master/deploy/charts/cert-manager/values.schema.json
+
+extraEnv:
+  - name: TZ
+    value: Europe/Vienna
 
 installCRDs: true
 
