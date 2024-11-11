@@ -6,7 +6,7 @@ controllers:
       main:
         image:
           repository: docker.io/vaultwarden/server
-          tag: 1.32.3
+          tag: 1.32.4
         env:
           TZ: Europe/Vienna
           YUBICO_CLIENT_ID:
