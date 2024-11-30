@@ -22,6 +22,7 @@ controllers:
           BASE_URL: "https://miniflux.wallstreet30.cc"
           LISTEN_ADDR: "0.0.0.0:8080"
           POLLING_FREQUENCY: "15"
+          FETCH_YOUTUBE_WATCH_TIME: "1"
           BATCH_SIZE: "50"
           DATABASE_URL:
             valueFrom:
