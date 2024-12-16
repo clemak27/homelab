@@ -86,27 +86,6 @@
       };
 
       devShells.x86_64-linux.default =
-        let
-          ip = self.deploy.nodes.boltzmann.hostname;
-          sshRun = "ssh clemens@${ip} -C";
-          updateFlake = legacyPkgs.writeShellScriptBin "update-flake" ''
-            nix flake update --commit-lock-file --option commit-lockfile-summary "chore(flake): update flake.lock"
-          '';
-          updateArgoApplications = legacyPkgs.writeShellScriptBin "update-argocd-applications" ''
-            find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
-          '';
-          deployHomelab = legacyPkgs.writeShellScriptBin "deploy-homelab" ''
-            set -e
-
-            kubectl scale -n services deployments.apps -l requires-nfs=true --replicas 0
-            deploy --boot -s
-            ${sshRun} sudo shutdown -r 0
-            sleep 5
-            while ! ${sshRun} exit 0 &> /dev/null; do sleep 5; done;
-            ${sshRun} sudo nix-collect-garbage
-            kubectl scale -n services deployments.apps -l requires-nfs=true --replicas 1
-          '';
-        in
         legacyPkgs.mkShell {
           inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
 
@@ -117,13 +96,11 @@
             kubectl
             kubernetes-helm
             kustomize
+            nvd
             pv-migrate
             sops
-            legacyPkgs.deploy-rs
 
-            updateFlake
-            updateArgoApplications
-            deployHomelab
+            legacyPkgs.deploy-rs
           ];
 
           KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
