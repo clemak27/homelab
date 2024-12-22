@@ -50,6 +50,12 @@
           presharedKeyFile = "${config.sops.secrets."wg/w2h/pre_shared_key".path}";
           allowedIPs = [ "10.6.0.6/32" ];
         }
+        {
+          # lagrange
+          publicKey = "zrK/VO0osxj4/cq8rzj8nFvP9N4q6Aox/NjMWWZ3ER8=";
+          presharedKeyFile = "${config.sops.secrets."wg/lagrange/pre_shared_key".path}";
+          allowedIPs = [ "10.6.0.7/32" ];
+        }
       ];
     };
   };

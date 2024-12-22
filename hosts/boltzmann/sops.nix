@@ -13,4 +13,6 @@
   sops.secrets."wg/fermi/pre_shared_key" = { };
   sops.secrets."wg/w2h/public_key" = { };
   sops.secrets."wg/w2h/pre_shared_key" = { };
+  sops.secrets."wg/lagrange/public_key" = { };
+  sops.secrets."wg/lagrange/pre_shared_key" = { };
 }
