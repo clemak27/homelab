@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: docker.io/linuxserver/sonarr
-          tag: 4.0.11
+          tag: 4.0.12
         env:
           TZ: Europe/Vienna
           PUID: "1000"
