@@ -29,6 +29,7 @@ in
     ${lbIP} jellyfin.wallstreet30.cc
     ${lbIP} mealie.wallstreet30.cc
     ${lbIP} miniflux.wallstreet30.cc
+    ${lbIP} paperless-ngx.wallstreet30.cc
     ${lbIP} prowlarr.wallstreet30.cc
     ${lbIP} qobuz-dl.wallstreet30.cc
     ${lbIP} radarr.wallstreet30.cc
