@@ -9,8 +9,5 @@ helmCharts:
     namespace: argocd
     valuesFile: values.yaml
     includeCRDs: true
-# resources:
-#   # https://github.com/argoproj/argo-helm/issues/2637
-#   - servicemonitors.yaml
 generators:
   - ./ksops-generator.yaml
