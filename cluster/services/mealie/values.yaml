@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: null
+    labels:
+      requires-nfs: "true"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/mealie-recipes/mealie
+          tag: v2.4.2
+        env:
+          TZ: Europe/Vienna
+          BASE_URL: https://mealie.wallstreet30.cc
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 9000
+
+ingress:
+  main:
+    enabled: true
+    className: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: mealie.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - mealie.wallstreet30.cc
+        secretName: mealie-tls
+
+persistence:
+  config:
+    enabled: true
+    existingClaim: mealie-config
+    globalMounts:
+      - path: /app/data
+        readOnly: false

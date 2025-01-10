@@ -27,6 +27,7 @@ in
     ${lbIP} gitea.wallstreet30.cc
     ${lbIP} home-assistant.wallstreet30.cc
     ${lbIP} jellyfin.wallstreet30.cc
+    ${lbIP} mealie.wallstreet30.cc
     ${lbIP} miniflux.wallstreet30.cc
     ${lbIP} prowlarr.wallstreet30.cc
     ${lbIP} qobuz-dl.wallstreet30.cc
