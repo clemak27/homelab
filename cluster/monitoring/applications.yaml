@@ -9,7 +9,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/clemak27/homelab
-        revision: master
+        revision: main
         directories:
           - path: cluster/monitoring/*
           - path: cluster/monitoring/loki
@@ -30,7 +30,7 @@ spec:
           - ServerSideApply=true
       source:
         repoURL: https://github.com/clemak27/homelab
-        targetRevision: master
+        targetRevision: main
         path: '{{path}}'
       destination:
         name: in-cluster

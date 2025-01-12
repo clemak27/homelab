@@ -15,7 +15,7 @@ spec:
       - CreateNamespace=true
   source:
     repoURL: https://github.com/clemak27/homelab
-    targetRevision: master
+    targetRevision: main
     path: cluster/cert-manager/cert-manager
   destination:
     name: in-cluster
