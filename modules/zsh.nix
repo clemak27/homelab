@@ -3,28 +3,36 @@
   programs.zsh = {
     histSize = 50000;
 
-    shellAliases = builtins.listToAttrs (
-      [
-        { name = "cd.."; value = "cd .."; }
-        { name = "clear"; value = "[[ -e /usr/bin/clear ]] && /usr/bin/clear || printf '\\33c\\e[3J'; [[ -n $TMUX ]] && tmux clearhist;"; }
-        { name = "lsa"; value = "ls -hal"; }
-        { name = "q"; value = "exit"; }
-      ]
-    );
+    shellAliases = builtins.listToAttrs ([
+      {
+        name = "cd..";
+        value = "cd ..";
+      }
+      {
+        name = "clear";
+        value = "[[ -e /usr/bin/clear ]] && /usr/bin/clear || printf '\\33c\\e[3J'; [[ -n $TMUX ]] && tmux clearhist;";
+      }
+      {
+        name = "lsa";
+        value = "ls -hal";
+      }
+      {
+        name = "q";
+        value = "exit";
+      }
+    ]);
 
-    shellInit = builtins.concatStringsSep "\n" (
-      [
-        "PROMPT_EOL_MARK=\"\""
-        "export DIRENV_LOG_FORMAT=\"\""
-        "export EDITOR=vim"
-        "export PATH=$PATH:$HOME/.local/bin"
-        "export VISUAL=vim"
-        "unsetopt beep"
-        "setopt HIST_SAVE_NO_DUPS"
-        "setopt HIST_IGNORE_SPACE"
-        "bindkey -e"
-      ]
-    );
+    shellInit = builtins.concatStringsSep "\n" ([
+      "PROMPT_EOL_MARK=\"\""
+      "export DIRENV_LOG_FORMAT=\"\""
+      "export EDITOR=vim"
+      "export PATH=$PATH:$HOME/.local/bin"
+      "export VISUAL=vim"
+      "unsetopt beep"
+      "setopt HIST_SAVE_NO_DUPS"
+      "setopt HIST_IGNORE_SPACE"
+      "bindkey -e"
+    ]);
   };
 
   programs.starship.enable = true;

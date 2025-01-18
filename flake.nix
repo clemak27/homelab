@@ -7,19 +7,30 @@
     deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, sops-nix, pre-commit-hooks, deploy-rs }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      sops-nix,
+      pre-commit-hooks,
+      deploy-rs,
+    }:
     let
       legacyPkgs = nixpkgs.legacyPackages.x86_64-linux;
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
       };
-      nixModule = ({ config, pkgs, ... }: {
-        nixpkgs.overlays = [ overlay-unstable ];
-        nix.registry.nixpkgs.flake = self.inputs.nixpkgs;
-        nixpkgs.config = {
-          allowUnfree = true;
-        };
-      });
+      nixModule = (
+        { config, pkgs, ... }:
+        {
+          nixpkgs.overlays = [ overlay-unstable ];
+          nix.registry.nixpkgs.flake = self.inputs.nixpkgs;
+          nixpkgs.config = {
+            allowUnfree = true;
+          };
+        }
+      );
       defaultModules = [
         nixModule
         sops-nix.nixosModules.sops
@@ -51,7 +62,7 @@
         pre-commit-check = pre-commit-hooks.lib.x86_64-linux.run {
           src = ./.;
           hooks = {
-            nixpkgs-fmt.enable = true;
+            nixfmt-rfc-style.enable = true;
             actionlint.enable = true;
             yamllint.enable = true;
             commitizen.enable = true;
@@ -78,43 +89,41 @@
                     done
                   '';
                 in
-                toString
-                  script;
+                toString script;
             };
           };
         };
       };
 
-      devShells.x86_64-linux.default =
-        legacyPkgs.mkShell {
-          inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
+      devShells.x86_64-linux.default = legacyPkgs.mkShell {
+        inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
 
-          packages = with legacyPkgs; [
-            argocd
-            dnsutils
-            doggo
-            kubectl
-            kubernetes-helm
-            kustomize
-            nvd
-            pv-migrate
-            sops
+        packages = with legacyPkgs; [
+          argocd
+          dnsutils
+          doggo
+          kubectl
+          kubernetes-helm
+          kustomize
+          nvd
+          pv-migrate
+          sops
 
-            legacyPkgs.deploy-rs
+          legacyPkgs.deploy-rs
+        ];
+
+        KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
+          name = "kustomize-plugins";
+          paths = with legacyPkgs; [
+            kustomize-sops
           ];
-
-          KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
-            name = "kustomize-plugins";
-            paths = with legacyPkgs; [
-              kustomize-sops
-            ];
-            postBuild = ''
-              mkdir -p $out/viaduct.ai/v1/ksops
-              cp $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec $out/viaduct.ai/v1/ksops/ksops
-              rm -rf $out/lib
-            '';
-            pathsToLink = [ "/lib" ];
-          };
+          postBuild = ''
+            mkdir -p $out/viaduct.ai/v1/ksops
+            cp $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec $out/viaduct.ai/v1/ksops/ksops
+            rm -rf $out/lib
+          '';
+          pathsToLink = [ "/lib" ];
         };
+      };
     };
 }
