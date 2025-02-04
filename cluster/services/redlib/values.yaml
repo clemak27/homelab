@@ -3,8 +3,6 @@
 controllers:
   main:
     replicas: null
-    labels:
-      requires-nfs: "true"
     containers:
       main:
         image:
