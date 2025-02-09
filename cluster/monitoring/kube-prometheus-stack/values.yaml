@@ -122,6 +122,11 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     retention: 31d
+    resources:
+      requests:
+        memory: 1Gi
+      limits:
+        memory: 1Gi
     storageSpec:
       # prometheus-kps-prometheus-db-prometheus-kps-prometheus-0
       volumeClaimTemplate:
