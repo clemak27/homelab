@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: null
+    labels:
+      requires-nfs: "true"
+    initContainers:
+      wait-for-database:
+        image:
+          repository: nixery.dev/shell/busybox/postgresql_16
+          tag: latest
+        args:
+          - bash
+          - -c
+          - "set -x; while [[ ! \"$(pg_isready -d immich -U immich -h immich-database-rw)\" ]]; do sleep 5; done"
+    containers:
+      main:
+        image:
+          repository: ghcr.io/immich-app/immich-server
+          tag: v1.126.1
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 100
+          fsGroup: 100
+          fsGroupChangePolicy: OnRootMismatch
+        env:
+          TZ: Europe/Vienna
+          REDIS_HOSTNAME: immich-valkey-primary
+          DB_VECTOR_EXTENSION: pgvecto.rs
+          IMMICH_MEDIA_LOCATION: /usr/src/app/upload
+          IMMICH_IGNORE_MOUNT_CHECK_ERRORS: "true"
+          IMMICH_MACHINE_LEARNING_URL: http://immich-ml.services.svc.cluster.local:3003
+          DB_URL:
+            valueFrom:
+              secretKeyRef:
+                name: immich-database-app
+                key: uri
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 2283
+
+ingress:
+  main:
+    enabled: true
+    className: traefik
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: immich.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - immich.wallstreet30.cc
+        secretName: immich-tls
+
+persistence:
+  pictures:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/pictures
+    globalMounts:
+      - path: /usr/src/app/upload
+        readOnly: false
