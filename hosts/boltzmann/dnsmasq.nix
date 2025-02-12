@@ -13,38 +13,13 @@ in
         "1.1.1.1"
         "1.0.0.1"
       ];
+      address = [
+        "/wallstreet30.cc/${lbIP}"
+      ];
     };
   };
 
   networking.extraHosts = ''
     192.168.178.100 boltzmann
-
-    ${lbIP} argocd.wallstreet30.cc
-    ${lbIP} longhorn.wallstreet30.cc
-    ${lbIP} traefik.wallstreet30.cc
-
-    ${lbIP} calibre.wallstreet30.cc
-    ${lbIP} gitea.wallstreet30.cc
-    ${lbIP} home-assistant.wallstreet30.cc
-    ${lbIP} jellyfin.wallstreet30.cc
-    ${lbIP} mealie.wallstreet30.cc
-    ${lbIP} miniflux.wallstreet30.cc
-    ${lbIP} paperless-ngx.wallstreet30.cc
-    ${lbIP} prowlarr.wallstreet30.cc
-    ${lbIP} qobuz-dl.wallstreet30.cc
-    ${lbIP} radarr.wallstreet30.cc
-    ${lbIP} readarr.wallstreet30.cc
-    ${lbIP} redlib.wallstreet30.cc
-    ${lbIP} recipes.wallstreet30.cc
-    ${lbIP} searxng.wallstreet30.cc
-    ${lbIP} sonarr.wallstreet30.cc
-    ${lbIP} syncthing.wallstreet30.cc
-    ${lbIP} transmission.wallstreet30.cc
-    ${lbIP} vaultwarden.wallstreet30.cc
-    ${lbIP} zigbee2mqtt.wallstreet30.cc
-
-    ${lbIP} alertmanager.wallstreet30.cc
-    ${lbIP} grafana.wallstreet30.cc
-    ${lbIP} prometheus.wallstreet30.cc
   '';
 }
