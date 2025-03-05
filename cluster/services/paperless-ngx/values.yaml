@@ -10,7 +10,7 @@ controllers:
         args:
           - bash
           - -c
-          - "set -x; while [[ ! \"$(pg_isready -d paperless -U paperless -h paperless-database-rw)\" ]]; do sleep 5; done"
+          - "set -x; until pg_isready -d paperless -U paperless -h paperless-database-r; do sleep 5; done"
     containers:
       main:
         image:

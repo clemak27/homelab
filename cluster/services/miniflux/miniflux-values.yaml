@@ -10,7 +10,7 @@ controllers:
         args:
           - bash
           - -c
-          - "set -x; while [[ ! \"$(pg_isready -d miniflux -U miniflux -h miniflux-database-rw)\" ]]; do sleep 5; done"
+          - "set -x; until pg_isready -d miniflux -U miniflux -h miniflux-database-r; do sleep 5; done"
     containers:
       main:
         image:
