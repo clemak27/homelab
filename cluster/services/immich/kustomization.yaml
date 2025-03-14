@@ -18,7 +18,7 @@ helmCharts:
     includeCRDs: true
   - name: valkey
     repo: oci://registry-1.docker.io/bitnamicharts
-    version: 2.4.4
+    version: 2.4.6
     releaseName: immich-valkey
     namespace: services
     valuesFile: valkey.yaml
