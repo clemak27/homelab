@@ -105,10 +105,13 @@
           kubectl
           kubernetes-helm
           kustomize
-          nvd
           pv-migrate
           sops
 
+          nixd
+          nixfmt-rfc-style
+          nixos-rebuild
+          nvd
           legacyPkgs.deploy-rs
         ];
 
