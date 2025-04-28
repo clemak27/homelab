@@ -11,7 +11,7 @@ helmCharts:
     includeCRDs: true
   - name: valkey
     repo: oci://registry-1.docker.io/bitnamicharts
-    version: 3.0.2
+    version: 3.0.3
     releaseName: paperless-valkey
     namespace: services
     valuesFile: valkey.yaml
