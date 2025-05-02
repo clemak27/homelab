@@ -2,6 +2,7 @@ BOLTZMANN_IP=192.168.178.100
 SSH_COMMAND=ssh clemens@$(BOLTZMANN_IP) -C
 
 update-flake:
+	rm -rf result current
 	nixos-rebuild build --flake .#boltzmann --impure
 	mv result current
 	nix flake update --commit-lock-file --option commit-lockfile-summary "chore(flake): update flake.lock"
