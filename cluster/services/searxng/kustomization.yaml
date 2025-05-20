@@ -11,7 +11,7 @@ helmCharts:
     includeCRDs: true
   - name: valkey
     repo: oci://registry-1.docker.io/bitnamicharts
-    version: 3.0.6
+    version: 3.0.8
     releaseName: searxng-valkey
     namespace: services
     valuesFile: valkey-values.yaml
