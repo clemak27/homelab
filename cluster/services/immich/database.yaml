@@ -5,14 +5,14 @@ kind: Cluster
 metadata:
   name: immich-database
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.3.0
   instances: 1
   bootstrap:
     initdb:
       database: immich
       owner: immich
       postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
   monitoring:
     disableDefaultQueries: false
     enablePodMonitor: true
@@ -23,7 +23,7 @@ spec:
         login: true
   postgresql:
     shared_preload_libraries:
-      - "vectors.so"
+      - "vchord.so"
   storage:
     # immich-database-X
     storageClass: longhorn-crypto
