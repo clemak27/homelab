@@ -23,8 +23,8 @@ defaultSettings:
   defaultDataLocality: disabled
 
 ingress:
-  enabled: false
-  ingressClassName: traefik
+  enabled: true
+  ingressClassName: nginx
   host: longhorn.wallstreet30.cc
   tls: true
 
