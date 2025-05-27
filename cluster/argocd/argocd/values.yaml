@@ -9,10 +9,9 @@ dex:
 server:
   ingress:
     enabled: true
-    ingressClassName: traefik
+    ingressClassName: nginx
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - argocd.wallstreet30.cc

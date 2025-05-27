@@ -34,10 +34,9 @@ service:
 ingress:
   main:
     enabled: true
-    className: traefik
+    className: nginx
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
       - host: redlib.wallstreet30.cc

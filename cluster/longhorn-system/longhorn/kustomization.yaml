@@ -10,7 +10,6 @@ helmCharts:
     valuesFile: values.yaml
     includeCRDs: true
 resources:
-  - frontend-ingress.yaml
   - longhorn-crypto.yaml
 generators:
   - ./ksops-generator.yaml
