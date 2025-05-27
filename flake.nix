@@ -96,7 +96,13 @@
       };
 
       devShells.x86_64-linux.default = legacyPkgs.mkShell {
-        inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
+        shellHook =
+          self.checks.x86_64-linux.pre-commit-check.shellHook
+          + ''
+            source <(talosctl completion zsh)
+            export TALOSCONFIG=/home/clemens/Projects/homelab/test/talosconfig
+            export KUBECONFIG=/home/clemens/Projects/homelab/test/kubeconfig
+          '';
 
         packages = with legacyPkgs; [
           argocd
@@ -113,6 +119,9 @@
           nixos-rebuild
           nvd
           legacyPkgs.deploy-rs
+
+          talosctl
+          cilium-cli
         ];
 
         KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
