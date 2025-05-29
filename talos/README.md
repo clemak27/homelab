@@ -80,3 +80,32 @@ kustomize build --enable-helm ./cluster/cnpg-system/cnpg | k create -n cnpg-syst
 ```
 
 works ✅
+
+### longhorn
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: longhorn-system
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/audit-version: latest
+    pod-security.kubernetes.io/warn: privileged
+    pod-security.kubernetes.io/warn-version: latest
+```
+
+FYI added `/var/lib/longhorn` to config and patched it:
+
+```sh
+talosctl patch mc --patch @./machineconfigs/rpi.yaml
+```
+
+```sh
+kns longhorn-system
+kustomize build --enable-helm --enable-exec --enable-alpha-plugins ./cluster/longhorn-system/longhorn | k create -n longhorn-system -f -
+```
+
+works O.o (takes a while to boot tho)

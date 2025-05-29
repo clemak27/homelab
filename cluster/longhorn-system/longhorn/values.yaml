@@ -15,7 +15,7 @@ defaultSettings:
   autoCleanupSystemGeneratedSnapshot: true
   snapshotDataIntegrity: disabled
   orphanAutoDeletion: true
-  backupTarget: nfs://192.168.178.100:/backups
+  # backupTarget: nfs://192.168.178.100:/backups
   allowVolumeCreationWithDegradedAvailability: true
   disableSchedulingOnCordonedNode: true
   replicaAutoBalance: disabled
@@ -23,7 +23,7 @@ defaultSettings:
   defaultDataLocality: disabled
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: nginx
   host: longhorn.wallstreet30.cc
   tls: true
@@ -38,4 +38,4 @@ ingress:
 
 metrics:
   serviceMonitor:
-    enabled: true
+    enabled: false

@@ -5,6 +5,15 @@ machine:
     disk: /dev/mmcblk
     image: factory.talos.dev/image/3be8dcdb5d390122648d2336fc1e7a2dd584c8fc391492fc9ae009639b864a06:v1.10.0
     wipe: true
+  kubelet:
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
 
   features:
     hostDNS:
