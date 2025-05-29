@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: ghcr.io/0xerr0r/blocky
+          tag: latest
+        env:
+          TZ: Europe/Vienna
+        args:
+          - --config
+          - /config/config.yaml
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  api:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        primary: true
+        port: 4000
+  dns:
+    type: ClusterIP
+    controller: main
+    ports:
+      dns-tcp:
+        port: 53
+        protocol: TCP
+      dns-udp:
+        port: 53
+        protocol: UDP
+
+# dns:
+#   type: NodePort
+#   controller: main
+#   ports:
+#     tcp:
+#       enabled: true
+#       protocol: TCP
+#       port: 53
+#       nodePort: 53
+#     udp:
+#       enabled: true
+#       protocol: UDP
+#       port: 53
+#       nodePort: 53
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: blocky-cm
+    globalMounts:
+      - path: /config/config.yaml
+        readOnly: true
+        mountPropagation: None
+        subPath: config.yaml
