@@ -100,8 +100,8 @@
           self.checks.x86_64-linux.pre-commit-check.shellHook
           + ''
             source <(talosctl completion zsh)
-            export TALOSCONFIG=/home/clemens/Projects/homelab/test/talosconfig
-            export KUBECONFIG=/home/clemens/Projects/homelab/test/kubeconfig
+            export TALOSCONFIG=/home/clemens/Projects/homelab/talos/tmp/talosconfig
+            export KUBECONFIG=/home/clemens/Projects/homelab/talos/tmp/kubeconfig
           '';
 
         packages = with legacyPkgs; [

@@ -72,3 +72,12 @@ install lh
 kubectl create namespace longhorn-system
 kustomize build --enable-helm --enable-exec --enable-alpha-plugins cluster/longhorn-system/longhorn/ | kubectl apply -n longhorn-system -f -
 ```
+
+## rpi4 setup
+
+get the image:
+
+```sh
+curl -X POST --data-binary @./schematics/rpi4.yaml https://factory.talos.dev/schematics
+# {"id":"613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245"}
+```
