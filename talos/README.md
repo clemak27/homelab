@@ -40,6 +40,7 @@ endpoints:
 nodes:
   - 192.168.178.102
 ```
+
 get logs
 
 ```sh
@@ -53,4 +54,29 @@ talosctl bootstrap
 talosctl kubeconfig
 ```
 
-wait until everything is up -> 🎉
+wait until everything is up → 🎉
+
+## deploying and testing stuff
+
+### redlib
+
+simple service without any deps
+
+```sh
+k create namespace services
+kns services
+kustomize build --enable-helm ./cluster/services/redlib | k apply -n services -f -
+kpf services/redlib 8080
+```
+
+works ✅
+
+### cnpg
+
+```sh
+k create namespace cnpg-system
+kns cnpg-system
+kustomize build --enable-helm ./cluster/cnpg-system/cnpg | k create -n cnpg-system -f -
+```
+
+works ✅
