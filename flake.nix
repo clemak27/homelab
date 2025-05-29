@@ -96,13 +96,7 @@
       };
 
       devShells.x86_64-linux.default = legacyPkgs.mkShell {
-        shellHook =
-          self.checks.x86_64-linux.pre-commit-check.shellHook
-          + ''
-            source <(talosctl completion zsh)
-            export TALOSCONFIG=/home/clemens/Projects/homelab/talos/tmp/talosconfig
-            export KUBECONFIG=/home/clemens/Projects/homelab/talos/tmp/kubeconfig
-          '';
+        shellHook = self.checks.x86_64-linux.pre-commit-check.shellHook + '''';
 
         packages = with legacyPkgs; [
           argocd

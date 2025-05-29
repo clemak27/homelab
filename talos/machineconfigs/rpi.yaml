@@ -1,5 +1,5 @@
 ---
-version: v1alpha1  # Indicates the schema used to decode the contents.
+version: v1alpha1
 machine:
   install:
     disk: /dev/mmcblk
@@ -19,22 +19,13 @@ machine:
     hostDNS:
       forwardKubeDNSToHost: false
 
-# Provides cluster specific configuration options.
 cluster:
   controlPlane:
-    endpoint: https://192.168.178.102:6443  # Endpoint is the canonical controlplane endpoint, which can be an IP address or a DNS hostname.
-  clusterName: rpi  # Configures the cluster's name.
-  # Provides cluster specific network configuration options.
+    endpoint: https://192.168.178.102:6443
+  clusterName: rpi
   network:
-    dnsDomain: cluster.local  # The domain used by Kubernetes DNS.
-    # The pod subnet CIDR.
-    podSubnets:
-      - 10.244.0.0/16
-    # The service subnet CIDR.
-    serviceSubnets:
-      - 10.96.0.0/12
+    dnsDomain: cluster.local
 
-  # API server specific configuration options.
   apiServer:
     certSANs:
       - 192.168.178.102

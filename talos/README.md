@@ -52,6 +52,7 @@ wait until logs show startup, then start k8s
 ```sh
 talosctl bootstrap
 talosctl kubeconfig
+talosctl health
 ```
 
 wait until everything is up → 🎉
