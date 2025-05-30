@@ -1,0 +1,16 @@
+[tools]
+hk = "latest"
+pkl = "latest"
+talosctl = "latest"
+sops = "latest"
+
+[env]
+TALOSCONFIG="/home/clemens/Projects/homelab/talos/tmp/talosconfig"
+KUBECONFIG="/home/clemens/Projects/homelab/talos/tmp/kubeconfig"
+
+[settings]
+experimental = true
+
+[hooks.enter]
+shell = "zsh"
+script = "source <(talosctl completion zsh)"
