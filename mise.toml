@@ -1,16 +1,29 @@
 [tools]
 hk = "latest"
 pkl = "latest"
-talosctl = "latest"
+talosctl = "1.10.0"
 sops = "latest"
+doggo = "latest"
+argocd = "latest"
+kustomize = "5.5.0"
+helm = "3.16.3"
+"ubi:utkuozdemir/pv-migrate" = "latest"
+"ubi:viaduct-ai/kustomize-sops" = { version = "4.3.3", extract_all = "true" }
 
 [env]
 TALOSCONFIG="/home/clemens/Projects/homelab/talos/tmp/talosconfig"
 KUBECONFIG="/home/clemens/Projects/homelab/talos/tmp/kubeconfig"
+KUSTOMIZE_PLUGIN_HOME="/home/clemens/Projects/homelab/tmp/kustomize"
 
 [settings]
 experimental = true
 
 [hooks.enter]
 shell = "zsh"
-script = "source <(talosctl completion zsh)"
+script = """
+source <(talosctl completion zsh)
+alias t='talosctl'
+rm -rf $HOME/Projects/homelab/tmp
+mkdir -p tmp/kustomize/viaduct.ai/v1/
+ln -sf /home/clemens/.local/share/mise/installs/ubi-viaduct-ai-kustomize-sops/4.3.3 /home/clemens/Projects/homelab/tmp/kustomize/viaduct.ai/v1/ksops
+"""

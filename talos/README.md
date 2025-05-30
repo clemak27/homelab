@@ -32,7 +32,7 @@ talosctl apply-config --insecure -n 192.168.178.102 -e 192.168.178.102 --file co
 rm config.yaml
 ```
 
-add to generated talosconfig:
+add to generated `talosconfig`:
 
 ```yaml
 endpoints:
@@ -110,3 +110,29 @@ kustomize build --enable-helm --enable-exec --enable-alpha-plugins ./cluster/lon
 ```
 
 works O.o (takes a while to boot tho)
+
+### check HostDNS
+
+```sh
+talosctl patch mc --patch @./machineconfigs/rpi.yaml
+```
+
+```sh
+doggo miniflux.wallstreet30.cc @192.168.178.102
+```
+
+sad :/
+
+### check wireguard
+
+- make sure opts are set correctly
+- change port-forwarding in router to point to pi
+- wg on phone should work
+
+### check ssd
+
+- mount disk
+- create longhorn volume on it
+- deploy something with a pvc
+
+### checkout flux?
