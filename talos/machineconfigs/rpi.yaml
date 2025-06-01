@@ -17,8 +17,8 @@ machine:
 
   features:
     hostDNS:
-      enabled: true
-      forwardKubeDNSToHost: true
+      enabled: false
+      forwardKubeDNSToHost: false
   network:
     # # Wireguard specific configuration.
 

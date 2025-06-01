@@ -5,7 +5,7 @@ metadata:
   name: blocky-cm
 data:
   # https://0xerr0r.github.io/blocky/latest/configuration/
-  config.yaml: |
+  config.yaml: |-
     upstreams:
       groups:
         default:

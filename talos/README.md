@@ -109,19 +109,22 @@ kns longhorn-system
 kustomize build --enable-helm --enable-exec --enable-alpha-plugins ./cluster/longhorn-system/longhorn | k create -n longhorn-system -f -
 ```
 
-works O.o (takes a while to boot tho)
+works ✅ (takes a while to boot tho)
 
 ### check HostDNS
 
-```sh
-talosctl patch mc --patch @./machineconfigs/rpi.yaml
-```
+- disable nodeLabel externalLB in mc
+- label metallb namespace correctly (same as LH)
+- deploy metallb
+- deploy blocky
 
 ```sh
-doggo miniflux.wallstreet30.cc @192.168.178.102
+doggo miniflux.wallstreet30.cc -n 192.168.178.200:53
+# NAME                            TYPE    CLASS   TTL     ADDRESS         NAMESERVER
+# miniflux.wallstreet30.cc.       A       IN      3600s   192.168.178.100 192.168.178.200:53
 ```
 
-sad :/
+works ✅
 
 ### check wireguard
 

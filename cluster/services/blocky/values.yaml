@@ -27,7 +27,7 @@ service:
         primary: true
         port: 4000
   dns:
-    type: ClusterIP
+    type: LoadBalancer
     controller: main
     ports:
       dns-tcp:
@@ -36,21 +36,6 @@ service:
       dns-udp:
         port: 53
         protocol: UDP
-
-# dns:
-#   type: NodePort
-#   controller: main
-#   ports:
-#     tcp:
-#       enabled: true
-#       protocol: TCP
-#       port: 53
-#       nodePort: 53
-#     udp:
-#       enabled: true
-#       protocol: UDP
-#       port: 53
-#       nodePort: 53
 
 persistence:
   config:
