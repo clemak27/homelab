@@ -126,16 +126,24 @@ doggo miniflux.wallstreet30.cc -n 192.168.178.200:53
 
 works ✅
 
-### check wireguard
+### check volumes
 
-- make sure opts are set correctly
-- change port-forwarding in router to point to pi
-- wg on phone should work
+- mounting in /var/lib/longhorn works
+- encryption requires `1.9.0`
+- miniflux + db get deployed successfully 🎉
+
+works ✅
 
 ### check ssd
 
 - mount disk
 - create longhorn volume on it
-- deploy something with a pvc
+- deploy rwx volumes
+
+### check wireguard
+
+- make sure opts are set correctly
+- change port-forwarding in router to point to pi
+- wg on phone should work
 
 ### checkout flux?
