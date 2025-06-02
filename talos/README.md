@@ -130,15 +130,27 @@ works ✅
 
 - mounting in /var/lib/longhorn works
 - encryption requires `1.9.0`
+  - https://github.com/siderolabs/talos/issues/10469
+  - https://github.com/siderolabs/talos/issues/10473
 - miniflux + db get deployed successfully 🎉
 
 works ✅
 
 ### check ssd
 
-- mount disk
-- create longhorn volume on it
-- deploy rwx volumes
+- mount disk, see uservolume-zeugs
+- create volume on disk in longhorn
+- pod(s) can mounts rwx volume
+
+```yaml
+persistence:
+  data:
+    enabled: true
+    existingClaim: media
+    globalMounts:
+      - path: /data
+        readOnly: false
+```
 
 ### check wireguard
 

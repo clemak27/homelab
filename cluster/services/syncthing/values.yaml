@@ -25,7 +25,7 @@ service:
 
 ingress:
   main:
-    enabled: true
+    enabled: false
     className: nginx
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
@@ -44,15 +44,9 @@ ingress:
         secretName: syncthing-tls
 
 persistence:
-  config:
-    enabled: true
-    existingClaim: syncthing-config
-    globalMounts:
-      - path: /var/syncthing
-        readOnly: false
   data:
     enabled: true
-    existingClaim: syncthing-data
+    existingClaim: media
     globalMounts:
       - path: /data
         readOnly: false
