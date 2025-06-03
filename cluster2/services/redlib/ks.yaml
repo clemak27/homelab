@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  targetNamespace: services
+  targetNamespace: flux-system
   sourceRef:
     kind: GitRepository
     name: homelab
