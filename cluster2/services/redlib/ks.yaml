@@ -3,10 +3,10 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: redlib-values
-  namespace: services
+  namespace: flux-system
 spec:
   interval: 10m
-  targetNamespace: services
+  targetNamespace: flux-system
   sourceRef:
     kind: GitRepository
     name: homelab
