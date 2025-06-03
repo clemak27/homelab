@@ -161,6 +161,18 @@ talosctl get machineconfig v1alpha1 -o jsonpath='{.spec}' > machineconfig.yaml
 - would need to run WG in a container :/ ->
   https://github.com/siderolabs/talos/issues/7184
 
-### checkout flux?
+### checkout flux
 
+- install flux operator
 
+```sh
+helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator \
+  --namespace flux-system \
+  --create-namespace
+```
+
+- deploy stuff in flux-system ns
+
+```sh
+find ./cluster2/flux-system -name '*.yaml' -exec kubectl -n flux-system apply -f {} \;
+```

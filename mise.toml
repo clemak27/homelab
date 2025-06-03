@@ -7,6 +7,7 @@ doggo = "latest"
 argocd = "latest"
 kustomize = "5.5.0"
 helm = "3.16.3"
+flux2 = "latest"
 "ubi:utkuozdemir/pv-migrate" = "latest"
 "ubi:viaduct-ai/kustomize-sops" = { version = "4.3.3", extract_all = "true" }
 
