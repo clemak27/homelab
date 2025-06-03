@@ -10,6 +10,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab
-  path: "./cluster2/services/redlib"
+  path: "./cluster2/services/redlib/kustom"
   prune: true
   timeout: 1m

@@ -23,6 +23,7 @@ experimental = true
 shell = "zsh"
 script = """
 source <(talosctl completion zsh)
+. <(flux completion zsh)
 alias t='talosctl'
 rm -rf $HOME/Projects/homelab/tmp
 mkdir -p tmp/kustomize/viaduct.ai/v1/
