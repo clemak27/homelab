@@ -152,10 +152,15 @@ persistence:
         readOnly: false
 ```
 
+```sh
+talosctl get machineconfig v1alpha1 -o jsonpath='{.spec}' > machineconfig.yaml
+```
+
 ### check wireguard
 
-- make sure opts are set correctly
-- change port-forwarding in router to point to pi
-- wg on phone should work
+- would need to run WG in a container :/ ->
+  https://github.com/siderolabs/talos/issues/7184
 
 ### checkout flux?
+
+
