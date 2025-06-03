@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: redlib
-  namespace: flux-system
+  namespace: services
 spec:
   interval: 10m
   timeout: 5m
