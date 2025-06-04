@@ -171,8 +171,8 @@ helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-opera
   --create-namespace
 ```
 
-- deploy stuff in flux-system ns
+- deploy stuff
 
 ```sh
-k apply -f ./cluster2/services/resources.yaml -n flux-system
+k apply -f ./cluster2/flux-system/resources.yaml -n flux-system
 ```
