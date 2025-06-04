@@ -3,7 +3,7 @@ apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
   name: services
-  namespace: flux-system
+  namespace: services
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
@@ -17,13 +17,14 @@ spec:
       kind: Kustomization
       metadata:
         name: << inputs.name >>
-        namespace: flux-system
+        namespace: services
       spec:
         interval: 10m
         targetNamespace: services
         sourceRef:
           kind: GitRepository
           name: homelab
+          namespace: flux-system
         path: "./cluster2/services/<< inputs.name >>"
         prune: true
         timeout: 1m
