@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: redlib-values
+  name: redlib
   namespace: flux-system
 spec:
   interval: 10m
@@ -10,6 +10,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: homelab
-  path: "./cluster2/services/redlib/kustom"
+  path: "./cluster2/services/redlib"
   prune: true
   timeout: 1m
