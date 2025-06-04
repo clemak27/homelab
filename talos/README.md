@@ -174,5 +174,5 @@ helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-opera
 - deploy stuff in flux-system ns
 
 ```sh
-find ./cluster2/flux-system -name '*.yaml' -exec kubectl -n flux-system apply -f {} \;
+k apply -f ./cluster2/services/resources.yaml -n flux-system
 ```
