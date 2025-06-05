@@ -29,3 +29,7 @@ spec:
         path: "./cluster2/services/<< inputs.name >>"
         prune: true
         timeout: 1m
+        decryption:
+          provider: sops
+          secretRef:
+            name: sops-age

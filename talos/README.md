@@ -176,3 +176,11 @@ helm install flux-operator oci://ghcr.io/controlplaneio-fluxcd/charts/flux-opera
 ```sh
 k apply -f ./cluster2/flux-system/resources.yaml -n flux-system
 ```
+
+#### secrets
+
+```sh
+kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-literal=age.agekey=AGE-SECRET-KEY-1234
+```
