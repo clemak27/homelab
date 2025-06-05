@@ -12,6 +12,7 @@ spec:
   inputs:
     - name: blocky
     - name: miniflux
+    - name: navidrome
     - name: redlib
   resources:
     - apiVersion: kustomize.toolkit.fluxcd.io/v1
