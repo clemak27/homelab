@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kubernetes-sigs/headlamp/refs/heads/main/charts/headlamp/values.schema.json
+
+config:
+  inCluster: true
+
+env:
+  - name: TZ
+    value: Europe/Vienna
+  - name: PUID
+    value: "1000"
+  - name: PGID
+    value: "1000"
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  privileged: false
+  runAsUser: 1000
+  runAsGroup: 1000
+
+persistentVolumeClaim:
+  enabled: false
+
+ingress:
+  enabled: true
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  ingressClassName: "nginx"
+
+  hosts:
+    - host: headlamp.wallstreet30.cc
+      paths:
+        - path: /
+          type: Prefix
+  tls:
+    - secretName: headlamp-tls
+      hosts:
+        - headlamp.wallstreet30.cc
+
+pluginsManager:
+  enabled: false
