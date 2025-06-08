@@ -1,8 +1,12 @@
 {
   imports = [
-    ./hardware-configuration.nix
+    ./general.nix
+    ./zsh.nix
 
-    ./discs.nix
+    ./disko.nix
+    ./hardware-configuration.nix
+    ./hdds.nix
+
     ./dnsmasq.nix
     ./k3s-server.nix
     ./sops.nix
@@ -15,5 +19,5 @@
 
   networking.hostName = "boltzmann";
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }

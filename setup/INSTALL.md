@@ -10,14 +10,17 @@
 
 ### NixOS install
 
-- boot from live USB
+- Boot from live USB
 - Open a terminal and checkout the repo:
   `git clone https://github.com/clemak27/homelab`
 - `cd homelab/setup`
-- update `setup_disc.sh` with the device where nix should be installed (check
-  with `lsblk`)
-- run `sudo ./setup_disc.sh`
+- Update `hosts/<hostname>/disko.nix` with the device where nix should be
+  installed (check with `lsblk`)
+- Run
+  `sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount hosts/<hostname>/disko.nix`
 - comment out all modules that requires sops (e.g. WireGuard)
+- Update the hardware-configuration:
+  `nixos-generate-config --no-filesystems --root /mnt > hosts/<hostname>/hardware-configuration.nix`
 - Install NixOS with
   `sudo nixos-install --root /mnt --flake .#<hostname> --impure --no-root-password`
 - reboot

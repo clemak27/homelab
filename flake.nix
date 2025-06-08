@@ -5,6 +5,10 @@
     sops-nix.url = "github:Mic92/sops-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     deploy-rs.url = "github:serokell/deploy-rs";
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -15,6 +19,7 @@
       sops-nix,
       pre-commit-hooks,
       deploy-rs,
+      disko,
     }:
     let
       legacyPkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -36,6 +41,7 @@
         sops-nix.nixosModules.sops
         ./modules/general.nix
         ./modules/zsh.nix
+        disko.nixosModules.disko
       ];
     in
     {
