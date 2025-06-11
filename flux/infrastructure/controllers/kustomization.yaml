@@ -1,0 +1,43 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # - ./cert-manager
+  - ./cnpg
+  - ./ingress-nginx
+  - ./longhorn
+
+# TODO
+# - metallb
+# - miniflux
+# - blocky
+# - try out hostPath + nfs-server
+# - final talos / nix / IoT decision
+# - migrate restl services
+# - split?
+#   - media
+#     - calibre
+#     - immich
+#     - qobuz-dl
+#     - radarr
+#     - readarr
+#     - jellyfin
+#     - navidrome
+#     - transmission
+#     - prowlarr
+#     - sonarr
+#   - gitea
+#   - services
+#     - mealie
+#     - miniflux
+#     - paperless-ngx
+#     - searxng
+#     - syncthing
+#     - vaultwarden
+#   - network
+#     - blocky
+#     - cloudflare-ddns
+#     - wireguard
+
+# - home-assistant
+# - zigbee2mqtt + mqtt

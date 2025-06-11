@@ -1,0 +1,59 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    initContainers:
+      wait-for-database:
+        image:
+          repository: nixery.dev/shell/busybox/postgresql_16
+          tag: latest
+        args:
+          - bash
+          - -c
+          - "set -x; until pg_isready -d miniflux -U miniflux -h miniflux-database-r; do sleep 5; done"
+    containers:
+      main:
+        image:
+          repository: docker.io/miniflux/miniflux
+          tag: 2.0.43
+        env:
+          TZ: Europe/Vienna
+          RUN_MIGRATIONS: "1"
+          BASE_URL: "https://miniflux.wallstreet30.cc"
+          LISTEN_ADDR: "0.0.0.0:8080"
+          POLLING_FREQUENCY: "15"
+          FETCH_YOUTUBE_WATCH_TIME: "1"
+          BATCH_SIZE: "50"
+          DATABASE_URL:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-database-app
+                key: uri
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: miniflux.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - miniflux.wallstreet30.cc
+        secretName: miniflux-tls

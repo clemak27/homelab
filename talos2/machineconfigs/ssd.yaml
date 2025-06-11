@@ -1,0 +1,11 @@
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: media
+provisioning:
+  diskSelector:
+    match: "'/dev/disk/by-id/ata-SanDisk_SDSSDA120G_170956468503' in disk.symlinks"
+  minSize: 10GB
+  grow: true
+filesystem:
+  type: ext4

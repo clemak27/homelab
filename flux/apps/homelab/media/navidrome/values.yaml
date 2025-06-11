@@ -8,11 +8,30 @@ controllers:
     containers:
       main:
         image:
-          repository: ghcr.io/mealie-recipes/mealie
-          tag: v2.8.0
+          repository: docker.io/deluan/navidrome
+          tag: 0.56.1
         env:
           TZ: Europe/Vienna
-          BASE_URL: https://mealie.wallstreet30.cc
+          ND_LASTFM_APIKEY:
+            valueFrom:
+              secretKeyRef:
+                name: navidrome-lastfm
+                key: key
+          ND_LASTFM_SECRET:
+            valueFrom:
+              secretKeyRef:
+                name: navidrome-lastfm
+                key: secret
+          ND_SPOTIFY_ID:
+            valueFrom:
+              secretKeyRef:
+                name: navidrome-spotify
+                key: id
+          ND_SPOTIFY_SECRET:
+            valueFrom:
+              secretKeyRef:
+                name: navidrome-spotify
+                key: secret
 
 defaultPodOptions:
   securityContext:
@@ -25,7 +44,7 @@ service:
     controller: main
     ports:
       http:
-        port: 9000
+        port: 4533
 
 ingress:
   main:
@@ -35,7 +54,7 @@ ingress:
       ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
-      - host: mealie.wallstreet30.cc
+      - host: navidrome.wallstreet30.cc
         paths:
           - path: /
             pathType: Prefix
@@ -44,15 +63,22 @@ ingress:
               port: http
     tls:
       - hosts:
-          - mealie.wallstreet30.cc
-        secretName: mealie-tls
+          - navidrome.wallstreet30.cc
+        secretName: navidrome-tls
 
 persistence:
   config:
     enabled: true
     size: 5Gi
     accessMode: "ReadWriteOnce"
-    type: persistentVolumeClaim
     globalMounts:
-      - path: /app/data
+      - path: /data
+        readOnly: false
+  media:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/music
+    globalMounts:
+      - path: /music
         readOnly: false

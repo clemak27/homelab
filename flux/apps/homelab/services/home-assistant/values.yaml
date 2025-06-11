@@ -2,17 +2,13 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
 controllers:
   main:
-    replicas: null
-    labels:
-      requires-nfs: "true"
     containers:
       main:
         image:
-          repository: ghcr.io/mealie-recipes/mealie
-          tag: v2.8.0
+          repository: docker.io/homeassistant/home-assistant
+          tag: "2025.5"
         env:
           TZ: Europe/Vienna
-          BASE_URL: https://mealie.wallstreet30.cc
 
 defaultPodOptions:
   securityContext:
@@ -25,7 +21,7 @@ service:
     controller: main
     ports:
       http:
-        port: 9000
+        port: 8123
 
 ingress:
   main:
@@ -35,7 +31,7 @@ ingress:
       ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
-      - host: mealie.wallstreet30.cc
+      - host: home-assistant.wallstreet30.cc
         paths:
           - path: /
             pathType: Prefix
@@ -44,8 +40,8 @@ ingress:
               port: http
     tls:
       - hosts:
-          - mealie.wallstreet30.cc
-        secretName: mealie-tls
+          - home-assistant.wallstreet30.cc
+        secretName: home-assistant-tls
 
 persistence:
   config:
@@ -53,6 +49,3 @@ persistence:
     size: 5Gi
     accessMode: "ReadWriteOnce"
     type: persistentVolumeClaim
-    globalMounts:
-      - path: /app/data
-        readOnly: false

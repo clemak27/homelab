@@ -96,23 +96,25 @@
       };
 
       devShells.x86_64-linux.default = legacyPkgs.mkShell {
-        inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
+        # inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
 
         packages = with legacyPkgs; [
-          argocd
-          dnsutils
-          doggo
+          fluxcd
           kubectl
           kubernetes-helm
           kustomize
           pv-migrate
-          sops
+          talosctl
 
           nixd
           nixfmt-rfc-style
           nixos-rebuild
           nvd
           legacyPkgs.deploy-rs
+
+          dnsutils
+          doggo
+          sops
         ];
 
         KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {

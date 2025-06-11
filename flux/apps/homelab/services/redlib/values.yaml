@@ -3,16 +3,20 @@
 controllers:
   main:
     replicas: null
-    labels:
-      requires-nfs: "true"
     containers:
       main:
         image:
-          repository: ghcr.io/mealie-recipes/mealie
-          tag: v2.8.0
+          repository: quay.io/redlib/redlib
+          tag: latest
         env:
           TZ: Europe/Vienna
-          BASE_URL: https://mealie.wallstreet30.cc
+          REDLIB_DEFAULT_WIDE: "off"
+          REDLIB_DEFAULT_THEME: "black"
+          REDLIB_DEFAULT_LAYOUT: "card"
+          REDLIB_DEFAULT_SHOW_NSFW: "on"
+          REDLIB_DEFAULT_BLUR_NSFW: "off"
+          REDLIB_DEFAULT_USE_HLS: "on"
+          REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: "on"
 
 defaultPodOptions:
   securityContext:
@@ -25,7 +29,7 @@ service:
     controller: main
     ports:
       http:
-        port: 9000
+        port: 8080
 
 ingress:
   main:
@@ -35,7 +39,7 @@ ingress:
       ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
-      - host: mealie.wallstreet30.cc
+      - host: redlib.wallstreet30.cc
         paths:
           - path: /
             pathType: Prefix
@@ -44,15 +48,5 @@ ingress:
               port: http
     tls:
       - hosts:
-          - mealie.wallstreet30.cc
-        secretName: mealie-tls
-
-persistence:
-  config:
-    enabled: true
-    size: 5Gi
-    accessMode: "ReadWriteOnce"
-    type: persistentVolumeClaim
-    globalMounts:
-      - path: /app/data
-        readOnly: false
+          - redlib.wallstreet30.cc
+        secretName: redlib-tls
