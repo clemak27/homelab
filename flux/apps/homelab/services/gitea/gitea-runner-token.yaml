@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: gitea-runner-token
+type: Opaque
+stringData:
+    token: ENC[AES256_GCM,data:m3ENMlwTCVxag8EQA9apwpSK4du85Zf5ayMAabVmiQSmMhRZ3azVmQ==,iv:5tZ5ET7GxV48QMnC8PUit2lRnHSkAVzkveJU//Tqr7U=,tag:dhwK7H9G0A5FS1IrpostYQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYaC9BNnd0N1ZHQzdnUENX
+            MklnbXZZYWlBQnRuSjM1VnNjRTgxR1BWamxnClZZb0Zqbjh0Rlp4emdpSEFEWVZp
+            OVhVUC9jcVFvZzcrUm5vdG1INXIwTzgKLS0tIHczRXZBVmdFY1VIRjdJcHkvYWpM
+            aTg2K2EwWndPNFFuMFlHNnZmNXkyQzgKLHPrLvVwihc4h6qibVCfA6qvT76s/XJ/
+            QmCHezdNoPg4Y90Oz1sW1BXUShvpLJlLr1Kawmp5HcK34kuY297m0w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-08-11T07:01:18Z"
+    mac: ENC[AES256_GCM,data:2ieA6nrxr1Tvq5jbRD8CJSZmAeAaGiqrhfYy7SomiD8lL/KNfrb9LoBaBETHfPjdbrIjFrDZ1jrbOiHh2YAHTTLsN4rCBXw9BYbPCKrG0aQ/PZ9MuZAXo2nSqQ/owIvyOvhR2XGcdSuCX4xLiYEhpKVmBAX2Nrgq8OzKUTHJZlc=,iv:Oz+/NYPFw47vldOvBTUCWMq34xWRBTfhf7foqUhfZg4=,tag:cqKO2O2LXrRDRuGDvZ2j/A==,type:str]
+    pgp: []
+    unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+    version: 3.8.1

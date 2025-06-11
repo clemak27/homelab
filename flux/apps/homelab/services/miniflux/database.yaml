@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: miniflux-database
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
+  instances: 1
+  bootstrap:
+    initdb:
+      database: miniflux
+      owner: miniflux
+  monitoring:
+    disableDefaultQueries: false
+    enablePodMonitor: true
+  storage:
+    # miniflux-database-X
+    storageClass: longhorn-crypto
+    size: 5Gi

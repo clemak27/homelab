@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: docker.io/eclipse-mosquitto
+          tag: 2.0.15
+        command:
+          - mosquitto
+        args:
+          - -c
+          - /mosquitto-no-auth.conf
+        env:
+          TZ: Europe/Vienna
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        primary: true
+        port: 1883
+
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+persistence:
+  config:
+    enabled: true
+    size: 2Gi
+    accessMode: "ReadWriteOnce"
+    type: persistentVolumeClaim

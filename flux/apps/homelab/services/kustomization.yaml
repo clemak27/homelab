@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./repositories.yaml
+  - ./cloudflare-ddns
+  - ./gitea
+  - ./home-assistant
+  - ./mealie
+  - ./miniflux
+  - ./mqtt
+  - ./redlib
+  - ./searxng
+  - ./syncthing
+  - ./zigbee2mqtt

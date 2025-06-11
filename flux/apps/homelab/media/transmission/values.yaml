@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: null
+    labels:
+      requires-nfs: "true"
+    containers:
+      main:
+        image:
+          repository: docker.io/linuxserver/transmission
+          tag: 4.0.6
+        env:
+          TZ: Europe/Vienna
+          PUID: "1000"
+          PGID: "1000"
+          PEER_PORT: "32767"
+
+defaultPodOptions:
+  nodeSelector:
+    kubernetes.io/hostname: boltzmann
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        primary: true
+        port: 9091
+  bt:
+    controller: main
+    type: NodePort
+    ports:
+      tcp:
+        enabled: true
+        protocol: TCP
+        port: 32767
+        nodePort: 32767
+      udp:
+        enabled: true
+        protocol: UDP
+        port: 32767
+        nodePort: 32767
+
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: transmission.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - transmission.wallstreet30.cc
+        secretName: transmission-tls
+
+persistence:
+  config:
+    enabled: true
+    size: 5Gi
+    accessMode: "ReadWriteOnce"
+  downloads:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/torrents
+    globalMounts:
+      - path: /downloads
+        readOnly: false
