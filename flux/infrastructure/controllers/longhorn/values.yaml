@@ -1,0 +1,40 @@
+---
+# https://github.com/longhorn/charts/blob/v1.6.x/charts/longhorn/values.yaml
+preUpgradeChecker:
+  jobEnabled: false
+
+defaultSettings:
+  autoSalvage: true
+  defaultLonghornStaticStorageClass: longhorn-crypto
+  defaultReplicaCount: 1
+  disableRevisionCounter: false
+  nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
+  nodeDrainPolicy: block-if-contains-last-replica
+  removeSnapshotsDuringFilesystemTrim: false
+  upgradeChecker: false
+  autoCleanupSystemGeneratedSnapshot: true
+  snapshotDataIntegrity: disabled
+  orphanAutoDeletion: true
+  backupTarget: nfs://192.168.178.100:/backups
+  allowVolumeCreationWithDegradedAvailability: true
+  disableSchedulingOnCordonedNode: true
+  replicaAutoBalance: disabled
+  replicaSoftAntiAffinity: false
+  defaultDataLocality: disabled
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  host: longhorn.wallstreet30.cc
+  tls: true
+
+  ## Enable this in order to enable that the backend service will be connected at port 443
+  secureBackends: false
+
+  ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+  tlsSecret: longhorn-frontend-tls
+
+  path: /

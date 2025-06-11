@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./namespace.yaml
+  - ./repositories.yaml
+  - ./calibre
+  - ./immich
+  - ./jellyfin
+  - ./navidrome
+  - ./prowlarr
+  - ./qobuz-dl
+  - ./radarr
+  - ./readarr
+  - ./sonarr
+  - ./transmission

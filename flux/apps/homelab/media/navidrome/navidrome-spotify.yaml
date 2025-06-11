@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: navidrome-spotify
+type: Opaque
+stringData:
+  id: ENC[AES256_GCM,data:ybrmekEiCo9rdq3ZprQapHYYBNiKGtXvVUHVQOD6K58=,iv:xsGGPfGCcYMzBTn2Ls/WhsP2TdKuPMun9YeozPE3vJU=,tag:X0jzlXZLlzoSLTFkpNRcBQ==,type:str]
+  secret: ENC[AES256_GCM,data:raLSEW32oxTTMJWJV/JTclEIbRW1YxSbYb4IHmVhAps=,iv:srix7wmxkxe2S3jgpemgnyb8O3ZujI97QNpls4vqbd0=,tag:gTS4RoryK4pQ8z1npFg4lA==,type:str]
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYaC9BNnd0N1ZHQzdnUENX
+        MklnbXZZYWlBQnRuSjM1VnNjRTgxR1BWamxnClZZb0Zqbjh0Rlp4emdpSEFEWVZp
+        OVhVUC9jcVFvZzcrUm5vdG1INXIwTzgKLS0tIHczRXZBVmdFY1VIRjdJcHkvYWpM
+        aTg2K2EwWndPNFFuMFlHNnZmNXkyQzgKLHPrLvVwihc4h6qibVCfA6qvT76s/XJ/
+        QmCHezdNoPg4Y90Oz1sW1BXUShvpLJlLr1Kawmp5HcK34kuY297m0w==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2023-07-26T06:44:40Z"
+  mac: ENC[AES256_GCM,data:Up0SwWNQz2y74009qqr2v3dPLLWKhcrTBhwx/PNOVYzQ+WfQiROvdTOohB0gGsKlM6fDniGUUPOZ3aFe+dtTr4oBkhK6SlcDsHgNon85aLi6u/r7W/nAqwGZVySrhXXvpn1EJ5R21DvfGcOLrz5qOxhP1iSKqBAEi4INqy17N4k=,iv:u/CkWQ7uT58DqJY7lz+aCI+XAGOsU1mexcvu4mrrEuU=,tag:zJzVIVX/lpAh8dCYPGBHLA==,type:str]
+  pgp: []
+  unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+  version: 3.7.3

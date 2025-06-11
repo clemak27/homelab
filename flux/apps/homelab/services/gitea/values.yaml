@@ -1,0 +1,124 @@
+---
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+  ssh:
+    type: ClusterIP
+    port: 222
+    clusterIP:
+
+global:
+  storageClass: longhorn-crypto
+
+podSecurityContext:
+  fsGroup: 1000
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+  hosts:
+    - host: gitea.wallstreet30.cc
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - gitea.wallstreet30.cc
+      secretName: gitea-tls
+
+persistence:
+  enabled: true
+  storageClass: longhorn-crypto
+
+gitea:
+  # https://docs.gitea.com/administration/config-cheat-sheet
+  config:
+    APP_NAME: 'gitea'
+    repository:
+      PULL_REQUEST_DEFAULT_MERGE_STYLE: fast-forward-only
+    service:
+      DISABLE_REGISTRATION: false
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+      SHOW_REGISTRATION_BUTTON: false
+    server:
+      SSH_PORT: 222
+    database:
+      DB_TYPE: postgres
+      HOST: gitea-database-rw
+      NAME: gitea
+      USER: gitea
+      SCHEMA: public
+  admin:
+    existingSecret: gitea-admin
+  additionalConfigFromEnvs:
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: gitea-database-app
+          key: password
+
+actions:
+  enabled: true
+  existingSecret: gitea-runner-token
+  existingSecretKey: token
+  statefulset:
+    hostAliases:
+      - ip: "192.168.178.100"
+        hostnames:
+          - "gitea.wallstreet30.cc"
+    actRunner:
+      config: |
+        log:
+          level: debug
+        runner:
+          file: .runner
+          capacity: 1
+          env_file: .env
+          timeout: 30m
+          insecure: false
+          fetch_timeout: 5s
+          fetch_interval: 2s
+          labels:
+            - "ubuntu-latest:docker://gitea/runner-images:ubuntu-latest"
+            - "ubuntu-22.04:docker://gitea/runner-images:ubuntu-22.04"
+            - "ubuntu-20.04:docker://gitea/runner-images:ubuntu-20.04"
+        cache:
+          enabled: true
+          dir: ""
+          host: ""
+          port: 0
+          external_server: ""
+        container:
+          network: ""
+          privileged: false
+          options: |
+            --add-host=docker:host-gateway
+            --add-host=gitea.wallstreet30.cc:192.168.178.100
+            -v /certs:/certs
+            -e "DOCKER_HOST=tcp://docker:2376/"
+            -e "DOCKER_TLS_CERTDIR=/certs"
+            -e "DOCKER_TLS_VERIFY=1"
+            -e "DOCKER_CERT_PATH=/certs/server"
+          valid_volumes:
+            - /certs
+
+redis-cluster:
+  enabled: false
+
+redis:
+  enabled: true
+  architecture: standalone
+  master:
+    persistence:
+      enabled: false
+
+postgresql:
+  enabled: false
+
+postgresql-ha:
+  enabled: false

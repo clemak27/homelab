@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media
+resources:
+  - database.yaml
+  - immich-ml.yaml
+  - release.yaml
+  - valkey.yaml
+configMapGenerator:
+  - name: immich-values
+    files:
+      - values.yaml=values.yaml
+configurations:
+  - kustomizeconfig.yaml
