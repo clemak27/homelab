@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: docker.io/linuxserver/readarr
-          tag: 0.4.17-nightly
+          tag: 0.4.18-nightly
         env:
           TZ: Europe/Vienna
           PUID: "1000"
