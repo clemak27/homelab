@@ -1,7 +1,7 @@
 [tools]
 # hk = "latest"
 # pkl = "latest"
-talosctl = "1.10.0"
+talosctl = "1.10.4"
 sops = "latest"
 # doggo = "latest"
 # argocd = "latest"
