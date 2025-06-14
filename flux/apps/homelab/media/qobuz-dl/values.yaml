@@ -24,8 +24,6 @@ controllers:
                 key: password
 
 defaultPodOptions:
-  imagePullSecrets:
-    - name: regcred
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch

@@ -5,6 +5,12 @@ kustomize = "5.5.0"
 helm = "3.16.3"
 flux2 = "latest"
 "npm:@immich/cli" = "latest"
+"ubi:coreos/butane" = "latest"
+"ubi:coreos/ignition" = { version = "latest", exe = "ignition-validate" }
+uv = "latest"
+fd = "latest"
+yamllint = "latest"
+actionlint = "latest"
 
 [env]
 IMMICH_INSTANCE_URL="https://immich.wallstreet30.cc/api"

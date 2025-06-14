@@ -1,0 +1,45 @@
+---
+variant: fcos
+version: 1.6.0
+storage:
+  files:
+    - path: /etc/rancher/k3s/config.yaml
+      mode: 0644
+      contents:
+        inline: |
+          disable: local-storage,traefik
+          selinux: true
+          tls-san:
+            - "k3s.wallstreet30.cc"
+          write-kubeconfig-mode: "0644"
+    - path: /usr/local/sbin/initK3s
+      mode: 0755
+      contents:
+        local: k3s.sh
+    - path: /etc/sysctl.d/60-inotify.conf
+      mode: 0644
+      contents:
+        inline: |
+          fs.inotify.max_user_instances=1048576
+          fs.inotify.max_user_watches=1048576
+systemd:
+  units:
+    - name: init-k3s.service
+      enabled: true
+      contents: |
+        [Unit]
+        Before=systemd-user-sessions.service
+        Description=Server Initialization
+        Wants=network-online.target
+        After=network-online.target rpm-ostree-install.service
+        ConditionPathExists=!/var/lib/init_k3s_done
+
+        [Service]
+        Type=oneshot
+        TimeoutStartSec=0
+        ExecStart=/usr/local/sbin/initK3s
+        ExecStartPost=/usr/bin/touch /var/lib/init_k3s_done
+        RemainAfterExit=yes
+
+        [Install]
+        WantedBy=multi-user.target

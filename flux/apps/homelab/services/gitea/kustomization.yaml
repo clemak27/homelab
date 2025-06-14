@@ -6,7 +6,6 @@ resources:
   - database.yaml
   - gitea-admin.yaml
   - gitea-runner-token.yaml
-  - regcred.yaml
   - release.yaml
 configMapGenerator:
   - name: gitea-values

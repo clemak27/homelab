@@ -1,0 +1,30 @@
+---
+variant: fcos
+version: 1.6.0
+storage:
+  directories:
+    - path: /etc/systemd/resolved.conf.d
+      user:
+        name: root
+      group:
+        name: root
+  files:
+    - path: /etc/systemd/resolved.conf.d/nostub.conf
+      user:
+        name: root
+      group:
+        name: root
+      contents:
+        inline: |
+          [Resolve]
+          DNSStubListener=no
+    - path: /etc/blocky/config.yaml
+      user:
+        name: root
+      group:
+        name: root
+      contents:
+        local: config.yaml
+    - path: /etc/containers/systemd/blocky.container
+      contents:
+        local: blocky.container

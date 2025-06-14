@@ -19,6 +19,11 @@ spec:
   targetNamespace: services
   driftDetection:
     mode: enabled
+  dependsOn:
+    - name: mqtt
+      namespace: services
+    - name: zigbee2mqtt
+      namespace: services
   valuesFrom:
     - kind: ConfigMap
       name: home-assistant-values

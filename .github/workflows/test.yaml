@@ -8,8 +8,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v17
+      - name: Install mise-en-place
+        run: |
+          curl https://mise.run | sh
+          mise install
       - name: Run kustomize-test
         shell: bash
-        run: nix develop --command pre-commit run kustomize --all-files
+        run: mise x -- fd kustomization.yaml --exec kustomize build {//}

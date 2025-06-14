@@ -1,0 +1,15 @@
+[Container]
+Image=docker.io/erichough/nfs-server
+AutoUpdate=registry
+Network=host
+Volume=/var/nfs:/var/nfs
+Volume=/etc/exports:/etc/exports
+SecurityLabelDisable=true
+AddCapability=SYS_ADMIN
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
