@@ -1,0 +1,74 @@
+---
+# https://0xerr0r.github.io/blocky/latest/configuration/
+upstreams:
+  groups:
+    default:
+      # Cloudflare
+      - 1.1.1.1
+      - 1.0.0.1
+      # Quad9
+      - 9.9.9.9
+      - 149.112.112.112
+# optional: Determines how blocky will create outgoing connections. This impacts both upstreams, and lists.
+# accepted: dual, v4, v6
+# default: dual
+connectIPVersion: v4
+
+# optional: custom IP address(es) for domain name (with all sub-domains). Multiple addresses must be separated by a comma
+# example: query "printer.lan" or "my.printer.lan" will return 192.168.178.3
+customDNS:
+  customTTL: 1h
+  mapping:
+    wallstreet30.cc: 192.168.178.100
+
+blocking:
+  denylists:
+    ads:
+      - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+      - http://sysctl.org/cameleon/hosts
+      - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+    special:
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
+caching:
+  # duration how long a response must be cached (min value).
+  # If <=0, use response's TTL, if >0 use this value, if TTL is smaller
+  # Default: 0
+  minTime: 5m
+  # duration how long a response must be cached (max value).
+  # If <0, do not cache responses
+  # If 0, use TTL
+  # If > 0, use this value, if TTL is greater
+  # Default: 0
+  maxTime: 1h
+
+prometheus:
+  enable: false
+
+# optional: write query information (question, answer, client, duration etc.) to daily csv file
+queryLog:
+  type: none
+
+# optional: use these DNS servers to resolve denylist urls and upstream DNS servers. It is useful if no system DNS resolver is configured, and/or to encrypt the bootstrap queries.
+bootstrapDns:
+  - tcp+udp:1.1.1.1
+  - tcp+udp:1.0.0.1
+  - tcp+udp:9.9.9.9
+
+# optional: ports configuration
+ports:
+  # optional: DNS listener port(s) and bind ip address(es), default 53 (UDP and TCP). Example: 53, :53, "127.0.0.1:5353,[::1]:5353"
+  dns: 53
+  # optional: Port(s) and optional bind ip address(es) to serve HTTP used for prometheus metrics, pprof, REST API, DoH... If you wish to specify a specific IP, you can do so such as 192.168.0.1:4000. Example: 4000, :4000, 127.0.0.1:4000,[::1]:4000
+  http: 4000
+
+# optional: logging configuration
+log:
+  # optional: Log level (one from trace, debug, info, warn, error). Default: info
+  level: info
+  # optional: Log format (text or json). Default: text
+  format: text
+  # optional: log timestamps. Default: true
+  timestamp: true
+  # optional: obfuscate log output (replace all alphanumeric characters with *) for user sensitive data like request domains or responses to increase privacy. Default: false
+  privacy: false

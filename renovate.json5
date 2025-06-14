@@ -18,8 +18,13 @@
       "allowedVersions": "< 2021"
     }
   ],
-  "ignorePaths": [
-    "cluster/monitoring/loki",
-    "cluster/monitoring/influxdb"
+  "regexManagers": [
+    {
+      "fileMatch": [".*\\.sh"],
+      // https://regex101.com/r/EArT8p/1
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sexport \\S+?=(?<currentValue>\\S+)"
+      ]
+    }
   ]
 }

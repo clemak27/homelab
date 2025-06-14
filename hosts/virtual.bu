@@ -1,0 +1,47 @@
+---
+variant: fcos
+version: 1.6.0
+ignition:
+  config:
+    merge:
+      - local: modules/base.ign
+      - local: modules/dns/dns.ign
+      - local: modules/k3s/k3s.ign
+      - local: modules/nfs/nfs.ign
+      - local: modules/wireguard/wireguard.ign
+storage:
+  directories:
+    - path: /var/mnt/testdir
+      user:
+        name: core
+      group:
+        name: core
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: virtual
+    - path: /etc/exports
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          /var/nfs             *(rw,fsid=0,no_subtree_check)
+          /var/nfs/testdir     *(rw,nohide,insecure,no_subtree_check)
+systemd:
+  units:
+    # test-thing
+    - name: var-nfs-testdir.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Bind-mount test directory
+
+        [Mount]
+        What=/var/mnt/testdir
+        Where=/var/nfs/testdir
+        Type=none
+        Options=bind
+
+        [Install]
+        WantedBy=multi-user.target
