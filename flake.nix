@@ -79,13 +79,7 @@
 
                     for var in "$@"; do
                       dir="$(dirname $var)"
-                      if [[ "$CI" = "true" ]] && [[ -f $dir/secrets.yaml ]]; then
-                        echo "---"
-                        echo "skipping $dir"
-                        echo "---"
-                      else
-                        kustomize build --enable-helm --enable-exec --enable-alpha-plugins $dir
-                      fi
+                      kustomize build $dir
                     done
                   '';
                 in
@@ -115,19 +109,6 @@
           doggo
           sops
         ];
-
-        KUSTOMIZE_PLUGIN_HOME = legacyPkgs.buildEnv {
-          name = "kustomize-plugins";
-          paths = with legacyPkgs; [
-            kustomize-sops
-          ];
-          postBuild = ''
-            mkdir -p $out/viaduct.ai/v1/ksops
-            cp $out/lib/viaduct.ai/v1/ksops-exec/ksops-exec $out/viaduct.ai/v1/ksops/ksops
-            rm -rf $out/lib
-          '';
-          pathsToLink = [ "/lib" ];
-        };
       };
     };
 }
