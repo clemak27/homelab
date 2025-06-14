@@ -13,10 +13,10 @@ update-argocd-applications:
 	find ./cluster -name 'applications.yaml' -exec kubectl -n argocd apply -f {} \;
 
 deploy-homelab:
-	kubectl scale -n services deployments.apps -l requires-nfs=true --replicas 0
+	kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 0
 	deploy --boot -s
 	$(SSH_COMMAND) sudo shutdown -r 0
 	sleep 5
 	while ! $(SSH_COMMAND) exit 0 &> /dev/null; do sleep 5; done;
 	$(SSH_COMMAND) sudo nix-collect-garbage
-	kubectl scale -n services deployments.apps -l requires-nfs=true --replicas 1
+	kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1
