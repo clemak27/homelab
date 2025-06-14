@@ -14,9 +14,10 @@ update-argocd-applications:
 
 deploy-homelab:
 	kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 0
+	sleep 30
 	deploy --boot -s
 	$(SSH_COMMAND) sudo shutdown -r 0
-	sleep 5
+	sleep 30
 	while ! $(SSH_COMMAND) exit 0 &> /dev/null; do sleep 5; done;
 	$(SSH_COMMAND) sudo nix-collect-garbage
 	kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1
