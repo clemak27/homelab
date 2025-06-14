@@ -1,0 +1,77 @@
+---
+variant: fcos
+version: 1.6.0
+passwd:
+  users:
+    - name: core
+      groups:
+        - sudo
+        - wheel
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCyRaO8psuZI2i/+inKS5jn765Uypds8ORj/nVkgSE3 maxwell
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3PSHWVz5/LwHEEfo+7y2o5KH7dlLyfySWnyyi7LLxe newton
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsk9Bh5+4ZsEDFGb7mXDiClvsLwM+jMNr+SPf+auyu7 planck
+storage:
+  files:
+    # Set vim as default editor
+    # We use `zz-` as prefix to make sure this is processed last in order to
+    # override any previously set defaults.
+    - path: /etc/profile.d/zz-default-editor.sh
+      overwrite: true
+      contents:
+        inline: |
+          export EDITOR=vim
+    # Set default keymap to de
+    - path: /etc/vconsole.conf
+      overwrite: true
+      contents:
+        inline: |
+          KEYMAP=us
+  # Set TZ to EU/Vienna
+  links:
+    - path: /etc/localtime
+      target: ../usr/share/zoneinfo/Europe/Vienna
+systemd:
+  units:
+    # Installing layered packages with rpm-ostree
+    - name: rpm-ostree-install.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Layer packages with rpm-ostree
+        Wants=network-online.target
+        After=network-online.target
+        # We run before `zincati.service` to avoid conflicting rpm-ostree
+        # transactions.
+        # Before=zincati.service
+        ConditionPathExists=!/var/lib/%N.stamp
+
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        # `--allow-inactive` ensures that rpm-ostree does not return an error
+        # if the package is already installed. This is useful if the package is
+        # added to the root image in a future Fedora CoreOS release as it will
+        # prevent the service from failing.
+        # TODO nfs server in container
+        # ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive vim make nfs-utils
+        ExecStart=/usr/bin/rpm-ostree install --apply-live --allow-inactive vim
+        ExecStart=/bin/touch /var/lib/%N.stamp
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: zincati.service
+      enabled: false
+# storage:
+#   files:
+#     - path: /etc/zincati/config.d/55-updates-strategy.toml
+#       contents:
+#         inline: |
+#           [updates]
+#           strategy = "periodic"
+#           [updates.periodic]
+#           time_zone = "Europe/Vienna"
+#           [[updates.periodic.window]]
+#           days = [ "Mon", "Wed", "Fri" ]
+#           start_time = "03:00"
+#           length_minutes = 30

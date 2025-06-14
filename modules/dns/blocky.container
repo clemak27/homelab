@@ -1,0 +1,13 @@
+[Container]
+Image=ghcr.io/0xerr0r/blocky
+AutoUpdate=registry
+Network=host
+Volume=/etc/blocky/config.yaml:/app/config.yml
+SecurityLabelDisable=true
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

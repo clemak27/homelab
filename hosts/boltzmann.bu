@@ -1,0 +1,132 @@
+---
+variant: fcos
+version: 1.6.0
+ignition:
+  config:
+    merge:
+      - local: modules/base.ign
+      - local: modules/dns/dns.ign
+      - local: modules/k3s/k3s.ign
+      - local: modules/nfs/nfs.ign
+      - local: modules/wireguard/wireguard.ign
+storage:
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: boltzmann
+    - path: /etc/exports
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          /var/nfs                *(rw,fsid=0,no_subtree_check)
+          /var/nfs/media          *(rw,nohide,insecure,no_subtree_check)
+          /var/nfs/backups        *(rw,no_root_squash,sync)
+          /var/nfs/series         *(rw,nohide,insecure,no_subtree_check)
+systemd:
+  units:
+    # mc-01
+    - name: var-mnt-media.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount media directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/b2c20ad4-3a1a-4656-abea-d9f774170726
+        Where=/var/mnt/media
+        Type=btrfs
+        Options=subvol=media
+
+        [Install]
+        WantedBy=multi-user.target
+
+    # mc-02
+    - name: var-mnt-backups.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount backups directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f4c22d1-60c8-4f91-a2b4-c04f30b77f45
+        Where=/var/mnt/backups
+        Type=btrfs
+        Options=subvol=backups
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-mnt-series.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount series directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/6f4c22d1-60c8-4f91-a2b4-c04f30b77f45
+        Where=/var/mnt/series
+        Type=btrfs
+        Options=subvol=series
+
+        [Install]
+        WantedBy=multi-user.target
+
+    # mc-03
+    - name: var-mnt-media2.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount media2 directory
+
+        [Mount]
+        What=/dev/disk/by-uuid/404897a7-c2df-406e-a6e7-8b914259a2fe
+        Where=/var/mnt/media2
+        Type=btrfs
+
+        [Install]
+        WantedBy=multi-user.target
+
+    # nfs bind-mounts
+    - name: var-nfs-media.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Bind-mount media directory
+
+        [Mount]
+        What=/var/mnt/media
+        Where=/var/nfs/media
+        Type=none
+        Options=bind
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-nfs-backups.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Bind-mount backups directory
+
+        [Mount]
+        What=/var/mnt/backups
+        Where=/var/nfs/backups
+        Type=none
+        Options=bind
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: var-nfs-series.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Bind-mount series directory
+
+        [Mount]
+        What=/var/mnt/series
+        Where=/var/nfs/series
+        Type=none
+        Options=bind
+
+        [Install]
+        WantedBy=multi-user.target

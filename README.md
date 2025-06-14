@@ -2,20 +2,20 @@
 
 This repo the setup for my homelab.
 
-It currently consists of single bare-metal server running NixOS, with k3s to
-deploy containers.
+It currently consists of single bare-metal server running Fedora CoreOS, with
+k3s to deploy containers.
 
 This is for my own usage and preferences, but you are of course free to use it
 as inspiration.
 
 ## Structure
 
-- `cluster`
+- `flux`
   - definition of all services running in the cluster
-- `host`
+- `hosts`
   - configuration files for server
-- `setup`
-  - notes for setting up my homelab
+- `modules`
+  - configuration files for different modules
 
 ## Hardware
 
@@ -26,24 +26,25 @@ as inspiration.
 
 ## Software
 
-### NixOS
+### Fedora CoreOS
 
-My homelab runs [NixOS](https://nixos.org/).
+My homelab runs [FCOS](https://docs.fedoraproject.org/en-US/fedora-coreos/).
 
-There 2 services directly running and configured on the host:
-[WireGuard](https://www.wireguard.com/), for accessing my homelab from the
-outside, and [dnsmasq](https://dnsmasq.org/), for resolving hostnames.
+[WireGuard](https://www.wireguard.com/) is running directly on the host, for
+accessing my homelab from the outside.
+
+[blocky](https://0xerr0r.github.io/blocky/latest/) and a nfs-server run as
+quadlets.
 
 ### k3s
 
-Most other services run in a Kubernetes cluster. To deploy it I use
+All other services run in a Kubernetes cluster. To deploy it I use
 [k3s](https://k3s.io/). The cluster is managed with
-[argoCD](https://argoproj.github.io/cd), which watches the cluster directory for
-changes and automatically applies them to the cluster.
+[fluxCD](https://fluxcd.io/), which watches the repo for changes and
+automatically applies them to the cluster.
 
-Storage and backups are managed with
-[longhorn](https://github.com/longhorn/longhorn). Secrets are handled using
-[ksops](https://github.com/viaduct-ai/kustomize-sops).
+Storage and backups for container-volumes are managed with
+[longhorn](https://github.com/longhorn/longhorn).
 
 ### other
 
