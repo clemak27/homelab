@@ -8,18 +8,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v17
+      - name: Install mise-en-place
+        run: |
+          curl https://mise.run | sh
+          mise install
       - name: Run yamllint
         shell: bash
-        run: nix develop --command pre-commit run yamllint --all-files
+        run: mise x -- yamllint .
   actionlint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v17
+      - name: Install mise-en-place
+        run: |
+          curl https://mise.run | sh
+          mise install
       - name: Run actionlint
         shell: bash
-        run: nix develop --command pre-commit run actionlint --all-files
+        run: mise x -- actionlint -shellcheck=
