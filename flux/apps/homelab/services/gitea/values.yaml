@@ -20,7 +20,7 @@ ingress:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
   hosts:
     - host: gitea.wallstreet30.cc
       paths:
