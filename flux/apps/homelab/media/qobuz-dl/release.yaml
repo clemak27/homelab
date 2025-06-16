@@ -19,6 +19,9 @@ spec:
   targetNamespace: media
   driftDetection:
     mode: enabled
+  dependsOn:
+    - name: gitea
+      namespace: services
   valuesFrom:
     - kind: ConfigMap
       name: qobuz-dl-values
