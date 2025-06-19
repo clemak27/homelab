@@ -5,6 +5,7 @@ ignore: |
   hosts/**/secrets.yaml
   flux/clusters/homelab/flux-system/gotk-components.yaml
   flux/clusters/homelab/flux-system/gotk-sync.yaml
+  flux/clusters/homelab/flux-system/kustomization.yaml
 
 rules:
   line-length: false
