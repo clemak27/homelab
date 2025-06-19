@@ -3,8 +3,8 @@ extends: default
 
 ignore: |
   hosts/**/secrets.yaml
-  flux/cluster/flux-system/gotk-components.yaml
-  flux/cluster/flux-system/gotk-sync.yaml
+  flux/clusters/homelab/flux-system/gotk-components.yaml
+  flux/clusters/homelab/flux-system/gotk-sync.yaml
 
 rules:
   line-length: false
