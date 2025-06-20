@@ -11,7 +11,9 @@ jobs:
       - name: Install mise-en-place
         run: |
           curl https://mise.run | sh
-          mise install
+      - name: Install deps
+        run: |
+          mise install fd@latest kustomize@latest
       - name: Run kustomize-test
         shell: bash
         run: mise x -- fd kustomization.yaml --exec kustomize build {//}
