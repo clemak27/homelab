@@ -16,6 +16,13 @@
         "docker.io/linuxserver/transmission"
       ],
       "allowedVersions": "< 2021"
+    },
+    {
+      "matchPackageNames": [
+        "fluxcd/flux2",
+        "flux2"
+      ],
+      "groupName": "fluxcd"
     }
   ],
   "regexManagers": [
