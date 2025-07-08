@@ -3,7 +3,7 @@ sops = "latest"
 doggo = "latest"
 kustomize = "5.5.0"
 helm = "3.16.3"
-flux2 = "2.6.3"
+flux2 = "2.6.4"
 "npm:@immich/cli" = "latest"
 "ubi:coreos/butane" = "latest"
 "ubi:coreos/ignition" = { version = "latest", exe = "ignition-validate" }
