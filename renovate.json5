@@ -25,6 +25,9 @@
       "groupName": "fluxcd"
     }
   ],
+  "ignorePaths": [
+    "flux/apps/homelab/media/qobuz-dl"
+  ],
   "regexManagers": [
     {
       "fileMatch": [".*\\.sh"],
