@@ -1,0 +1,43 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renovate-github
+spec:
+  schedule: '@hourly'
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: renovate/renovate:41.23.2
+              name: renovate
+              env:
+                - name: RENOVATE_PLATFORM
+                  value: 'github'
+                - name: RENOVATE_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: renovate-token
+                      key: github
+
+                - name: RENOVATE_AUTODISCOVER
+                  value: 'true'
+                - name: RENOVATE_AUTODISCOVER_FILTER
+                  value: "clemak27/*"
+                - name: RENOVATE_BASE_DIR
+                  value: '/tmp/renovate/'
+                - name: LOG_LEVEL
+                  value: info
+                - name: RENOVATE_REQUIRE_CONFIG
+                  value: 'required'
+                - name: RENOVATE_ONBOARDING
+                  value: 'false'
+              volumeMounts:
+                - name: data-volume
+                  mountPath: /tmp/renovate/
+          restartPolicy: Never
+          volumes:
+            - name: data-volume
+              emptyDir: {}
