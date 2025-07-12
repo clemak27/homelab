@@ -11,6 +11,7 @@ resources:
   - ./miniflux
   - ./mqtt
   - ./redlib
+  - ./renovate
   - ./searxng
   - ./syncthing
   - ./zigbee2mqtt
