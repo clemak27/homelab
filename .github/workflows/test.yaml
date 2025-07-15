@@ -12,6 +12,8 @@ jobs:
         run: |
           curl https://mise.run | sh
       - name: Install deps
+        env:
+          MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mise install fd@latest kustomize@latest
       - name: Run kustomize-test

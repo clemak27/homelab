@@ -12,6 +12,8 @@ jobs:
         run: |
           curl https://mise.run | sh
       - name: Install yamllint
+        env:
+          MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mise install yamllint@latest
       - name: Run yamllint
@@ -26,6 +28,8 @@ jobs:
         run: |
           curl https://mise.run | sh
       - name: Install actionlint
+        env:
+          MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mise install actionlint@latest
       - name: Run actionlint
