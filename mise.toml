@@ -1,7 +1,7 @@
 [tools]
 sops = "latest"
 doggo = "latest"
-kustomize = "5.7.0"
+kustomize = "5.7.1"
 helm = "3.18.4"
 flux2 = "2.6.4"
 "npm:@immich/cli" = "latest"
