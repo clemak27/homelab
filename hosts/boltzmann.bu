@@ -31,15 +31,15 @@ storage:
 systemd:
   units:
     # mc-01
-    - name: var-mnt-media.mount
+    - name: var-mnt-media2.mount
       enabled: true
       contents: |
         [Unit]
-        Description=Mount media directory
+        Description=Mount old media directory
 
         [Mount]
         What=/dev/disk/by-uuid/b2c20ad4-3a1a-4656-abea-d9f774170726
-        Where=/var/mnt/media
+        Where=/var/mnt/media2
         Type=btrfs
         Options=subvol=media
 
@@ -77,15 +77,15 @@ systemd:
         WantedBy=multi-user.target
 
     # mc-03
-    - name: var-mnt-media2.mount
+    - name: var-mnt-media.mount
       enabled: true
       contents: |
         [Unit]
-        Description=Mount media2 directory
+        Description=Mount media directory
 
         [Mount]
         What=/dev/disk/by-uuid/404897a7-c2df-406e-a6e7-8b914259a2fe
-        Where=/var/mnt/media2
+        Where=/var/mnt/media
         Type=btrfs
 
         [Install]
