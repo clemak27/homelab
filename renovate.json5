@@ -31,6 +31,13 @@
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sexport \\S+?=(?<currentValue>\\S+)"
       ]
+    },
+    {
+      "fileMatch": [".*\\.container$"],
+      // https://regex101.com/r/1ysnFY/1
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s\\S+?=.+:(?<currentValue>\\S+)"
+      ]
     }
   ]
 }

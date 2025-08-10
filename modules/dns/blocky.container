@@ -1,4 +1,5 @@
 [Container]
+# renovate: datasource=github-tags depName=0xERR0R/blocky versioning=loose
 Image=ghcr.io/0xerr0r/blocky:v0.26.2
 AutoUpdate=registry
 Network=host
