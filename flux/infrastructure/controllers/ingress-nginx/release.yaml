@@ -20,4 +20,4 @@ spec:
     # -- TCP service key-value pairs
     ## Ref: https://github.com/kubernetes/ingress-nginx/blob/main/docs/user-guide/exposing-tcp-udp-services.md
     tcp:
-      "222": "services/gitea-ssh:222"
+      "222": "services/forgejo-ssh:222"

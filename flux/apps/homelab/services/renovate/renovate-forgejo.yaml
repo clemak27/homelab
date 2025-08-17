@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: renovate-gitea
+  name: renovate-forgejo
 spec:
   schedule: '@hourly'
   concurrencyPolicy: Forbid
@@ -15,9 +15,9 @@ spec:
               name: renovate
               env:
                 - name: RENOVATE_PLATFORM
-                  value: 'gitea'
+                  value: 'forgejo'
                 - name: RENOVATE_ENDPOINT
-                  value: https://gitea.wallstreet30.cc/api/v1
+                  value: https://forgejo.wallstreet30.cc/api/v1
                 - name: RENOVATE_GITHUB_COM_TOKEN
                   valueFrom:
                     secretKeyRef:
@@ -27,7 +27,7 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: renovate-token
-                      key: gitea
+                      key: forgejo
 
                 - name: RENOVATE_AUTODISCOVER
                   value: 'true'
