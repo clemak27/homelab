@@ -1,0 +1,81 @@
+---
+# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/commit/8356725490994125fb10567be4002747a8e5e329/values.yaml
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+  ssh:
+    type: ClusterIP
+    port: 222
+    clusterIP:
+
+global:
+  storageClass: longhorn-crypto
+
+podSecurityContext:
+  fsGroup: 1000
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+  hosts:
+    - host: forgejo.wallstreet30.cc
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - forgejo.wallstreet30.cc
+      secretName: forgejo-tls
+
+persistence:
+  enabled: true
+  storageClass: longhorn-crypto
+
+gitea:
+  # https://docs.gitea.com/administration/config-cheat-sheet
+  config:
+    APP_NAME: 'forgejo'
+    repository:
+      PULL_REQUEST_DEFAULT_MERGE_STYLE: fast-forward-only
+    service:
+      DISABLE_REGISTRATION: false
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: true
+      SHOW_REGISTRATION_BUTTON: false
+    server:
+      SSH_PORT: 222
+      SSH_LISTEN_PORT: 222
+    database:
+      DB_TYPE: postgres
+      HOST: forgejo-database-rw
+      NAME: forgejo
+      USER: forgejo
+      SCHEMA: public
+  admin:
+    existingSecret: forgejo-admin
+  additionalConfigFromEnvs:
+    - name: GITEA__DATABASE__PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: forgejo-database-app
+          key: password
+
+valkey-cluster:
+  enabled: false
+
+valkey:
+  enabled: true
+  architecture: standalone
+  master:
+    persistence:
+      enabled: false
+
+postgresql:
+  enabled: false
+
+postgresql-ha:
+  enabled: false

@@ -5,7 +5,7 @@ resources:
   - ./namespace.yaml
   - ./repositories.yaml
   - ./cloudflare-ddns
-  - ./gitea
+  - ./foregjo
   - ./home-assistant
   - ./mealie
   - ./miniflux

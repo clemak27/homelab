@@ -4,11 +4,10 @@ kind: Kustomization
 namespace: services
 resources:
   - database.yaml
-  - gitea-admin.yaml
-  - gitea-runner-token.yaml
+  - forgejo-admin.yaml
   - release.yaml
 configMapGenerator:
-  - name: gitea-values
+  - name: forgejo-values
     files:
       - values.yaml=values.yaml
 configurations:

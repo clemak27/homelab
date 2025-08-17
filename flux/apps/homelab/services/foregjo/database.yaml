@@ -3,18 +3,18 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: gitea-database
+  name: forgejo-database
 spec:
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
   instances: 1
   bootstrap:
     initdb:
-      database: gitea
-      owner: gitea
+      database: forgejo
+      owner: forgejo
   monitoring:
     disableDefaultQueries: false
     enablePodMonitor: true
   storage:
-    # gitea-database-X
+    # forgejo-database-X
     storageClass: longhorn-crypto
     size: 5Gi
