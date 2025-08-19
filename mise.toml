@@ -2,7 +2,7 @@
 sops = "latest"
 doggo = "latest"
 kustomize = "5.7.1"
-helm = "3.18.5"
+helm = "3.18.6"
 flux2 = "2.6.4"
 "npm:@immich/cli" = "latest"
 "ubi:coreos/butane" = "latest"
