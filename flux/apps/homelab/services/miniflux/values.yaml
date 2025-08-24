@@ -24,6 +24,17 @@ controllers:
           POLLING_FREQUENCY: "15"
           FETCH_YOUTUBE_WATCH_TIME: "1"
           BATCH_SIZE: "50"
+          CREATE_ADMIN: "1"
+          ADMIN_USERNAME:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-admin
+                key: username
+          ADMIN_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-admin
+                key: password
           DATABASE_URL:
             valueFrom:
               secretKeyRef:

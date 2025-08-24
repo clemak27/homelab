@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: miniflux-admin
+type: Opaque
+stringData:
+    username: ENC[AES256_GCM,data:rM2gKcYHNQ==,iv:hPtqOEc/Kk6iLBsNvSwVYIl372dU4SrB3OWAb+Tx4aA=,tag:rTRYYvyltcToHlMVaXbzOA==,type:str]
+    password: ENC[AES256_GCM,data:jHSevLIVOA91fhRfYVCny6dazBUn49q5jP0oUP13T0DI5c7o,iv:6vHEN9aEFNJiIf9SmugCemr/rMU6FC1KM9RoJ0vjR4k=,tag:HexEkDXb9v5jvmpKVoUv8w==,type:str]
+sops:
+    age:
+        - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArVUE3L05HVnVKa1QvV2c5
+            SkhmTHlIT1ZZWXFRbnVvdzBaMzBxTTFlNVNzCm5SR00xbzl2L0IrcW12eXZ5eGNY
+            VUI4L1lnVUtJaWVoL3p4cml2aGw1YjAKLS0tIHJ4RmMybkU4aTdsbzM4dDJEQzNW
+            RWNvQm9YS0NoUjdPWjY1N2RNKzhKclEK5EhojgqO+MbROHFBiTvuQz/zt8nwOTiD
+            m9wTC13t8nn19S+kH/JIcrWyJEIKcrbUGAb3kpwoB7ClZ5bAN08xvA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-08-24T13:59:45Z"
+    mac: ENC[AES256_GCM,data:Y+He8qlZ7dD5BJ4hyCiKfGkgSy48NZjl5g/vp9uqxdrBALU17Hcqn/mXcFaa5iozp7ROHmo/n7MIC02gFev1ITK1L31x32CjKdD9IVF166jCowLQ/zunw9JhYFg/oZHVfSEhHQOgGP1P8sxRciZkkr7frrwAFZbY9Pq7MJYTFLU=,iv:hN9flWe0lOfoVficDyBcaVb8D4FH4KAt/s32b6uTkO8=,tag:E2h74yWz7c7X2pNFDnOE4g==,type:str]
+    unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+    version: 3.10.2
