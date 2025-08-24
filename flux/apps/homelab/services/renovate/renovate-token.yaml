@@ -5,7 +5,7 @@ metadata:
 type: Opaque
 stringData:
     github: ENC[AES256_GCM,data:XBe9LoyoXYRRq5f7mX7VHBz1pTc/5Pqtu8a5/N9sIm5FELktuToP9Q==,iv:xv7dK9llv0rF+Dvw3MK7LRtstTKv9eZ2g3AxArEpAxE=,tag:9Y/XH7yrlKIESqzOQuia5w==,type:str]
-    forgejo: ENC[AES256_GCM,data:++GVZy9g6MXz+rg0iBFmu2EDyZICscY1KhFcbxR0GHOJhv3KBnc0HQ==,iv:PyZPRv3ESE15/cacodU4rW4snr/VBkr+t/ZyzuYir4I=,tag:Fgp+DbBKQkmkAmsA3/iOSg==,type:str]
+    forgejo: ENC[AES256_GCM,data:FPMRcKjmmyyJUMn1Ven9muN3tb100htil0l0N1Zv3X6bQE+ITQ19zg==,iv:Bn0UBIM47TGFMU24jHw6vyp9lgjTZl2VdUsM//VjRWk=,tag:LnZwTNhakI5wWQX1FQ7X3w==,type:str]
 sops:
     age:
         - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
@@ -17,7 +17,7 @@ sops:
             YzVTVTdpdjYvN3J4UmVDRWZXOWZ6a28K79l0Im8Q8YVJghpJgauTGOGTKe0yVWC6
             I4UbC37u39DOMueQSKBR8HrVjAWoz/WxNoo6tjRs5yi4UgCedzVWYQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-08-21T14:07:14Z"
-    mac: ENC[AES256_GCM,data:oM/luuStj3ep4s6Fd5r+Z4aPgx8HVs6476l8FwhLcF/wN1aPXcx3W4Ws079O23nB23qbr3r+oeVQCBM33pP4y+UVJCHHxOdxSThd5HJUKp6k35mXRI0RUtDab8My3zXt+tj8y7BYvjZ6Na1/FRMp4GDDKqXnLWOPqlVYo/Uzi0Y=,iv:X/xYJzC6bEfEK+LmpH9xXWe4fDxM7I4WZVXeOEAAgY8=,tag:i/q07CSz+UpnYyphGhPTsQ==,type:str]
+    lastmodified: "2025-08-24T09:45:22Z"
+    mac: ENC[AES256_GCM,data:5yfraTcztioSg8d3OTypJnUQdWjlul40ve0iH5HybFqSchvrHrq3//UXmEZKcCr+4FHOcZWVnTW8rw+qErXQoLaMj3hWe0+g2JXUtUH5lAxnp3nkFiiwqWmLlP6miZVJZqMQmJex50rjTpNFpM6/fmEBVhOymQMJ77rqu+ls+Vo=,iv:Ika7IYRdDu/PwMROw2AYAEtpIm+ssmkwWODW4DqRenk=,tag:iJxsVUhI8JZBFGRsJHP0vA==,type:str]
     unencrypted_regex: ^(apiVersion|metadata|kind|type)$
     version: 3.10.2
