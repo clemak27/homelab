@@ -4,6 +4,9 @@
   "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
   "forkProcessing": "disabled",
   "commitMessageAction": "update",
+  "flux": {
+    "fileMatch": ["flux/.+\\.ya?ml$"]
+  },
   "packageRules": [
     {
       "matchPackagePatterns": [
