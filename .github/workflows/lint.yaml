@@ -15,7 +15,7 @@ jobs:
         env:
           MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mise install yamllint@latest
+          mise install -y yamllint
       - name: Run yamllint
         shell: bash
         run: mise x -- yamllint .
@@ -31,7 +31,7 @@ jobs:
         env:
           MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mise install actionlint@latest
+          mise install -y actionlint
       - name: Run actionlint
         shell: bash
         run: mise x -- actionlint -shellcheck=

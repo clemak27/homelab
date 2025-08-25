@@ -1,16 +1,15 @@
 [tools]
-sops = "latest"
-doggo = "latest"
-kustomize = "5.7.1"
-helm = "3.18.6"
+sops = "3.10.2"
+doggo = "1.0.5"
 flux2 = "2.6.4"
-"npm:@immich/cli" = "latest"
-"ubi:coreos/butane" = "latest"
-"ubi:coreos/ignition" = { version = "latest", exe = "ignition-validate" }
-uv = "latest"
-fd = "latest"
-yamllint = "latest"
-actionlint = "latest"
+"npm:@immich/cli" = "2.2.68"
+"ubi:coreos/butane" = "0.24.0"
+"ubi:coreos/ignition" = { version = "2.21.0", exe = "ignition-validate" }
+
+yamllint = "1.37.1"
+actionlint = "1.7.7"
+uv = "0.8.4"
+"pipx:flux-local" = "7.8.0"
 
 [env]
 IMMICH_INSTANCE_URL="https://immich.wallstreet30.cc/api"
