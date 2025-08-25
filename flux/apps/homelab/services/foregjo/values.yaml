@@ -1,5 +1,5 @@
 ---
-# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/commit/8356725490994125fb10567be4002747a8e5e329/values.yaml
+# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v14.0.0
 service:
   http:
     type: ClusterIP
@@ -37,11 +37,11 @@ persistence:
   storageClass: longhorn-crypto
 
 gitea:
-  # https://docs.gitea.com/administration/config-cheat-sheet
+  # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
   config:
     APP_NAME: 'forgejo'
     repository:
-      PULL_REQUEST_DEFAULT_MERGE_STYLE: fast-forward-only
+      DEFAULT_MERGE_STYLE: fast-forward-only
     service:
       DISABLE_REGISTRATION: false
       ALLOW_ONLY_EXTERNAL_REGISTRATION: true
@@ -58,24 +58,8 @@ gitea:
   admin:
     existingSecret: forgejo-admin
   additionalConfigFromEnvs:
-    - name: GITEA__DATABASE__PASSWD
+    - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
           name: forgejo-database-app
           key: password
-
-valkey-cluster:
-  enabled: false
-
-valkey:
-  enabled: true
-  architecture: standalone
-  master:
-    persistence:
-      enabled: false
-
-postgresql:
-  enabled: false
-
-postgresql-ha:
-  enabled: false
