@@ -1,6 +1,7 @@
 [tools]
 sops = "3.10.2"
 doggo = "1.0.5"
+dyff = "1.10.2"
 flux2 = "2.6.4"
 "npm:@immich/cli" = "2.2.68"
 "ubi:coreos/butane" = "0.24.0"
@@ -13,3 +14,19 @@ uv = "0.8.4"
 
 [env]
 IMMICH_INSTANCE_URL="https://immich.wallstreet30.cc/api"
+
+[tasks.flux-sync]
+run = """
+flux suspend source git flux-system
+sleep 5
+flux resume source git flux-system
+"""
+
+[tasks.flux-test]
+run = "flux-local test --enable-helm -v"
+
+[tasks.flux-diff]
+run = """
+DIFF="dyff between --omit-header --color on" \
+flux-local diff hr -A
+"""
