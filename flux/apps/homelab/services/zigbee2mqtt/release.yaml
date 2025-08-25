@@ -19,6 +19,9 @@ spec:
   targetNamespace: services
   driftDetection:
     mode: enabled
+  dependsOn:
+    - name: mqtt
+      namespace: services
   valuesFrom:
     - kind: ConfigMap
       name: zigbee2mqtt-values
