@@ -16,3 +16,4 @@ k3sconfig.yaml
 argocd.yaml
 current
 result
+.pytest_cache

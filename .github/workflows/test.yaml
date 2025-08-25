@@ -3,7 +3,7 @@ name: test
 on:
   - pull_request
 jobs:
-  kustomize:
+  flux-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,7 +15,7 @@ jobs:
         env:
           MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mise install fd@latest kustomize@latest
-      - name: Run kustomize-test
+          mise install -y flux2 uv "pipx:flux-local"
+      - name: Run flux-local test
         shell: bash
-        run: mise x -- fd kustomization.yaml --exec kustomize build {//}
+        run: mise x -- flux-local test --enable-helm -v
