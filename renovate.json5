@@ -20,6 +20,13 @@
         "flux2"
       ],
       "groupName": "fluxcd"
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/immich-app/immich-server",
+        "ghcr.io/immich-app/immich-machine-learning"
+      ],
+      "groupName": "immich"
     }
   ],
   "ignorePaths": [
