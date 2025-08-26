@@ -1,0 +1,129 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: null
+    labels:
+      requires-nfs: "true"
+    containers:
+      main:
+        image:
+          repository: docker.io/slskd/slskd
+          tag: 0.23.2
+        env:
+          TZ: Europe/Vienna
+          SLSKD_REMOTE_CONFIGURATION: false
+          SLSKD_CONFIG: /config/slskd.yml
+          SLSKD_SLSK_USERNAME:
+            valueFrom:
+              secretKeyRef:
+                name: slsk-auth
+                key: username
+          SLSKD_SLSK_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: slsk-auth
+                key: password
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 5030
+  ss:
+    controller: main
+    type: NodePort
+    ports:
+      tcp:
+        enabled: true
+        protocol: TCP
+        port: 32755
+        nodePort: 32755
+
+ingress:
+  main:
+    enabled: true
+    className: nginx
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - host: slskd.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - slskd.wallstreet30.cc
+        secretName: slskd-tls
+
+configMaps:
+  slskd-config:
+    forceRename: slskd-config
+    enabled: true
+    data:
+      slskd.yml: |
+        # directories:
+        #   incomplete: /downloads/incomplete
+        #   downloads: /downloads/complete
+        shares:
+          directories:
+            - /music
+          filters:
+            - \.ini$
+            - Thumbs.db$
+            - \.DS_Store$
+        filters:
+          search:
+            request:
+              - ^.{1,2}$
+              - ^(\.?pdf|\.?docx|\.?xlsx)$
+        web:
+          authentication:
+            disabled: true
+          https:
+            disabled: true
+        soulseek:
+          listen_port: 32755
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: slskd-config
+    globalMounts:
+      - path: config
+        readOnly: false
+  data:
+    enabled: true
+    size: 5Gi
+    accessMode: "ReadWriteOnce"
+    globalMounts:
+      - path: /data
+        readOnly: false
+  media:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/music
+    globalMounts:
+      - path: /music
+        readOnly: false
+  # downloads:
+  #   enabled: true
+  #   type: nfs
+  #   server: 192.168.178.100
+  #   path: /media/soulseek
+  #   globalMounts:
+  #     - path: /downloads
+  #       readOnly: false
