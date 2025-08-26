@@ -12,5 +12,6 @@ resources:
   - ./qobuz-dl
   - ./radarr
   - ./readarr
+  - ./slskd
   - ./sonarr
   - ./transmission
