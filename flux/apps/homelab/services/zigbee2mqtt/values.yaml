@@ -9,6 +9,10 @@ controllers:
           tag: 1.42.0
         env:
           TZ: Europe/Vienna
+          ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
+          ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mqtt.services.svc.cluster.local
+          ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyACM0
+          ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: deconz
         securityContext:
           privileged: true
 
