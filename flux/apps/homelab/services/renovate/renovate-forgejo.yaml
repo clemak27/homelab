@@ -10,10 +10,11 @@ spec:
     spec:
       template:
         spec:
-          initContainers:
-            - name: wait-for-forgejo
-              image: nixery.dev/shell/curl:latest
-              command: ['bash', '-c', "until curl -f https://forgejo.wallstreet30.cc; do sleep 5; done"]
+          # https://github.com/tazjin/nixery/issues/175
+          # initContainers:
+          #   - name: wait-for-forgejo
+          #     image: nixery.dev/shell/curl:latest
+          #     command: ['bash', '-c', "until curl -f https://forgejo.wallstreet30.cc; do sleep 5; done"]
           containers:
             - image: renovate/renovate:41.82.5
               name: renovate

@@ -5,15 +5,16 @@ controllers:
     replicas: null
     labels:
       requires-nfs: "true"
-    initContainers:
-      wait-for-database:
-        image:
-          repository: nixery.dev/shell/busybox/postgresql_16
-          tag: latest
-        args:
-          - bash
-          - -c
-          - "set -x; until pg_isready -d immich -U immich -h immich-database-r; do sleep 5; done"
+    # https://github.com/tazjin/nixery/issues/175
+    # initContainers:
+    #   wait-for-database:
+    #     image:
+    #       repository: nixery.dev/shell/busybox/postgresql_16
+    #       tag: latest
+    #     args:
+    #       - bash
+    #       - -c
+    #       - "set -x; until pg_isready -d immich -U immich -h immich-database-r; do sleep 5; done"
     containers:
       main:
         image:

@@ -2,15 +2,16 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
 controllers:
   main:
-    initContainers:
-      wait-for-valkey:
-        image:
-          repository: nixery.dev/shell/busybox/redis
-          tag: latest
-        args:
-          - bash
-          - -c
-          - "set -x; while [[ ! \"$(redis-cli -h searxng-valkey-primary.services ping | grep PONG)\" ]]; do sleep 5; done"
+    # https://github.com/tazjin/nixery/issues/175
+    # initContainers:
+    #   wait-for-valkey:
+    #     image:
+    #       repository: nixery.dev/shell/busybox/redis
+    #       tag: latest
+    #     args:
+    #       - bash
+    #       - -c
+    #       - "set -x; while [[ ! \"$(redis-cli -h searxng-valkey-primary.services ping | grep PONG)\" ]]; do sleep 5; done"
     containers:
       main:
         image:
