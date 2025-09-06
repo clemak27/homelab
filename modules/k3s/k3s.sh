@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # renovate: datasource=github-tags depName=k3s-io/k3s/releases versioning=loose
-export INSTALL_K3S_VERSION=v1.33.3+k3s1
+export INSTALL_K3S_VERSION=v1.33.4+k3s1
 
 curl -sfL https://get.k3s.io | sh -
 mkdir -p /var/home/core/.kube
