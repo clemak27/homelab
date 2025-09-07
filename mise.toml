@@ -10,7 +10,7 @@ flux2 = "2.6.4"
 yamllint = "1.37.1"
 actionlint = "1.7.7"
 uv = "0.8.15"
-"pipx:flux-local" = "7.8.0"
+"pipx:flux-local" = "7.9.0"
 
 [env]
 IMMICH_INSTANCE_URL="https://immich.wallstreet30.cc/api"
