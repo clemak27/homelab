@@ -1,5 +1,5 @@
 ---
-# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v14.0.0
+# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v14.0.3
 service:
   http:
     type: ClusterIP
@@ -8,6 +8,9 @@ service:
     type: ClusterIP
     port: 222
     clusterIP:
+
+strategy:
+  type: 'Recreate'
 
 global:
   storageClass: longhorn-crypto
