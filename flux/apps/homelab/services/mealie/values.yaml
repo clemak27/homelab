@@ -10,6 +10,7 @@ controllers:
         env:
           TZ: Europe/Vienna
           BASE_URL: https://mealie.wallstreet30.cc
+          TOKEN_TIME: 672  # 4 weeks
 
 defaultPodOptions:
   securityContext:
