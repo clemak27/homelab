@@ -4,7 +4,7 @@ doggo = "1.0.5"
 dyff = "1.10.2"
 flux2 = "2.6.4"
 "npm:@immich/cli" = "2.2.79"
-"ubi:coreos/butane" = "0.25.0"
+"ubi:coreos/butane" = "0.25.1"
 "ubi:coreos/ignition" = { version = "2.23.0", exe = "ignition-validate" }
 
 yamllint = "1.37.1"
