@@ -73,9 +73,9 @@ configMaps:
     enabled: true
     data:
       slskd.yml: |
-        # directories:
-        #   incomplete: /downloads/incomplete
-        #   downloads: /downloads/complete
+        directories:
+          incomplete: /downloads/incomplete
+          downloads: /downloads/complete
         shares:
           directories:
             - /music
@@ -119,11 +119,11 @@ persistence:
     globalMounts:
       - path: /music
         readOnly: false
-  # downloads:
-  #   enabled: true
-  #   type: nfs
-  #   server: 192.168.178.100
-  #   path: /media/soulseek
-  #   globalMounts:
-  #     - path: /downloads
-  #       readOnly: false
+  downloads:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/soulseek
+    globalMounts:
+      - path: /downloads
+        readOnly: false
