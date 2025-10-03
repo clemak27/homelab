@@ -2,7 +2,7 @@
 sops = "3.11.0"
 doggo = "1.0.5"
 dyff = "1.10.2"
-flux2 = "2.6.4"
+flux2 = "2.7.0"
 "npm:@immich/cli" = "2.2.79"
 "ubi:coreos/butane" = "0.25.1"
 "ubi:coreos/ignition" = { version = "2.23.0", exe = "ignition-validate" }
