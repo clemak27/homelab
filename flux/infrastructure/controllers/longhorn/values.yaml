@@ -1,13 +1,13 @@
 ---
-# https://github.com/longhorn/charts/blob/v1.6.x/charts/longhorn/values.yaml
+# https://github.com/longhorn/charts/blob/v1.10.x/charts/longhorn/values.yaml
 preUpgradeChecker:
   jobEnabled: false
 
 defaultSettings:
   autoSalvage: true
   defaultLonghornStaticStorageClass: longhorn-crypto
-  defaultReplicaCount: 1
-  disableRevisionCounter: false
+  defaultReplicaCount: "1"
+  disableRevisionCounter: "false"
   nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
   nodeDrainPolicy: block-if-contains-last-replica
   removeSnapshotsDuringFilesystemTrim: false
