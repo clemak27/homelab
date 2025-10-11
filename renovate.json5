@@ -29,9 +29,7 @@
       "groupName": "immich"
     },
     {
-      "matchDepNames": [
-        "uv"
-      ],
+      "matchManagers": ["mise"],
       "matchUpdateTypes": [
         "minor",
         "patch"
