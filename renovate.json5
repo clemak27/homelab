@@ -27,6 +27,16 @@
         "ghcr.io/immich-app/immich-machine-learning"
       ],
       "groupName": "immich"
+    },
+    {
+      "matchDepNames": [
+        "uv"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
     }
   ],
   "ignorePaths": [
