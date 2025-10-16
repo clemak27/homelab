@@ -5,7 +5,7 @@ dyff = "1.10.2"
 flux2 = "2.7.2"
 "npm:@immich/cli" = "2.2.97"
 "ubi:coreos/butane" = "0.25.1"
-"ubi:coreos/ignition" = { version = "2.23.0", exe = "ignition-validate" }
+"ubi:coreos/ignition" = { version = "2.24.0", exe = "ignition-validate" }
 
 yamllint = "1.37.1"
 actionlint = "1.7.8"
