@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: null
+    labels:
+      requires-nfs: "true"
+    containers:
+      main:
+        image:
+          repository: forgejo.wallstreet30.cc/clemak27/slskd-importer
+          tag: 0.0.1
+        env:
+          TZ: Europe/Vienna
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    enabled: false
+
+configMaps:
+  slskd-importer-config:
+    forceRename: slskd-importer-config
+    enabled: true
+    data:
+      config.yaml: |
+        ---
+        directory: /app/music
+        library: /app/music/library.db
+        paths:
+          default: "$albumartist/$year - $album/$track - $title"
+        import:
+          duplicate_action: skip
+          set_fields:
+            genre: " "
+          log: /app/import.log
+          quiet: true
+          quiet_fallback: skip
+        match:
+          strong_rec_thresh: 0.15
+        plugins:
+          - musicbrainz
+          - lyrics
+          - replaygain
+          - fetchart
+          - embedart
+        lyrics:
+          auto: true
+          sources: [lrclib, genius]
+          synced: true
+        replaygain:
+          backend: ffmpeg
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: slskd-importer-config
+    globalMounts:
+      - path: /app/config.yaml
+        subPath: config.yaml
+        readOnly: false
+  music:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/music
+    globalMounts:
+      - path: /app/music
+        readOnly: false
+  media:
+    enabled: true
+    type: nfs
+    server: 192.168.178.100
+    path: /media/soulseek/complete
+    globalMounts:
+      - path: /app/import
+        readOnly: false
