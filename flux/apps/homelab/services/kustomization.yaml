@@ -10,6 +10,7 @@ resources:
   - ./mealie
   - ./miniflux
   - ./mqtt
+  - ./music-assistant
   - ./redlib
   - ./renovate
   - ./searxng
