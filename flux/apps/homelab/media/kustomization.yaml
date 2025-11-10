@@ -9,6 +9,7 @@ resources:
   - ./jellyfin
   - ./navidrome
   - ./prowlarr
+  - ./profilarr
   - ./radarr
   - ./readarr
   - ./slskd
