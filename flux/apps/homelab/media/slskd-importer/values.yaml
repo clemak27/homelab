@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/slskd-importer
-          tag: 0.0.3
+          tag: 0.0.4
         env:
           TZ: Europe/Vienna
 
