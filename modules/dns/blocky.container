@@ -1,6 +1,6 @@
 [Container]
 # renovate: datasource=github-tags depName=0xERR0R/blocky versioning=loose
-Image=ghcr.io/0xerr0r/blocky:v0.28.1
+Image=ghcr.io/0xerr0r/blocky:v0.28.2
 AutoUpdate=registry
 Network=host
 Volume=/etc/blocky/config.yaml:/app/config.yml
