@@ -9,9 +9,14 @@ controllers:
       main:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/slskd-importer
-          tag: 0.0.4
+          tag: 0.0.5
         env:
           TZ: Europe/Vienna
+          DISCORD_WEBHOOK_URL:
+            valueFrom:
+              secretKeyRef:
+                name: slskd-importer
+                key: discord-webhook
 
 defaultPodOptions:
   securityContext:
