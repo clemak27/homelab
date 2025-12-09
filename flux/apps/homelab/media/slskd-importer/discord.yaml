@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: slskd-importer
+type: Opaque
+stringData:
+    discord-webhook: ENC[AES256_GCM,data:P0axT77ETeLEPhtogF9oHjAC31g8RgYcSwngjNOQd0B++9XEFqd1rCpZJvKp8ovgm6v9jORlMQIxik8pFu4GUrC9mWMQCzE+/tDAdT3Y6MaVronqvZ49LzGyU8vHubEgAYmqH5TKx4J/hLLV8jK5od62qNc2JIdIpA==,iv:ZRdUXaOxbU+PdTD+QssiAewKDq7zthQJr6bbidasc3g=,tag:iGczX3dL7VCWO7zHl4uR7Q==,type:str]
+sops:
+    age:
+        - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0b1lYS0g4eElYUzI3R2Jl
+            c2h3YTkyR2ZPV3NveVpPMjlRKy8zMkM1T0VNCld6a2tuZFg2NGp4bFpYVnBOWGZD
+            U3ZwM1NlQzZtOUI2THd5Mnc2K2gzRlkKLS0tIFpCbi9kUDN5WTRxY1l1T3EydUxh
+            THFTZ3NUcnJPamRyNGk5cG1oREI1RFUK+/L79rU0wPmyQYIhKpbIKXMbc7xDkJ60
+            OLV27hBofEW+YA3i8B8HRwYg8mwEmkYg4pUcZLarf2yQ3yGPkC215g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-12-09T15:04:12Z"
+    mac: ENC[AES256_GCM,data:99hUh7WtEd+2DB3Knv4tCpc4NUdJ2fd4kfyWSFYFkdWYpS+b5RlnbR0FntVsuUH2aDXsGDyHH7ZmUBXgcVXbI8hs/cjnsnGILK1ZcDkLAr8d3FWFI4GG5CmZ7wL/CPVtiDcR8MmhYO0BQNo2AgmMHj9Yn3yz7ZuamFkF4OHD3kU=,iv:dlufd87pj4MIxoZRDeJukJFxVGa09koxi5FmGzO7jOw=,tag:IBj5NZq19PDq5abSUrJuGA==,type:str]
+    unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+    version: 3.11.0
