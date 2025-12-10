@@ -16,7 +16,7 @@ controllers:
       main:
         image:
           repository: docker.io/miniflux/miniflux
-          tag: 2.2.14
+          tag: 2.2.15
         env:
           TZ: Europe/Vienna
           RUN_MIGRATIONS: "1"
