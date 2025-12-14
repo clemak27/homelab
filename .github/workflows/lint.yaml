@@ -2,6 +2,8 @@
 name: lint
 on:
   - pull_request
+env:
+  MISE_GITHUB_TOKEN: ${{ github.token }}
 jobs:
   yamllint:
     runs-on: ubuntu-latest
@@ -12,8 +14,6 @@ jobs:
         run: |
           curl https://mise.run | sh
       - name: Install yamllint
-        env:
-          MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mise install -y yamllint
       - name: Run yamllint
@@ -28,8 +28,6 @@ jobs:
         run: |
           curl https://mise.run | sh
       - name: Install actionlint
-        env:
-          MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mise install -y actionlint
       - name: Run actionlint

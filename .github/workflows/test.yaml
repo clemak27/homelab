@@ -2,6 +2,8 @@
 name: test
 on:
   - pull_request
+env:
+  MISE_GITHUB_TOKEN: ${{ github.token }}
 jobs:
   flux-test:
     runs-on: ubuntu-latest
@@ -12,8 +14,6 @@ jobs:
         run: |
           curl https://mise.run | sh
       - name: Install deps
-        env:
-          MISE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mise install -y flux2 uv "pipx:flux-local"
       - name: Run flux-local test
