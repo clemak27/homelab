@@ -2,16 +2,15 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
 controllers:
   main:
-    # https://github.com/tazjin/nixery/issues/175
-    # initContainers:
-    #   wait-for-database:
-    #     image:
-    #       repository: nixery.dev/shell/busybox/postgresql_16
-    #       tag: latest
-    #     args:
-    #       - bash
-    #       - -c
-    #       - "set -x; until pg_isready -d miniflux -U miniflux -h miniflux-database-r; do sleep 5; done"
+    initContainers:
+      wait-for-database:
+        image:
+          repository: nixery.dev/shell/busybox/postgresql_17
+          tag: latest
+        args:
+          - bash
+          - -c
+          - "set -x; until pg_isready -d miniflux -U miniflux -h miniflux-database-r; do sleep 5; done"
     containers:
       main:
         image:
