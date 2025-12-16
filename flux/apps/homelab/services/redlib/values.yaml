@@ -6,10 +6,9 @@ controllers:
     containers:
       main:
         image:
-          # repository: quay.io/redlib/redlib
-          # tag: latest
-          repository: ghcr.io/cycneuramus/containers
-          tag: redlib
+          repository: quay.io/redlib/redlib
+          tag: latest
+          pullPolicy: Always
         env:
           TZ: Europe/Vienna
           REDLIB_DEFAULT_WIDE: "off"
