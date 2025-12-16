@@ -8,10 +8,10 @@ controllers:
     initContainers:
       wait-for-database:
         image:
-          repository: nixery.dev/shell/busybox/postgresql_17
-          tag: latest
+          repository: ghcr.io/cloudnative-pg/postgresql
+          tag: 17.7
+        command: "/bin/bash"
         args:
-          - bash
           - -c
           - "set -x; until pg_isready -d immich -U immich -h immich-database-r; do sleep 5; done"
     containers:
