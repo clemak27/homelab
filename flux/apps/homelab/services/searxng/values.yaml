@@ -10,7 +10,7 @@ controllers:
         args:
           - bash
           - -c
-          - "set -x; while [[ ! \"$(redis-cli -h searxng-valkey-primary.services ping | grep PONG)\" ]]; do sleep 5; done"
+          - "set -x; while [[ ! \"$(redis-cli -h searxng-valkey.services ping | grep PONG)\" ]]; do sleep 5; done"
     containers:
       main:
         image:
@@ -19,7 +19,7 @@ controllers:
         env:
           TZ: Europe/Vienna
           SEARXNG_BASE_URL: "https://searxng.wallstreet30.cc"
-          SEARXNG_REDIS_URL: redis://searxng-valkey-primary.services
+          SEARXNG_REDIS_URL: redis://searxng-valkey.services
 
 service:
   main:
