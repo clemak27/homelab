@@ -13,7 +13,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: valkey
+  name: valkey-legacy
   namespace: services
 spec:
   type: "oci"
