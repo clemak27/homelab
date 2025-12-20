@@ -13,17 +13,6 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: valkey-legacy
-  namespace: media
-spec:
-  type: "oci"
-  interval: 10m
-  url: oci://registry-1.docker.io/bitnamicharts
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: valkey
   namespace: media
 spec:
