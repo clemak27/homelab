@@ -14,6 +14,27 @@ controllers:
           NEXTAUTH_URL: "http://localhost:3000"
           NEXTAUTH_SECRET: "12345"
           DATA_DIR: "/data"
+          MEILI_ADDR: "http://0.0.0.0:7700"
+          MEILI_MASTER_KEY:
+            valueFrom:
+              secretKeyRef:
+                name: meili-master-key
+                key: key
+    initContainers:
+      search:
+        restartPolicy: Always
+        image:
+          repository: getmeili/meilisearch
+          tag: v1.13.3
+        env:
+          TZ: Europe/Vienna
+          MEILI_NO_ANALYTICS: "true"
+          MEILI_ENV: "production"
+          MEILI_MASTER_KEY:
+            valueFrom:
+              secretKeyRef:
+                name: meili-master-key
+                key: key
 
 defaultPodOptions:
   securityContext:
@@ -55,6 +76,8 @@ persistence:
     size: 5Gi
     accessMode: "ReadWriteOnce"
     type: persistentVolumeClaim
-    globalMounts:
-      - path: /data
-        readOnly: false
+    advancedMounts:
+      main:
+        main:
+          - path: /data
+            readOnly: false
