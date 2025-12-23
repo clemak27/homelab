@@ -25,7 +25,7 @@ controllers:
         restartPolicy: Always
         image:
           repository: getmeili/meilisearch
-          tag: v1.13.3
+          tag: v1.31.0
         env:
           TZ: Europe/Vienna
           MEILI_NO_ANALYTICS: "true"
