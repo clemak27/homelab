@@ -6,7 +6,7 @@ controllers:
       main:
         image:
           repository: docker.io/koenkk/zigbee2mqtt
-          tag: 2.7.1
+          tag: 2.7.2
         env:
           TZ: Europe/Vienna
           ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
