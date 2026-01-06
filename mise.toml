@@ -11,7 +11,7 @@ helm = "3.19.4"
 yamllint = "1.37.1"
 actionlint = "1.7.10"
 python = "3.14"
-uv = "0.9.21"
+uv = "0.9.22"
 "pipx:flux-local" = "8.1.0"
 
 [env]
