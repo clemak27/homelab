@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: 1
+    containers:
+      main:
+        image:
+          repository: docker.io/factoriotools/factorio
+          tag: 2.0.72-rootless
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 2Gi
+            # cpu: 50m
+        env:
+          TZ: Europe/Vienna
+          DLC_SPACE_AGE: false
+          PORT: 32700
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    controller: main
+    type: NodePort
+    ports:
+      udp:
+        enabled: true
+        protocol: UDP
+        port: 32700
+        nodePort: 32700
+
+ingress:
+  main:
+    enabled: false
+
+persistence:
+  config:
+    size: 5Gi
+    accessMode: "ReadWriteOnce"
+    enabled: true
+    type: persistentVolumeClaim
+    globalMounts:
+      - path: /factorio
+        readOnly: false

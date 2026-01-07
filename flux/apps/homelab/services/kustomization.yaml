@@ -5,6 +5,7 @@ resources:
   - ./namespace.yaml
   - ./repositories.yaml
   - ./cloudflare-ddns
+  - ./factorio
   - ./foregjo
   - ./home-assistant
   - ./karakeep
