@@ -10,10 +10,9 @@ controllers:
           tag: 2.0.72-rootless
         resources:
           limits:
-            memory: 2Gi
+            memory: &mem 2Gi
           requests:
-            memory: 2Gi
-            # cpu: 50m
+            memory: *mem
         env:
           TZ: Europe/Vienna
           DLC_SPACE_AGE: false
