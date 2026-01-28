@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: docker.io/linuxserver/transmission
-          tag: 4.0.6
+          tag: 4.1.0
         env:
           TZ: Europe/Vienna
           PUID: "1000"
