@@ -4,7 +4,7 @@ doggo = "1.1.2"
 dyff = "1.10.2"
 flux2 = "2.7.5"
 helm = "3.20.0"
-"npm:@immich/cli" = "2.2.106"
+"npm:@immich/cli" = "2.5.2"
 "github:coreos/butane" = "0.25.1"
 "github:coreos/ignition" = { version = "2.24.0", exe = "ignition-validate" }
 
