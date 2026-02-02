@@ -35,6 +35,43 @@
         "patch"
       ],
       "automerge": true
+    },
+    {
+      "matchFileNames": [
+        "flux/apps/homelab/media/**"
+      ],
+      "semanticCommitScope": "media",
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": [
+        "flux/apps/homelab/monitoring/**"
+      ],
+      "semanticCommitScope": "monitoring",
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": [
+        "flux/apps/homelab/services/**"
+      ],
+      "semanticCommitScope": "services",
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": [
+        "flux/infrastructure/**"
+      ],
+      "semanticCommitScope": "infrastructure",
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": [
+        "flux/clusters/**"
+      ],
+      "extends": [
+        ":semanticCommitScopeDisabled"
+      ],
+      "semanticCommitType": "fix"
     }
   ],
   "ignorePaths": [
