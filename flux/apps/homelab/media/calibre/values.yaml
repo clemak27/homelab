@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: docker.io/linuxserver/calibre
-          tag: 9.1.0
+          tag: 9.2.0
         env:
           TZ: Europe/Vienna
           PUID: "1000"
