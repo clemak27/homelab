@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: docker.io/deluan/navidrome
-          tag: 0.60.0
+          tag: 0.60.2
         env:
           TZ: Europe/Vienna
           ND_LASTFM_APIKEY:
