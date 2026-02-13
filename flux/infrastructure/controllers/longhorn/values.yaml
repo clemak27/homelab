@@ -1,7 +1,8 @@
 ---
-# https://github.com/longhorn/charts/blob/v1.10.x/charts/longhorn/values.yaml
+# https://github.com/longhorn/charts/blob/v1.11.x/charts/longhorn/values.yaml
 preUpgradeChecker:
   jobEnabled: false
+  upgradeVersionCheck: false
 
 defaultSettings:
   autoSalvage: true
@@ -38,3 +39,11 @@ ingress:
   tlsSecret: longhorn-frontend-tls
 
   path: /
+
+# https://github.com/longhorn/longhorn/releases/tag/v1.11.0
+image:
+  longhorn:
+    manager:
+      tag: v1.11.0-hotfix-1
+    instanceManager:
+      tag: v1.11.0-hotfix-1
