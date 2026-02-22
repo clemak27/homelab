@@ -9,7 +9,7 @@ controllers:
       wait-for-database:
         image:
           repository: ghcr.io/cloudnative-pg/postgresql
-          tag: 18.1
+          tag: 18.2
         command: "/bin/bash"
         args:
           - -c
