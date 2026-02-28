@@ -26,11 +26,10 @@ service:
 ingress:
   main:
     enabled: true
-    className: nginx
+    className: traefik
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
-      nginx.ingress.kubernetes.io/proxy-body-size: 50m
     hosts:
       - host: home-assistant.wallstreet30.cc
         paths:

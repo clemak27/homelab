@@ -25,7 +25,7 @@ defaultSettings:
 
 ingress:
   enabled: true
-  ingressClassName: nginx
+  ingressClassName: traefik
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-production
