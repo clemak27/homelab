@@ -33,7 +33,7 @@ ingress:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-production
-  ingressClassName: "nginx"
+  ingressClassName: "traefik"
 
   hosts:
     - host: headlamp.wallstreet30.cc

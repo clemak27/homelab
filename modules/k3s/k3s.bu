@@ -7,7 +7,7 @@ storage:
       mode: 0644
       contents:
         inline: |
-          disable: local-storage,traefik
+          disable: local-storage
           selinux: true
           tls-san:
             - "k3s.wallstreet30.cc"
