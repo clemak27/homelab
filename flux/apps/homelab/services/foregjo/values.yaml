@@ -1,5 +1,5 @@
 ---
-# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v14.0.3
+# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v16.2.0
 service:
   http:
     type: ClusterIP
@@ -7,7 +7,6 @@ service:
   ssh:
     type: ClusterIP
     port: 222
-    clusterIP:
 
 strategy:
   type: 'Recreate'
