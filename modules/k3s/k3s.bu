@@ -22,6 +22,26 @@ storage:
         inline: |
           fs.inotify.max_user_instances=1048576
           fs.inotify.max_user_watches=1048576
+    - path: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+      mode: 0644
+      contents:
+        inline: |
+          apiVersion: helm.cattle.io/v1
+          kind: HelmChartConfig
+          metadata:
+            name: traefik
+            namespace: kube-system
+          spec:
+            valuesContent: |-
+              ports:
+                forgejo-ssh:
+                  port: 222
+                  expose:
+                    default: true
+                  exposedPort: 222
+              globalArguments:
+                - "--global.sendanonymoususage=false"
+                - "--api.insecure=true"
 systemd:
   units:
     - name: init-k3s.service
