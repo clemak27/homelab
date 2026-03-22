@@ -5,6 +5,7 @@ namespace: services
 resources:
   - database.yaml
   - forgejo-admin.yaml
+  - ingress.yaml
   - release.yaml
 configMapGenerator:
   - name: forgejo-values
