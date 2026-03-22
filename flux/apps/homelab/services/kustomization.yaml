@@ -6,7 +6,7 @@ resources:
   - ./repositories.yaml
   - ./cloudflare-ddns
   - ./factorio
-  - ./foregjo
+  - ./forgejo
   - ./home-assistant
   - ./karakeep
   - ./mealie
