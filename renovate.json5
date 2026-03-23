@@ -65,6 +65,12 @@
       "semanticCommitType": "fix"
     },
     {
+      "matchPackageNames": [
+        "longhorn"
+      ],
+      "changelogUrl": "https://github.com/longhorn/longhorn"
+    },
+    {
       "matchFileNames": [
         "flux/clusters/**"
       ],
