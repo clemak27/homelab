@@ -5,7 +5,9 @@
   "forkProcessing": "disabled",
   "commitMessageAction": "update",
   "flux": {
-    "fileMatch": ["flux/.+\\.ya?ml$"]
+    "fileMatch": [
+      "flux/.+\\.ya?ml$"
+    ]
   },
   "packageRules": [
     {
@@ -29,7 +31,9 @@
       "groupName": "immich"
     },
     {
-      "matchManagers": ["mise"],
+      "matchManagers": [
+        "mise"
+      ],
       "matchUpdateTypes": [
         "minor",
         "patch"
@@ -78,6 +82,16 @@
         ":semanticCommitScopeDisabled"
       ],
       "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": [
+        "flux/apps/homelab/media/**",
+        "flux/apps/homelab/services/**"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true
     }
   ],
   "ignorePaths": [
@@ -94,7 +108,9 @@
       ]
     },
     {
-      "fileMatch": [".*\\.container$"],
+      "fileMatch": [
+        ".*\\.container$"
+      ],
       // https://regex101.com/r/1ysnFY/1
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s\\S+?=.+:(?<currentValue>\\S+)"
