@@ -6,8 +6,8 @@ controllers:
     containers:
       main:
         image:
-          repository: quay.io/redlib/redlib
-          tag: latest
+          repository: ghcr.io/silvenga/redlib
+          tag: 0.36.0
           pullPolicy: Always
         env:
           TZ: Europe/Vienna
