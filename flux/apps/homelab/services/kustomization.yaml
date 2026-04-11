@@ -17,4 +17,5 @@ resources:
   - ./renovate
   - ./searxng
   - ./syncthing
+  - ./vaultwarden
   - ./zigbee2mqtt
