@@ -12,6 +12,8 @@ controllers:
           tag: 0.25.0
         env:
           TZ: Europe/Vienna
+          PUID: "1000"
+          PGID: "1000"
           SLSKD_REMOTE_CONFIGURATION: false
           SLSKD_CONFIG: /config/slskd.yml
           SLSKD_SLSK_USERNAME:
@@ -95,7 +97,7 @@ configMaps:
             disabled: true
         soulseek:
           listen_port: 32755
-        integration:
+        integrations:
           webhooks:
             import:
               on:
