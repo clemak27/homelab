@@ -10,6 +10,12 @@
       "flux/.+\\.ya?ml$"
     ]
   },
+  "kubernetes": {
+    "managerFilePatterns": [
+      "/^flux/apps/homelab/services/renovate/renovate-forgejo\\.yaml$/",
+      "/^flux/apps/homelab/services/renovate/renovate-github\\.yaml$/"
+    ]
+  },
   "packageRules": [
     {
       "matchPackagePatterns": [
