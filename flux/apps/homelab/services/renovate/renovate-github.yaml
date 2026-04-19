@@ -21,7 +21,6 @@ spec:
                     secretKeyRef:
                       name: renovate-token
                       key: github
-
                 - name: RENOVATE_AUTODISCOVER
                   value: 'true'
                 - name: RENOVATE_AUTODISCOVER_FILTER
@@ -34,6 +33,16 @@ spec:
                   value: 'required'
                 - name: RENOVATE_ONBOARDING
                   value: 'false'
+                - name: RENOVATE_GIT_PRIVATE_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: renovate-signing
+                      key: key
+                - name: RENOVATE_GIT_PRIVATE_KEY_PASSPHRASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: renovate-signing
+                      key: password
               volumeMounts:
                 - name: data-volume
                   mountPath: /tmp/renovate/

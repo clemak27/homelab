@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: renovate-signing
+type: Opaque
+stringData:
+    key: ENC[AES256_GCM,data:7O5YBzzURnIOmhG2mjE4N8QhzT1cg8jWvNt1y73eF86CpKbKf3YhAu7+Ox8b1GETLc7KyD2yaVKnidmv7reh7npPXG/Izd9a9gIvUq8o9GsUrkHsKyx0b6rBJFnSMe5qj2r/0+gR+bZhZjwHzsiCtLmDNmvcDmGtRuV4bD6k/wzC5cLlSRCPRCsWVXBWXkhmt6MSWAOOU58z9khxCwxS5mbF6JnR58RRCcBLlUCclXnN6MqIYoGI1cO5NdL1qscOLQmbablC87Q8mNNRhXM3gRT1IgcujQy62fgUBPqIpccu+p6co7scxMg1/2btM0FeCflQMj56Lm63tAYNZPXWEdxRgM+SfvE0FJ1+ACY3klG3spRQkxWFCwdLj89Xqt+u7sGk0UTFnNFz05qThDUTC8uWFAFuALBrLVpvkmbJepE+ggG+69lU1QxZrbBn8EyutGOjUkgyoejQF2lvENeAXB7clQmw2Gj1X8RaPFZkNgua+YuSaOw3s3wfPR409PblYC2Ctmge54pjfOxWFfEy0Xz1WZ93jW3NzIfXmCLFrT2+JsgWNkKFLnf9Bm6xnSW8xVhqmbCdZzpcQM0M,iv:7eSC1I5gYD6eam0Wwd9I1YeAXb8FCzM4Z1gPXJNltZA=,tag:TaiDZfhXYzEZdA+4dYRcHg==,type:str]
+    password: ENC[AES256_GCM,data:uNo4Piq6uNcC5XBfFxzFi45oIPax4WDFGjmsA1PZFFeRGwAf,iv:ghOGvIAr3UR3YpPMlpmwRUjbQoMFNgy/9rZlxWXtqcQ=,tag:5cTSBjqzWeYFe8t6Rx6AcA==,type:str]
+sops:
+    age:
+        - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0b1lYS0g4eElYUzI3R2Jl
+            c2h3YTkyR2ZPV3NveVpPMjlRKy8zMkM1T0VNCld6a2tuZFg2NGp4bFpYVnBOWGZD
+            U3ZwM1NlQzZtOUI2THd5Mnc2K2gzRlkKLS0tIFpCbi9kUDN5WTRxY1l1T3EydUxh
+            THFTZ3NUcnJPamRyNGk5cG1oREI1RFUK+/L79rU0wPmyQYIhKpbIKXMbc7xDkJ60
+            OLV27hBofEW+YA3i8B8HRwYg8mwEmkYg4pUcZLarf2yQ3yGPkC215g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-20T19:41:13Z"
+    mac: ENC[AES256_GCM,data:szfZz/zRy0V/Op+1yCcllNKNLHLkjpszHytNBV/bIy/nfGEuNp3muRCyaQYe1xNMnpfzcnCQ5jm+qpbB9y1aMPOyG9rQSXjrh5+TQDqpK7il3QAJNZGKmCWxDpjhTw+18LkG3lntSttqjbYgOTm7/DUrGIg+e0ahYfS12A+sW7Q=,iv:sBw+GW5rWRhPwSztRINj7deyPO52MU1hXozZbsBSyW0=,tag:51xilzZYHguIxdKVkw4JmA==,type:str]
+    unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+    version: 3.12.2
