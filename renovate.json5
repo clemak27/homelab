@@ -45,8 +45,6 @@
         "minor",
         "patch"
       ],
-      "semanticCommitScope": "mise",
-      "semanticCommitType": "chore",
       "automerge": true
     },
     {
