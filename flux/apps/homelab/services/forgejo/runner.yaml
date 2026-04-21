@@ -61,9 +61,9 @@ spec:
                 resources:
                   requests:
                     cpu: "500m"
-                    memory: 2Gi
+                    memory: 1Gi
                   limits:
-                    memory: 2Gi
+                    memory: 1Gi
                     ephemeral-storage: 5Gi
             restartPolicy: Never
     controllers:
