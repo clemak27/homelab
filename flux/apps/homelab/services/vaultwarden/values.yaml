@@ -6,7 +6,7 @@ controllers:
       main:
         image:
           repository: docker.io/vaultwarden/server
-          tag: 1.35.7
+          tag: 1.35.8
         env:
           TZ: Europe/Vienna
           DOMAIN: https://vaultwarden.wallstreet30.cc
