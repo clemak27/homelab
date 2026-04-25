@@ -63,7 +63,7 @@ configMaps:
           - embedart
         lyrics:
           auto: true
-          sources: [lrclib, genius]
+          sources: [lrclib]
           synced: true
         replaygain:
           backend: ffmpeg
