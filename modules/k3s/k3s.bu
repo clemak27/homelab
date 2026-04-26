@@ -33,12 +33,6 @@ storage:
             namespace: kube-system
           spec:
             valuesContent: |-
-              ports:
-                forgejo-ssh:
-                  port: 222
-                  expose:
-                    default: true
-                  exposedPort: 222
               globalArguments:
                 - "--global.sendanonymoususage=false"
                 - "--api.insecure=true"

@@ -1,12 +1,9 @@
 ---
-# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v16.2.0
+# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v17.0.0
 service:
   http:
     type: ClusterIP
     port: 3000
-  ssh:
-    type: ClusterIP
-    port: 222
 
 strategy:
   type: 'Recreate'
@@ -47,9 +44,6 @@ gitea:
       DISABLE_REGISTRATION: false
       ALLOW_ONLY_EXTERNAL_REGISTRATION: true
       SHOW_REGISTRATION_BUTTON: false
-    server:
-      SSH_PORT: 222
-      SSH_LISTEN_PORT: 222
     database:
       DB_TYPE: postgres
       HOST: forgejo-database-rw

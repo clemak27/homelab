@@ -6,7 +6,6 @@ resources:
   - database.yaml
   - forgejo-admin.yaml
   - forgejo-runner-secret.yaml
-  - ingress.yaml
   - release.yaml
   - runner.yaml
 configMapGenerator:
