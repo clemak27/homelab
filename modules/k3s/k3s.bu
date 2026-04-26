@@ -36,6 +36,13 @@ storage:
               globalArguments:
                 - "--global.sendanonymoususage=false"
                 - "--api.insecure=true"
+              additionalArguments:
+                - "--entryPoints.web.transport.respondingTimeouts.readTimeout=300s"
+                - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=300s"
+                - "--entryPoints.web.transport.respondingTimeouts.idleTimeout=300s"
+                - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=300s"
+                - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=300s"
+                - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=300s"
 systemd:
   units:
     - name: init-k3s.service
