@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      profilarr:
         image:
           repository: santiagosayshey/profilarr
           tag: latest

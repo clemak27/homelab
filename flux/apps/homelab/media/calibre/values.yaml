@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      calibre:
         image:
           repository: docker.io/linuxserver/calibre
           tag: 9.7.0

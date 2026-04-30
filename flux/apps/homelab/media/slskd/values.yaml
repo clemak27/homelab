@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      slskd:
         image:
           repository: docker.io/slskd/slskd
           tag: 0.25.1

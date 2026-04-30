@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      radarr:
         image:
           repository: docker.io/linuxserver/radarr
           tag: 6.1.1

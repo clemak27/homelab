@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      sonarr:
         image:
           repository: docker.io/linuxserver/sonarr
           tag: 4.0.17

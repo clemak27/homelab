@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      prowlarr:
         image:
           repository: docker.io/linuxserver/prowlarr
           tag: 2.3.5

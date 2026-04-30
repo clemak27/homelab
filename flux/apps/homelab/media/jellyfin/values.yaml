@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      jellyfin:
         image:
           repository: docker.io/jellyfin/jellyfin
           tag: 10.11.8

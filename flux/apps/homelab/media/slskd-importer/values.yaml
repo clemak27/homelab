@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      slskd-importer:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/slskd-importer
           tag: 0.0.9

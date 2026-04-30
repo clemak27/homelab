@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      transmission:
         image:
           repository: docker.io/linuxserver/transmission
           tag: 4.1.1

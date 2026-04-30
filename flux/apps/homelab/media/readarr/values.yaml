@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      readarr:
         image:
           repository: docker.io/linuxserver/readarr
           tag: 0.4.19-nightly

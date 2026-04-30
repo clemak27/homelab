@@ -6,7 +6,7 @@ controllers:
     labels:
       requires-nfs: "true"
     containers:
-      main:
+      navidrome:
         image:
           repository: docker.io/deluan/navidrome
           tag: 0.61.2

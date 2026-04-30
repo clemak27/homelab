@@ -15,7 +15,7 @@ controllers:
           - -c
           - "set -x; until pg_isready -d immich -U immich -h immich-database-r; do sleep 5; done"
     containers:
-      main:
+      immich:
         image:
           repository: ghcr.io/immich-app/immich-server
           tag: v2.7.5
