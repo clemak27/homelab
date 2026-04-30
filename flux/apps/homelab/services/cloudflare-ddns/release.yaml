@@ -24,7 +24,7 @@ spec:
     controllers:
       main:
         containers:
-          main:
+          cloudflare-ddns:
             image:
               repository: docker.io/oznu/cloudflare-ddns
               tag: latest

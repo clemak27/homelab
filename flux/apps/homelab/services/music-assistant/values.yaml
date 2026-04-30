@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      music-assistant:
         image:
           repository: ghcr.io/music-assistant/server
           tag: "2.8.6"

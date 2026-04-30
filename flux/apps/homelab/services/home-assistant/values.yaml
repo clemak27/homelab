@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      home-assistant:
         image:
           repository: docker.io/homeassistant/home-assistant
           tag: "2026.4.4"

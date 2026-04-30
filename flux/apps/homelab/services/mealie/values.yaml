@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      mealie:
         image:
           repository: ghcr.io/mealie-recipes/mealie
           tag: v3.16.0

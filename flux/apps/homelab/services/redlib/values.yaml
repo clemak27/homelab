@@ -4,7 +4,7 @@ controllers:
   main:
     replicas: null
     containers:
-      main:
+      redlib:
         image:
           repository: ghcr.io/silvenga/redlib
           tag: 0.36.0

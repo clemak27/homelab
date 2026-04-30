@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      syncthing:
         image:
           repository: docker.io/syncthing/syncthing
           tag: 2.0.16

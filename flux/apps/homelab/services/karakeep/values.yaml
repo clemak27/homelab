@@ -4,7 +4,7 @@ controllers:
   main:
     replicas: 1
     containers:
-      main:
+      karakeep:
         image:
           repository: ghcr.io/karakeep-app/karakeep
           tag: 0.31.0
@@ -21,7 +21,7 @@ controllers:
                 name: meili-master-key
                 key: key
     initContainers:
-      search:
+      meilisearch:
         restartPolicy: Always
         image:
           repository: getmeili/meilisearch

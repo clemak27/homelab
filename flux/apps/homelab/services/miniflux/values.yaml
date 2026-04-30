@@ -12,7 +12,7 @@ controllers:
           - -c
           - "set -x; until pg_isready -d miniflux -U miniflux -h miniflux-database-r; do sleep 5; done"
     containers:
-      main:
+      miniflux:
         image:
           repository: docker.io/miniflux/miniflux
           tag: 2.2.19

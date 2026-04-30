@@ -3,7 +3,7 @@
 controllers:
   main:
     containers:
-      main:
+      zigbee2mqtt:
         image:
           repository: docker.io/koenkk/zigbee2mqtt
           tag: 2.9.2
