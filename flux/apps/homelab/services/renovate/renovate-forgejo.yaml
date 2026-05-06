@@ -15,7 +15,7 @@ spec:
               image: nixery.dev/shell/curl:latest
               command: ['bash', '-c', "until curl -f https://forgejo.wallstreet30.cc; do sleep 5; done"]
           containers:
-            - image: renovate/renovate:43.160.8
+            - image: renovate/renovate:43.168.4
               name: renovate
               env:
                 - name: RENOVATE_PLATFORM
