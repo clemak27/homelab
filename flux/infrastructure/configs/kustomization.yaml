@@ -6,6 +6,7 @@ resources:
   - discord-alerts.yaml
   - discord-webhook.yaml
   - discord.yaml
+  - ipadresspool.yaml
   - issuer.yaml
   - longhorn-crypto-secret.yaml
   - longhorn-crypto.yaml

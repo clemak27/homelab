@@ -20,7 +20,7 @@
             customDNS = {
               customTTL = "1h";
               mapping = {
-                "wallstreet30.cc" = "192.168.178.100";
+                "wallstreet30.cc" = "192.168.178.200";
               };
             };
             blocking = {
