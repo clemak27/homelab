@@ -15,6 +15,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     sops-nix = {
       url = "github:Mic92/sops-nix";
