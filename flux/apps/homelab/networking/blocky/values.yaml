@@ -1,0 +1,107 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    containers:
+      blocky:
+        image:
+          repository: ghcr.io/0xerr0r/blocky
+          tag: v0.29.0
+        env:
+          TZ: Europe/Vienna
+        args:
+          - --config
+          - /config/config.yaml
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  api:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        primary: true
+        port: 4000
+  dns:
+    type: LoadBalancer
+    controller: main
+    ports:
+      dns-tcp:
+        port: 53
+        protocol: TCP
+      dns-udp:
+        port: 53
+        protocol: UDP
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: blocky-config
+    globalMounts:
+      - path: /config/config.yaml
+        readOnly: true
+        mountPropagation: None
+        subPath: config.yaml
+
+configMaps:
+  blocky-config:
+    forceRename: blocky-config
+    enabled: true
+    data:
+      # https://0xerr0r.github.io/blocky/latest/configuration/
+      config.yaml: |
+        upstreams:
+          groups:
+            default:
+              # Cloudflare
+              - 1.1.1.1
+              - 1.0.0.1
+              # Quad9
+              - 9.9.9.9
+              - 149.112.112.112
+
+        connectIPVersion: v4
+
+        customDNS:
+          customTTL: 1h
+          mapping:
+            wallstreet30.cc: 192.168.178.200
+
+        blocking:
+          denylists:
+            ads:
+              - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+              - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+              - http://sysctl.org/cameleon/hosts
+              - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+            special:
+              - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
+              - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.lgwebos.txt
+        caching:
+          minTime: 5m
+          maxTime: 1h
+
+        prometheus:
+          enable: false
+
+        queryLog:
+          type: none
+
+        bootstrapDns:
+          - tcp+udp:1.1.1.1
+          - tcp+udp:1.0.0.1
+          - tcp+udp:9.9.9.9
+
+        ports:
+          dns: 53
+          http: 4000
+
+        log:
+          level: info
+          format: text
+          timestamp: true
