@@ -2,7 +2,7 @@
 
 This repo the setup for my homelab.
 
-It currently consists of single bare-metal server running Fedora CoreOS, with
+It currently consists of single bare-metal server running NixOS, with
 k3s to deploy containers.
 
 This is for my own usage and preferences, but you are of course free to use it
@@ -26,15 +26,13 @@ as inspiration.
 
 ## Software
 
-### Fedora CoreOS
+### NixOS
 
-My homelab runs [FCOS](https://docs.fedoraproject.org/en-US/fedora-coreos/).
+My homelab runs [NixOS](https://nixos.org/).
 
-[WireGuard](https://www.wireguard.com/) is running directly on the host, for
-accessing my homelab from the outside.
-
-[blocky](https://0xerr0r.github.io/blocky/latest/) and a nfs-server run as
-quadlets.
+[WireGuard](https://www.wireguard.com/),
+[blocky](https://0xerr0r.github.io/blocky/latest/) and an nfs-server are running
+directly on the host.
 
 ### k3s
 
