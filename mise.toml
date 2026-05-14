@@ -7,6 +7,7 @@ helm = "4.1.4"
 "npm:@immich/cli" = "2.7.5"
 "github:coreos/butane" = "0.27.0"
 "github:coreos/ignition" = { version = "2.26.0", exe = "ignition-validate" }
+"github:ifd3f/caligula" = "0.4.11"
 
 yamllint = "1.38.0"
 actionlint = "1.7.12"
@@ -15,20 +16,72 @@ uv = "0.11.14"
 "pipx:flux-local" = "8.2.0"
 
 [env]
-IMMICH_INSTANCE_URL="https://immich.wallstreet30.cc/api"
+IMMICH_INSTANCE_URL = "https://immich.wallstreet30.cc/api"
 
-[tasks.flux-sync]
+## flux
+
+[tasks."flux:sync"]
 run = """
 flux suspend source git flux-system
 sleep 5
 flux resume source git flux-system
 """
 
-[tasks.flux-test]
+[tasks."flux:test"]
 run = "flux-local test --enable-helm -v"
 
-[tasks.flux-diff]
+[tasks."flux:diff"]
 run = """
 DIFF="dyff between --omit-header --color on" \
 flux-local diff hr -A
+"""
+
+## nix
+
+[tasks."nix:check"]
+run = """
+nix flake check -L --no-build
+"""
+
+[tasks."nix:refresh-flake"]
+run = """
+nix run .#write-flake
+"""
+
+[tasks."nix:update-flake"]
+run = """
+rm -rf result current
+nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server --impure
+mv result current
+nix flake update --commit-lock-file --option commit-lockfile-summary "chore(flake): update flake.lock"
+nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server --impure
+nix run nixpkgs#dix -- current result
+"""
+
+## hosts
+
+[tasks."hl-server:build"]
+run = """
+nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server
+"""
+
+[tasks."hl-server:deploy"]
+depends = "hl-server:build"
+run = """
+user="clemens"
+ip="192.168.178.100"
+host="hl-server"
+
+kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 0 || :
+sleep 30
+
+nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#$host --target-host $user@$ip
+sleep 5
+ssh $user@$ip -C sudo systemctl reboot
+sleep 120
+
+while ! ssh $user@$ip -C exit 0 &> /dev/null; do sleep 5; done;
+sleep 30
+
+kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1 || :
 """

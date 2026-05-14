@@ -18,7 +18,7 @@ controllers:
 
 defaultPodOptions:
   nodeSelector:
-    kubernetes.io/hostname: boltzmann
+    kubernetes.io/hostname: hl-server
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
