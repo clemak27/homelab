@@ -1,5 +1,5 @@
 ---
-# https://code.forgejo.org/forgejo-helm/forgejo-helm/src/tag/v17.0.0
+# yaml-language-server: $schema=https://code.forgejo.org/forgejo-helm/forgejo-helm/raw/branch/main/values.schema.json
 service:
   http:
     type: ClusterIP
