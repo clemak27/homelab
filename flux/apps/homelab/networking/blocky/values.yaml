@@ -29,6 +29,9 @@ service:
   dns:
     type: LoadBalancer
     controller: main
+    annotations:
+      metallb.io/loadBalancerIPs: 192.168.178.200
+      metallb.io/allow-shared-ip: "shared-hl-ip"
     ports:
       dns-tcp:
         port: 53

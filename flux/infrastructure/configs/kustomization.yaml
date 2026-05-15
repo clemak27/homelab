@@ -10,3 +10,9 @@ resources:
   - issuer.yaml
   - longhorn-crypto-secret.yaml
   - longhorn-crypto.yaml
+patches:
+  - target:
+      kind: Service
+      name: traefik
+      namespace: kube-system
+    path: traefik-lb-patch.yaml
