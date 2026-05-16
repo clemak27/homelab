@@ -12,7 +12,14 @@ resources:
   - longhorn-crypto.yaml
 patches:
   - target:
+      group: ""
+      version: v1
       kind: Service
       name: traefik
-      namespace: kube-system
-    path: traefik-svc-patch.yaml
+    patch: |
+      - op: add
+        path: /metadata/annotations/metallb.io~1loadBalancerIPs
+        value: 192.168.178.200
+      - op: add
+        path: /metadata/annotations/metallb.io~1allow-shared-ip
+        value: "shared-hl-ip"

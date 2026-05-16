@@ -1,7 +1,0 @@
----
-- op: add
-  path: /metadata/annotations/metallb.io~1loadBalancerIPs
-  value: 192.168.178.200
-- op: add
-  path: /metadata/annotations/metallb.io~1allow-shared-ip
-  value: "shared-hl-ip"
