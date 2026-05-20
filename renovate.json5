@@ -63,6 +63,13 @@
     },
     {
       "matchFileNames": [
+        "flux/apps/homelab/networking/**"
+      ],
+      "semanticCommitScope": "networking",
+      "semanticCommitType": "fix"
+    },
+    {
+      "matchFileNames": [
         "flux/apps/homelab/services/**"
       ],
       "semanticCommitScope": "services",
