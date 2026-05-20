@@ -1,6 +1,6 @@
 [tools]
 sops = "3.13.1"
-doggo = "1.1.5"
+doggo = "1.1.6"
 dyff = "1.12.0"
 flux2 = "2.8.7"
 helm = "4.2.0"
