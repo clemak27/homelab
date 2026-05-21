@@ -5,7 +5,7 @@ dyff = "1.12.0"
 flux2 = "2.8.8"
 helm = "4.2.0"
 "npm:@immich/cli" = "2.7.5"
-"github:coreos/butane" = "0.27.0"
+"github:coreos/butane" = "0.28.0"
 "github:coreos/ignition" = { version = "2.26.0", exe = "ignition-validate" }
 "github:ifd3f/caligula" = "0.4.11"
 
