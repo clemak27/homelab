@@ -14,8 +14,6 @@ controllers:
           ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
           ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: "115200"
           ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.178.109:6638
-        # securityContext:
-        #   privileged: true
 
 defaultPodOptions:
   nodeSelector:
