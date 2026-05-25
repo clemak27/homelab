@@ -60,6 +60,14 @@ nix run nixpkgs#dix -- current result
 
 ## hosts
 
+[tasks."all:build"]
+run = """
+mise run hl-server:build
+mise run hl-agent-00:build
+mise run hl-agent-01:build
+"""
+
+# 192.168.178.100
 [tasks."hl-server:build"]
 run = """
 nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server
@@ -84,4 +92,40 @@ while ! ssh $user@$ip -C exit 0 &> /dev/null; do sleep 5; done;
 sleep 30
 
 kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1 || :
+"""
+
+# 192.168.178.101
+[tasks."hl-agent-00:build"]
+run = """
+nix run nixpkgs#nixos-rebuild -- build --flake .#hl-agent-00
+"""
+
+[tasks."hl-agent-00:deploy"]
+depends = "hl-agent-00:build"
+run = """
+user="clemens"
+ip="192.168.178.101"
+host="hl-agent-00"
+
+nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#$host --target-host $user@$ip
+sleep 5
+ssh $user@$ip -C sudo systemctl reboot
+"""
+
+# 192.168.178.102
+[tasks."hl-agent-01:build"]
+run = """
+nix run nixpkgs#nixos-rebuild -- build --flake .#hl-agent-01
+"""
+
+[tasks."hl-agent-01:deploy"]
+depends = "hl-agent-01:build"
+run = """
+user="clemens"
+ip="192.168.178.102"
+host="hl-agent-01"
+
+nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#$host --target-host $user@$ip
+sleep 5
+ssh $user@$ip -C sudo systemctl reboot
 """
