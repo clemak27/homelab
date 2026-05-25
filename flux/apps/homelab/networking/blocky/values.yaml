@@ -23,6 +23,13 @@ defaultPodOptions:
       key: node-type
       operator: Equal
       value: agent
+  topologySpreadConstraints:
+    - labelSelector:
+        matchLabels:
+          name: "{{ .Release.Name }}"
+      maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
 
 service:
   api:
