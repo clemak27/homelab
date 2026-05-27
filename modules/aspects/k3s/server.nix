@@ -46,28 +46,6 @@
         systemd.tmpfiles.rules = [
           "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
         ];
-
-        system.activationScripts.traefikConfig = lib.stringAfter [ "var" ] ''
-          cat << EOF > /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
-          apiVersion: helm.cattle.io/v1
-          kind: HelmChartConfig
-          metadata:
-            name: traefik
-            namespace: kube-system
-          spec:
-            valuesContent: |-
-              globalArguments:
-                - "--global.sendanonymoususage=false"
-                - "--api.insecure=true"
-              additionalArguments:
-                - "--entryPoints.web.transport.respondingTimeouts.readTimeout=300s"
-                - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=300s"
-                - "--entryPoints.web.transport.respondingTimeouts.idleTimeout=300s"
-                - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=300s"
-                - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=300s"
-                - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=300s"
-          EOF
-        '';
       };
   };
 }

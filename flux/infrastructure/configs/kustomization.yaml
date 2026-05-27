@@ -10,12 +10,14 @@ resources:
   - issuer.yaml
   - longhorn-crypto-secret.yaml
   - longhorn-crypto.yaml
+  - traefik-config.yaml
 patches:
   - target:
       group: ""
       version: v1
       kind: Service
       name: traefik
+      namespace: kube-system
     patch: |
       - op: add
         path: /metadata/annotations/metallb.io~1loadBalancerIPs
