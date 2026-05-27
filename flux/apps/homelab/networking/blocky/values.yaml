@@ -17,11 +17,6 @@ defaultPodOptions:
   securityContext:
     fsGroup: 1000
     fsGroupChangePolicy: OnRootMismatch
-  tolerations:
-    - effect: NoSchedule
-      key: node-type
-      operator: Equal
-      value: agent
 
 service:
   api:
