@@ -16,3 +16,18 @@ spec:
       - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=300s"
       - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=300s"
       - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=300s"
+    deployment:
+      replicas: 3
+    tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+      - effect: NoSchedule
+        key: node-type
+        operator: Equal
+        value: agent
