@@ -1,0 +1,8 @@
+---
+speaker:
+  tolerateMaster: true
+  tolerations:
+    - effect: NoSchedule
+      key: node-type
+      operator: Equal
+      value: agent

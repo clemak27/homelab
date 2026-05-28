@@ -17,3 +17,7 @@ spec:
         namespace: metallb-system
   driftDetection:
     mode: enabled
+  valuesFrom:
+    - kind: ConfigMap
+      name: metallb-values
+      valuesKey: values.yaml
