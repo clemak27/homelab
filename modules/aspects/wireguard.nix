@@ -66,7 +66,7 @@
               }
               {
                 # lagrange
-                publicKey = "zrK/VO0osxj4/cq8rzj8nFvP9N4q6Aox/NjMWWZ3ER8=";
+                publicKey = "5wu3DvhtIweBK9hU29k9luQa6oarwOFSyE8cbC++EFo=";
                 presharedKeyFile = "${config.sops.secrets."wg/lagrange/pre_shared_key".path}";
                 allowedIPs = [ "10.6.0.7/32" ];
               }
