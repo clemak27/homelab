@@ -12,6 +12,6 @@
   flake-file.inputs = {
     den.url = "github:vic/den";
     flake-file.url = "github:vic/flake-file";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 }

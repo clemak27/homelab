@@ -84,24 +84,29 @@
         # media bind-mounts
         fileSystems."/var/mnt/media/series" = {
           device = "/var/mnt/media2/series";
+          fsType = "auto";
           options = [ "bind" ];
         };
         fileSystems."/var/mnt/media/movies" = {
           device = "/var/mnt/media2/movies";
+          fsType = "auto";
           options = [ "bind" ];
         };
 
         # nfs
         fileSystems."/var/nfs/media" = {
           device = "/var/mnt/media";
+          fsType = "auto";
           options = [ "bind" ];
         };
         fileSystems."/var/nfs/backups" = {
           device = "/var/mnt/backups";
+          fsType = "auto";
           options = [ "bind" ];
         };
         fileSystems."/var/nfs/series" = {
           device = "/var/mnt/series";
+          fsType = "auto";
           options = [ "bind" ];
         };
 
