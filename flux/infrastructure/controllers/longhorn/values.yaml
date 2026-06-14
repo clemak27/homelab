@@ -16,12 +16,27 @@ defaultSettings:
   autoCleanupSystemGeneratedSnapshot: true
   snapshotDataIntegrity: disabled
   orphanAutoDeletion: true
-  backupTarget: nfs://192.168.178.100:/backups
   allowVolumeCreationWithDegradedAvailability: true
   disableSchedulingOnCordonedNode: true
   replicaAutoBalance: disabled
   replicaSoftAntiAffinity: false
   defaultDataLocality: disabled
+
+defaultBackupStore:
+  backupTarget: nfs://192.168.178.100:/backups
+
+global:
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+      operator: Exists
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane
+      operator: Exists
+    - effect: NoSchedule
+      key: node-type
+      operator: Equal
+      value: agent
 
 ingress:
   enabled: true
@@ -39,11 +54,3 @@ ingress:
   tlsSecret: longhorn-frontend-tls
 
   path: /
-
-# https://github.com/longhorn/longhorn/releases/tag/v1.11.0
-image:
-  longhorn:
-    manager:
-      tag: v1.11.0-hotfix-1
-    instanceManager:
-      tag: v1.11.0-hotfix-1
