@@ -39,11 +39,3 @@ ingress:
   tlsSecret: longhorn-frontend-tls
 
   path: /
-
-# https://github.com/longhorn/longhorn/releases/tag/v1.11.0
-image:
-  longhorn:
-    manager:
-      tag: v1.11.0-hotfix-1
-    instanceManager:
-      tag: v1.11.0-hotfix-1
