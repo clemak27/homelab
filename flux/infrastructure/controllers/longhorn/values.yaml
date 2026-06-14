@@ -16,12 +16,14 @@ defaultSettings:
   autoCleanupSystemGeneratedSnapshot: true
   snapshotDataIntegrity: disabled
   orphanAutoDeletion: true
-  backupTarget: nfs://192.168.178.100:/backups
   allowVolumeCreationWithDegradedAvailability: true
   disableSchedulingOnCordonedNode: true
   replicaAutoBalance: disabled
   replicaSoftAntiAffinity: false
   defaultDataLocality: disabled
+
+defaultBackupStore:
+  backupTarget: nfs://192.168.178.100:/backups
 
 global:
   tolerations:
