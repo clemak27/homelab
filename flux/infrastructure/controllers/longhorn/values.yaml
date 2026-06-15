@@ -21,6 +21,7 @@ defaultSettings:
   replicaAutoBalance: disabled
   replicaSoftAntiAffinity: false
   defaultDataLocality: disabled
+  taintToleration: node-role.kubernetes.io/master=:NoSchedule; node-role.kubernetes.io/control-plane=:NoSchedule; node-type=agent:NoSchedule
 
 defaultBackupStore:
   backupTarget: nfs://192.168.178.100:/backups
