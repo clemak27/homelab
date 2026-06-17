@@ -3,7 +3,7 @@ sops = "3.13.1"
 doggo = "1.1.7"
 dyff = "1.12.0"
 flux2 = "2.8.8"
-helm = "4.2.1"
+helm = "4.2.2"
 "npm:@immich/cli" = "2.7.5"
 "github:coreos/butane" = "0.28.0"
 "github:coreos/ignition" = { version = "2.26.0", exe = "ignition-validate" }
