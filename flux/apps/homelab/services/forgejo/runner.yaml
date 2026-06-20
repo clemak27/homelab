@@ -154,8 +154,8 @@ spec:
         initContainers:
           copy-k8s-plugin:
             image:
-              repository: git.erwanleboucher.dev/eleboucher/runner-k8s-plugin-v2
-              tag: sha-f7ab06b75887e5497c9f9f9bef641aafb2ae3e1c
+              repository: registry.erwanleboucher.dev/eleboucher/runner-k8s-plugin
+              tag: 12.10.6
             command:
               - sh
               - -c
@@ -168,8 +168,8 @@ spec:
                   - ALL
           register-runner:
             image:
-              repository: git.erwanleboucher.dev/eleboucher/runner
-              tag: sha-a954a95458892f9a9a03739d52610e26be4b25fd
+              repository: registry.erwanleboucher.dev/eleboucher/runner
+              tag: 12.10.2
             command:
               - sh
               - -c
@@ -195,8 +195,8 @@ spec:
         containers:
           runner:
             image:
-              repository: git.erwanleboucher.dev/eleboucher/runner
-              tag: sha-a954a95458892f9a9a03739d52610e26be4b25fd
+              repository: registry.erwanleboucher.dev/eleboucher/runner
+              tag: 12.10.2
             command:
               - /bin/forgejo-runner
               - daemon
@@ -205,7 +205,9 @@ spec:
             resources:
               requests:
                 cpu: 5m
-                memory: 32Mi
+                memory: 256Mi
+              limits:
+                memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
