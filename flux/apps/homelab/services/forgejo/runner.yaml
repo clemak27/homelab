@@ -29,9 +29,9 @@ spec:
               poll_timeout: 30m
             log:
               level: info
-            pluginsv2:
+            plugins:
               k8s:
-                path: /plugins/forgejo-runner-k8s
+                address: "unix:///plugins/forgejo-runner-k8s.sock"
                 options:
                   namespace: services
                   poll_timeout: 30m
@@ -46,7 +46,7 @@ spec:
           podspec-default.yaml: |-
             containers:
               - name: main
-                image: node:22-bookworm
+                image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04
                 resources:
                   requests:
                     cpu: "500m"
@@ -58,7 +58,7 @@ spec:
           podspec-large.yaml: |-
             containers:
               - name: main
-                image: node:22-bookworm
+                image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04
                 resources:
                   requests:
                     cpu: "500m"
@@ -152,14 +152,20 @@ spec:
               operator: Equal
               value: agent
         initContainers:
-          copy-k8s-plugin:
+          k8s-plugin:
             image:
               repository: registry.erwanleboucher.dev/eleboucher/runner-k8s-plugin
               tag: 12.10.6
-            command:
-              - sh
-              - -c
-              - cp /usr/local/bin/forgejo-runner-k8s /plugins/forgejo-runner-k8s
+            args:
+              - --listen
+              - unix:///plugins/forgejo-runner-k8s.sock
+            restartPolicy: Always
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
