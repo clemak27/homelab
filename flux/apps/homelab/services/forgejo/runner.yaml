@@ -15,6 +15,8 @@ spec:
       interval: 50m
   interval: 30m
   values:
+    defaultPodOptions:
+      automountServiceAccountToken: true
     configMaps:
       config:
         suffix: config
@@ -29,12 +31,18 @@ spec:
               poll_timeout: 30m
             log:
               level: info
-            pluginsv2:
+            plugins:
               k8s:
-                path: /plugins/forgejo-runner-k8s
+                address: "unix:///plugins/forgejo-runner-k8s.sock"
                 options:
                   namespace: services
-                  poll_timeout: 30m
+                  poll_timeout: 10m
+                  labels: "app.kubernetes.io/name=forgejo-runner-instance"
+                  resources: |
+                    requests:
+                      memory: 256Mi
+                    limits:
+                      memory: 256Mi
             runner:
               capacity: 1
               file: /persistent/.runner
@@ -46,7 +54,10 @@ spec:
           podspec-default.yaml: |-
             containers:
               - name: main
-                image: node:22-bookworm
+                image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04
+                env:
+                  - name: DEBIAN_FRONTEND
+                    value: noninteractive
                 resources:
                   requests:
                     cpu: "500m"
@@ -55,10 +66,18 @@ spec:
                     memory: 512Mi
                     ephemeral-storage: 5Gi
             restartPolicy: Never
+            tolerations:
+              - effect: NoSchedule
+                key: node-type
+                operator: Equal
+                value: agent
           podspec-large.yaml: |-
             containers:
               - name: main
-                image: node:22-bookworm
+                image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04
+                env:
+                  - name: DEBIAN_FRONTEND
+                    value: noninteractive
                 resources:
                   requests:
                     cpu: "500m"
@@ -67,6 +86,11 @@ spec:
                     memory: 2Gi
                     ephemeral-storage: 5Gi
             restartPolicy: Never
+            tolerations:
+              - effect: NoSchedule
+                key: node-type
+                operator: Equal
+                value: agent
           podspec-buildah.yaml: |-
             hostUsers: false
             containers:
@@ -112,6 +136,12 @@ spec:
                   limits:
                     memory: 2Gi
                     ephemeral-storage: 10Gi
+            restartPolicy: Never
+            tolerations:
+              - effect: NoSchedule
+                key: node-type
+                operator: Equal
+                value: agent
             volumes:
               - name: buildah-storage
                 emptyDir:
@@ -125,7 +155,6 @@ spec:
               - name: run
                 emptyDir:
                   sizeLimit: 256Mi
-            restartPolicy: Never
     controllers:
       forgejo-runner:
         type: statefulset
@@ -152,14 +181,20 @@ spec:
               operator: Equal
               value: agent
         initContainers:
-          copy-k8s-plugin:
+          k8s-plugin:
             image:
               repository: registry.erwanleboucher.dev/eleboucher/runner-k8s-plugin
               tag: 12.10.6
-            command:
-              - sh
-              - -c
-              - cp /usr/local/bin/forgejo-runner-k8s /plugins/forgejo-runner-k8s
+            args:
+              - --listen
+              - unix:///plugins/forgejo-runner-k8s.sock
+            restartPolicy: Always
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -222,30 +257,38 @@ spec:
           type: Role
           rules:
             - apiGroups:
-                - ""
+                - "batch"
               resources:
-                - "pods"
+                - jobs
               verbs:
-                - "list"
-                - "watch"
-                - "create"
-                - "get"
-                - "delete"
+                - create
+                - get
+                - list
+                - watch
+                - delete
             - apiGroups:
                 - ""
               resources:
-                - "pods/exec"
+                - pods
               verbs:
-                - "create"
-                - "get"
+                - list
+                - watch
+                - get
             - apiGroups:
                 - ""
               resources:
-                - "pods/log"
+                - pods/exec
               verbs:
-                - "list"
-                - "watch"
-                - "get"
+                - create
+                - get
+            - apiGroups:
+                - ""
+              resources:
+                - pods/log
+              verbs:
+                - list
+                - watch
+                - get
       bindings:
         forgejo-runner:
           type: RoleBinding
