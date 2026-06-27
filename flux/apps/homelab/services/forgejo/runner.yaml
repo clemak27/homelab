@@ -50,6 +50,7 @@ spec:
               labels:
                 - default:k8s:/config/podspec-default.yaml
                 - large:k8s:/config/podspec-large.yaml
+                - xl:k8s:/config/podspec-xl.yaml
                 - buildah:k8s:/config/podspec-buildah.yaml
               timeout: 1h
           podspec-default.yaml: |-
@@ -85,6 +86,27 @@ spec:
                     memory: 2Gi
                   limits:
                     memory: 2Gi
+                    ephemeral-storage: 5Gi
+            restartPolicy: Never
+            nodeSelector:
+              node-role.kubernetes.io/worker: worker
+            tolerations:
+              - effect: NoSchedule
+                key: node-type
+                operator: Equal
+                value: agent
+          podspec-xl.yaml: |-
+            containers:
+              - name: main
+                image: ghcr.io/bjw-s-labs/forgejo-runner:ubuntu-24.04
+                env:
+                  - name: DEBIAN_FRONTEND
+                    value: noninteractive
+                resources:
+                  requests:
+                    memory: 4Gi
+                  limits:
+                    memory: 4Gi
                     ephemeral-storage: 5Gi
             restartPolicy: Never
             nodeSelector:
@@ -134,9 +156,9 @@ spec:
                     mountPath: /run
                 resources:
                   requests:
-                    memory: 2Gi
+                    memory: 4Gi
                   limits:
-                    memory: 2Gi
+                    memory: 4Gi
                     ephemeral-storage: 10Gi
             restartPolicy: Never
             tolerations:
