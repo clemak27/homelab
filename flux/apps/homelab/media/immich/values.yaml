@@ -18,7 +18,7 @@ controllers:
       immich:
         image:
           repository: ghcr.io/immich-app/immich-server
-          tag: v2.7.5
+          tag: v3.0.1
         env:
           TZ: Europe/Vienna
           REDIS_HOSTNAME: immich-valkey
