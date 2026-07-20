@@ -9,7 +9,7 @@ controllers:
       slskd:
         image:
           repository: docker.io/slskd/slskd
-          tag: 0.25.1
+          tag: 0.26.0
         env:
           TZ: Europe/Vienna
           PUID: "1000"
