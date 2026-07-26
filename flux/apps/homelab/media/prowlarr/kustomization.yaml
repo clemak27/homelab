@@ -6,7 +6,9 @@ resources:
   - release.yaml
 configMapGenerator:
   - name: prowlarr-values
+    options:
+      disableNameSuffixHash: true
+      labels:
+        reconcile.fluxcd.io/watch: Enabled
     files:
       - values.yaml=values.yaml
-configurations:
-  - kustomizeconfig.yaml
