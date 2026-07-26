@@ -10,7 +10,9 @@ resources:
   - runner.yaml
 configMapGenerator:
   - name: forgejo-values
+    options:
+      disableNameSuffixHash: true
+      labels:
+        reconcile.fluxcd.io/watch: Enabled
     files:
       - values.yaml=values.yaml
-configurations:
-  - kustomizeconfig.yaml

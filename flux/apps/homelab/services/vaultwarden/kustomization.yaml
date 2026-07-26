@@ -7,7 +7,9 @@ resources:
   - vaultwarden-yubico.yaml
 configMapGenerator:
   - name: vaultwarden-values
+    options:
+      disableNameSuffixHash: true
+      labels:
+        reconcile.fluxcd.io/watch: Enabled
     files:
       - values.yaml=values.yaml
-configurations:
-  - kustomizeconfig.yaml
