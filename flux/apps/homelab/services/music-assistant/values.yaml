@@ -9,6 +9,7 @@ controllers:
           tag: "2.9.9"
         env:
           TZ: Europe/Vienna
+          SOME_ENV: value
 
 defaultPodOptions:
   securityContext:
