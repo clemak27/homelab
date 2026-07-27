@@ -142,9 +142,9 @@ spec:
                       - CHOWN
                     drop:
                       - ALL
-                  seccompProfile:
-                    type: Localhost
-                    localhostProfile: profiles/ci-build.json
+                  # seccompProfile:
+                  #   type: Localhost
+                  #   localhostProfile: profiles/ci-build.json
                 volumeMounts:
                   - name: buildah-storage
                     mountPath: /var/lib/containers/storage
