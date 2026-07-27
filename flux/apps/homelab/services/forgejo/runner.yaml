@@ -133,15 +133,15 @@ spec:
                   runAsGroup: 0
                   allowPrivilegeEscalation: false
                   # readOnlyRootFilesystem: true
-                  capabilities:
-                    add:
-                      - SETUID
-                      - SETGID
-                      - SYS_CHROOT
-                      - SETFCAP
-                      - CHOWN
-                    drop:
-                      - ALL
+                  # capabilities:
+                  #   add:
+                  #     - SETUID
+                  #     - SETGID
+                  #     - SYS_CHROOT
+                  #     - SETFCAP
+                  #     - CHOWN
+                  #   drop:
+                  #     - ALL
                   # seccompProfile:
                   #   type: Localhost
                   #   localhostProfile: profiles/ci-build.json
