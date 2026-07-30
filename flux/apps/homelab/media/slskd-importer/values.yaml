@@ -9,7 +9,7 @@ controllers:
       slskd-importer:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/slskd-importer
-          tag: 0.0.9
+          tag: 0.1.0
         env:
           TZ: Europe/Vienna
           DISCORD_WEBHOOK_URL:
