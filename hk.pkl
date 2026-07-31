@@ -1,0 +1,18 @@
+amends "package://github.com/jdx/hk/releases/download/v1.54.0/hk@1.54.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.54.0/hk@1.54.0#/Builtins.pkl"
+
+local linters = new Mapping<String, Step> {
+    ["actionlint"] = Builtins.actionlint
+    ["flux:test"] {
+        glob = List("**/*.yaml", "**/*.yml")
+        check = "mise run flux:test"
+    }
+    ["yamllint"] = Builtins.yamllint
+}
+
+hooks {
+    ["pre-commit"] {
+        stash = "git"
+        steps = linters
+    }
+}
