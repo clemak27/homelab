@@ -13,28 +13,22 @@ yamllint = "1.38.0"
 actionlint = "1.7.12"
 python = "3.14"
 uv = "0.12.0"
-"pipx:flux-local" = "8.4.0"
+"github:home-operations/flate" = "0.4.12"
 
 [env]
 IMMICH_INSTANCE_URL = "https://immich.wallstreet30.cc/api"
+DIFF="dyff between --omit-header --color on"
 
 ## flux
 
-[tasks."flux:sync"]
-run = """
-flux suspend source git flux-system
-sleep 5
-flux resume source git flux-system
-"""
-
-[tasks."flux:test"]
-run = "flux-local test --enable-helm -v"
+[tasks."flux:build"]
+run = "flate build all --path ./flux"
 
 [tasks."flux:diff"]
-run = """
-DIFF="dyff between --omit-header --color on" \
-flux-local diff hr -A
-"""
+run = "flate diff all --path ./flux"
+
+[tasks."flux:test"]
+run = "flate test all --path ./flux"
 
 ## nix
 
