@@ -48,8 +48,6 @@ configMaps:
           default: "$albumartist/$year - $album/$track - $title"
         import:
           duplicate_action: skip
-          set_fields:
-            genre: " "
           log: /app/import.log
           quiet: true
           quiet_fallback: skip
@@ -58,13 +56,22 @@ configMaps:
         plugins:
           - musicbrainz
           - lyrics
+          - lastgenre
           - replaygain
           - fetchart
           - embedart
         lyrics:
           auto: true
-          sources: [lrclib]
+          sources:
+            - lrcmux
+            - lrclib
           synced: true
+        lastgenre:
+          auto: true
+          canonical: false
+          count: 3
+          force: true
+          keep_existing: false
         replaygain:
           backend: ffmpeg
 
