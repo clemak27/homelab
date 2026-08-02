@@ -108,9 +108,6 @@
       "automerge": true
     }
   ],
-  "ignorePaths": [
-    "flux/apps/homelab/media/slskd-importer"
-  ],
   "regexManagers": [
     {
       "fileMatch": [
