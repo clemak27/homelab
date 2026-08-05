@@ -6,7 +6,7 @@ controllers:
       syncthing:
         image:
           repository: docker.io/syncthing/syncthing
-          tag: 2.1.2
+          tag: 2.1.3
         env:
           TZ: Europe/Vienna
 
