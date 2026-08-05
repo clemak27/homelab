@@ -12,7 +12,7 @@ helm = "4.2.3"
 yamllint = "1.38.0"
 actionlint = "1.7.12"
 python = "3.14"
-uv = "0.12.1"
+uv = "0.12.2"
 "github:home-operations/flate" = "0.4.12"
 
 [env]
