@@ -6,7 +6,7 @@ controllers:
       music-assistant:
         image:
           repository: ghcr.io/music-assistant/server
-          tag: "2.9.10"
+          tag: "2.9.11"
         env:
           TZ: Europe/Vienna
           SOME_ENV: value
