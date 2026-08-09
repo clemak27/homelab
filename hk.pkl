@@ -7,6 +7,7 @@ local linters = new Mapping<String, Step> {
         glob = List("**/*.yaml", "**/*.yml")
         check = "mise run flux:test"
     }
+    ["nixpkgs-fmt"] = Builtins.nixpkgs_format
     ["yamllint"] = Builtins.yamllint
 }
 
