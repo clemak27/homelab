@@ -161,11 +161,6 @@ spec:
                     memory: 4Gi
                     ephemeral-storage: 10Gi
             restartPolicy: Never
-            tolerations:
-              - effect: NoSchedule
-                key: node-type
-                operator: Equal
-                value: agent
             volumes:
               - name: buildah-storage
                 emptyDir:
