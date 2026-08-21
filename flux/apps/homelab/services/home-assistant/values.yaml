@@ -6,7 +6,7 @@ controllers:
       home-assistant:
         image:
           repository: docker.io/homeassistant/home-assistant
-          tag: "2026.8.2"
+          tag: "2026.8.3"
         env:
           TZ: Europe/Vienna
 
