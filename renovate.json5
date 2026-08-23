@@ -106,6 +106,16 @@
         "patch"
       ],
       "automerge": true
+    },
+    {
+      "matchFileNames": [
+        "flux/apps/homelab/services/renovate/**"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
     }
   ],
   "regexManagers": [
