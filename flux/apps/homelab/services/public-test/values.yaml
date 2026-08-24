@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: 1
+    containers:
+      public-test:
+        image:
+          repository: docker.io/nginx
+          tag: 1.31.4
+        env:
+          TZ: Europe/Vienna
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 8080
+    annotations:
+      external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
+
+ingress:
+  main:
+    enabled: false
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: nginx-config
+    globalMounts:
+      - path: /etc/nginx/conf.d/nginx.conf
+        readOnly: true
+        mountPropagation: None
+        subPath: nginx.conf
+  content:
+    enabled: true
+    type: configMap
+    name: nginx-content
+    globalMounts:
+      - path: /www/data
+        readOnly: true
+
+configMaps:
+  nginx-config:
+    forceRename: nginx-config
+    enabled: true
+    data:
+      nginx.conf: |
+        server {
+          listen 8080;
+          location / {
+            root /www/data;
+          }
+        }
+  nginx-content:
+    forceRename: nginx-content
+    enabled: true
+    data:
+      index.html: |
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>some website</title>
+          </head>
+          <body>
+            <h1>This is a website.</h1>
+          </body>
+        </html>
