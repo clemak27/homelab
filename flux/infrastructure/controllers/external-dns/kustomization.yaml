@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: external-dns
+resources:
+  - cloudflare-auth.yaml
+  - namespace.yaml
+  - repository.yaml
+  - release.yaml
+configMapGenerator:
+  - name: external-dns-values
+    options:
+      disableNameSuffixHash: true
+      labels:
+        reconcile.fluxcd.io/watch: Enabled
+    files:
+      - values.yaml=values.yaml
