@@ -9,6 +9,7 @@ spec:
     globalArguments:
       - "--global.sendanonymoususage=false"
       - "--api.insecure=true"
+      - "--providers.kubernetesgateway=true"
     additionalArguments:
       - "--entryPoints.web.transport.respondingTimeouts.readTimeout=300s"
       - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=300s"
