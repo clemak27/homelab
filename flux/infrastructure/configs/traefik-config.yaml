@@ -5,10 +5,8 @@ metadata:
   name: traefik
   namespace: kube-system
 spec:
+  # https://artifacthub.io/packages/helm/traefik/traefik/40.1.0
   valuesContent: |-
-    globalArguments:
-      - "--global.sendanonymoususage=false"
-      - "--api.insecure=true"
     additionalArguments:
       - "--entryPoints.web.transport.respondingTimeouts.readTimeout=300s"
       - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=300s"
@@ -18,6 +16,12 @@ spec:
       - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=300s"
     deployment:
       replicas: 3
+    globalArguments:
+      - "--global.sendanonymoususage=false"
+      - "--api.insecure=true"
+    providers:
+      kubernetesGateway:
+        enabled: true
     tolerations:
       - key: CriticalAddonsOnly
         operator: Exists
