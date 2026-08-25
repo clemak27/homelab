@@ -19,6 +19,7 @@ spec:
     gateway:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.kubernetes.io/target: wallstreet30.cc
       listeners:
         web:
           namespacePolicy:
