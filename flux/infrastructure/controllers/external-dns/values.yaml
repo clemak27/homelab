@@ -1,0 +1,11 @@
+---
+env:
+  - name: CF_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-auth
+        key: api_token
+provider:
+  name: cloudflare
+sources:
+  - gateway-httproute
