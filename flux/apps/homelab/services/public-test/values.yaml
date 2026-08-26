@@ -28,11 +28,11 @@ ingress:
   main:
     enabled: true
     className: traefik
-    labels:
-      ingress: public
+    # labels:
+    #   ingress: public
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
-      external-dns.kubernetes.io/target: wallstreet30.cc
+      # external-dns.kubernetes.io/target: wallstreet30.cc
       ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
       - host: public-test.wallstreet30.cc

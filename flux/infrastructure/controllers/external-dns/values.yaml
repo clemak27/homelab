@@ -11,5 +11,6 @@ policy: "upsert-only"
 provider:
   name: cloudflare
 sources:
+  - crd
   - gateway-httproute
   - ingress
