@@ -28,7 +28,27 @@ service:
 
 ingress:
   main:
-    enabled: false
+    enabled: true
+    className: traefik
+    labels:
+      ingress: public
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
+      external-dns.kubernetes.io/target: wallstreet30.cc
+      ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - host: public-test.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - public-test.wallstreet30.cc
+        secretName: public-test-tls
 
 persistence:
   config:

@@ -1,11 +1,15 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/charts/external-dns/values.schema.json
 env:
   - name: CF_API_TOKEN
     valueFrom:
       secretKeyRef:
         name: cloudflare-auth
         key: api_token
+labelFilter: "ingress: 'public'"
+policy: "upsert-only"
 provider:
   name: cloudflare
 sources:
   - gateway-httproute
+  - ingress
