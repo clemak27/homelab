@@ -23,8 +23,6 @@ service:
     ports:
       http:
         port: 8080
-    annotations:
-      external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
 
 ingress:
   main:
@@ -34,7 +32,6 @@ ingress:
       ingress: public
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
-      external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
       external-dns.kubernetes.io/target: wallstreet30.cc
       ingress.kubernetes.io/ssl-redirect: "true"
     hosts:
