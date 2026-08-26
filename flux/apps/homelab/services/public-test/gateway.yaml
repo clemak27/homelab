@@ -5,7 +5,6 @@ metadata:
   name: public-test
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
     external-dns.kubernetes.io/target: wallstreet30.cc
 spec:
   gatewayClassName: traefik
@@ -23,6 +22,8 @@ kind: HTTPRoute
 metadata:
   name: public-test
   namespace: services
+  annotations:
+    external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
 spec:
   hostnames:
     - public-test.wallstreet30.cc
