@@ -32,7 +32,7 @@ spec:
           namespacePolicy:
             from: All
           certificateRefs:
-              group: ""
+            - group: ""
               kind: Secret
               name: wallstreet30-tls
               namespace: kube-system
