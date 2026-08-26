@@ -6,7 +6,7 @@ env:
       secretKeyRef:
         name: cloudflare-auth
         key: api_token
-labelFilter: "ingress: 'public'"
+labelFilter: ingress=public
 policy: "upsert-only"
 provider:
   name: cloudflare
