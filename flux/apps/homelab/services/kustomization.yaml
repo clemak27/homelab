@@ -12,7 +12,7 @@ resources:
   - ./mealie
   - ./miniflux
   - ./mqtt
-  # - ./public-test
+  - ./public-test
   - ./redlib
   - ./renovate
   - ./searxng
