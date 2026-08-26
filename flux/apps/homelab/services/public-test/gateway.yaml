@@ -2,9 +2,10 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: public-test.wallstreet30.cc
+  name: public-test
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    external-dns.kubernetes.io/hostname: public-test.wallstreet30.cc
     external-dns.kubernetes.io/target: wallstreet30.cc
 spec:
   gatewayClassName: traefik
