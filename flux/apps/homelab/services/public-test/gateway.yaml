@@ -1,28 +1,21 @@
 ---
 apiVersion: gateway.networking.k8s.io/v1
-kind: ListenerSet
+kind: Gateway
 metadata:
-  name: public-test
+  name: public-test.wallstreet30.cc
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     external-dns.kubernetes.io/target: wallstreet30.cc
 spec:
-  parentRef:
-    name: traefik-gateway
-    namespace: kube-system
-    kind: Gateway
-    group: gateway.networking.k8s.io
+  gatewayClassName: traefik
   listeners:
-    - name: public-test
-      hostname: public-test.wallstreet30.cc
-      protocol: HTTPS
+    - name: websecure
       port: 8443
+      protocol: HTTPS
+      hostname: public-test.wallstreet30.cc
       tls:
-        mode: Terminate
         certificateRefs:
-          - kind: Secret
-            group: ""
-            name: public-test-tls
+          - name: public-test-tls
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
