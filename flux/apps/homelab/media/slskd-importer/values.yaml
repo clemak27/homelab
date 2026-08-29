@@ -53,6 +53,7 @@ configMaps:
           quiet_fallback: skip
         match:
           strong_rec_thresh: 0.15
+          ignored_media: [ "Vinyl" ]
         plugins:
           - musicbrainz
           - lyrics
