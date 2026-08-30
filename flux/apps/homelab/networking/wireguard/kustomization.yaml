@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: networking
+resources:
+  - release.yaml
+  - wg-config.yaml
+configMapGenerator:
+  - name: wireguard-values
+    options:
+      disableNameSuffixHash: true
+      labels:
+        reconcile.fluxcd.io/watch: Enabled
+    files:
+      - values.yaml=values.yaml
