@@ -2,7 +2,7 @@
 sops = "3.13.3"
 doggo = "1.3.0"
 dyff = "1.12.0"
-flux2 = "2.9.4"
+flux2 = "2.9.5"
 helm = "4.2.4"
 "npm:@immich/cli" = "3.1.0"
 "github:coreos/butane" = "0.29.0"
