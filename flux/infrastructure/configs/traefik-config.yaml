@@ -15,7 +15,7 @@ spec:
       - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=300s"
       - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=300s"
     deployment:
-      replicas: 3
+      replicas: 1
     gateway:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
@@ -42,16 +42,3 @@ spec:
     providers:
       kubernetesGateway:
         enabled: true
-    tolerations:
-      - key: CriticalAddonsOnly
-        operator: Exists
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-        operator: Exists
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/control-plane
-        operator: Exists
-      - effect: NoSchedule
-        key: node-type
-        operator: Equal
-        value: agent
