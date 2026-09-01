@@ -6,4 +6,3 @@ resources:
   - ./cnpg
   - ./external-dns
   - ./longhorn
-  - ./metallb
