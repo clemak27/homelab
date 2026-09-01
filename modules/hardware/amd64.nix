@@ -24,7 +24,7 @@
         networking = {
           firewall.enable = false;
           networkmanager.enable = true;
-          useDHCP = lib.mkDefault true;
+          useDHCP = false;
         };
 
         boot.loader = {

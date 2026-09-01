@@ -10,6 +10,7 @@
 
       k3s.server
 
+      den.aspects.blocky
       den.aspects.wireguard
     ];
 
