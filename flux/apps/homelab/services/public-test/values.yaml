@@ -7,7 +7,7 @@ controllers:
       public-test:
         image:
           repository: docker.io/nginx
-          tag: 1.31.4
+          tag: 1.31.5
         env:
           TZ: Europe/Vienna
 
