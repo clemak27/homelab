@@ -43,6 +43,56 @@
           '';
         };
 
+        # https://artifacthub.io/packages/helm/traefik/traefik/40.1.0
+        system.activationScripts.makeK3sTraefikConfig = lib.stringAfter [ "var" ] ''
+          mkdir -p /var/lib/rancher/k3s/server/manifests
+
+          cat << 'EOF' > /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+          apiVersion: helm.cattle.io/v1
+          kind: HelmChartConfig
+          metadata:
+            name: traefik
+            namespace: kube-system
+          spec:
+            valuesContent: |-
+              additionalArguments:
+                - "--entryPoints.web.transport.respondingTimeouts.readTimeout=300s"
+                - "--entryPoints.web.transport.respondingTimeouts.writeTimeout=300s"
+                - "--entryPoints.web.transport.respondingTimeouts.idleTimeout=300s"
+                - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=300s"
+                - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=300s"
+                - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=300s"
+              deployment:
+                replicas: 1
+              gateway:
+                annotations:
+                  cert-manager.io/cluster-issuer: letsencrypt-production
+                listeners:
+                  web:
+                    namespacePolicy:
+                      from: All
+                    protocol: HTTP
+                    port: 8000
+                  websecure:
+                    port: 8443
+                    protocol: HTTPS
+                    namespacePolicy:
+                      from: All
+                    certificateRefs:
+                      - group: ""
+                        kind: Secret
+                        name: wallstreet30-tls
+                        namespace: kube-system
+                    mode: Terminate
+              globalArguments:
+                - "--global.sendanonymoususage=false"
+                - "--api.insecure=true"
+              providers:
+                kubernetesGateway:
+                  enabled: true
+          EOF
+        '';
+
         systemd.tmpfiles.rules = [
           "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
         ];

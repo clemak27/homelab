@@ -9,4 +9,3 @@ resources:
   - issuer.yaml
   - longhorn-crypto-secret.yaml
   - longhorn-crypto.yaml
-  - traefik-config.yaml
