@@ -1,0 +1,14 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: website
+  labels:
+    ingress: public
+spec:
+  endpoints:
+    - dnsName: clemak27.wallstreet30.cc
+      recordTTL: 300
+      recordType: CNAME
+      targets:
+        - wallstreet30.cc
