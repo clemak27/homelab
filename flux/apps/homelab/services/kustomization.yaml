@@ -12,7 +12,6 @@ resources:
   - ./mealie
   - ./miniflux
   - ./mqtt
-  # - ./public-test
   - ./redlib
   - ./renovate
   - ./searxng
