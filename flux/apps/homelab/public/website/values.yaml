@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: 1
+    containers:
+      c27_website:
+        image:
+          repository: forgejo.wallstreet30.cc/clemak27/c27_website
+          tag: 1.0.0
+        env:
+          TZ: Europe/Vienna
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    type: ClusterIP
+    controller: main
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  main:
+    enabled: true
+    className: traefik
+    # labels:
+    #   ingress: public
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      # external-dns.kubernetes.io/target: wallstreet30.cc
+      ingress.kubernetes.io/ssl-redirect: "true"
+    hosts:
+      - host: clemak27.wallstreet30.cc
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+    tls:
+      - hosts:
+          - clemak27.wallstreet30.cc
+        secretName: clemak27-tls
