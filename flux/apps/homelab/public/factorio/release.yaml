@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: factorio
-  namespace: services
+  namespace: public
 spec:
   interval: 50m
   chart:
@@ -16,7 +16,7 @@ spec:
         name: bjw-s-labs
       interval: 50m
   releaseName: factorio
-  targetNamespace: services
+  targetNamespace: public
   driftDetection:
     mode: enabled
   valuesFrom:
