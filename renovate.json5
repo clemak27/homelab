@@ -107,6 +107,8 @@
     {
       "matchFileNames": [
         "flux/apps/homelab/media/**",
+        "flux/apps/homelab/monitoring/**",
+        "flux/apps/homelab/public/**",
         "flux/apps/homelab/services/**"
       ],
       "matchUpdateTypes": [
