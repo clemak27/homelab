@@ -7,7 +7,7 @@ controllers:
       c27-website:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/c27-website
-          tag: 1.0.0
+          tag: 1.0.1
         env:
           TZ: Europe/Vienna
 
