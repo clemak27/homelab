@@ -24,6 +24,17 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
+  name: forgejo-runner
+  namespace: services
+spec:
+  type: "oci"
+  interval: 60m
+  url: oci://git.erwanleboucher.dev/eleboucher/charts
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
   name: valkey
   namespace: services
 spec:
