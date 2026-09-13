@@ -35,7 +35,7 @@ spec:
         level: info
       plugins:
         k8s:
-          address: "unix:///plugins/forgejo-runner-k8s.sock"
+          address: "unix:///plugin/forgejo-runner-k8s.sock"
           options:
             namespace: services
             poll_timeout: 10m
