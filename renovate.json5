@@ -130,9 +130,10 @@
       "automerge": true
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
+      "customType": "regex",
+      "managerFilePatterns": [
         ".*\\.sh"
       ],
       // https://regex101.com/r/EArT8p/1
@@ -141,7 +142,8 @@
       ]
     },
     {
-      "fileMatch": [
+      "customType": "regex",
+      "managerFilePatterns": [
         ".*\\.container$"
       ],
       // https://regex101.com/r/1ysnFY/1
