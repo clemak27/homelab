@@ -50,6 +50,8 @@ gitea:
       NAME: forgejo
       USER: forgejo
       SCHEMA: public
+    server:
+      DISABLE_SSH: true
   admin:
     existingSecret: forgejo-admin
   additionalConfigFromEnvs:
