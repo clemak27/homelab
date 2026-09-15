@@ -9,7 +9,7 @@ controllers:
       jellyfin:
         image:
           repository: docker.io/jellyfin/jellyfin
-          tag: "12.0"
+          tag: "12.1"
         env:
           TZ: Europe/Vienna
 
