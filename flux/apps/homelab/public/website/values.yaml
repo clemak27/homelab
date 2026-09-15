@@ -4,12 +4,21 @@ controllers:
   main:
     replicas: 1
     containers:
-      c27-website:
+      website:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/website
           tag: 1.0.4
         env:
           TZ: Europe/Vienna
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: [ALL]
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
 
 defaultPodOptions:
   securityContext:
@@ -46,3 +55,23 @@ ingress:
       - hosts:
           - clemak27.wallstreet30.cc
         secretName: clemak27-tls
+
+persistence:
+  cache:
+    enabled: true
+    type: emptyDir
+    globalMounts:
+      - path: /var/cache/nginx
+        readOnly: false
+  run:
+    enabled: true
+    type: emptyDir
+    globalMounts:
+      - path: /var/run
+        readOnly: false
+  tmp:
+    enabled: true
+    type: emptyDir
+    globalMounts:
+      - path: /tmp
+        readOnly: false
