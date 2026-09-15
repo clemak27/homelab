@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: media
 resources:
   - navidrome-lastfm.yaml
-  - navidrome-spotify.yaml
   - release.yaml
 configMapGenerator:
   - name: navidrome-values
