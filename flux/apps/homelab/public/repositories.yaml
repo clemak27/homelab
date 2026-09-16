@@ -6,5 +6,6 @@ metadata:
   name: bjw-s-labs
   namespace: public
 spec:
+  type: "oci"
   interval: 60m
-  url: https://bjw-s-labs.github.io/helm-charts
+  url: oci://ghcr.io/bjw-s-labs/helm
