@@ -6,8 +6,9 @@ metadata:
   name: bjw-s-labs
   namespace: media
 spec:
-  interval: 10m
-  url: https://bjw-s-labs.github.io/helm-charts
+  type: "oci"
+  interval: 60m
+  url: oci://ghcr.io/bjw-s-labs/helm
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/helmrepository-source-v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
