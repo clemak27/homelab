@@ -9,7 +9,7 @@ controllers:
       radarr:
         image:
           repository: docker.io/linuxserver/radarr
-          tag: 6.3.0
+          tag: 6.4.4
         env:
           TZ: Europe/Vienna
           PUID: "1000"
