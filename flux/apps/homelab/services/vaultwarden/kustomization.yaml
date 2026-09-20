@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: services
 resources:
   - release.yaml
-  - vaultwarden-yubico.yaml
+  - vaultwarden-yubico.enc.yaml
 configMapGenerator:
   - name: vaultwarden-values
     options:

@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: services
 resources:
   - database.yaml
-  - miniflux-admin.yaml
+  - miniflux-admin.enc.yaml
   - release.yaml
 configMapGenerator:
   - name: miniflux-values

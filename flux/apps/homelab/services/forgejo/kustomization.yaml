@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: services
 resources:
   - database.yaml
-  - forgejo-admin.yaml
-  - forgejo-runner-secret.yaml
+  - forgejo-admin.enc.yaml
+  - forgejo-runner-secret.enc.yaml
   - release.yaml
   - runner.yaml
 configMapGenerator:

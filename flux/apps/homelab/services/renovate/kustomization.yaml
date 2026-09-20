@@ -5,5 +5,5 @@ namespace: services
 resources:
   - renovate-forgejo.yaml
   - renovate-github.yaml
-  - renovate-signing.yaml
-  - renovate-token.yaml
+  - renovate-signing.enc.yaml
+  - renovate-token.enc.yaml
