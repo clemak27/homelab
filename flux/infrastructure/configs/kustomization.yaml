@@ -2,10 +2,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - cloudflare-token.yaml
+  - cloudflare-token.enc.yaml
   - discord-alerts.yaml
-  - discord-webhook.yaml
+  - discord-webhook.enc.yaml
   - discord.yaml
   - issuer.yaml
-  - longhorn-crypto-secret.yaml
+  - longhorn-crypto.enc.yaml
   - longhorn-crypto.yaml
