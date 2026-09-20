@@ -1,23 +1,40 @@
----
 apiVersion: v1
 kind: Secret
 metadata:
-  name: slskd-importer
+    name: slskd-importer
 type: Opaque
 stringData:
-  discord-webhook: ENC[AES256_GCM,data:P0axT77ETeLEPhtogF9oHjAC31g8RgYcSwngjNOQd0B++9XEFqd1rCpZJvKp8ovgm6v9jORlMQIxik8pFu4GUrC9mWMQCzE+/tDAdT3Y6MaVronqvZ49LzGyU8vHubEgAYmqH5TKx4J/hLLV8jK5od62qNc2JIdIpA==,iv:ZRdUXaOxbU+PdTD+QssiAewKDq7zthQJr6bbidasc3g=,tag:iGczX3dL7VCWO7zHl4uR7Q==,type:str]
+    discord-webhook: ENC[AES256_GCM,data:P0axT77ETeLEPhtogF9oHjAC31g8RgYcSwngjNOQd0B++9XEFqd1rCpZJvKp8ovgm6v9jORlMQIxik8pFu4GUrC9mWMQCzE+/tDAdT3Y6MaVronqvZ49LzGyU8vHubEgAYmqH5TKx4J/hLLV8jK5od62qNc2JIdIpA==,iv:ZRdUXaOxbU+PdTD+QssiAewKDq7zthQJr6bbidasc3g=,tag:iGczX3dL7VCWO7zHl4uR7Q==,type:str]
 sops:
-  age:
-    - recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
-      enc: |
-        -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0b1lYS0g4eElYUzI3R2Jl
-        c2h3YTkyR2ZPV3NveVpPMjlRKy8zMkM1T0VNCld6a2tuZFg2NGp4bFpYVnBOWGZD
-        U3ZwM1NlQzZtOUI2THd5Mnc2K2gzRlkKLS0tIFpCbi9kUDN5WTRxY1l1T3EydUxh
-        THFTZ3NUcnJPamRyNGk5cG1oREI1RFUK+/L79rU0wPmyQYIhKpbIKXMbc7xDkJ60
-        OLV27hBofEW+YA3i8B8HRwYg8mwEmkYg4pUcZLarf2yQ3yGPkC215g==
-        -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-12-09T15:04:12Z"
-  mac: ENC[AES256_GCM,data:99hUh7WtEd+2DB3Knv4tCpc4NUdJ2fd4kfyWSFYFkdWYpS+b5RlnbR0FntVsuUH2aDXsGDyHH7ZmUBXgcVXbI8hs/cjnsnGILK1ZcDkLAr8d3FWFI4GG5CmZ7wL/CPVtiDcR8MmhYO0BQNo2AgmMHj9Yn3yz7ZuamFkF4OHD3kU=,iv:dlufd87pj4MIxoZRDeJukJFxVGa09koxi5FmGzO7jOw=,tag:IBj5NZq19PDq5abSUrJuGA==,type:str]
-  unencrypted_regex: ^(apiVersion|metadata|kind|type)$
-  version: 3.11.0
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqYXRpWkNEN0h0QlAvaUlz
+            SndmZzM5TjVaaGNDc3VkTU5SRUdMcVlhVzBzClBnNWdqeHhPdkVwaDZ4aGsydHlx
+            amp3SWJNN3VWYWpaeUtzaTJGMjNJUDAKLS0tIDljb1FUcmo1U2lWUlBTcnNQSzhh
+            UUZ0OVVncVlVaW1rL1plUjRlMjZIbjQKs8E0uaKoYm2iDOc586jziHRcRiJnWXqV
+            O+fQZWLjBO0AbUaMmTvmJg1ymS6PrAjHY0CAbe0IuOlovsSrXlpd+A==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age17kk48hynzgad60c8vdaf5phg8k9563r6mhezzhgngl3hyxrgea5q225656
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBUS2NYQmpyVkprMlN0VTNU
+            ak1DcjNsQmNSdU82eWJ4UngyK01ITXlpVEdvCkM0MVpJd3hEZEd0aXhNNTg4d0xY
+            dFg1QittaEw2UHRNM0dabkxaUnBITlkKLS0tIEEwQ1RVNUZxVjVwRnVkOXIvbXdv
+            Mnc0elgzTDFLRTVSY0VWNEhDM2R4YTgKChZvu0QLtpjFnpMd+A1OyyWipYrWY5Ha
+            mnBLBWJVNCxK1wMyVunuXVqC+WYzysdH/zWcZ5PfPm/w5PdvZMSQdg==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1uzwgfr26gd9eus80ydsskdkp4gh6az5vr78cvd6zzamh35snz4hq5x3whm
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDUjFWb09jYmFLa3JpV2I3
+            b1NzdmlXWS93Vk16OC9CUldWMGpUZzNzb3hRCk13VG5uTUtxWGdDcDB1R3lzK1Uz
+            bVcrdmM3OWRSUVhpcjhVMnJQVEJNOVUKLS0tIDRqRzhWWGczMVJqcHJyMTJla0Fv
+            dXdhVVJPTHlRSElxNUM1Zk1memtWejQKRraHBX3Znz9FTPuAss2FiBLkLRaB9guv
+            PPPIZwWhspxzc1nmy/bBsHD57XCWLYWfiLUWLeidTj0ytLbdOiXrtQ==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1rgxuzyrc8px3ynsusmnjdsvn3suvgj7ep6re9lvh2vlqkv445skqxz4jed
+    lastmodified: "2025-12-09T15:04:12Z"
+    mac: ENC[AES256_GCM,data:99hUh7WtEd+2DB3Knv4tCpc4NUdJ2fd4kfyWSFYFkdWYpS+b5RlnbR0FntVsuUH2aDXsGDyHH7ZmUBXgcVXbI8hs/cjnsnGILK1ZcDkLAr8d3FWFI4GG5CmZ7wL/CPVtiDcR8MmhYO0BQNo2AgmMHj9Yn3yz7ZuamFkF4OHD3kU=,iv:dlufd87pj4MIxoZRDeJukJFxVGa09koxi5FmGzO7jOw=,tag:IBj5NZq19PDq5abSUrJuGA==,type:str]
+    unencrypted_regex: ^(apiVersion|metadata|kind|type)$
+    version: 3.11.0
