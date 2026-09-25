@@ -16,9 +16,6 @@
       "/^flux/apps/homelab/services/renovate/renovate-github\\.yaml$/"
     ]
   },
-  "ignoreDeps": [
-    "docker.io/factoriotools/factorio"
-  ],
   "packageRules": [
     {
       "matchPackagePatterns": [
