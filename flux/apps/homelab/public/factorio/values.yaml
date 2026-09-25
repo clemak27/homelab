@@ -15,11 +15,10 @@ controllers:
             memory: *mem
         env:
           TZ: Europe/Vienna
-          DLC_SPACE_AGE: false
+          DLC_SPACE_AGE: true
+          GENERATE_NEW_SAVE: true
+          LOAD_LATEST_SAVE: true
           PORT: 32700
-          GENERATE_NEW_SAVE: false
-          LOAD_LATEST_SAVE: false
-          SAVE_NAME: fritattensuppe_mp
 
 defaultPodOptions:
   securityContext:
@@ -50,3 +49,30 @@ persistence:
     globalMounts:
       - path: /factorio
         readOnly: false
+  lists:
+    enabled: true
+    type: configMap
+    name: factorio-lists
+    globalMounts:
+      - path: /factorio/config
+  settings:
+    type: secret
+    name: factorio-server-settings
+    globalMounts:
+      - path: /factorio/config
+
+configMaps:
+  factorio-lists:
+    enabled: true
+    forceRename: factorio-lists
+    data:
+      server-whitelist.json: |
+        [
+          "clemak27"
+        ]
+      server-banlist.json: |
+        []
+      server-adminlist.json: |
+        [
+          "clemak27"
+        ]
