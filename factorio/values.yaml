@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/values.schema.json
+controllers:
+  main:
+    replicas: 1
+    containers:
+      factorio:
+        image:
+          repository: docker.io/factoriotools/factorio
+          tag: 2.0.77-rootless
+        resources:
+          limits:
+            memory: &mem 2Gi
+          requests:
+            memory: *mem
+        env:
+          TZ: Europe/Vienna
+          DLC_SPACE_AGE: true
+          GENERATE_NEW_SAVE: true
+          LOAD_LATEST_SAVE: true
+          PORT: 32700
+
+defaultPodOptions:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+service:
+  main:
+    controller: main
+    type: NodePort
+    ports:
+      udp:
+        enabled: true
+        protocol: UDP
+        port: 32700
+        nodePort: 32700
+
+ingress:
+  main:
+    enabled: false
+
+persistence:
+  config:
+    size: 5Gi
+    accessMode: "ReadWriteOnce"
+    enabled: true
+    type: persistentVolumeClaim
+    globalMounts:
+      - path: /factorio
+        readOnly: false
+  lists:
+    enabled: true
+    type: configMap
+    name: factorio-lists
+    globalMounts:
+      - path: /factorio/config
+  settings:
+    type: secret
+    name: factorio-server-settings
+    globalMounts:
+      - path: /factorio/config
+
+configMaps:
+  factorio-lists:
+    enabled: true
+    forceRename: factorio-lists
+    data:
+      server-whitelist.json: |
+        [
+          "clemak27"
+        ]
+      server-banlist.json: |
+        []
+      server-adminlist.json: |
+        [
+          "clemak27"
+        ]
