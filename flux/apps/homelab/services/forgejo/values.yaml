@@ -33,6 +33,7 @@ ingress:
 persistence:
   enabled: true
   storageClass: longhorn-crypto
+  size: 20Gi
 
 gitea:
   # https://forgejo.org/docs/latest/admin/config-cheat-sheet/
