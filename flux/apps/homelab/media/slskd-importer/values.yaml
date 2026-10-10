@@ -49,6 +49,7 @@ configMaps:
         import:
           duplicate_action: skip
           log: /app/import.log
+          move: true
           quiet: true
           quiet_fallback: skip
         match:
