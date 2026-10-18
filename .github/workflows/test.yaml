@@ -4,23 +4,35 @@ name: test
 on:
   - pull_request
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   flux-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
       - name: Install tools
         uses: jdx/mise-action@08ae2a091c038e1e05ec6f5115dc5c69d5a2a6b8  # v5.1.2
       - name: Run flate test
         shell: bash
         run: flate test all --path ./flux
+    timeout-minutes: 30
 
   nix-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
       - name: Clean up space
         uses: wimpysworld/nothing-but-nix@687c797a730352432950c707ab493fcc951818d7  # v10
       - name: Install Nix
@@ -29,3 +41,4 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7  # v15
       - name: Run check
         run: nix flake check -L --no-build
+    timeout-minutes: 30
