@@ -6,8 +6,8 @@ controllers:
     containers:
       redlib:
         image:
-          repository: ghcr.io/silvenga/redlib
-          tag: 0.36.0
+          repository: ghcr.io/nachtalb/redlib
+          tag: latest
           pullPolicy: Always
         env:
           TZ: Europe/Vienna
