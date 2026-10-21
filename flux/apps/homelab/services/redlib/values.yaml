@@ -6,7 +6,7 @@ controllers:
     containers:
       redlib:
         image:
-          repository: ghcr.io/nachtalb/redlib
+          repository: ghcr.io/polak14/redlib
           tag: latest
           pullPolicy: Always
         env:
