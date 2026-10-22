@@ -128,6 +128,15 @@
         "patch"
       ],
       "automerge": true
+    },
+    {
+      "matchFileNames": [
+        ".github/**"
+      ],
+      "extends": [
+        ":semanticCommitScopeDisabled"
+      ],
+      "semanticCommitType": "ci"
     }
   ],
   "customManagers": [
@@ -150,15 +159,6 @@
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s\\S+?=.+:(?<currentValue>\\S+)"
       ]
-    },
-    {
-      "matchFileNames": [
-        ".github/**"
-      ],
-      "extends": [
-        ":semanticCommitScopeDisabled"
-      ],
-      "semanticCommitType": "ci"
     }
   ]
 }
