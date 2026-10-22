@@ -2,8 +2,8 @@
 
 This repo the setup for my homelab.
 
-It currently consists of single bare-metal server running NixOS, with
-k3s to deploy containers.
+It currently consists of larger bare-metal server and 2 smaller nodes running
+NixOS, with k3s to deploy containers.
 
 This is for my own usage and preferences, but you are of course free to use it
 as inspiration.
@@ -19,10 +19,17 @@ as inspiration.
 
 ## Hardware
 
+control-plane:
+
 - AMD Ryzen 5 5600G
 - ASRock A520M-ITX/ac
 - 16GB
 - a few TB disc space
+
+nodes:
+
+- Raspberry Pi 4B with 8GB
+- Raspberry Pi 4B with 8GB
 
 ## Software
 
