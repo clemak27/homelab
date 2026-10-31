@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: services
 resources:
   - release.yaml
+  - searxng-secret.enc.yaml
   - valkey.yaml
 configMapGenerator:
   - name: searxng-values

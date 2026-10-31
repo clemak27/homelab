@@ -18,8 +18,53 @@ controllers:
           tag: latest
         env:
           TZ: Europe/Vienna
-          SEARXNG_BASE_URL: "https://searxng.wallstreet30.cc"
-          SEARXNG_REDIS_URL: redis://searxng-valkey.services
+          SEARXNG_SETTINGS_PATH: /config/settings.yaml
+          SEARXNG_SECRET:
+            valueFrom:
+              secretKeyRef:
+                name: searxng-secret
+                key: secret_key
+
+configMaps:
+  searxng-config:
+    forceRename: searxng-config
+    enabled: true
+    data:
+      settings.yaml: |
+        use_default_settings: true
+        search:
+          safe_search: 0
+          autocomplete: "duckduckgo"
+          favicon_resolver: "duckduckgo"
+          default_lang: "auto"
+          languages:
+            - all
+            - en
+            - de
+          formats:
+            - html
+            - json
+        server:
+          base_url: "https://searxng.wallstreet30.cc"
+        valkey:
+          url: valkey://searxng-valkey.services
+        ui:
+          default_theme: simple
+          theme_args:
+            simple_style: black
+        categories_as_tabs:
+          general:
+          images:
+          videos:
+
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: searxng-config
+    globalMounts:
+      - path: config
+        readOnly: true
 
 service:
   main:
