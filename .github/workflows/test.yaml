@@ -34,7 +34,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Clean up space
-        uses: wimpysworld/nothing-but-nix@687c797a730352432950c707ab493fcc951818d7  # v10
+        uses: wimpysworld/nothing-but-nix@59a79ef03bc486f0acca5480b7edf426ae7e7b0c  # v11
       - name: Install Nix
         uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b  # 31.11.3
       - name: Setup cache
