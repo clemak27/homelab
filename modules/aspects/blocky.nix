@@ -28,14 +28,16 @@
             blocking = {
               denylists = {
                 ads = [
-                  "https =//s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
-                  "https =//raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-                  "http =//sysctl.org/cameleon/hosts"
-                  "https =//s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt"
+                  "http://sysctl.org/cameleon/hosts"
+                  "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+                  "https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/wildcard/pro.txt"
+                  "https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/wildcard/tif.txt"
+                  "https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt"
+                  "https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt"
                 ];
                 special = [
-                  "https =//raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts"
-                  "https =//raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.lgwebos.txt"
+                  "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts"
+                  "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/native.lgwebos.txt"
                 ];
               };
             };
