@@ -47,7 +47,7 @@ nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server --impure
 mv result current
 nix flake update --commit-lock-file --option commit-lockfile-summary "chore(flake): update flake.lock"
 nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server --impure
-nix run nixpkgs#dix -- current result
+nix run nixpkgs#dix -- diff current result
 """
 
 ## hosts
