@@ -12,6 +12,8 @@
 
       den.aspects.blocky
       den.aspects.wireguard
+
+      den.batteries.user-aspects
     ];
 
     nixos =
