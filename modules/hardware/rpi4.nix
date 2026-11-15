@@ -13,7 +13,8 @@
         };
 
         networking = {
-          firewall.enable = false;
+          firewall.enable = true;
+          firewall.allowPing = true;
           networkmanager.enable = true;
           useDHCP = lib.mkDefault true;
         };

@@ -13,6 +13,10 @@
         };
         console.useXkbConfig = true;
 
+        networking.firewall.allowedTCPPorts = [
+          22
+        ];
+
         users = {
           users.clemens = {
             uid = 1000;

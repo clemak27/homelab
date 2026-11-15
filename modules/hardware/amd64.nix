@@ -22,7 +22,8 @@
         hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
         networking = {
-          firewall.enable = false;
+          firewall.enable = true;
+          firewall.allowPing = true;
           networkmanager.enable = true;
           useDHCP = lib.mkDefault true;
         };

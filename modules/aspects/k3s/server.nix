@@ -3,8 +3,6 @@
     nixos =
       { pkgs, lib, ... }:
       {
-        networking.firewall.enable = false;
-
         services.k3s = {
           enable = true;
           role = "server";
@@ -95,6 +93,24 @@
 
         systemd.tmpfiles.rules = [
           "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+        ];
+
+        networking.firewall.allowedTCPPorts = [
+          # k3s
+          6443
+          # http
+          80
+          443
+          # bt
+          32767
+          # ss
+          32755
+        ];
+        networking.firewall.allowedUDPPorts = [
+          # k3s
+          8472
+          # bt
+          32767
         ];
       };
   };

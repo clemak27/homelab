@@ -20,6 +20,14 @@
           externalInterface = "enp3s0";
           internalInterfaces = [ "wg0" ];
         };
+        networking.firewall = {
+          allowedTCPPorts = [
+            51820
+          ];
+          allowedUDPPorts = [
+            51820
+          ];
+        };
 
         environment.systemPackages = with pkgs; [
           wireguard-tools

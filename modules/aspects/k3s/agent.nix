@@ -9,8 +9,6 @@
       {
         sops.secrets."k3s_agent_token" = { };
 
-        networking.firewall.enable = false;
-
         services.k3s = {
           enable = true;
           role = "agent";
@@ -46,6 +44,16 @@
 
         systemd.tmpfiles.rules = [
           "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+        ];
+
+        networking.firewall.allowedTCPPorts = [
+          6443
+          8472
+        ];
+        networking.firewall.allowedUDPPorts = [
+          # k3s
+          6443
+          8472
         ];
       };
   };
