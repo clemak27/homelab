@@ -6,7 +6,7 @@ controllers:
       mqtt:
         image:
           repository: docker.io/eclipse-mosquitto
-          tag: 2.0.22
+          tag: 2.0.23
         command:
           - mosquitto
         args:
