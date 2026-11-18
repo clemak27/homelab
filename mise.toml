@@ -17,6 +17,18 @@ uv = "0.13.9"
 IMMICH_INSTANCE_URL = "https://immich.wallstreet30.cc/api"
 DIFF="dyff between --omit-header --color on"
 
+## templates
+
+[task_templates."nix:build"]
+run = "nix run nixpkgs#nixos-rebuild -- build --flake .#{{ vars.host }}"
+
+[task_templates."nix:deploy"]
+run = """
+nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#{{ vars.host }} --target-host clemens@{{ vars.ip }}
+sleep 5
+ssh clemens@{{ vars.ip }} -C sudo systemctl reboot
+"""
+
 ## flux
 
 [tasks."flux:build"]
@@ -59,14 +71,12 @@ mise run hl-agent-00:build
 mise run hl-agent-01:build
 """
 
-# 192.168.178.100
 [tasks."hl-server:build"]
-run = """
-nix run nixpkgs#nixos-rebuild -- build --flake .#hl-server
-"""
+extends = "nix:build"
+vars = { host = "hl-server" }
 
 [tasks."hl-server:deploy"]
-depends = "hl-server:build"
+depends = ["hl-server:build"]
 run = """
 user="clemens"
 ip="192.168.178.100"
@@ -86,38 +96,20 @@ sleep 30
 kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1 || :
 """
 
-# 192.168.178.101
 [tasks."hl-agent-00:build"]
-run = """
-nix run nixpkgs#nixos-rebuild -- build --flake .#hl-agent-00
-"""
+extends = "nix:build"
+vars = { host = "hl-agent-00" }
 
 [tasks."hl-agent-00:deploy"]
-depends = "hl-agent-00:build"
-run = """
-user="clemens"
-ip="192.168.178.101"
-host="hl-agent-00"
+extends = "nix:deploy"
+depends = ["hl-agent-00:build"]
+vars = { host = "hl-agent-00", ip = "192.168.178.101" }
 
-nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#$host --target-host $user@$ip
-sleep 5
-ssh $user@$ip -C sudo systemctl reboot
-"""
-
-# 192.168.178.102
 [tasks."hl-agent-01:build"]
-run = """
-nix run nixpkgs#nixos-rebuild -- build --flake .#hl-agent-01
-"""
+extends = "nix:build"
+vars = { host = "hl-agent-01" }
 
 [tasks."hl-agent-01:deploy"]
-depends = "hl-agent-01:build"
-run = """
-user="clemens"
-ip="192.168.178.102"
-host="hl-agent-01"
-
-nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#$host --target-host $user@$ip
-sleep 5
-ssh $user@$ip -C sudo systemctl reboot
-"""
+extends = "nix:deploy"
+depends = ["hl-agent-01:build"]
+vars = { host = "hl-agent-01", ip = "192.168.178.102" }
