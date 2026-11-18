@@ -7,7 +7,7 @@ controllers:
       website:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/website
-          tag: 1.0.13
+          tag: 1.1.0
         env:
           TZ: Europe/Vienna
         securityContext:
@@ -57,21 +57,15 @@ ingress:
         secretName: clemak27-tls
 
 persistence:
-  cache:
-    enabled: true
-    type: emptyDir
-    globalMounts:
-      - path: /var/cache/nginx
-        readOnly: false
   run:
     enabled: true
     type: emptyDir
     globalMounts:
-      - path: /var/run
+      - path: /run
         readOnly: false
   tmp:
     enabled: true
     type: emptyDir
     globalMounts:
-      - path: /tmp
+      - path: /var/lib/nginx/tmp
         readOnly: false
