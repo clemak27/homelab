@@ -7,7 +7,7 @@ controllers:
       karakeep:
         image:
           repository: ghcr.io/karakeep-app/karakeep
-          tag: 0.34.1
+          tag: 0.35.0
         env:
           TZ: Europe/Vienna
           # https://docs.karakeep.app/configuration
