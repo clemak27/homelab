@@ -22,7 +22,21 @@
           inputs.disko.nixosModules.disko
         ];
 
-        networking.hostName = "hl-server";
+        networking = {
+          hostName = "hl-server";
+          firewall.allowedTCPPorts = [
+            # nfs
+            111
+            2049
+          ];
+          firewall.allowedUDPPorts = [
+            # nfs
+            111
+            2049
+          ];
+        };
+
+
 
         disko.devices = {
           disk = {
