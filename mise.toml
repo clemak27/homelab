@@ -11,7 +11,7 @@ yamllint = "1.38.0"
 jactionlint = "2.6.0"
 python = "3.15.2"
 uv = "0.13.9"
-"github:home-operations/flate" = "0.7.3"
+"github:home-operations/flate" = "0.8.0"
 
 [env]
 IMMICH_INSTANCE_URL = "https://immich.wallstreet30.cc/api"
