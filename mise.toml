@@ -25,8 +25,8 @@ run = "nix run nixpkgs#nixos-rebuild -- build --flake .#{{ vars.host }}"
 [task_templates."nix:deploy"]
 run = """
 nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#{{ vars.host }} --target-host clemens@{{ vars.ip }}
-sleep 5
 ssh clemens@{{ vars.ip }} -C sudo systemctl reboot
+kubectl wait --for=condition=Ready node/{{ vars.host }} --timeout=10m
 """
 
 ## flux
@@ -76,25 +76,9 @@ extends = "nix:build"
 vars = { host = "hl-server" }
 
 [tasks."hl-server:deploy"]
+extends = "nix:deploy"
 depends = ["hl-server:build"]
-run = """
-user="clemens"
-ip="192.168.178.100"
-host="hl-server"
-
-kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 0 || :
-sleep 30
-
-nix run nixpkgs#nixos-rebuild -- boot --sudo --impure --flake .#$host --target-host $user@$ip
-sleep 5
-ssh $user@$ip -C sudo systemctl reboot
-sleep 120
-
-while ! ssh $user@$ip -C exit 0 &> /dev/null; do sleep 5; done;
-sleep 30
-
-kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1 || :
-"""
+vars = { host = "hl-server", ip = "192.168.178.100" }
 
 [tasks."hl-agent-00:build"]
 extends = "nix:build"
@@ -113,3 +97,25 @@ vars = { host = "hl-agent-01" }
 extends = "nix:deploy"
 depends = ["hl-agent-01:build"]
 vars = { host = "hl-agent-01", ip = "192.168.178.102" }
+
+## weekly stuff
+
+[tasks."hl:upgrade"]
+run = """
+kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 0 || :
+mise r nix:update-flake
+mise r hl-server:deploy
+mise r hl-agent-00:build
+mise r hl-agent-00:deploy
+mise r hl-agent-01:deploy
+kubectl wait --for=condition=Ready node --all --timeout=10m
+kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 1 || :
+mise r cleanup-pods
+git push
+"""
+
+[tasks."hl:cleanup-pods"]
+run = """
+kubectl delete pods --field-selector=status.phase==Succeeded -A
+kubectl delete pods --field-selector=status.phase==Failed -A
+"""
