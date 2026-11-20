@@ -11,8 +11,8 @@ controllers:
         env:
           TZ: Europe/Vienna
           # https://docs.karakeep.app/configuration
-          NEXTAUTH_URL: "http://localhost:3000"
-          NEXTAUTH_SECRET: "12345"
+          NEXTAUTH_URL: "https://karakeep.wallstreet30.cc"
+          NEXTAUTH_SECRET: "{{ randAlphaNum 36 | b64enc }}"
           DATA_DIR: "/data"
           MEILI_ADDR: "http://0.0.0.0:7700"
           MEILI_MASTER_KEY:
