@@ -29,6 +29,14 @@ ssh clemens@{{ vars.ip }} -C sudo systemctl reboot
 kubectl wait --for=condition=Ready node/{{ vars.host }} --timeout=10m
 """
 
+[task_templates."nix:image"]
+run = """
+rm -rf ./result
+nix run nixpkgs#nixos-rebuild -- build-image --image-variant iso --flake .#{{ vars.host }} --image-variant sd-card
+image=$(find ./result/sd-image/ -name "*.zst")
+caligula burn "$image"
+"""
+
 ## flux
 
 [tasks."flux:build"]
@@ -64,12 +72,7 @@ nix run nixpkgs#dix -- diff current result
 
 ## hosts
 
-[tasks."all:build"]
-run = """
-mise run hl-server:build
-mise run hl-agent-00:build
-mise run hl-agent-01:build
-"""
+### hl-server
 
 [tasks."hl-server:build"]
 extends = "nix:build"
@@ -80,6 +83,8 @@ extends = "nix:deploy"
 depends = ["hl-server:build"]
 vars = { host = "hl-server", ip = "192.168.178.100" }
 
+### hl-agent-00
+
 [tasks."hl-agent-00:build"]
 extends = "nix:build"
 vars = { host = "hl-agent-00" }
@@ -88,6 +93,13 @@ vars = { host = "hl-agent-00" }
 extends = "nix:deploy"
 depends = ["hl-agent-00:build"]
 vars = { host = "hl-agent-00", ip = "192.168.178.101" }
+
+[tasks."hl-agent-00:image"]
+extends = "nix:image"
+depends = ["hl-agent-00:build"]
+vars = { host = "hl-agent-00" }
+
+### hl-agent-01
 
 [tasks."hl-agent-01:build"]
 extends = "nix:build"
@@ -98,9 +110,14 @@ extends = "nix:deploy"
 depends = ["hl-agent-01:build"]
 vars = { host = "hl-agent-01", ip = "192.168.178.102" }
 
-## weekly stuff
+[tasks."hl-agent-01:image"]
+extends = "nix:image"
+depends = ["hl-agent-01:build"]
+vars = { host = "hl-agent-01" }
 
-[tasks."hl:upgrade"]
+## other tasks
+
+[tasks."upgrade"]
 run = """
 kubectl scale -n media deployments.apps -l requires-nfs=true --replicas 0 || :
 mise r nix:update-flake
@@ -114,8 +131,14 @@ mise r cleanup-pods
 git push
 """
 
-[tasks."hl:cleanup-pods"]
+[tasks."cleanup-pods"]
 run = """
 kubectl delete pods --field-selector=status.phase==Succeeded -A
 kubectl delete pods --field-selector=status.phase==Failed -A
+"""
+
+[tasks."create-logo"]
+run = """
+nix build --impure --expr '(builtins.getFlake "github:lunik1/nix-wallpaper").packages.${builtins.currentSystem}.default.override { width = 500; height = 500; logoSize = 80; backgroundColor = "#326ce5"; logoColors = {color0 = "#ffffff"; color1 = "#ffffff"; color2 = "#ffffff"; color3 = "#ffffff"; color4 = "#ffffff"; color5 = "#ffffff";}; }'
+cp ./result/share/wallpapers/nixos-wallpaper.png ./logo.png
 """
