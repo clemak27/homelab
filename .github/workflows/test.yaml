@@ -36,7 +36,7 @@ jobs:
       - name: Clean up space
         uses: wimpysworld/nothing-but-nix@b2574ec1cf1462bee0a34de0fb6ff11ad3c43cb2  # v12
       - name: Install Nix
-        uses: cachix/install-nix-action@bb0495a1086c46893eee56f32fd192dfe4a15bb9  # v32.0.0
+        uses: cachix/install-nix-action@382a9ed9481c7c1f94f68b72ef105b3417c73877  # v32.1.0
       - name: Setup cache
         uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7  # v15
       - name: Run check
