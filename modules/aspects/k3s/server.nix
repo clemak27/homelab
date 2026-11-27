@@ -65,6 +65,7 @@
               gateway:
                 annotations:
                   cert-manager.io/cluster-issuer: letsencrypt-production
+                  cert-manager.io/private-key-algorithm: ECDSA
                 listeners:
                   web:
                     namespacePolicy:

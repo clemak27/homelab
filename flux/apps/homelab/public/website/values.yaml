@@ -41,6 +41,7 @@ ingress:
     #   ingress: public
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/private-key-algorithm: ECDSA
       # external-dns.kubernetes.io/target: wallstreet30.cc
       ingress.kubernetes.io/ssl-redirect: "true"
     hosts:

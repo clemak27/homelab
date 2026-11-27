@@ -37,6 +37,7 @@ ingress:
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/private-key-algorithm: ECDSA
     hosts:
       - host: calibre.wallstreet30.cc
         paths:
