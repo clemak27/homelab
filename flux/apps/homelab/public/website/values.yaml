@@ -7,7 +7,7 @@ controllers:
       website:
         image:
           repository: forgejo.wallstreet30.cc/clemak27/website
-          tag: 1.1.2
+          tag: 1.1.3
         env:
           TZ: Europe/Vienna
         securityContext:
